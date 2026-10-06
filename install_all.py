@@ -17,7 +17,7 @@ def cmake_text(directory):
     files = [directory / "CMakeLists.txt"]
     if (directory / "cmake").is_dir():
         files += sorted((directory / "cmake").rglob("*.cmake*"))
-    return "\n".join(re.sub(r"#[^\n]*", "", p.read_text())
+    return "\n".join(re.sub(r"#[^\n]*", "", p.read_text(encoding="utf-8"))
                      for p in files if p.is_file())
 
 
@@ -46,7 +46,7 @@ def discover(root):
         # their extra local edges; there is no central SDK name registry.
         extra = project["path"] / "install-dependencies.txt"
         if extra.is_file():
-            for dependency in extra.read_text().splitlines():
+            for dependency in extra.read_text(encoding="utf-8").splitlines():
                 dependency = dependency.split("#", 1)[0].strip()
                 if dependency:
                     if dependency not in projects:
@@ -84,6 +84,27 @@ def run(command, directory, environment, log):
                    stderr=subprocess.STDOUT, check=True)
 
 
+def installer_bash(environment):
+    """Select a host Bash; Windows' System32 shim starts WSL instead."""
+    explicit = environment.get("BASH_BINARY")
+    candidate = explicit or shutil.which("bash", path=environment.get("PATH"))
+    if os.name != "nt":
+        return candidate
+    def is_wsl_shim(path):
+        return path and Path(path).parent.name.lower() in {"system32", "sysnative", "syswow64"}
+    if explicit:
+        if is_wsl_shim(explicit):
+            raise ValueError("BASH_BINARY must point to a native Windows Bash, not WSL")
+        return explicit
+    git = shutil.which("git", path=environment.get("PATH"))
+    choices = ([Path(git).resolve().parent.parent / "bin/bash.exe"] if git else [])
+    choices.append(Path(environment.get("ProgramFiles", "C:/Program Files")) / "Git/bin/bash.exe")
+    for path in choices:
+        if path.is_file():
+            return str(path)
+    return None if is_wsl_shim(candidate) else candidate
+
+
 def install_project(name, project, projects, args, environment, log, definitions, installer_args):
     directory, build = project["path"], project["path"] / "build"
     prefix = args.prefix_root / name
@@ -96,7 +117,7 @@ def install_project(name, project, projects, args, environment, log, definitions
         config.append(f"-DQt6_DIR={args.qt_prefix}/lib/cmake/Qt6")
     cache_file = build / "CMakeCache.txt"
     if cache_file.is_file():
-        cache = dict(re.findall(r"^([\w.+-]+):[^=\n]*=([^\n]*)$", cache_file.read_text(), re.M))
+        cache = dict(re.findall(r"^([\w.+-]+):[^=\n]*=([^\n]*)$", cache_file.read_text(encoding="utf-8"), re.M))
         old_tool = cache.get("CMAKE_MAKE_PROGRAM", "")
         if old_tool and not shutil.which(old_tool):
             generator = cache.get("CMAKE_GENERATOR", "")
@@ -117,7 +138,10 @@ def install_project(name, project, projects, args, environment, log, definitions
         run(["cmake", "-S", str(directory), "-B", str(build), *config], directory, environment, log)
     installer = directory / "install.sh"
     if installer.is_file() and name not in args.cmake:
-        run(["bash", str(installer), *installer_args], directory, environment, log)
+        bash = installer_bash(environment)
+        if not bash:
+            raise ValueError(f"{name}: bash is required to run install.sh")
+        run([bash, str(installer), *installer_args], directory, environment, log)
     else:
         if not native:
             raise ValueError(f"{name}: CMake fallback requires CMakeLists.txt")
@@ -130,7 +154,7 @@ def install_project(name, project, projects, args, environment, log, definitions
     if native:
         # Installers sometimes omit tests (or filter them). Always verify the
         # current complete host suite after the installation, against fresh SDKs.
-        installer_text = installer.read_text() if installer.is_file() else ""
+        installer_text = installer.read_text(encoding="utf-8") if installer.is_file() else ""
         if (installer.is_file() and name not in args.cmake
                 and ("ctest" not in installer_text or re.search(r"\bctest[^\n]*\s-E\s", installer_text))):
             run(["cmake", "--build", str(build), "--config", args.configuration,
@@ -146,7 +170,7 @@ def install_project(name, project, projects, args, environment, log, definitions
                  "--prefix", str(host_prefix)], directory, environment, log)
         manifest = build / "install_manifest.txt"
         if manifest.is_file():
-            files = [Path(line) for line in manifest.read_text().splitlines() if line]
+            files = [Path(line) for line in manifest.read_text(encoding="utf-8").splitlines() if line]
             missing = [str(path) for path in files if not path.exists()]
             if not files or missing:
                 raise ValueError(f"{name}: installed files missing: {missing}")
@@ -216,7 +240,7 @@ def main(argv=None):
         environment.pop(variable, None)
     prefixes = ([str(args.qt_prefix)] if args.qt_prefix else [])
     prefixes += [str(args.prefix_root / name) for name in ordered(projects)]
-    prefixes += [value for value in environment.get("CMAKE_PREFIX_PATH", "").replace(":", ";").split(";") if value]
+    prefixes += [value for value in environment.get("CMAKE_PREFIX_PATH", "").replace(os.pathsep, ";").split(";") if value]
     environment.update(CMAKE_PREFIX_PATH=";".join(dict.fromkeys(prefixes)),
                        CMAKE_BUILD_PARALLEL_LEVEL=str(args.jobs), CTEST_PARALLEL_LEVEL=str(args.test_jobs))
     if args.qt_prefix:
@@ -237,7 +261,7 @@ def main(argv=None):
                 result = {"status": "installed", "log": str(logfile), **details}
             except (subprocess.CalledProcessError, OSError, ValueError) as error:
                 result = {"status": "failed", "error": str(error), "log": str(logfile)}
-                print(logfile.read_text()[-3000:], flush=True)
+                print(logfile.read_text(encoding="utf-8", errors="replace")[-3000:], flush=True)
         report["projects"][name] = result
         print(f"{name}: {result['status']}", flush=True)
         (logs / "report.json").write_text(json.dumps(report, indent=2) + "\n")

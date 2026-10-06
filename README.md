@@ -1,5 +1,9 @@
 # SDK 일괄 재설치
 
+Windows에서도 환경의 `CMAKE_PREFIX_PATH` 드라이브 문자(`C:`, `D:`)를 보존한다.
+SDK 소스·설치 매니페스트는 시스템 코드 페이지와 무관하게 UTF-8로 읽는다.
+관련 회귀 검증은 `python -m unittest discover -s tests`로 실행한다.
+
 `./install.sh --qt-prefix /Volumes/Storage/Qt/6.8.3/macos`로 이 디렉터리의 SDK를
 순회하여 호스트 설치본을 갱신한다. Python 3 표준 라이브러리와 기존 SDK 설치기,
 CMake/CTest를 재사용하며 SDK 이름이나 설치 순서 배열을 코드에 두지 않는다.
@@ -48,6 +52,8 @@ CMake 직접 설치 및 의존 경로에 적용하며 기존 설치기의 전용
 툴체인으로 별도 빌드해야 하며, 호스트 검증 성공이 모바일·Wasm 검증을 의미하지 않는다.
 
 로그와 매 실행 결과는 `build/install-all/<실행시각>/report.json`에 남는다.
+Windows에서는 설치된 Git Bash를 우선 선택하며 System32의 WSL Bash shim은 실행하지 않는다.
+별도 native Bash는 BASH_BINARY로 지정할 수 있다. Windows SDK 설치 검사는 WSL 없이 실제 Git Bash와 CMake 실행으로 확인한다.
 SDK별 상태, 실행 로그, 설치 manifest와 파일 존재 검사를 구분해서 기록한다.
 테스트는 가상 SDK 추가·의존 순서·실패 전파·공백 경로·실제 CMake 설치를 검증하며
 임시 파일도 `build/` 아래에 둔다. 앱과 사용자 모델·저장소 데이터는 삭제하지 않는다.

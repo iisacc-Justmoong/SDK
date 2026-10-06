@@ -1,11 +1,13 @@
 """Execution contracts for the SDK installer, with temporary SDKs under build/."""
 import importlib.util
 import json
+import os
 import re
 from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location("install_all", ROOT / "install_all.py")
@@ -14,6 +16,31 @@ spec.loader.exec_module(installer)
 
 
 class InstallAllTest(unittest.TestCase):
+    @unittest.skipUnless(os.name == "nt", "Windows shell selection")
+    def test_windows_shell_selection_never_starts_wsl(self):
+        with self.assertRaisesRegex(ValueError, "not WSL"):
+            installer.installer_bash({"BASH_BINARY": "C:/Windows/System32/bash.exe"})
+        bash = installer.installer_bash({"PATH": "C:/Windows/System32"})
+        self.assertIsNotNone(bash)
+        self.assertNotEqual(Path(bash).parent.name.lower(), "system32")
+        result = subprocess.run([bash, "--version"], capture_output=True, text=True, check=True)
+        self.assertIn("GNU bash", result.stdout)
+
+    def test_windows_drive_prefixes_are_preserved(self):
+        self.project("Native")
+        with patch.dict(os.environ, {"CMAKE_PREFIX_PATH": "C:/SDK;D:/Qt"}), \
+             patch.object(installer.os, "pathsep", ";"), \
+             patch.object(installer, "install_project", return_value={}) as install:
+            self.assertEqual(installer.main(["--root", str(self.root)]), 0)
+        prefixes = install.call_args.args[4]["CMAKE_PREFIX_PATH"].split(";")
+        self.assertIn("C:/SDK", prefixes)
+        self.assertIn("D:/Qt", prefixes)
+
+    def test_utf8_project_sources_are_discovered(self):
+        path = self.project("Unicode")
+        (path / "CMakeLists.txt").write_bytes("# 한국어 주석\nproject(Unicode)\n".encode("utf-8"))
+        self.assertIn("Unicode", installer.discover(self.root)[0])
+
     def setUp(self):
         (ROOT / "build").mkdir(exist_ok=True)
         self.temp = tempfile.TemporaryDirectory(prefix="installer test ", dir=ROOT / "build")
@@ -23,7 +50,7 @@ class InstallAllTest(unittest.TestCase):
     def project(self, name, dependencies=(), fail=False):
         path = self.root / name
         path.mkdir()
-        (path / "install.sh").write_text("#!/bin/sh\n" + ("exit 7\n" if fail else "printf '%s\\n' installed > installed.txt\n"))
+        (path / "install.sh").write_text("#!/bin/sh\n" + ("exit 7\n" if fail else "printf '%s\\n' installed > installed.txt\n"), encoding="utf-8", newline="\n")
         if dependencies:
             (path / "install-dependencies.txt").write_text("\n".join(dependencies))
         return path
