@@ -1,0 +1,365 @@
+{
+  "version": 1,
+  "createdAt": "2026-10-07",
+  "repositories": [
+    {
+      "path": "SDK",
+      "url": "https://github.com/iisacc-Justmoong/SDK.git",
+      "branch": "main",
+      "sourceCommit": null,
+      "lfs": false
+    },
+    {
+      "path": "Product",
+      "url": "https://github.com/iisacc-Justmoong/Product.git",
+      "branch": "main",
+      "sourceCommit": "1cb9af4acf2b65078807ce7ae56394749838d301",
+      "lfs": false
+    },
+    {
+      "path": "Product/Congregation",
+      "url": "https://github.com/iisacc-Justmoong/Congregation.git",
+      "branch": "main",
+      "sourceCommit": "030f852a874ce5c438e7e3ff79fb2e39cae88297",
+      "lfs": false
+    },
+    {
+      "path": "Product/Dreamscapes",
+      "url": "https://github.com/iisacc-Justmoong/Dreamscapes.git",
+      "branch": "master",
+      "sourceCommit": "2f457433ee2f70657f7e3cf6a921f876efc5f0ef",
+      "lfs": false
+    },
+    {
+      "path": "Product/Society",
+      "url": "https://github.com/iisacc-Justmoong/Society.git",
+      "branch": "master",
+      "sourceCommit": "800f12bd97941fc63de831c2639d97a56d824ade",
+      "lfs": false
+    },
+    {
+      "path": "Product/Thinking Space",
+      "url": "https://github.com/iisacc-Justmoong/Thinking-Space.git",
+      "branch": "main",
+      "sourceCommit": "74ba78fede5270281b3788da8b02682121b98fad",
+      "lfs": false
+    },
+    {
+      "path": "SDK/LVRS",
+      "url": "https://github.com/iisacc-Justmoong/LVRS.git",
+      "branch": "master",
+      "sourceCommit": "5e871097b22a06cf37c8da48f5f53eaf9c27e952",
+      "lfs": false
+    },
+    {
+      "path": "SDK/LVRS-Svelte",
+      "url": "https://github.com/iisacc-Justmoong/LVRS-Svelte.git",
+      "branch": "master",
+      "sourceCommit": "2a086f6fd66fc7b8841fe3da54e5bc002b7b0412",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiAcountManager",
+      "url": "https://github.com/iisacc-Justmoong/iiAcountManager.git",
+      "branch": "master",
+      "sourceCommit": "ecc0c1646530b5513212a8bf90380b9420af2bbd",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiActorObject",
+      "url": "https://github.com/iisacc-Justmoong/iiActorObject.git",
+      "branch": "master",
+      "sourceCommit": "46b4274b85ef0be8a01a7af89e4cc6ee00d34c59",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiAudioGen",
+      "url": "https://github.com/iisacc-Justmoong/iiAudioGen.git",
+      "branch": "main",
+      "sourceCommit": "f6353c6953fcd550337e665f37f52d6ff23c03fe",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiCSMIDI",
+      "url": "https://github.com/iisacc-Justmoong/iiCSMIDI.git",
+      "branch": "master",
+      "sourceCommit": "ea1f79861c6a3237c46fc5155d7d0c5e6dcdf8e7",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiCalendar",
+      "url": "https://github.com/iisacc-Justmoong/iiCalendar.git",
+      "branch": "main",
+      "sourceCommit": "38b255c6650f9dbd1711333ebcf03b8a472f9d01",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiDecision",
+      "url": "https://github.com/iisacc-Justmoong/iiDecision.git",
+      "branch": "main",
+      "sourceCommit": "b9c5ea3f45eaa1f95e59251cbad34d2414b9a613",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiFileProvider",
+      "url": "https://github.com/iisacc-Justmoong/iiFileProvider.git",
+      "branch": "master",
+      "sourceCommit": "1bb3696b2f23f8ce97def173bbcedf9525a6655c",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiGeneralDocument",
+      "url": "https://github.com/iisacc-Justmoong/iiGeneralDocument.git",
+      "branch": "master",
+      "sourceCommit": "1276522c3f2e196eaed1f102bcef4ca747cacb9a",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiHtmlBlock",
+      "url": "https://github.com/iisacc-Justmoong/iiHtmlBlock.git",
+      "branch": "master",
+      "sourceCommit": "ab2f3ebc4233a1f8c4285a8c58b80c2818cf2948",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiLicenseManager",
+      "url": "https://github.com/iisacc-Justmoong/iiLicenseManager.git",
+      "branch": "master",
+      "sourceCommit": "5ec947f49253eddec4a2607f329a17f6323d014b",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiLocalDiffusion",
+      "url": "https://github.com/iisacc-Justmoong/iiLocalDiffusion.git",
+      "branch": "master",
+      "sourceCommit": "041e98b074f0debf1c21b80d67545751b81c063c",
+      "lfs": true
+    },
+    {
+      "path": "SDK/iiLocalLLM",
+      "url": "https://github.com/iisacc-Justmoong/iiLocalLLM.git",
+      "branch": "master",
+      "sourceCommit": "2d433e1b3c12e6082724223d753292b7b53f456e",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiPaintEngine",
+      "url": "https://github.com/iisacc-Justmoong/iiPaintEngine.git",
+      "branch": "master",
+      "sourceCommit": "54c81be50e1371135a17f8ac4943ff1715044c3c",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiPhotoLibrary",
+      "url": "https://github.com/iisacc-Justmoong/iiPhotoLibrary.git",
+      "branch": "main",
+      "sourceCommit": "9f9007d0e795378dcd45f0b56586f4a1e8aebc6b",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiSDKCore",
+      "url": "https://github.com/iisacc-Justmoong/iiSDKCore.git",
+      "branch": "master",
+      "sourceCommit": "cb4c49b283fe4255da33e5c20db58ea620920bd6",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiServerHost",
+      "url": "https://github.com/iisacc-Justmoong/iiServerHost.git",
+      "branch": "master",
+      "sourceCommit": "f27414d340a957ae45c90c201993230d117ff340",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiSharedCanvas",
+      "url": "https://github.com/iisacc-Justmoong/iiSharedCanvas.git",
+      "branch": "master",
+      "sourceCommit": "d1c60b8d4b7e07cca54258eb123b8ca214094d11",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiSocietyClient",
+      "url": "https://github.com/iisacc-Justmoong/iiSocietyClient.git",
+      "branch": "master",
+      "sourceCommit": "f1ab2d8599f562bbdcf7ed3b96bfcf2ae2ef7512",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiSocietyContainer",
+      "url": "https://github.com/iisacc-Justmoong/iiSocietyContainer.git",
+      "branch": "master",
+      "sourceCommit": "3a5f7cc0aa6fece64e8c17bb9a3e9ac3914befc8",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiSocietyGeneration",
+      "url": "https://github.com/iisacc-Justmoong/iiSocietyGeneration.git",
+      "branch": "master",
+      "sourceCommit": "e243e4ffa9a7ac95455680687064a0b9d2d0ccb9",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiSocietyHelper",
+      "url": "https://github.com/iisacc-Justmoong/iiSocietyHelper.git",
+      "branch": "master",
+      "sourceCommit": "5062672185729f055bed70f1e781ae0eb78f7ae6",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiSocietySync",
+      "url": "https://github.com/iisacc-Justmoong/iiSocietySync.git",
+      "branch": "master",
+      "sourceCommit": "a7b9de193b43be460c67a1868f9aee3375a33825",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiUpdateManager",
+      "url": "https://github.com/iisacc-Justmoong/iiUpdateManager.git",
+      "branch": "master",
+      "sourceCommit": "2fffef186b0d5f7c4afb3f40cda8c4a69201b4ef",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiVoiceOver",
+      "url": "https://github.com/iisacc-Justmoong/iiVoiceOver.git",
+      "branch": "master",
+      "sourceCommit": "1aff752ce999cea949a389f5daecefed81662900",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiWhatsNew",
+      "url": "https://github.com/iisacc-Justmoong/iiWhatsNew.git",
+      "branch": "master",
+      "sourceCommit": "bf6f5618f84d20128be89c378700fe91ced589e4",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiXml",
+      "url": "https://github.com/iisacc-Justmoong/iiXml.git",
+      "branch": "master",
+      "sourceCommit": "78fdd119cb218919b0630e7dbce00560765b2d6e",
+      "lfs": false
+    },
+    {
+      "path": "Service/Adcenter.iisacc.com",
+      "url": "https://github.com/iisacc-Justmoong/Adcenter.iisacc.com.git",
+      "branch": "main",
+      "sourceCommit": "310ebf0bec25a4e2f36b83c209202494e90eeda9",
+      "lfs": false
+    },
+    {
+      "path": "Service/iisacc.com",
+      "url": "https://github.com/iisacc-Justmoong/iisacc.com.git",
+      "branch": "main",
+      "sourceCommit": "fdc2ab8066fa9ce0c5c9a54359fba1ae234e495b",
+      "lfs": false
+    },
+    {
+      "path": "Product/.Deprecated/AISNS",
+      "url": "https://github.com/iisacc-Justmoong/WeUs.git",
+      "branch": "main",
+      "sourceCommit": "f9abecfd1918efcc7be7dd6de719090af7679745",
+      "lfs": false
+    },
+    {
+      "path": "Product/.Deprecated/Vincent",
+      "url": "https://github.com/iisacc-Justmoong/Vincent.git",
+      "branch": "main",
+      "sourceCommit": "d6b15dd7f9ddb3e5f802e2bdb04381813d563a77",
+      "lfs": false
+    },
+    {
+      "path": "Product/.Deprecated/Webgma",
+      "url": "https://github.com/iisacc-Justmoong/webgma.git",
+      "branch": "master",
+      "sourceCommit": "5d7d9780e268f4b1b55d0fac10fd1fbdfd155196",
+      "lfs": false
+    },
+    {
+      "path": "Product/.Deprecated/WhatSon",
+      "url": "https://github.com/iisacc-Justmoong/WhatSon.git",
+      "branch": "master",
+      "sourceCommit": "3e9742292d0486c8510bd65c7a49baddf87f1a3b",
+      "lfs": false
+    },
+    {
+      "path": "Product/Utility/Alright",
+      "url": "https://github.com/iisacc-Justmoong/Alright.git",
+      "branch": "main",
+      "sourceCommit": "32cddca91aa4455011177b48ab1d596db68c93df",
+      "lfs": false
+    },
+    {
+      "path": "Product/Utility/TimeScopes",
+      "url": "https://github.com/iisacc-Justmoong/TimeScopes.git",
+      "branch": "main",
+      "sourceCommit": "9eaa4f2bffa3334905082aa0a476965071058759",
+      "lfs": false
+    }
+  ],
+  "directories": [
+    "SDK/Silentlocked",
+    "SDK/iiComputerUse",
+    "SDK/tests",
+    "SDK/iiComputerHistory",
+    "SDK/iiComputerHistory/tests",
+    "SDK/iiComputerHistory/docs",
+    "SDK/iiComputerHistory/src",
+    "SDK/iiComputerHistory/src/Monitor",
+    "SDK/iiComputerHistory/src/Insight",
+    "SDK/iiComputerHistory/src/Log",
+    "SDK/iiComputerHistory/src/Event",
+    "SDK/docs",
+    "SDK/Flamewall",
+    "Product/Orbit",
+    "Product/.Deprecated",
+    "Product/Codependence",
+    "Product/Codependence/tests",
+    "Product/Codependence/docs",
+    "Product/Codependence/Apps",
+    "Product/Codependence/Apps/Universal Scene View",
+    "Product/Codependence/Apps/Codependence",
+    "Product/Codependence/Apps/Visible Ray",
+    "Product/Codependence/Apps/SEO Inspector",
+    "Product/Codependence/Apps/The Viewport",
+    "Product/Codependence/Apps/Browser Tools",
+    "Product/Codependence/Apps/Virtual Devices",
+    "Product/Nullscapes",
+    "Product/Nullscapes/Extension",
+    "Product/Nullscapes/tests",
+    "Product/Nullscapes/docs",
+    "Product/Nullscapes/CLI",
+    "Product/Nullscapes/Apps",
+    "Product/Nullscapes/Apps/Magic tinker",
+    "Product/Nullscapes/Apps/Nullscapes",
+    "Product/Nullscapes/Apps/Twin tail",
+    "Product/Hard Machine",
+    "Product/build-policy",
+    "Product/build-policy/tests",
+    "Product/Vincent",
+    "Product/LIMBO",
+    "Product/Firework",
+    "Product/Clubstep",
+    "Product/Every End",
+    "Product/Utility",
+    "Service",
+    "Service/Society Cloud",
+    "Service/Society.iisacc.com",
+    "Service/Society.iisacc.com/src",
+    "Service/Society.iisacc.com/src/models",
+    "Service/Society.iisacc.com/src/models/creator",
+    "Service/Society.iisacc.com/src/models/video",
+    "Service/Society.iisacc.com/src/models/prop",
+    "Service/Society.iisacc.com/src/models/post",
+    "Service/Society.iisacc.com/src/models/instant",
+    "Service/Society.iisacc.com/src/models/character",
+    "Service/Society.iisacc.com/src/models/image",
+    "Service/Society.iisacc.com/src/models/costume",
+    "Service/Society.iisacc.com/src/models/audio",
+    "Service/Society.iisacc.com/src/models/featured",
+    "Service/Society.iisacc.com/src/models/scene",
+    "Service/Society.iisacc.com/src/models/contest",
+    "Service/Society.iisacc.com/src/models/hub",
+    "Service/Society.iisacc.com/src/models/guild"
+  ]
+}

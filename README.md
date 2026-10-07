@@ -1,32 +1,22 @@
-# SDK 일괄 재설치
+<a id="sdk-일괄-재설치"></a>
 
-Windows에서도 환경의 `CMAKE_PREFIX_PATH` 드라이브 문자(`C:`, `D:`)를 보존한다.
-SDK 소스·설치 매니페스트는 시스템 코드 페이지와 무관하게 UTF-8로 읽는다.
-관련 회귀 검증은 `python -m unittest discover -s tests`로 실행한다.
+# SDK batch reinstallation
 
-`./install.sh --qt-prefix /Volumes/Storage/Qt/6.8.3/macos`로 이 디렉터리의 SDK를
-순회하여 호스트 설치본을 갱신한다. Python 3 표준 라이브러리와 기존 SDK 설치기,
-CMake/CTest를 재사용하며 SDK 이름이나 설치 순서 배열을 코드에 두지 않는다.
+The SDK installer preserves Windows drive letters in `CMAKE_PREFIX_PATH`, reads
+source and installation manifests as UTF-8, and selects native Git for Windows
+Bash instead of the Windows System32 WSL shim. Set `BASH_BINARY` explicitly when
+using another native Bash installation.
 
-바로 아래 디렉터리의 `install.sh` 또는 `CMakeLists.txt`를 자동 발견한다.
-빈 디렉터리·숨김 디렉터리·빌드 산출물은 설치 대상이 아니다. CMake의 `project`,
-`find_package`, `find_dependency`, 네임스페이스 대상에서 로컬 의존성을 읽고
-위상 정렬한다. 변수로 계산되는 의존성이나 CMake가 없는 프로젝트는 각 프로젝트의
-`install-dependencies.txt`에 추가 의존 디렉터리를 한 줄에 하나씩 선언할 수 있다.
-알 수 없는 선언과 순환 의존성은 설치 전에 오류로 처리한다.
+To clone or update all SDK, Product, and Service repositories into the same
+relative paths under `~/Workspace`, run `python sync_workspace.py` after cloning
+this SDK repository. See [Workspace synchronization](WorkspaceSync.md) for the
+Windows bootstrap commands, conflict handling, and verification report.
 
-기존 `install.sh`가 있으면 그 설치·패키징·검증 규칙을 실행한다. 없으면 CMake
-구성 → 빌드 → CTest → 설치 순서로 처리한다. 기존 설치기에서 테스트를 생략하는
-경우도 최종 호스트 전체 테스트를 실행한다. 설치기가 이미 전체 테스트를 실행했다면
-중복 실행하지 않는다. 기존 `platforms/<host>` 설치 경로도 같은 빌드로 갱신하며
-다른 ABI 설치본은 유지한다. 기존 빌드의 기능 옵션은 유지하며,
-발견한 의존성의 CMake 경로는 새 설치본으로 갱신한다. 실패한 SDK의 소비자는
-실행하지 않고 독립적인 SDK는 계속 설치한다. 하나라도 실패·차단되면 종료 코드는 0이 아니다.
-삭제된 IDE 내부의 Ninja/Make를 가리키는 캐시는 현재 PATH의 동일 빌드 도구로
-복구한다. 생성기나 기존 기능 옵션은 바꾸지 않으며 대체 도구가 없으면 실패를 기록한다.
-이미 검증한 의존성을 그대로 사용하는 실패 복구는 `--only SDK --no-dependencies`로
-실행한다. 이 옵션은 선택한 프로젝트만 처리하며, 설치된 의존성의 실제 가용성은
-CMake 구성과 해당 프로젝트 테스트로 확인한다. 선택한 SDK 사이의 의존 순서는 유지한다.
+Iterate through the SDK in this directory with `./install.sh --qt-prefix /Volumes/Storage/Qt/6.8.3/macos` to update the host installation. Python 3 standard libraries and existing SDK installer, CMake /CTest are reused, and SDK name or installation order arrays are not embedded in code.
+
+Automatically discover `install.sh` or `CMakeLists.txt` in the directory immediately below. Empty directories, hidden directories, and build outputs are not installation targets. CMake's `project`, `find_package`, `find_dependency`, and namespace targets read local dependencies and perform topological sorting. Dependencies calculated as variables or projects without CMake can declare additional dependency directories for each project one per line in `install-dependencies.txt`. Unknown declarations and circular dependencies are treated as errors before installation.
+
+If `install.sh` already exists, execute its install·package·verify rules. If not, process in the order: CMake configuration → build → CTest → install. The installer may skip tests; in such cases, run the full host test. If the installer has already run the full test, do not run it again. Also update the existing `platforms/<host>` install path with the same build, while keeping other ABI installers. Preserve the existing build's feature options, and update the CMake path of discovered dependencies to the new installer. Consumers of a failed SDK are not executed, but independent SDKs continue to install. If any step fails or is blocked, the exit code is not 0. Caches pointing to IDE inside Ninja/Make are restored to the same build tool in the current PATH. Generators and existing feature options are not changed, and if no alternative tool is available, the failure is recorded. Failure recovery using already-verified dependencies runs at `--only SDK --no-dependencies`. This option processes only the selected project, and the actual availability of installed dependencies is verified by CMake configuration and the project's tests. The dependency order between selected SDK is preserved.
 
 ```sh
 ./install.sh --dry-run
@@ -35,25 +25,8 @@ CMake 구성과 해당 프로젝트 테스트로 확인한다. 선택한 SDK 사
 python3 -B -m unittest discover -s tests -p 'test_install_all.py' -v
 ```
 
-`--cmake SDK`는 특정 SDK에 기존 설치기 대신 표준 CMake 절차를 적용한다.
-빌드 동시성은 `--jobs`(기본 2), CTest 동시성은 `--test-jobs`(기본 1)로 지정한다.
-GUI·로컬 네트워크 테스트의 자원 경합을 피하도록 테스트는 기본적으로 직렬 실행한다.
-자체 `ctest --parallel`을 지정한 개별 설치기는 해당 설정을 우선한다.
-예를 들어 LVRS의 기존 CLI는 모든 플랫폼 설치본과 `build/`를 지우므로, 기존
-플랫폼·작업 산출물을 보존하는 호스트 갱신에는 `--cmake LVRS`를 사용한다.
-추가 CMake 인자는 `--define SDK=-DKEY=VALUE`, 설치기 인자는
-`--installer-arg SDK=ARGUMENT`로 반복 지정한다. 기본 설치 경로는
-`~/.local/SDK/<디렉터리명>`이다. 기존 설치기는 자신의 prefix 환경 변수와
-플랫폼 선택 정책을 유지하므로 해당 SDK의 문서를 따른다. `--prefix-root`는
-CMake 직접 설치 및 의존 경로에 적용하며 기존 설치기의 전용 설정을 덮어쓰지 않는다.
+`--cmake SDK` applies the standard CMake procedure instead of the existing installer for a specific SDK. Build concurrency is set to `--jobs` (default 2), and CTest concurrency is set to `--test-jobs` (default 1). Tests run serially by default to avoid resource contention with GUI·local network tests. Individual installers specifying their own `ctest --parallel` take precedence. For example, LVRS's existing CLI removes all platform installers and `build/`, so `--cmake LVRS` is used for host updates that preserve existing platform and task outputs. Additional CMake arguments are specified as `--define SDK=-DKEY=VALUE`, and installer arguments are specified as `--installer-arg SDK=ARGUMENT`. The default install path is `~/.local/SDK/<directory name>`. The existing installer preserves its prefix environment variable and platform selection policy, so it follows the SDK's documentation. `--prefix-root` applies to CMake direct install and dependency paths and does not override the existing installer's dedicated settings.
 
-호스트 재설치에서 기존 다중 플랫폼 설치기를 사용한다면 해당 SDK의
-`*_INSTALL_PLATFORMS=macos` 등의 환경 변수를 설정한다. 다른 ABI는 해당 플랫폼의
-툴체인으로 별도 빌드해야 하며, 호스트 검증 성공이 모바일·Wasm 검증을 의미하지 않는다.
+If using the existing multi-platform installer during host reinstallation, set environment variables such as `*_INSTALL_PLATFORMS=macos` for the SDK. Other ABIs must be built separately using the platform's toolchain, and host verification success does not imply mobile or Wasm verification.
 
-로그와 매 실행 결과는 `build/install-all/<실행시각>/report.json`에 남는다.
-Windows에서는 설치된 Git Bash를 우선 선택하며 System32의 WSL Bash shim은 실행하지 않는다.
-별도 native Bash는 BASH_BINARY로 지정할 수 있다. Windows SDK 설치 검사는 WSL 없이 실제 Git Bash와 CMake 실행으로 확인한다.
-SDK별 상태, 실행 로그, 설치 manifest와 파일 존재 검사를 구분해서 기록한다.
-테스트는 가상 SDK 추가·의존 순서·실패 전파·공백 경로·실제 CMake 설치를 검증하며
-임시 파일도 `build/` 아래에 둔다. 앱과 사용자 모델·저장소 데이터는 삭제하지 않는다.
+Logs and execution results for each run are saved to `build/install-all/<run timestamp>/report.json`. Status per SDK, execution logs, install manifests, and file existence checks are recorded separately. Tests verify virtual SDK addition, dependency order, failure propagation, empty paths, and actual CMake installation, and temporary files are placed under `build/`. App and user model and storage data are not deleted.
