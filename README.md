@@ -8,9 +8,12 @@ Bash instead of the Windows System32 WSL shim. Set `BASH_BINARY` explicitly when
 using another native Bash installation.
 
 To clone or update all SDK, Product, and Service repositories into the same
-relative paths under `~/Workspace`, run `python sync_workspace.py` after cloning
-this SDK repository. See [Workspace synchronization](WorkspaceSync.md) for the
-Windows bootstrap commands, conflict handling, and verification report.
+relative paths under `~/Workspace`, use `sync_workspace.ps1` in Windows
+PowerShell, or `python sync_workspace.py` on a host with Python 3.10 or later.
+The Windows entry point requires only PowerShell and Git, so a missing Python
+installation or Windows Python app execution alias does not prevent cloning.
+See [Workspace synchronization](WorkspaceSync.md) for the bootstrap commands,
+conflict handling, and verification report.
 
 Iterate through the SDK in this directory with `./install.sh --qt-prefix /Volumes/Storage/Qt/6.8.3/macos` to update the host installation. Python 3 standard libraries and existing SDK installer, CMake /CTest are reused, and SDK name or installation order arrays are not embedded in code.
 
