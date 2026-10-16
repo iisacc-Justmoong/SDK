@@ -177,13 +177,7 @@
       "sourceCommit": "d1c60b8d4b7e07cca54258eb123b8ca214094d11",
       "lfs": false
     },
-    {
-      "path": "SDK/iiSocietyClient",
-      "url": "https://github.com/iisacc-Justmoong/iiSocietyClient.git",
-      "branch": "master",
-      "sourceCommit": "f1ab2d8599f562bbdcf7ed3b96bfcf2ae2ef7512",
-      "lfs": false
-    },
+
     {
       "path": "SDK/iiSocietyContainer",
       "url": "https://github.com/iisacc-Justmoong/iiSocietyContainer.git",
