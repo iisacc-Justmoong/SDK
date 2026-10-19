@@ -56,6 +56,14 @@ native sRGB/HSB/generic-CMYK/D50-Lab conversion, web-safe selection and shared
 picker state. It is a Qt-free leaf package; Dreamscapes uses its installed CMake
 target through a small GUI adapter and LVRS controls.
 
+[`iiSocialPublish`](iiSocialPublish/README.md) provides Qt-free C++23 publishing
+objects for X, Facebook Pages, Instagram Professional, Threads, Pinterest,
+Tumblr, Mastodon and LinkedIn, with explicit unsupported Pixiv/ArtStation
+capabilities. It streams media through libcurl, handles provider processing,
+and reports ambiguous publication without automatic retries. Dreamscapes owns
+the separate asynchronous product adapter. The batch installer discovers the
+module's CMake package automatically.
+
 Local photo correction is split between the existing native C++23 packages:
 `iiPaintEngine` owns brush input and editable float pixel masks;
 `iiGraphicAdjust` owns tone, color, detail, grain, and masked correction
@@ -83,3 +91,10 @@ python3 -B -m unittest discover -s tests -p 'test_install_all.py' -v
 If using the existing multi-platform installer during host reinstallation, set environment variables such as `*_INSTALL_PLATFORMS=macos` for the SDK. Other ABIs must be built separately using the platform's toolchain, and host verification success does not imply mobile or Wasm verification.
 
 Logs and execution results for each run are saved to `build/install-all/<run timestamp>/report.json`. Status per SDK, execution logs, install manifests, and file existence checks are recorded separately. Tests verify virtual SDK addition, dependency order, failure propagation, empty paths, and actual CMake installation, and temporary files are placed under `build/`. App and user model and storage data are not deleted.
+
+## 2026-10-19 patch release
+
+The [SDK patch release](PatchRelease-20261019.md) increments all 35 installable
+packages except LVRS by one patch. LVRS-Svelte is included as an independent
+package. The release records host builds, tests, reinstalls and remote commits
+separately; LVRS installer recovery is tracked as a subsequent operation.

@@ -53,185 +53,184 @@
     },
     {
       "path": "SDK/LVRS-Svelte",
-      "url": "https://github.com/iisacc-Justmoong/LVRS-Svelte.git",
+      "url": "https://github.com/iisacc-Justmoong/LVRS-Svelte",
       "branch": "master",
-      "sourceCommit": "2a086f6fd66fc7b8841fe3da54e5bc002b7b0412",
+      "sourceCommit": "22069fc8e4006183a1e7631095dd97b7a56074c6",
       "lfs": false
     },
     {
       "path": "SDK/iiAcountManager",
       "url": "https://github.com/iisacc-Justmoong/iiAcountManager.git",
       "branch": "master",
-      "sourceCommit": "ecc0c1646530b5513212a8bf90380b9420af2bbd",
+      "sourceCommit": "0c1dcc7f1d6eafc7723b2b4ef4e9255e77f52abb",
       "lfs": false
     },
     {
       "path": "SDK/iiActorObject",
       "url": "https://github.com/iisacc-Justmoong/iiActorObject.git",
       "branch": "master",
-      "sourceCommit": "46b4274b85ef0be8a01a7af89e4cc6ee00d34c59",
+      "sourceCommit": "79f0adf32c564205177608a5685881d3e38d4051",
       "lfs": false
     },
     {
       "path": "SDK/iiAudioGen",
       "url": "https://github.com/iisacc-Justmoong/iiAudioGen.git",
       "branch": "main",
-      "sourceCommit": "f6353c6953fcd550337e665f37f52d6ff23c03fe",
+      "sourceCommit": "e1274ca716e45b1245d595c6c19933dc538cf8d3",
       "lfs": false
     },
     {
       "path": "SDK/iiCSMIDI",
       "url": "https://github.com/iisacc-Justmoong/iiCSMIDI.git",
       "branch": "master",
-      "sourceCommit": "ea1f79861c6a3237c46fc5155d7d0c5e6dcdf8e7",
+      "sourceCommit": "63d365eafbe16b427bdbed01d2a1126d0d6f5a7c",
       "lfs": false
     },
     {
       "path": "SDK/iiCalendar",
       "url": "https://github.com/iisacc-Justmoong/iiCalendar.git",
       "branch": "main",
-      "sourceCommit": "38b255c6650f9dbd1711333ebcf03b8a472f9d01",
+      "sourceCommit": "c8ea97cbdf7035ffc5e005013159a059e1fb7e6a",
       "lfs": false
     },
     {
       "path": "SDK/iiDecision",
       "url": "https://github.com/iisacc-Justmoong/iiDecision.git",
       "branch": "main",
-      "sourceCommit": "b9c5ea3f45eaa1f95e59251cbad34d2414b9a613",
+      "sourceCommit": "3d0f9550cf4a3681e8a5a311c0648285f88a1b7e",
       "lfs": false
     },
     {
       "path": "SDK/iiFileProvider",
       "url": "https://github.com/iisacc-Justmoong/iiFileProvider.git",
       "branch": "master",
-      "sourceCommit": "1bb3696b2f23f8ce97def173bbcedf9525a6655c",
+      "sourceCommit": "4f657bf39356e37dd8bceadb138400f2c978a935",
       "lfs": false
     },
     {
       "path": "SDK/iiGeneralDocument",
       "url": "https://github.com/iisacc-Justmoong/iiGeneralDocument.git",
       "branch": "master",
-      "sourceCommit": "1276522c3f2e196eaed1f102bcef4ca747cacb9a",
+      "sourceCommit": "958026c13ade959a08c9be0a9c2550583196a9a2",
       "lfs": false
     },
     {
       "path": "SDK/iiHtmlBlock",
       "url": "https://github.com/iisacc-Justmoong/iiHtmlBlock.git",
       "branch": "master",
-      "sourceCommit": "ab2f3ebc4233a1f8c4285a8c58b80c2818cf2948",
+      "sourceCommit": "7a3dfaec93f594686aa01ed86f523111d05f5404",
       "lfs": false
     },
     {
       "path": "SDK/iiLicenseManager",
       "url": "https://github.com/iisacc-Justmoong/iiLicenseManager.git",
       "branch": "master",
-      "sourceCommit": "5ec947f49253eddec4a2607f329a17f6323d014b",
+      "sourceCommit": "875d47b1b7a23b1d75a424788f60889015669133",
       "lfs": false
     },
     {
       "path": "SDK/iiLocalDiffusion",
       "url": "https://github.com/iisacc-Justmoong/iiLocalDiffusion.git",
       "branch": "master",
-      "sourceCommit": "041e98b074f0debf1c21b80d67545751b81c063c",
+      "sourceCommit": "2d5ad79844bdba5978028af8c7629957d57485a4",
       "lfs": true
     },
     {
       "path": "SDK/iiLocalLLM",
       "url": "https://github.com/iisacc-Justmoong/iiLocalLLM.git",
       "branch": "master",
-      "sourceCommit": "2d433e1b3c12e6082724223d753292b7b53f456e",
+      "sourceCommit": "167486f7f702174401c7128543af84019e796567",
       "lfs": false
     },
     {
       "path": "SDK/iiPaintEngine",
       "url": "https://github.com/iisacc-Justmoong/iiPaintEngine.git",
       "branch": "master",
-      "sourceCommit": "54c81be50e1371135a17f8ac4943ff1715044c3c",
+      "sourceCommit": "1b4de520c2a89c634e9577185aa68e3b97a2f011",
       "lfs": false
     },
     {
       "path": "SDK/iiPhotoLibrary",
       "url": "https://github.com/iisacc-Justmoong/iiPhotoLibrary.git",
       "branch": "main",
-      "sourceCommit": "9f9007d0e795378dcd45f0b56586f4a1e8aebc6b",
+      "sourceCommit": "a4a784b3cccf18b02c71b51a4c65f359df5f80ce",
       "lfs": false
     },
     {
       "path": "SDK/iiSDKCore",
       "url": "https://github.com/iisacc-Justmoong/iiSDKCore.git",
       "branch": "master",
-      "sourceCommit": "cb4c49b283fe4255da33e5c20db58ea620920bd6",
+      "sourceCommit": "69679632b02351e474b8e583bf861f2313e0670b",
       "lfs": false
     },
     {
       "path": "SDK/iiServerHost",
       "url": "https://github.com/iisacc-Justmoong/iiServerHost.git",
       "branch": "master",
-      "sourceCommit": "f27414d340a957ae45c90c201993230d117ff340",
+      "sourceCommit": "bc11b80f4003489210e9af658a0886591e4832ff",
       "lfs": false
     },
     {
       "path": "SDK/iiSharedCanvas",
-      "url": "https://github.com/iisacc-Justmoong/iiSharedCanvas.git",
+      "url": "https://github.com/iisacc-Justmoong/iiSharedCanvas",
       "branch": "master",
-      "sourceCommit": "d1c60b8d4b7e07cca54258eb123b8ca214094d11",
+      "sourceCommit": "53736a229101af4923280b328dae3a70636d4f02",
       "lfs": false
     },
-
     {
       "path": "SDK/iiSocietyContainer",
       "url": "https://github.com/iisacc-Justmoong/iiSocietyContainer.git",
       "branch": "master",
-      "sourceCommit": "3a5f7cc0aa6fece64e8c17bb9a3e9ac3914befc8",
+      "sourceCommit": "4d705791a63376c8e839e3b17e97d9cf5805a0e5",
       "lfs": false
     },
     {
       "path": "SDK/iiSocietyGeneration",
       "url": "https://github.com/iisacc-Justmoong/iiSocietyGeneration.git",
       "branch": "master",
-      "sourceCommit": "e243e4ffa9a7ac95455680687064a0b9d2d0ccb9",
+      "sourceCommit": "be42109d89f5065f1580d137310ce204dde1a3dd",
       "lfs": false
     },
     {
       "path": "SDK/iiSocietyHelper",
       "url": "https://github.com/iisacc-Justmoong/iiSocietyHelper.git",
       "branch": "master",
-      "sourceCommit": "5062672185729f055bed70f1e781ae0eb78f7ae6",
+      "sourceCommit": "f549ae3c9ba1a38b0e43ecd70611209bafd5284e",
       "lfs": false
     },
     {
       "path": "SDK/iiSocietySync",
       "url": "https://github.com/iisacc-Justmoong/iiSocietySync.git",
       "branch": "master",
-      "sourceCommit": "a7b9de193b43be460c67a1868f9aee3375a33825",
+      "sourceCommit": "f42d763da1da579e321b73b3966ec0521e424f4a",
       "lfs": false
     },
     {
       "path": "SDK/iiUpdateManager",
       "url": "https://github.com/iisacc-Justmoong/iiUpdateManager.git",
       "branch": "master",
-      "sourceCommit": "2fffef186b0d5f7c4afb3f40cda8c4a69201b4ef",
+      "sourceCommit": "6a5271ed8ae160469091a88d25ef36ce47b5632f",
       "lfs": false
     },
     {
       "path": "SDK/iiVoiceOver",
       "url": "https://github.com/iisacc-Justmoong/iiVoiceOver.git",
       "branch": "master",
-      "sourceCommit": "1aff752ce999cea949a389f5daecefed81662900",
+      "sourceCommit": "399518000929fe82bdd09bca6a23caf12e1821db",
       "lfs": false
     },
     {
       "path": "SDK/iiWhatsNew",
       "url": "https://github.com/iisacc-Justmoong/iiWhatsNew.git",
       "branch": "master",
-      "sourceCommit": "bf6f5618f84d20128be89c378700fe91ced589e4",
+      "sourceCommit": "a5eff9fbc6cbd6a6c2cda1eaf359fe366eb3f60c",
       "lfs": false
     },
     {
       "path": "SDK/iiXml",
       "url": "https://github.com/iisacc-Justmoong/iiXml.git",
       "branch": "master",
-      "sourceCommit": "78fdd119cb218919b0630e7dbce00560765b2d6e",
+      "sourceCommit": "f71a4e1eed86b1ec770878da33385d5211854b58",
       "lfs": false
     },
     {
@@ -288,6 +287,69 @@
       "url": "https://github.com/iisacc-Justmoong/TimeScopes.git",
       "branch": "main",
       "sourceCommit": "9eaa4f2bffa3334905082aa0a476965071058759",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiColorManager",
+      "url": "https://github.com/iisacc-Justmoong/iiColorManager.git",
+      "branch": "main",
+      "sourceCommit": "94f4e86ff9725cd76a4dfbcf8a3acc814a521bcf",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiDeviceMultimedia",
+      "url": "https://github.com/iisacc-Justmoong/iiDeviceMultimedia.git",
+      "branch": "main",
+      "sourceCommit": "4b44e5b8225b2531de30319085f0139f9b70f50c",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiSocialPublish",
+      "url": "https://github.com/iisacc-Justmoong/iiSocialPublish.git",
+      "branch": "main",
+      "sourceCommit": "71c70439f7f08f89e41babfe21eea34b29cf0919",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiGUI",
+      "url": "https://github.com/iisacc-Justmoong/iiGUI.git",
+      "branch": "main",
+      "sourceCommit": "e284ebd7fbec9d7998c44f4a5cbbf3b9025cf5a0",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiJson",
+      "url": "https://github.com/iisacc-Justmoong/iiJson.git",
+      "branch": "main",
+      "sourceCommit": "0798e9211d289c8796e2d497012f721af57dffd7",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiSDKBuilder",
+      "url": "https://github.com/iisacc-Justmoong/iiSDKBuilder.git",
+      "branch": "main",
+      "sourceCommit": "ca7ed01925353fb436664aeed5b047eaeaabde09",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiCameraIntergration",
+      "url": "https://github.com/iisacc-Justmoong/iiCameraIntergration.git",
+      "branch": "main",
+      "sourceCommit": "6d69f91f6330108f5c92a34a7afbbcd18ff851f8",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiGraphicAdjust",
+      "url": "https://github.com/iisacc-Justmoong/iiGraphicAdjust.git",
+      "branch": "main",
+      "sourceCommit": "0eea8cd63ed1e5b4a15a8045518176a775c19d28",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiSocietyMonitor",
+      "url": "https://github.com/iisacc-Justmoong/iiSocietyMonitor.git",
+      "branch": "main",
+      "sourceCommit": "1bb4a148dd12cdbebdcd3d5eff97fb9be946e0b8",
       "lfs": false
     }
   ],
