@@ -192,7 +192,8 @@ class PowerShellWorkspaceSyncTests(unittest.TestCase):
         self.assertEqual(report["verified"], 1)
         self.assertEqual(report["total"], 2)
         failure = next(row for row in report["repositories"] if row["path"] == "SDK/Unavailable")
-        self.assertIn("does not exist", failure["error"])
+        self.assertRegex(failure["error"], r"does not exist|does not appear to be a git repository")
+        self.assertIn(str(self.base / "missing.git"), failure["error"])
         self.assertTrue((self.target / "README.md").exists())
 
 

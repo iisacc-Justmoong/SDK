@@ -1,0 +1,224 @@
+{
+  "iiAcountManager": {
+    "kind": "cmake",
+    "dependencies": [
+      "LVRS"
+    ]
+  },
+  "iiActorObject": {
+    "kind": "cmake",
+    "dependencies": []
+  },
+  "iiAudioGen": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider"
+    ]
+  },
+  "iiCalendar": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider"
+    ]
+  },
+  "iiCameraIntergration": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider",
+      "iiGraphicAdjust"
+    ]
+  },
+  "iiColorManager": {
+    "kind": "cmake",
+    "dependencies": []
+  },
+  "iiCSMIDI": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider",
+      "iiJson",
+      "iiSDKCore"
+    ]
+  },
+  "iiDecision": {
+    "kind": "cmake",
+    "dependencies": []
+  },
+  "iiDeviceMultimedia": {
+    "kind": "cmake",
+    "dependencies": []
+  },
+  "iiFileProvider": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiSDKCore"
+    ]
+  },
+  "iiGeneralDocument": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider"
+    ]
+  },
+  "iiGraphicAdjust": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider"
+    ]
+  },
+  "iiGUI": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiSDKCore"
+    ]
+  },
+  "iiHtmlBlock": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiXml"
+    ]
+  },
+  "iiJson": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiSDKCore"
+    ]
+  },
+  "iiLicenseManager": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiAcountManager",
+      "iiFileProvider"
+    ]
+  },
+  "iiLocalDiffusion": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider"
+    ]
+  },
+  "iiLocalLLM": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiDecision",
+      "iiFileProvider"
+    ]
+  },
+  "iiPaintEngine": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider"
+    ]
+  },
+  "iiPhotoLibrary": {
+    "kind": "cmake",
+    "dependencies": [
+      "LVRS",
+      "iiFileProvider",
+      "iiSocietyContainer",
+      "iiSocietySync"
+    ]
+  },
+  "iiSDKBuilder": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider",
+      "iiSDKCore"
+    ]
+  },
+  "iiSDKCore": {
+    "kind": "cmake",
+    "dependencies": []
+  },
+  "iiServerHost": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider"
+    ]
+  },
+  "iiSharedCanvas": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider",
+      "iiPaintEngine"
+    ]
+  },
+  "iiSocialPublish": {
+    "kind": "cmake",
+    "dependencies": []
+  },
+  "iiSocietyContainer": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider"
+    ]
+  },
+  "iiSocietyGeneration": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider",
+      "iiLocalDiffusion",
+      "iiSocietyContainer"
+    ]
+  },
+  "iiSocietyHelper": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiAcountManager",
+      "iiFileProvider",
+      "iiSharedCanvas",
+      "iiSocietyContainer",
+      "iiSocietyMonitor",
+      "iiSocietySync"
+    ]
+  },
+  "iiSocietyMonitor": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider",
+      "iiSDKCore",
+      "iiSocietyContainer"
+    ]
+  },
+  "iiSocietySync": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider",
+      "iiServerHost",
+      "iiSocietyContainer"
+    ]
+  },
+  "iiUpdateManager": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider"
+    ]
+  },
+  "iiVoiceOver": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider",
+      "iiSDKCore"
+    ]
+  },
+  "iiWhatsNew": {
+    "kind": "cmake",
+    "dependencies": []
+  },
+  "iiXml": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider"
+    ]
+  },
+  "LVRS": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider"
+    ]
+  },
+  "LVRS-Svelte": {
+    "kind": "npm",
+    "dependencies": []
+  }
+}

@@ -2,6 +2,8 @@
 
 # SDK batch reinstallation
 
+Windows의 의존성 순서 빌드·전체 실행 검증·설치는 [Windows SDK 검증](Windows/README.md)을 따른다. 각 SDK의 README에는 해당 프로젝트의 Windows 빌드 및 실행 지침을 연결한다.
+
 [`iiFileProvider`](iiFileProvider/README.md) 0.6.0 owns common file creation,
 opening, staging and provision. Its Qt-free native Catalog adds file-owned
 metadata, keywords, ratings, colors, collections, saved filters and indexed
@@ -51,6 +53,13 @@ installation or Windows Python app execution alias does not prevent cloning.
 See [Workspace synchronization](WorkspaceSync.md) for the bootstrap commands,
 conflict handling, and verification report.
 
+The Windows synchronization regression accepts Git's alternative missing-remote
+diagnostics while checking that the unavailable path is reported and independent
+repositories still complete. The verification gate tests also reject missing
+projects, failed executions, unexpected skips and a CMake cache reset to Debug.
+In the Windows MSVC development shell, a clean C++23 library/consumer fixture
+also verifies first-build link ordering and header-change rebuild/relink behavior.
+
 [`iiColorManager`](iiColorManager/README.md) provides nine color-picker modes,
 native sRGB/HSB/generic-CMYK/D50-Lab conversion, web-safe selection and shared
 picker state. It is a Qt-free leaf package; Dreamscapes uses its installed CMake
@@ -98,3 +107,7 @@ The [SDK patch release](PatchRelease-20261019.md) increments all 35 installable
 packages except LVRS by one patch. LVRS-Svelte is included as an independent
 package. The release records host builds, tests, reinstalls and remote commits
 separately; LVRS installer recovery is tracked as a subsequent operation.
+
+## 2026-10-20 Windows SDK 검증
+
+활성 SDK 36개의 Windows Release 빌드·실행·설치 및 원격 commit 검증 결과는 [Windows 전체 검증 기록](Windows/Verification-20261020.md)에 기록한다. 프로젝트별 Windows 지침과 공통 검증 도구를 포함하며, Deprecated와 Utility 및 소스가 없는 디렉터리는 성공 수에서 제외한다.

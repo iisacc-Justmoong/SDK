@@ -1,0 +1,877 @@
+{
+  "verified_at": "2026-10-20T02:58:56.591336+09:00",
+  "recorded_at": "2026-10-20T03:02:18+09:00",
+  "machine": {
+    "checked_at": "2026-10-20T00:26:55.5429769+09:00",
+    "os": {
+      "Caption": "Microsoft Windows 11 Home",
+      "Version": "10.0.26200",
+      "BuildNumber": "26200",
+      "OSArchitecture": "64비트"
+    },
+    "cmake": "cmake version 4.4.4",
+    "ninja": "1.13.2",
+    "build_python": "Python 3.14.8",
+    "node": "v24.21.0",
+    "npm": "11.19.0",
+    "dotnet": "10.0.401",
+    "long_paths": 1
+  },
+  "summary": {
+    "sdk_projects": 36,
+    "cmake_passed": 911,
+    "node_passed": 5,
+    "failed": 0,
+    "skipped": 4,
+    "root_regression_passed": 38,
+    "standalone_installed_consumer_passed": 29,
+    "input_queue_repeat_runs": 20,
+    "input_queue_cases_per_run": 27,
+    "compaction_repeat_runs": 20,
+    "compaction_cases_per_run": 12,
+    "agent_profile_repeat_runs": 20,
+    "agent_profile_cases_per_run": 10,
+    "background_job_inspections_per_profile_run": 32,
+    "task_repeat_runs": 20,
+    "task_cases_per_run": 17
+  },
+  "all_projects_executed_successfully": true,
+  "all_sdk_remotes_verified": true,
+  "excluded_directories": [
+    "Deprecated",
+    "Utility"
+  ],
+  "source_free_placeholders": [
+    "Flamewall",
+    "iiComputerHistory",
+    "iiComputerUse",
+    "Silentlocked"
+  ],
+  "scope_limits": [
+    "Windows x64 Release host configuration only",
+    "Windows rclone NFS hosting is unsupported; explicit rejection is tested",
+    "Four unavailable iiDecision accelerator enumeration cases are skipped",
+    "Personal cloud credentials, physical devices, real NAS variations and large model weights are outside the fixtures"
+  ],
+  "publication_metadata_recovery": null,
+  "projects": [
+    {
+      "name": "iiSDKCore",
+      "kind": "cmake",
+      "tested_base_commit": "6e7fa965d2dfb95bac92b800d2abd5da7b616981",
+      "source_fingerprint": "4658c3eb5f0d732ad2fba24dd823e599390ac4d134576379d6cb7cb1cd18290c",
+      "original_tested_source_fingerprint": "31ae3a6c68f9a85ea7e9b55c1917a5ed6677dfc5a024ba1366e0d3b8baa35d4e",
+      "published_commit": "8b0d4c2bc13138de2f629abb14230c33e27bd1db",
+      "remote_commit": "8b0d4c2bc13138de2f629abb14230c33e27bd1db",
+      "branch": "master",
+      "source_content_sha256": "29eefbb45b3d82d2bdaff5f0e890c9329ffb09823bbf45031147001297e7081f",
+      "tests": {
+        "total": 43,
+        "passed": 43,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "BUILD_SHARED_LIBS": "ON",
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiSDKCore"
+    },
+    {
+      "name": "LVRS-Svelte",
+      "kind": "npm",
+      "tested_base_commit": "22069fc8e4006183a1e7631095dd97b7a56074c6",
+      "source_fingerprint": "f5734d574108efe3c65ebd56a8ba65e2c510f1515f05b72d18c72259a445b278",
+      "original_tested_source_fingerprint": "d99b079bcd3292ee239888c3a9aa58515d2a8190fcad0b7690e0021d413318ad",
+      "published_commit": "4b39edb4e853f8c42ebd05ac8f123cffd43c98d4",
+      "remote_commit": "4b39edb4e853f8c42ebd05ac8f123cffd43c98d4",
+      "branch": "master",
+      "source_content_sha256": "287df5a4d3933ce5b1c4327e4348861b1e2e00ec37072afa32ac06e9d8ecbb56",
+      "tests": {
+        "total": 5,
+        "passed": 5,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {},
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/node_modules/lvrs-svelte"
+    },
+    {
+      "name": "iiActorObject",
+      "kind": "cmake",
+      "tested_base_commit": "79f0adf32c564205177608a5685881d3e38d4051",
+      "source_fingerprint": "f1d17310241a2a6fe9a0007d2e0a209869d257d2e1f76114af16c880244a341e",
+      "original_tested_source_fingerprint": "b0afa9543266e24c5cbc68d7daf0861f08018718697074b0fd88bd1864d8cd6a",
+      "published_commit": "72f6bc853416828302d707c40f9f1d38df794a4c",
+      "remote_commit": "72f6bc853416828302d707c40f9f1d38df794a4c",
+      "branch": "master",
+      "source_content_sha256": "c4428dcd34d93f60c8c5d656d5866a7a6570268a3146c97773b5f342b01e9b65",
+      "tests": {
+        "total": 1,
+        "passed": 1,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiActorObject"
+    },
+    {
+      "name": "iiColorManager",
+      "kind": "cmake",
+      "tested_base_commit": "94f4e86ff9725cd76a4dfbcf8a3acc814a521bcf",
+      "source_fingerprint": "3780a6f640d52164a162c5fda619f70692873832e1ab6a1700aabc63540fa42f",
+      "original_tested_source_fingerprint": "91e1b373be447d05497ea251b608c1fed85644eb3ca75b0eb35c448fd92a5109",
+      "published_commit": "64f76abe80977fc7c7a4103d4850f89bf3bb75ee",
+      "remote_commit": "64f76abe80977fc7c7a4103d4850f89bf3bb75ee",
+      "branch": "main",
+      "source_content_sha256": "981e3c2f8366e38623e968f3232827dee9da656e4d0275646e786cbb5e4ed55e",
+      "tests": {
+        "total": 6,
+        "passed": 6,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "BUILD_SHARED_LIBS": "ON",
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiColorManager"
+    },
+    {
+      "name": "iiDeviceMultimedia",
+      "kind": "cmake",
+      "tested_base_commit": "4b44e5b8225b2531de30319085f0139f9b70f50c",
+      "source_fingerprint": "b3d02d6a31351e77eaa7e916e0b8705e2dffc4f57fb87b6c733716282673db2e",
+      "original_tested_source_fingerprint": "34ddd134472423df7b4c43035bfd6207a4909f303c4dc8c2fddeda0fce5cdcae",
+      "published_commit": "43f48d5802fda5859c8c7f0cae40e4179462f655",
+      "remote_commit": "43f48d5802fda5859c8c7f0cae40e4179462f655",
+      "branch": "main",
+      "source_content_sha256": "b002c46d058c9c2d964ed91d5d81a0cfb50cf88396f80fd9448cffb81e0859f2",
+      "tests": {
+        "total": 6,
+        "passed": 6,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "BUILD_SHARED_LIBS": "ON",
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiDeviceMultimedia"
+    },
+    {
+      "name": "iiSocialPublish",
+      "kind": "cmake",
+      "tested_base_commit": "8a240dc69661b2afd5d2c16cf6bc5081386cab99",
+      "source_fingerprint": "030ff9d8cdd528080a8ec0e4270722f5e6972453ccc5485e1e3cc63d98c8876b",
+      "original_tested_source_fingerprint": "efc87823e11636987be7ad45be58f3e54740b9b77427dc54527340da33003160",
+      "published_commit": "44aad3cc69975837cf234e213c744f1651f77202",
+      "remote_commit": "44aad3cc69975837cf234e213c744f1651f77202",
+      "branch": "main",
+      "source_content_sha256": "4d5e402a2deee93ae345a152e761a96538731b80f0eb2fd81df4d9d915e8cf16",
+      "tests": {
+        "total": 13,
+        "passed": 13,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiSocialPublish"
+    },
+    {
+      "name": "iiWhatsNew",
+      "kind": "cmake",
+      "tested_base_commit": "a5eff9fbc6cbd6a6c2cda1eaf359fe366eb3f60c",
+      "source_fingerprint": "5c7a8df177f66a53e9e3cf4a410937a9d99b1a8ad2b5bdbadd83f53040ae8b94",
+      "original_tested_source_fingerprint": "a2eca8768236d78f5767631d891b9197b31a02ffcb1dba3e2a85dc2cd3e7d8c5",
+      "published_commit": "1d687d7b0b6034eb87bd60916e9b9489af97ef44",
+      "remote_commit": "1d687d7b0b6034eb87bd60916e9b9489af97ef44",
+      "branch": "master",
+      "source_content_sha256": "a726cdd77b118ddc86c85ec18b5144ec84ba652c41be1d4b3a38c2614bc1f798",
+      "tests": {
+        "total": 1,
+        "passed": 1,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiWhatsNew"
+    },
+    {
+      "name": "iiDecision",
+      "kind": "cmake",
+      "tested_base_commit": "ca0ba415833560cff2f4c6b441916585fc9f0598",
+      "source_fingerprint": "4a054c27c8abb5f1174985078a2b4fd89a7226cbeb685a0042ba3aaef5321caa",
+      "original_tested_source_fingerprint": "331e64d7eca7642da56f8808c8f4f1c604e3f3e1e82790c4a9dc6b4fb919dcbb",
+      "published_commit": "3986ab211cd223b5e1f76af97545356086377ac3",
+      "remote_commit": "3986ab211cd223b5e1f76af97545356086377ac3",
+      "branch": "main",
+      "source_content_sha256": "ddbbba396348a11125680ada3753135bcf0bb6c84befd3f075212981e1d96e90",
+      "tests": {
+        "total": 31,
+        "passed": 27,
+        "failed": [],
+        "skipped": [
+          "iiDecision.Acceleration.metal",
+          "iiDecision.Acceleration.mlx",
+          "iiDecision.Acceleration.opencl",
+          "iiDecision.Acceleration.onnx"
+        ]
+      },
+      "configuration": {
+        "BUILD_SHARED_LIBS": "OFF",
+        "CMAKE_BUILD_TYPE": "Release",
+        "IIDECISION_LAYA": "ON",
+        "IIDECISION_ONNX": "ON"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiDecision"
+    },
+    {
+      "name": "iiFileProvider",
+      "kind": "cmake",
+      "tested_base_commit": "ae5463a2bad7d811e402fe3fb68cb50351566b7a",
+      "source_fingerprint": "908ad30ebf61f034899250b21376ca82b010fed2e6bc620df08cb380fc0853ca",
+      "original_tested_source_fingerprint": "7535f481c4756f98945994410050fdbbf92b9d6b9dcbfa64b1228133989df93a",
+      "published_commit": "e352478ff8e94e3c8131f67c6c58cab6076a56ee",
+      "remote_commit": "e352478ff8e94e3c8131f67c6c58cab6076a56ee",
+      "branch": "master",
+      "source_content_sha256": "6382914102812b51cda270dd24db7ab6b5c9240a5fd9da731e23653405b82313",
+      "tests": {
+        "total": 37,
+        "passed": 37,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiFileProvider"
+    },
+    {
+      "name": "iiGUI",
+      "kind": "cmake",
+      "tested_base_commit": "e284ebd7fbec9d7998c44f4a5cbbf3b9025cf5a0",
+      "source_fingerprint": "bd260269313557a96e676f41fc7f42c58c72279d1b11fcc4f395c0cd10f951c0",
+      "original_tested_source_fingerprint": "94c3efad0c33c91d1dfffe22a3434f0bd1e2089e886801494ec4c0077dfebc27",
+      "published_commit": "8f441fb151e1f65a55ba7a350a7cabf6c57deac2",
+      "remote_commit": "8f441fb151e1f65a55ba7a350a7cabf6c57deac2",
+      "branch": "main",
+      "source_content_sha256": "23cd336b1bda419f1738d102ac3e5d42bd290254577858739ad4ae29ca35bbcf",
+      "tests": {
+        "total": 19,
+        "passed": 19,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "BUILD_SHARED_LIBS": "OFF",
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiGUI"
+    },
+    {
+      "name": "iiJson",
+      "kind": "cmake",
+      "tested_base_commit": "8addec66411ce22e3a2cf2888ff12daf3cc281d8",
+      "source_fingerprint": "6d5748762ae9a0236078fcf85226c0720d8e0e68273d998da129b3e3355dc5d7",
+      "original_tested_source_fingerprint": "22b70eb340f0ccc516a7aef837b4ca59f6e8310cd31fc9df9d819a4f5e601107",
+      "published_commit": "6241f772ca38f5b2edadf37e9a48a30578ae17cb",
+      "remote_commit": "6241f772ca38f5b2edadf37e9a48a30578ae17cb",
+      "branch": "main",
+      "source_content_sha256": "b8d106ea0844c9bafe3334bf27d63a0bf19ca4b9b4d1e9a7ee9db40b326b542d",
+      "tests": {
+        "total": 2,
+        "passed": 2,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiJson"
+    },
+    {
+      "name": "LVRS",
+      "kind": "cmake",
+      "tested_base_commit": "48b547564ea199277d9dbb6a6992a4200f3d66c9",
+      "source_fingerprint": "c9f7f6f594c6afba552481329dcdeec466930b787431c8c8e126d68acb4974ad",
+      "original_tested_source_fingerprint": "ceae92a53e342330acc21cfbafad2d8c91d44b04448c2ebdf78fdae9d2742dc1",
+      "published_commit": "8a43d0833762bcd06bd5ad0c91add1623d3c69f8",
+      "remote_commit": "8a43d0833762bcd06bd5ad0c91add1623d3c69f8",
+      "branch": "master",
+      "source_content_sha256": "10716a2b8817514390e93267730687c87d445c943356af8493f1aad35d7a2178",
+      "tests": {
+        "total": 59,
+        "passed": 59,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/LVRS"
+    },
+    {
+      "name": "iiAudioGen",
+      "kind": "cmake",
+      "tested_base_commit": "e1274ca716e45b1245d595c6c19933dc538cf8d3",
+      "source_fingerprint": "18718a4609a790f420f7940c1baac530971518349e05b1242daa925580e32c7c",
+      "original_tested_source_fingerprint": "b4f047e21827469ab73a9a407e71fb83c1bba05e4f73a49c9b22777afd7402ba",
+      "published_commit": "5937c360812a23d05b2b5068d0bb7bc0fbc38a10",
+      "remote_commit": "5937c360812a23d05b2b5068d0bb7bc0fbc38a10",
+      "branch": "main",
+      "source_content_sha256": "330622fed142360caa9be7a8a1740ca198b652cf87591dd36211efcdfdbdd64c",
+      "tests": {
+        "total": 7,
+        "passed": 7,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "BUILD_SHARED_LIBS": "ON",
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiAudioGen"
+    },
+    {
+      "name": "iiCSMIDI",
+      "kind": "cmake",
+      "tested_base_commit": "dc1b536ab33208d021d1aa24107a113dcf95111d",
+      "source_fingerprint": "557f9114c6c606006671401786988773f50ed2bd11acbeb1a5996bf0978d1f73",
+      "original_tested_source_fingerprint": "57fe0d6ba537a9346673d4aa0ac20272a229b547791ea724614693a3d1ea120d",
+      "published_commit": "d8e43e709d98c32f43e2d1022524c440fe5d084f",
+      "remote_commit": "d8e43e709d98c32f43e2d1022524c440fe5d084f",
+      "branch": "master",
+      "source_content_sha256": "3b80a597adebab855a3f6453aa881cafa263865ae0a6859a86a786ad78ba0a20",
+      "tests": {
+        "total": 4,
+        "passed": 4,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiCSMIDI"
+    },
+    {
+      "name": "iiCalendar",
+      "kind": "cmake",
+      "tested_base_commit": "f3e0d8b440b6d617650ea81b89ec975117b899f2",
+      "source_fingerprint": "0f10673d35d4458641379cb0c0e91827be8eb6cffb5975077d737fce1b429707",
+      "original_tested_source_fingerprint": "68d7aad1306863528d2af7f5b3d7d6233112d394b91515b571926326cd5933e0",
+      "published_commit": "99abe44fd16fc362675db91f8ca5257e5eb0930c",
+      "remote_commit": "99abe44fd16fc362675db91f8ca5257e5eb0930c",
+      "branch": "main",
+      "source_content_sha256": "9c09b64ed2f32cd1a8bb966fdfb0cc61c77a942285aff62437a7405b2e8ae0c6",
+      "tests": {
+        "total": 14,
+        "passed": 14,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiCalendar"
+    },
+    {
+      "name": "iiGeneralDocument",
+      "kind": "cmake",
+      "tested_base_commit": "f9b7f7419cd9152696be61d65e7f7065249cf0bb",
+      "source_fingerprint": "5a3871088649ea1894237febc3c60d1e57f3e584d8bf18c44ef0e56d50ec8565",
+      "original_tested_source_fingerprint": "808826457541efd9070c44811e5d1841a673650140e14dbbc8282dc53d3b250b",
+      "published_commit": "8c6f39949fccbe925e13a8eda3418e84ea870bfe",
+      "remote_commit": "8c6f39949fccbe925e13a8eda3418e84ea870bfe",
+      "branch": "master",
+      "source_content_sha256": "e99a3f1b7c35a3a6428133402ebef0eb045aed6f1952d243b88887ce723c911b",
+      "tests": {
+        "total": 30,
+        "passed": 30,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiGeneralDocument"
+    },
+    {
+      "name": "iiGraphicAdjust",
+      "kind": "cmake",
+      "tested_base_commit": "0eea8cd63ed1e5b4a15a8045518176a775c19d28",
+      "source_fingerprint": "d0c4d0ee54804afd0cb273089118e8f817e643349bfc17958174c53b64cefb35",
+      "original_tested_source_fingerprint": "61e5edc87386750662cb59e3038da1085c8e99c40bc6d9f9b2509c105e6e6b06",
+      "published_commit": "fd4aba043026fd472429a39718b75957b91df4eb",
+      "remote_commit": "fd4aba043026fd472429a39718b75957b91df4eb",
+      "branch": "main",
+      "source_content_sha256": "804bfeca7878d2a39605f58f075898571077f124bc95e0c5f3324049f75f7fd7",
+      "tests": {
+        "total": 202,
+        "passed": 202,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "BUILD_SHARED_LIBS": "ON",
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiGraphicAdjust"
+    },
+    {
+      "name": "iiLocalDiffusion",
+      "kind": "cmake",
+      "tested_base_commit": "3999cb63c7b3c0ed87dea12745de619a97dd32fa",
+      "source_fingerprint": "c39098c48b71838b376e5baf03b8fa8b21deecdbbaf12eff5ae9fab63222409c",
+      "original_tested_source_fingerprint": "a930d11d65f2202b9592a5655fcfbdb64bbef0e23845cdbe0a6a899eb884b8a0",
+      "published_commit": "8dfd987326d2853f61d939902deaa1dfb2671b29",
+      "remote_commit": "8dfd987326d2853f61d939902deaa1dfb2671b29",
+      "branch": "master",
+      "source_content_sha256": "25d1b46622c869cf4bb880f58f550411ba4d769f1a54d7cb6709ed8639b0bbef",
+      "tests": {
+        "total": 108,
+        "passed": 108,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "BUILD_SHARED_LIBS": "ON",
+        "CMAKE_BUILD_TYPE": "Release",
+        "IILD_ENABLE_COREML": "OFF",
+        "IILD_ENABLE_LIBTORCH": "OFF",
+        "IILD_ENABLE_MLX": "ON",
+        "IILD_ENABLE_NATIVE_DIFFUSION": "OFF",
+        "IILD_ENABLE_POSE": "OFF"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiLocalDiffusion"
+    },
+    {
+      "name": "iiLocalLLM",
+      "kind": "cmake",
+      "tested_base_commit": "ac3ca099b8a9ab460c380784a41e2e34ea9031ae",
+      "source_fingerprint": "6e154406a8074433d56448dbebe7d41333472e1faf660033ba468aaed3be923a",
+      "original_tested_source_fingerprint": "c486d94f5b31fd29f84380945aacfa82a8005b35e916f821f5cb8d97fb917a72",
+      "published_commit": "2dac6095de8ccd7d18c1ed7c1100c8ef1d4b82ea",
+      "remote_commit": "2dac6095de8ccd7d18c1ed7c1100c8ef1d4b82ea",
+      "branch": "master",
+      "source_content_sha256": "2476677810b9bfd52db4c9d7f4a3452340960db1bd4a42320fe42e03d7b0f188",
+      "tests": {
+        "total": 73,
+        "passed": 73,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiLocalLLM"
+    },
+    {
+      "name": "iiPaintEngine",
+      "kind": "cmake",
+      "tested_base_commit": "1b4de520c2a89c634e9577185aa68e3b97a2f011",
+      "source_fingerprint": "ef746ae1ece43f0fc9c007111ff9a9e6b20419199dec1a3456e54935703ccdec",
+      "original_tested_source_fingerprint": "d869192f8f8af50d094b9a52b60b68d05e1467f5f5ad54c2fae27047b2e96234",
+      "published_commit": "671518df9a14fe923851ab37dd629dfbe3c78c04",
+      "remote_commit": "671518df9a14fe923851ab37dd629dfbe3c78c04",
+      "branch": "master",
+      "source_content_sha256": "7a90d9ae74533055875ec8c23290a55f5cdf3e383afa2fdb0d32f17bf412c1f4",
+      "tests": {
+        "total": 48,
+        "passed": 48,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiPaintEngine"
+    },
+    {
+      "name": "iiSDKBuilder",
+      "kind": "cmake",
+      "tested_base_commit": "ca7ed01925353fb436664aeed5b047eaeaabde09",
+      "source_fingerprint": "4e5d257e8d90d5d4e9bc1bbd529ebbb904c9575e12f06367623a02134a11cf8e",
+      "original_tested_source_fingerprint": "57f8109d7756b65572bbb9cfad268a4bc8e4a3d394b05fcf641cc07408ce932c",
+      "published_commit": "3ff70ba352a574d935e423378882b511503ee43c",
+      "remote_commit": "3ff70ba352a574d935e423378882b511503ee43c",
+      "branch": "main",
+      "source_content_sha256": "c906685328e21ef3c661361c8d49a8c39805743265516850926b4a0a79b3a5ca",
+      "tests": {
+        "total": 14,
+        "passed": 14,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "BUILD_SHARED_LIBS": "OFF",
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiSDKBuilder"
+    },
+    {
+      "name": "iiServerHost",
+      "kind": "cmake",
+      "tested_base_commit": "bc11b80f4003489210e9af658a0886591e4832ff",
+      "source_fingerprint": "c0d27b755549b067de7421903647da3a7bd1192e433f4e33887439265c3bdbdf",
+      "original_tested_source_fingerprint": "c0d27b755549b067de7421903647da3a7bd1192e433f4e33887439265c3bdbdf",
+      "published_commit": "b664c0e8515a0eae2e4c9fc553640096b7929749",
+      "remote_commit": "b664c0e8515a0eae2e4c9fc553640096b7929749",
+      "branch": "master",
+      "source_content_sha256": "e780772a1cf815d80e4af70d5cd4b70f39f6f0a8181dc5ea71e132a920fefe2d",
+      "tests": {
+        "total": 12,
+        "passed": 12,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "BUILD_SHARED_LIBS": "ON",
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiServerHost"
+    },
+    {
+      "name": "iiSocietyContainer",
+      "kind": "cmake",
+      "tested_base_commit": "4d705791a63376c8e839e3b17e97d9cf5805a0e5",
+      "source_fingerprint": "b2db6a7c0a60107b12ddb05493ed443cf77d2a01610024bc52e6bda32609821d",
+      "original_tested_source_fingerprint": "b2db6a7c0a60107b12ddb05493ed443cf77d2a01610024bc52e6bda32609821d",
+      "published_commit": "cc58fa0ee23232a09c786a616eae1662fd87a95a",
+      "remote_commit": "cc58fa0ee23232a09c786a616eae1662fd87a95a",
+      "branch": "master",
+      "source_content_sha256": "815fe540c94ebe3371bf843cc6cd2480202d91bb4416648b238223c89ce37eff",
+      "tests": {
+        "total": 19,
+        "passed": 19,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiSocietyContainer"
+    },
+    {
+      "name": "iiUpdateManager",
+      "kind": "cmake",
+      "tested_base_commit": "6a5271ed8ae160469091a88d25ef36ce47b5632f",
+      "source_fingerprint": "3cd57b792ba2440f062bb4bd2337420fc9ff18ac81aade7083f20a82620f6019",
+      "original_tested_source_fingerprint": "3cd57b792ba2440f062bb4bd2337420fc9ff18ac81aade7083f20a82620f6019",
+      "published_commit": "5cb478584cb010f35c40159a0c055885c3371a0a",
+      "remote_commit": "5cb478584cb010f35c40159a0c055885c3371a0a",
+      "branch": "master",
+      "source_content_sha256": "fa7b4991af0e774a1b09b51ca6043ea4b51dd35ce2694805c62973cc0a96c6d7",
+      "tests": {
+        "total": 4,
+        "passed": 4,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiUpdateManager"
+    },
+    {
+      "name": "iiVoiceOver",
+      "kind": "cmake",
+      "tested_base_commit": "616e5571f8e17551ad82641ffd07eb8cb2b19f0b",
+      "source_fingerprint": "2db1fc2a514c43d8e4e6188d7a0d8a5458a7a54d14d97a214a62d647ed4211fa",
+      "original_tested_source_fingerprint": "2db1fc2a514c43d8e4e6188d7a0d8a5458a7a54d14d97a214a62d647ed4211fa",
+      "published_commit": "3295a898546387f7f381986b4263ebf7908a90fe",
+      "remote_commit": "3295a898546387f7f381986b4263ebf7908a90fe",
+      "branch": "master",
+      "source_content_sha256": "d7f9adaaeb58cb7eaf0b4dfa0cf6f87647d6f31437e0f971df49304d53c0a5ca",
+      "tests": {
+        "total": 5,
+        "passed": 5,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiVoiceOver"
+    },
+    {
+      "name": "iiXml",
+      "kind": "cmake",
+      "tested_base_commit": "f71a4e1eed86b1ec770878da33385d5211854b58",
+      "source_fingerprint": "c11418a10b82e6265a056693d47557215aba43ef35d17ac51a0e507f75748e0f",
+      "original_tested_source_fingerprint": "c11418a10b82e6265a056693d47557215aba43ef35d17ac51a0e507f75748e0f",
+      "published_commit": "c8fe80f6a8fa449e33001d897658bc0065fafc4e",
+      "remote_commit": "c8fe80f6a8fa449e33001d897658bc0065fafc4e",
+      "branch": "master",
+      "source_content_sha256": "a281e672c7de5078d927656b75ed3d698c9ac7ac4b15cd1b73ae7be06c7787dd",
+      "tests": {
+        "total": 15,
+        "passed": 15,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "IIXML_BUILD_SHARED": "OFF"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiXml"
+    },
+    {
+      "name": "iiAcountManager",
+      "kind": "cmake",
+      "tested_base_commit": "0c1dcc7f1d6eafc7723b2b4ef4e9255e77f52abb",
+      "source_fingerprint": "1e284b2585b0adc2205369d73bf5bc24b1b1f18a321960408c29041a5d43295c",
+      "original_tested_source_fingerprint": "1e284b2585b0adc2205369d73bf5bc24b1b1f18a321960408c29041a5d43295c",
+      "published_commit": "85916f215af097fb56b7ba9693d47f559d63b97e",
+      "remote_commit": "85916f215af097fb56b7ba9693d47f559d63b97e",
+      "branch": "master",
+      "source_content_sha256": "deae5ebc18de236bf60686b9384110b6300c98942c22be050282298ed26542d4",
+      "tests": {
+        "total": 6,
+        "passed": 6,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "BUILD_SHARED_LIBS": "OFF",
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiAcountManager"
+    },
+    {
+      "name": "iiCameraIntergration",
+      "kind": "cmake",
+      "tested_base_commit": "6d69f91f6330108f5c92a34a7afbbcd18ff851f8",
+      "source_fingerprint": "ff381d99ef1822740e6c0bc97853e2fe9a95d5c31f8a8d28e83d3ca2f207983b",
+      "original_tested_source_fingerprint": "ff381d99ef1822740e6c0bc97853e2fe9a95d5c31f8a8d28e83d3ca2f207983b",
+      "published_commit": "ce960f269b528ef35f0da8937afc6cf859a6a7ef",
+      "remote_commit": "ce960f269b528ef35f0da8937afc6cf859a6a7ef",
+      "branch": "main",
+      "source_content_sha256": "918a6ce91d7556c6f6788e1c0fd3f3db22eb30c378c165ce81a716c917bd0d58",
+      "tests": {
+        "total": 26,
+        "passed": 26,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "BUILD_SHARED_LIBS": "ON",
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiCameraIntergration"
+    },
+    {
+      "name": "iiHtmlBlock",
+      "kind": "cmake",
+      "tested_base_commit": "7a3dfaec93f594686aa01ed86f523111d05f5404",
+      "source_fingerprint": "5bfb7a0a19367043983663f7b9dac94f6d98035bdba4048f471476c317cb464e",
+      "original_tested_source_fingerprint": "5bfb7a0a19367043983663f7b9dac94f6d98035bdba4048f471476c317cb464e",
+      "published_commit": "1d8b1b367c94dc97c6b9bc843507193579bd53b4",
+      "remote_commit": "1d8b1b367c94dc97c6b9bc843507193579bd53b4",
+      "branch": "master",
+      "source_content_sha256": "b31404b320dc7049c27f155745e73a1bf5b94031f829039da52c49ee723902ab",
+      "tests": {
+        "total": 13,
+        "passed": 13,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "IIHTMLBLOCK_BUILD_SHARED": "OFF"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiHtmlBlock"
+    },
+    {
+      "name": "iiSharedCanvas",
+      "kind": "cmake",
+      "tested_base_commit": "53736a229101af4923280b328dae3a70636d4f02",
+      "source_fingerprint": "f76256b14e6228f6a984a9942c05bbaac7539d499fd3e96a7ebd6af6d88e1552",
+      "original_tested_source_fingerprint": "f76256b14e6228f6a984a9942c05bbaac7539d499fd3e96a7ebd6af6d88e1552",
+      "published_commit": "0d55bfedd7d4e9ed48d270fb04e8a2ead1f5b516",
+      "remote_commit": "0d55bfedd7d4e9ed48d270fb04e8a2ead1f5b516",
+      "branch": "master",
+      "source_content_sha256": "f593222381a1d5c3eb74844a1055aaa63ee289e40dc37b8c913e5d831945c038",
+      "tests": {
+        "total": 62,
+        "passed": 62,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "IISHAREDCANVAS_BUILD_QUICK": "ON",
+        "IISHAREDCANVAS_BUILD_SHARED": "OFF"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiSharedCanvas"
+    },
+    {
+      "name": "iiSocietyGeneration",
+      "kind": "cmake",
+      "tested_base_commit": "be42109d89f5065f1580d137310ce204dde1a3dd",
+      "source_fingerprint": "ce36439259e442c585d700b5ab7cd15caff6be87906e6eb4f3ff685090e2d3af",
+      "original_tested_source_fingerprint": "ce36439259e442c585d700b5ab7cd15caff6be87906e6eb4f3ff685090e2d3af",
+      "published_commit": "12d3a8b524484a8e3dbd834656ffe40309c8c480",
+      "remote_commit": "12d3a8b524484a8e3dbd834656ffe40309c8c480",
+      "branch": "master",
+      "source_content_sha256": "6c98d8f97757a27d03236f0e68491d70edc9fb628fdb87ddc4e95dc93131901a",
+      "tests": {
+        "total": 1,
+        "passed": 1,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiSocietyGeneration"
+    },
+    {
+      "name": "iiSocietyMonitor",
+      "kind": "cmake",
+      "tested_base_commit": "1bb4a148dd12cdbebdcd3d5eff97fb9be946e0b8",
+      "source_fingerprint": "90a883c2b3546c839133b26c1a7f29693cc7157a0c58a291e920851ad2b26693",
+      "original_tested_source_fingerprint": "90a883c2b3546c839133b26c1a7f29693cc7157a0c58a291e920851ad2b26693",
+      "published_commit": "39d3d7668810739329da63466b118625c743cdf3",
+      "remote_commit": "39d3d7668810739329da63466b118625c743cdf3",
+      "branch": "main",
+      "source_content_sha256": "d12c173217069a9e8862cc115fc8c3e9ed305ba6eca08c9973affd49b8e8f470",
+      "tests": {
+        "total": 2,
+        "passed": 2,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiSocietyMonitor"
+    },
+    {
+      "name": "iiSocietySync",
+      "kind": "cmake",
+      "tested_base_commit": "f42d763da1da579e321b73b3966ec0521e424f4a",
+      "source_fingerprint": "577be6c33c9c15a265edadbc2d71fb38835bcb33a842acdcca301ef2b23284fb",
+      "original_tested_source_fingerprint": "577be6c33c9c15a265edadbc2d71fb38835bcb33a842acdcca301ef2b23284fb",
+      "published_commit": "22a1c730088ad8b96832724f9eeb8e9835a9ee61",
+      "remote_commit": "22a1c730088ad8b96832724f9eeb8e9835a9ee61",
+      "branch": "master",
+      "source_content_sha256": "a43132066198ae7384de0d3d5f6c9b03d3df9f953332c1da1304e4cab4086437",
+      "tests": {
+        "total": 12,
+        "passed": 12,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiSocietySync"
+    },
+    {
+      "name": "iiLicenseManager",
+      "kind": "cmake",
+      "tested_base_commit": "875d47b1b7a23b1d75a424788f60889015669133",
+      "source_fingerprint": "1c3197c8eb829bbc0f9cd2be64182d0fc39129ce80ba4183f04afe13a6a82af2",
+      "original_tested_source_fingerprint": "1c3197c8eb829bbc0f9cd2be64182d0fc39129ce80ba4183f04afe13a6a82af2",
+      "published_commit": "66c06ccc65ad88c02abf856f88047cab342a6989",
+      "remote_commit": "66c06ccc65ad88c02abf856f88047cab342a6989",
+      "branch": "master",
+      "source_content_sha256": "37d013a9d4e33cba41f8bfa679d76dcb14f74f27d0cd0ed1f90cf28658d6603f",
+      "tests": {
+        "total": 2,
+        "passed": 2,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiLicenseManager"
+    },
+    {
+      "name": "iiPhotoLibrary",
+      "kind": "cmake",
+      "tested_base_commit": "a4a784b3cccf18b02c71b51a4c65f359df5f80ce",
+      "source_fingerprint": "c71854e9f2ce00dee5f699257a190eca533e8551ee06f487bc94d68782473b47",
+      "original_tested_source_fingerprint": "c71854e9f2ce00dee5f699257a190eca533e8551ee06f487bc94d68782473b47",
+      "published_commit": "ca5f8f1812e595dc6e945a96233398d8aca3b4b2",
+      "remote_commit": "ca5f8f1812e595dc6e945a96233398d8aca3b4b2",
+      "branch": "main",
+      "source_content_sha256": "ec2fd60c210ca4dd5099b723a0f1dede0fb91eec1eef82b9c99cbd24590902a0",
+      "tests": {
+        "total": 8,
+        "passed": 8,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiPhotoLibrary"
+    },
+    {
+      "name": "iiSocietyHelper",
+      "kind": "cmake",
+      "tested_base_commit": "f549ae3c9ba1a38b0e43ecd70611209bafd5284e",
+      "source_fingerprint": "04cf5aa195ee27717623a850e66d27e3d0c4fd0ebb2e48e8f133140ff693ca8e",
+      "original_tested_source_fingerprint": "04cf5aa195ee27717623a850e66d27e3d0c4fd0ebb2e48e8f133140ff693ca8e",
+      "published_commit": "eca7b1eec34c066ea169c503a137e3b5010ab2c6",
+      "remote_commit": "eca7b1eec34c066ea169c503a137e3b5010ab2c6",
+      "branch": "master",
+      "source_content_sha256": "a2809d5d214794049557b898dac79b5438feeb10409949d9ebe6b228fe5116c0",
+      "tests": {
+        "total": 10,
+        "passed": 10,
+        "failed": [],
+        "skipped": []
+      },
+      "configuration": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "build_and_install": "passed",
+      "install_prefix": "~/.local/SDK/iiSocietyHelper"
+    }
+  ]
+}
