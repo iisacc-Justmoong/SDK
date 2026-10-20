@@ -1,5 +1,9 @@
 /*/
 !/tests/
 !/Windows/
+!/docs/
+!/tools/
+!/benchmarks/
+build/
 .DS_Store
 __pycache__/

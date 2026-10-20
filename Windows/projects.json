@@ -100,7 +100,6 @@
   "iiLocalLLM": {
     "kind": "cmake",
     "dependencies": [
-      "iiDecision",
       "iiFileProvider"
     ]
   },
@@ -116,7 +115,7 @@
       "LVRS",
       "iiFileProvider",
       "iiSocietyContainer",
-      "iiSocietySync"
+      "iiSocietyHelper"
     ]
   },
   "iiSDKBuilder": {
@@ -153,14 +152,6 @@
       "iiFileProvider"
     ]
   },
-  "iiSocietyGeneration": {
-    "kind": "cmake",
-    "dependencies": [
-      "iiFileProvider",
-      "iiLocalDiffusion",
-      "iiSocietyContainer"
-    ]
-  },
   "iiSocietyHelper": {
     "kind": "cmake",
     "dependencies": [
@@ -168,24 +159,9 @@
       "iiFileProvider",
       "iiSharedCanvas",
       "iiSocietyContainer",
-      "iiSocietyMonitor",
-      "iiSocietySync"
-    ]
-  },
-  "iiSocietyMonitor": {
-    "kind": "cmake",
-    "dependencies": [
-      "iiFileProvider",
       "iiSDKCore",
-      "iiSocietyContainer"
-    ]
-  },
-  "iiSocietySync": {
-    "kind": "cmake",
-    "dependencies": [
-      "iiFileProvider",
       "iiServerHost",
-      "iiSocietyContainer"
+      "iiLocalDiffusion"
     ]
   },
   "iiUpdateManager": {
@@ -220,5 +196,16 @@
   "LVRS-Svelte": {
     "kind": "npm",
     "dependencies": []
+  },
+  "iiMultimodalAgent": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiAudioGen",
+      "iiDecision",
+      "iiFileProvider",
+      "iiLocalDiffusion",
+      "iiLocalLLM",
+      "iiVoiceOver"
+    ]
   }
 }

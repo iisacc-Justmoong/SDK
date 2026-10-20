@@ -5,9 +5,11 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-find_package(iiSocietyHelper 0.9.0 CONFIG REQUIRED)
-find_package(iiSocietyGeneration CONFIG REQUIRED)
+find_package(iiSocietyHelper 0.10.0 CONFIG REQUIRED)
+
+find_package(iiSocietyHelper 0.10.0 CONFIG REQUIRED COMPONENTS GenerationHost)
 find_package(iiLocalDiffusion CONFIG REQUIRED)
+find_package(iiPhotoLibrary 0.1.1 CONFIG REQUIRED COMPONENTS Library)
 find_package(Qt6 6.8.3 EXACT REQUIRED COMPONENTS Test Gui Qml Concurrent)
 
 get_filename_component(workspace "${CMAKE_CURRENT_SOURCE_DIR}/../../.." ABSOLUTE)
@@ -33,6 +35,24 @@ target_link_libraries(SocietyGroupState PRIVATE iiSocietyHelper::iiSocietyHelper
 add_test(NAME SocietyHelperConsumers.group_state COMMAND SocietyGroupState)
 set_tests_properties(SocietyHelperConsumers.group_state PROPERTIES TIMEOUT 60)
 
+# Compile Society's actual synchronization and generation-host integration.
+# An object library checks the migrated API without building an application.
+add_library(SocietyNetworkCompile OBJECT
+    "${society}/src/App/Network/NetworkDriveController.cpp"
+    "${society}/src/App/Network/NetworkDriveController.h")
+target_include_directories(SocietyNetworkCompile PRIVATE "${society}/src")
+target_link_libraries(SocietyNetworkCompile PRIVATE iiSocietyHelper::GenerationHost
+    iiPhotoLibrary::iiPhotoLibrary Qt6::Qml)
+
+add_executable(SocietyDependencyContract "${society}/tests/tst_dependencies.cpp")
+target_link_libraries(SocietyDependencyContract PRIVATE iiSocietyHelper::iiSocietyHelper Qt6::Test)
+target_compile_definitions(SocietyDependencyContract PRIVATE
+    SOCIETY_TEST_DIRECTORY="${CMAKE_CURRENT_BINARY_DIR}"
+    SOCIETY_EXECUTABLE_PATH="" SOCIETY_DIRECT_LINKS_FILE="")
+add_test(NAME SocietyHelperConsumers.file_projection
+    COMMAND SocietyDependencyContract fileProjectionHidesProviderControlFiles)
+set_tests_properties(SocietyHelperConsumers.file_projection PROPERTIES TIMEOUT 30)
+
 add_library(MigratedGeneration STATIC
     "${generation}/AdvancedImageParameters.cpp"
     "${generation}/ImageParameterCodec.cpp"
@@ -49,13 +69,13 @@ target_compile_definitions(MigratedGeneration PRIVATE
     DREAMSCAPES_FFMPEG_EXECUTABLE="" DREAMSCAPES_FFPROBE_EXECUTABLE=""
     DREAMSCAPES_DIFFUSION_EXECUTABLE="" DREAMSCAPES_DIFFUSION_PYTHON_EXECUTABLE="")
 target_link_libraries(MigratedGeneration PUBLIC iiSocietyHelper::iiSocietyHelper
-    iiSocietyGeneration::iiSocietyGeneration iiLocalDiffusion::iiLocalDiffusion
+    iiLocalDiffusion::iiLocalDiffusion
     Qt6::Gui Qt6::Qml Qt6::Concurrent)
 set(watermark "${dreamscapes}/resources/Appicon/generated/common/Dreamscapes.png")
 set_source_files_properties("${watermark}" PROPERTIES QT_RESOURCE_ALIAS "Dreamscapes.png")
 qt_add_resources(MigratedGeneration watermark PREFIX "/generation/watermark" FILES "${watermark}")
 add_executable(DreamscapesHelperHost "${generation}/tst_LocalSociety.cpp")
-target_link_libraries(DreamscapesHelperHost PRIVATE MigratedGeneration iiSocietyGeneration::Host Qt6::Test)
+target_link_libraries(DreamscapesHelperHost PRIVATE MigratedGeneration iiSocietyHelper::GenerationHost Qt6::Test)
 target_compile_definitions(DreamscapesHelperHost PRIVATE
     DREAMSCAPES_TEST_DIRECTORY="${CMAKE_CURRENT_BINARY_DIR}"
     DREAMSCAPES_FAKE_GENERATOR="${generation}/fixtures/generate.py")

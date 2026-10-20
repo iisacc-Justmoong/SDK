@@ -27,38 +27,12 @@ The five OS targets require native PE, ELF, or Mach-O machine-code images;
 WebAssembly is a separately labeled web-engine target. Post-link inspection
 rejects script launchers, CLR-managed PE, and wrong CPU/deployment platforms.
 
-[`iiSocietyHelper`](iiSocietyHelper/README.md) 0.9.1 consolidates the former
-`iiSocietyClient` module into one application-facing SDK. Link only
-`iiSocietyHelper::iiSocietyHelper` for local IPC, native storage/canvas operations,
-account sessions, discovery/pairing and authenticated host-drive access through
-`iiSocietyHelper::Client`. Sync remains a lower-level dependency with no reverse
-reference. See [migration](iiSocietyHelper/docs/Migration.md).
-
-[`iiSocietyMonitor`](iiSocietyMonitor/README.md) provides the Qt-free C++23
-`SocietyContainerDaemon` and latest-state subscriptions for iisacc apps. It
-monitors the selected Society container's public metadata, publishes atomic
-credential-free snapshots and detects stale producers. `iiSocietyHelper` adapts
-native subscriptions to its QObject/QML `containerState` API.
-
-The SDK installer preserves Windows drive letters in `CMAKE_PREFIX_PATH`, reads
-source and installation manifests as UTF-8, and selects native Git for Windows
-Bash instead of the Windows System32 WSL shim. Set `BASH_BINARY` explicitly when
-using another native Bash installation.
-
-To clone or update all SDK, Product, and Service repositories into the same
-relative paths under `~/Workspace`, use `sync_workspace.ps1` in Windows
-PowerShell, or `python sync_workspace.py` on a host with Python 3.10 or later.
-The Windows entry point requires only PowerShell and Git, so a missing Python
-installation or Windows Python app execution alias does not prevent cloning.
-See [Workspace synchronization](WorkspaceSync.md) for the bootstrap commands,
-conflict handling, and verification report.
-
-The Windows synchronization regression accepts Git's alternative missing-remote
-diagnostics while checking that the unavailable path is reported and independent
-repositories still complete. The verification gate tests also reject missing
-projects, failed executions, unexpected skips and a CMake cache reset to Debug.
-In the Windows MSVC development shell, a clean C++23 library/consumer fixture
-also verifies first-build link ordering and header-change rebuild/relink behavior.
+[`iiSocietyHelper`](iiSocietyHelper/README.md) 0.10.0 is the single Society
+integration SDK for accounts, client access, local IPC, native storage/canvas,
+remote generation, monitoring and device synchronization. Core uses
+`iiSocietyHelper::iiSocietyHelper`; native monitoring uses
+`iiSocietyHelper::Monitoring`; desktop inference uses
+`iiSocietyHelper::GenerationHost`. See [the consolidation guide](iiSocietyHelper/docs/Consolidation.md).
 
 [`iiColorManager`](iiColorManager/README.md) provides nine color-picker modes,
 native sRGB/HSB/generic-CMYK/D50-Lab conversion, web-safe selection and shared
@@ -111,3 +85,27 @@ separately; LVRS installer recovery is tracked as a subsequent operation.
 ## 2026-10-20 Windows SDK 검증
 
 활성 SDK 36개의 Windows Release 빌드·실행·설치 및 원격 commit 검증 결과는 [Windows 전체 검증 기록](Windows/Verification-20261020.md)에 기록한다. 프로젝트별 Windows 지침과 공통 검증 도구를 포함하며, Deprecated와 Utility 및 소스가 없는 디렉터리는 성공 수에서 제외한다.
+
+## Multimodal agent ownership
+
+[iiMultimodalAgent](iiMultimodalAgent/README.md) owns the extracted agent/MCP harness
+and iiDecision integration, with image, audio and speech adapters for iiLocalDiffusion,
+iiAudioGen and iiVoiceOver. iiLocalLLM 0.56 provides inference without an agent or
+iiDecision dependency. The installer discovers the module and orders its six SDK
+dependencies automatically. Windows build metadata includes the same dependency edges.
+The independent repository is registered in `workspace-repositories.json`, alongside
+`iiNetwork` and `LVUI`, so Git-based workspace synchronization includes their sources.
+
+## Source publication coverage
+
+The clone manifest includes every implemented SDK module. Empty project placeholders
+remain directories. Shared performance inventory tools, review documents and C++23
+benchmark sources are tracked in this repository; generated `build/` trees and Python
+bytecode remain excluded. Verify module registration and source/output exclusions with:
+
+```sh
+python3 -B -m unittest discover -s tests -p 'test_sdk_publication.py' -v
+```
+
+Helper consumer checks accept package requirements at 0.10.0 or newer, including
+compatible patch releases, while rejecting retired package names and targets.

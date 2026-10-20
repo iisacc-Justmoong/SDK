@@ -43,8 +43,9 @@ SDK를 갱신하고 PowerShell 도구를 실행한다. 실제 도구 실행 전�
 
 동기화 결과는 `~/Workspace/build/workspace-sync/report.json`에 저장한다.
 각 저장소를 처리하기 전에 `SYNC`, 성공 시 `VERIFIED`, 실패 시 Git 오류와
-함께 `FAILED`를 표시한다. 보고서의 `complete: true`, `verified: 42`, `total: 42`가
-현재 매니페스트의 전체 동기화 성공 조건이다. 재실행하면 완료한 클론을 재사용한다.
+함께 `FAILED`를 표시한다. 보고서의 `complete: true`와 `verified`·`total` 값이 현재 매니페스트의
+저장소 수와 모두 일치하는 것이 전체 동기화 성공 조건이다. iiMultimodalAgent,
+iiNetwork와 LVUI도 독립 저장소로 동기화한다. 재실행하면 완료한 클론을 재사용한다.
 모든 저장소의 `HEAD`가 해당 GitHub 브랜치와 일치하고 작업 트리가 깨끗한
 경우에만 성공한다. 기록한 맥 커밋이 GitHub의 최신 커밋에 포함되는지도
 검증하므로, 매니페스트 이후 추가된 정상적인 커밋은 함께 받을 수 있다.
