@@ -109,3 +109,11 @@ python3 -B -m unittest discover -s tests -p 'test_sdk_publication.py' -v
 
 Helper consumer checks accept package requirements at 0.10.0 or newer, including
 compatible patch releases, while rejecting retired package names and targets.
+
+## License
+
+SPDX-License-Identifier: MIT
+
+The original code and documentation in this repository are licensed under the
+[MIT License](LICENSE). Third-party code, libraries, fonts, tools, and model
+weights retain their respective licenses.
