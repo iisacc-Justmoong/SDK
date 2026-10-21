@@ -2,6 +2,11 @@
 
 # SDK batch reinstallation
 
+Public headers live beside their implementations in each module's source tree.
+Separate authored `include/` trees are prohibited; public include names and
+installed package layouts remain compatible. See [the source layout contract](docs/HeaderLayout.md)
+and run `python3 -B tests/test_source_header_layout.py` from this directory.
+
 Windows의 의존성 순서 빌드·전체 실행 검증·설치는 [Windows SDK 검증](Windows/README.md)을 따른다. 각 SDK의 README에는 해당 프로젝트의 Windows 빌드 및 실행 지침을 연결한다.
 
 [`iiFileProvider`](iiFileProvider/README.md) 0.6.0 owns common file creation,

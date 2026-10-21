@@ -1,0 +1,138 @@
+{
+  "modules": [
+    {
+      "module": "LVUI",
+      "publicHeaders": [
+        "src/LVUI/Document.h"
+      ]
+    },
+    {
+      "module": "iiActorObject",
+      "publicHeaders": [
+        "src/iiActorObject/Actor.h",
+        "src/iiActorObject/ActorComponent.h",
+        "src/iiActorObject/SceneComponent.h",
+        "src/iiActorObject/Transform.h",
+        "src/iiActorObject/Usd.h"
+      ]
+    },
+    {
+      "module": "iiCalendar",
+      "publicHeaders": [
+        "src/iiCalendar/Accounts.h",
+        "src/iiCalendar/Calendar.h",
+        "src/iiCalendar/Date.h",
+        "src/iiCalendar/Event.h",
+        "src/iiCalendar/ExternalCalendar.h",
+        "src/iiCalendar/IisaccAccount.h",
+        "src/iiCalendar/Store.h",
+        "src/iiCalendar/Time.h",
+        "src/iiCalendar/TimeZone.h",
+        "src/iiCalendar/View.h",
+        "src/iiCalendar/iiCalendar.h"
+      ]
+    },
+    {
+      "module": "iiColorManager",
+      "publicHeaders": [
+        "src/iiColorManager/ColorManager.h"
+      ]
+    },
+    {
+      "module": "iiGUI",
+      "publicHeaders": [
+        "src/iiGUI/Graphics.h",
+        "src/iiGUI/Host.h",
+        "src/iiGUI/LVUI.h",
+        "src/iiGUI/iiGUI.h"
+      ]
+    },
+    {
+      "module": "iiJson",
+      "publicHeaders": [
+        "src/iiJson/Json.h"
+      ]
+    },
+    {
+      "module": "iiLicenseManager",
+      "publicHeaders": [
+        "Native/src/iiLicenseManager/NativeLicenseClient.h",
+        "src/iiLicenseManager/Export.h",
+        "src/iiLicenseManager/LicenseClient.h"
+      ]
+    },
+    {
+      "module": "iiNetwork",
+      "publicHeaders": [
+        "src/iiNetwork/Address.h",
+        "src/iiNetwork/Application.h",
+        "src/iiNetwork/ByteStream.h",
+        "src/iiNetwork/Error.h",
+        "src/iiNetwork/Headers.h",
+        "src/iiNetwork/Http.h",
+        "src/iiNetwork/Layers.h",
+        "src/iiNetwork/Local.h",
+        "src/iiNetwork/Network.h",
+        "src/iiNetwork/Peer.h",
+        "src/iiNetwork/Presentation.h",
+        "src/iiNetwork/Relay.h",
+        "src/iiNetwork/Security.h",
+        "src/iiNetwork/Server.h",
+        "src/iiNetwork/Session.h",
+        "src/iiNetwork/Stack.h",
+        "src/iiNetwork/Tls.h",
+        "src/iiNetwork/Transport.h",
+        "src/iiNetwork/Wire.h"
+      ]
+    },
+    {
+      "module": "iiPhotoLibrary",
+      "publicHeaders": [
+        "src/iiPhotoLibrary/Album.h",
+        "src/iiPhotoLibrary/GooglePhotosAlbumSource.h",
+        "src/iiPhotoLibrary/PhotoController.h",
+        "src/iiPhotoLibrary/PhotoLibrary.h",
+        "src/iiPhotoLibrary/PhotoLibraryAlbumSource.h",
+        "src/iiPhotoLibrary/PhotoStore.h",
+        "src/iiPhotoLibrary/iiPhotoLibrary.h"
+      ]
+    },
+    {
+      "module": "iiSDKBuilder",
+      "publicHeaders": [
+        "src/iiSDKBuilder/Builder.h",
+        "src/iiSDKBuilder/Resources.h",
+        "src/iiSDKBuilder/iiSDKBuilder.h"
+      ]
+    },
+    {
+      "module": "iiSocialPublish",
+      "publicHeaders": [
+        "src/iiSocialPublish/Publishing.h"
+      ]
+    },
+    {
+      "module": "iiUpdateManager",
+      "publicHeaders": [
+        "Native/src/iiUpdateManager/NativeUpdateManager.h",
+        "src/iiUpdateManager/Export.h",
+        "src/iiUpdateManager/UpdateCheckResult.h",
+        "src/iiUpdateManager/UpdateCredentialProvider.h",
+        "src/iiUpdateManager/UpdateManager.h",
+        "src/iiUpdateManager/UpdatePlatformAdapter.h"
+      ]
+    },
+    {
+      "module": "iiAcountManager",
+      "publicHeaders": [
+        "Native/src/iiAcountManager/NativeAccount.h"
+      ]
+    },
+    {
+      "module": "iiFileProvider",
+      "publicHeaders": [
+        "Compatibility/src/iiFileProviderCompatibility.h"
+      ]
+    }
+  ]
+}
