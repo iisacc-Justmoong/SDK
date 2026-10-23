@@ -351,6 +351,13 @@
       "branch": "main",
       "sourceCommit": "ff444c6274be660e0e8725e3e2caf39019980f32",
       "lfs": false
+    },
+    {
+      "path": "SDK/iiImageCodec",
+      "url": "https://github.com/iisacc-Justmoong/iiImageCodec.git",
+      "branch": "main",
+      "sourceCommit": "9a8392ea1ef5eac750945862632f1941b4ed5be9",
+      "lfs": false
     }
   ],
   "directories": [
