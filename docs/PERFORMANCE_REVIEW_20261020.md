@@ -137,7 +137,7 @@ the twelve implemented changes.
 | iiSocietyHelper | Filesystem identity and preview-version checks remain necessary. Separate media export work is preserved. |
 | iiSocietyGeneration | Backend-context serialization and cancellation/epoch handling are retained. Generated outputs continue through FileProvider. |
 | iiSocietyMonitor | Observation timestamps provide heartbeat/staleness information even if payload values are unchanged; changed sections are already compared. |
-| iiServerHost | Authentication, peer ownership and transport lifetime remain existing contracts. No unrelated thread-dispatch architecture was added. |
+| iiWebServer | Authentication, peer ownership and transport lifetime remain existing contracts. No unrelated thread-dispatch architecture was added. |
 | iiSocialPublish | Chunk bounds and remote-processing polling intervals are intentional. No shortened polling interval or unbounded batching was introduced. |
 | iiLocalDiffusion | Existing resident-weight and preview gating paths are retained. Native matrix/kernel loops are not classified as redundant merely because they are nested. |
 | iiAcountManager, iiLicenseManager, iiUpdateManager | Bounded configuration/identity/authentication validation is preserved; no unproven parse/result cache weakens account or update checks. |

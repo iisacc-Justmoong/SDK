@@ -537,7 +537,7 @@
       "install_prefix": "~/.local/SDK/iiSDKBuilder"
     },
     {
-      "name": "iiServerHost",
+      "name": "iiWebServer",
       "kind": "cmake",
       "tested_base_commit": "bc11b80f4003489210e9af658a0886591e4832ff",
       "source_fingerprint": "c0d27b755549b067de7421903647da3a7bd1192e433f4e33887439265c3bdbdf",
@@ -557,7 +557,7 @@
         "CMAKE_BUILD_TYPE": "Release"
       },
       "build_and_install": "passed",
-      "install_prefix": "~/.local/SDK/iiServerHost"
+      "install_prefix": "~/.local/SDK/iiWebServer"
     },
     {
       "name": "iiSocietyContainer",

@@ -25,7 +25,7 @@ class SocietyHelperModulesTests(unittest.TestCase):
         projects, _ = installer.discover(SDK)
         order = installer.ordered(projects)
         deps = projects["iiSocietyHelper"]["dependencies"]
-        self.assertTrue({"iiSDKCore", "iiSocietyContainer", "iiServerHost",
+        self.assertTrue({"iiSDKCore", "iiSocietyContainer", "iiWebServer",
                          "iiLocalDiffusion", "iiSharedCanvas"}.issubset(deps))
         for dependency in deps:
             self.assertLess(order.index(dependency), order.index("iiSocietyHelper"))

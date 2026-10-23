@@ -129,10 +129,11 @@
     "kind": "cmake",
     "dependencies": []
   },
-  "iiServerHost": {
+  "iiWebServer": {
     "kind": "cmake",
     "dependencies": [
-      "iiFileProvider"
+      "iiFileProvider",
+      "iiNetwork"
     ]
   },
   "iiSharedCanvas": {
@@ -160,7 +161,7 @@
       "iiSharedCanvas",
       "iiSocietyContainer",
       "iiSDKCore",
-      "iiServerHost",
+      "iiWebServer",
       "iiLocalDiffusion"
     ]
   },
@@ -206,6 +207,13 @@
       "iiLocalDiffusion",
       "iiLocalLLM",
       "iiVoiceOver"
+    ]
+  },
+  "iiNetwork": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiSDKCore",
+      "iiJson"
     ]
   }
 }

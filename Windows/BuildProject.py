@@ -30,10 +30,10 @@ def environment(key):
     env['ONNXRuntime_ROOT'] = str(ROOT/'Tools/ONNXRuntime/onnxruntime-win-x64-1.31.0')
     env['CMAKE_PREFIX_PATH'] = ';'.join(['C:/Qt/6.8.3/msvc2022_64', (ROOT / 'Tools/vcpkg/installed/x64-windows').as_posix()] + [path.as_posix() for path in prefixes])
     env['PATH'] = os.pathsep.join(sorted({str(p.parent) for p in build.rglob('*.dll')}) + [str(ROOT/'Tools/Rust/cargo/bin'), str(Path(env['ONNXRuntime_ROOT'])/'lib')] + [str(path / 'bin') for path in prefixes] + [env['PATH']])
-    if key == 'SDK/iiServerHost':
+    if key == 'SDK/iiWebServer':
         env['PYTHONPATH'] = str(ROOT/'Tools/python-serverhost') + os.pathsep + env.get('PYTHONPATH', '')
-        env['IISERVERHOST_TEST_FTP_PYTHON'] = str(ROOT/'Tools/PythonServerHost/Scripts/python.exe')
-        env['IISERVERHOST_TEST_RCLONE'] = str(ROOT/'Tools/Rclone/rclone-v1.75.2-windows-amd64/rclone.exe')
+        env['IIWEBSERVER_TEST_FTP_PYTHON'] = str(ROOT/'Tools/PythonServerHost/Scripts/python.exe')
+        env['IIWEBSERVER_TEST_RCLONE'] = str(ROOT/'Tools/Rclone/rclone-v1.75.2-windows-amd64/rclone.exe')
         env['CURL_SSL_BACKEND'] = 'openssl'
     return env
 

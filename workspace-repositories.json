@@ -164,8 +164,8 @@
       "lfs": false
     },
     {
-      "path": "SDK/iiServerHost",
-      "url": "https://github.com/iisacc-Justmoong/iiServerHost.git",
+      "path": "SDK/iiWebServer",
+      "url": "https://github.com/iisacc-Justmoong/iiWebServer.git",
       "branch": "master",
       "sourceCommit": "b664c0e8515a0eae2e4c9fc553640096b7929749",
       "lfs": false

@@ -1,5 +1,7 @@
 # Windows SDK 전체 검증 기록 — 2026-10-20
 
+
+> iiWebServer의 이 기록은 네트워크 전환 이전 커밋의 실행 결과이다. 현재 iiNetwork 전환의 Windows 실행 검증으로 재사용하지 않는다.
 활성 SDK 36개를 의존성 순서로 Release 구성·빌드·실행·설치하였고, 전체 성공을 확인한 뒤 각 SDK 저장소를 커밋·푸시하였다. 아래 36개 원격 branch의 commit을 실제 조회하여 로컬 HEAD와 일치함을 확인하였다. Deprecated와 Utility 및 Product는 이번 범위에서 제외하였다.
 
 검증 완료: `2026-10-20T02:58:56.591336+09:00`. 이 기록은 명시된 commit과 Windows 지원 구성의 실행 증거이다.
@@ -38,7 +40,7 @@
 | iiLocalLLM | 73 | 0 | 성공 | [2dac6095de](https://github.com/iisacc-Justmoong/iiLocalLLM/commit/2dac6095de8ccd7d18c1ed7c1100c8ef1d4b82ea) |
 | iiPaintEngine | 48 | 0 | 성공 | [671518df9a](https://github.com/iisacc-Justmoong/iiPaintEngine/commit/671518df9a14fe923851ab37dd629dfbe3c78c04) |
 | iiSDKBuilder | 14 | 0 | 성공 | [3ff70ba352](https://github.com/iisacc-Justmoong/iiSDKBuilder/commit/3ff70ba352a574d935e423378882b511503ee43c) |
-| iiServerHost | 12 | 0 | 성공 | [b664c0e851](https://github.com/iisacc-Justmoong/iiServerHost/commit/b664c0e8515a0eae2e4c9fc553640096b7929749) |
+| iiWebServer | 12 | 0 | 성공 | [b664c0e851](https://github.com/iisacc-Justmoong/iiWebServer/commit/b664c0e8515a0eae2e4c9fc553640096b7929749) |
 | iiSocietyContainer | 19 | 0 | 성공 | [cc58fa0ee2](https://github.com/iisacc-Justmoong/iiSocietyContainer/commit/cc58fa0ee23232a09c786a616eae1662fd87a95a) |
 | iiUpdateManager | 4 | 0 | 성공 | [5cb478584c](https://github.com/iisacc-Justmoong/iiUpdateManager/commit/5cb478584cb010f35c40159a0c055885c3371a0a) |
 | iiVoiceOver | 5 | 0 | 성공 | [3295a89854](https://github.com/iisacc-Justmoong/iiVoiceOver/commit/3295a898546387f7f381986b4263ebf7908a90fe) |

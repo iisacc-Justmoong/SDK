@@ -32,7 +32,7 @@ component from 0.8.0 to 0.8.1 and Core I/O adapter from 0.1.0 to 0.1.1.
 | iiPhotoLibrary | 0.1.0 | 0.1.1 |
 | iiSDKBuilder | 0.2.0 | 0.2.1 |
 | iiSDKCore | 0.18.0 | 0.18.1 |
-| iiServerHost | 0.6.0 | 0.6.1 |
+| iiWebServer | 0.6.0 | 0.6.1 |
 | iiSharedCanvas | 0.31.0 | 0.31.1 |
 | iiSocialPublish | 0.1.0 | 0.1.1 |
 | iiSocietyContainer | 0.16.1 | 0.16.2 |
