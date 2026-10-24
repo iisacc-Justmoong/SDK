@@ -1,5 +1,6 @@
 """The release gate must fail closed without running builds or changing Git."""
 import copy
+import json
 import os
 import importlib.util
 from pathlib import Path
@@ -8,6 +9,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 path = Path(__file__).resolve().parents[1]/'Windows/Verify.py'
 spec = importlib.util.spec_from_file_location('windows_verification', path)
@@ -16,6 +18,101 @@ spec.loader.exec_module(verification)
 
 
 class WindowsVerificationTests(unittest.TestCase):
+    @unittest.skipUnless(os.name == 'nt', 'Windows SDK environment helper')
+    def test_owned_foundation_dll_directory_precedes_transitive_runtime_copies(self):
+        spec = importlib.util.spec_from_file_location('sdk_builder_runtime_order_test', path.parent/'BuildProject.py')
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
+        build_root = path.parents[1]/'build'
+        build_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix='windows-runtime-', dir=build_root) as temporary:
+            root = Path(temporary)
+            core = root/'.local/SDK/iiSDKCore/bin'
+            consumer = root/'.local/SDK/iiSDKBuilder/bin'
+            core.mkdir(parents=True)
+            consumer.mkdir(parents=True)
+            with patch.object(builder, 'ROOT', root), \
+                    patch.dict(os.environ, {'USERPROFILE': str(root), 'PATH': str(consumer)}):
+                paths = builder.environment('SDK/iiGUI')['PATH'].split(os.pathsep)
+            self.assertLess(paths.index(str(core)), paths.index(str(consumer)))
+
+    @unittest.skipUnless(os.name == 'nt', 'Windows SDK environment helper')
+    def test_dependencies_precede_fresh_nested_outputs_and_unrelated_runtime_copies_follow(self):
+        spec = importlib.util.spec_from_file_location('sdk_builder_nested_runtime_test', path.parent/'BuildProject.py')
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
+        build_root = path.parents[1]/'build'
+        build_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix='windows-nested-runtime-', dir=build_root) as temporary:
+            root = Path(temporary)
+            core = root/'.local/SDK/iiSDKCore/bin'
+            consumer = root/'.local/SDK/iiSDKBuilder/bin'
+            native = root/'SDK/iiFileProvider/build/Native'
+            for directory in (core, consumer, native):
+                directory.mkdir(parents=True)
+            (native/'iiFileProviderNative.dll').write_bytes(b'fixture')
+            with patch.object(builder, 'ROOT', root), \
+                    patch.dict(os.environ, {'USERPROFILE': str(root), 'PATH': str(consumer)}):
+                paths = builder.environment('SDK/iiFileProvider')['PATH'].split(os.pathsep)
+            self.assertLess(paths.index(str(core)), paths.index(str(native)))
+            self.assertLess(paths.index(str(native)), paths.index(str(consumer)))
+
+    @unittest.skipUnless(os.name == 'nt', 'Windows SDK environment helper')
+    def test_nested_build_environment_does_not_repeat_sdk_or_system_paths(self):
+        spec = importlib.util.spec_from_file_location('sdk_builder_environment_test', path.parent/'BuildProject.py')
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
+        build_root = path.parents[1]/'build'
+        build_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix='windows-path-', dir=build_root) as temporary:
+            root = Path(temporary)
+            prefix = root/'.local/SDK/example'
+            (prefix/'bin').mkdir(parents=True)
+            original_path = os.pathsep.join([str(prefix/'bin'), 'C:/Windows/System32',
+                                             str(prefix/'bin'), 'C:/Windows/System32'])
+            with patch.object(builder, 'ROOT', root), \
+                    patch.dict(os.environ, {'USERPROFILE': str(root), 'PATH': original_path}):
+                result = builder.environment('SDK/LVRS-Svelte')
+            entries = result['PATH'].split(os.pathsep)
+            normalized = [os.path.normcase(os.path.normpath(entry)) for entry in entries]
+            self.assertEqual(len(normalized), len(set(normalized)))
+            self.assertIn(os.path.normcase(os.path.normpath(str(prefix/'bin'))), normalized)
+            self.assertIn(os.path.normcase(os.path.normpath('C:/Windows/System32')), normalized)
+
+    @unittest.skipUnless(os.name == 'nt', 'Windows SDK configure helper')
+    def test_relocated_checkout_discards_the_old_cmake_source_cache(self):
+        spec = importlib.util.spec_from_file_location('sdk_builder_relocation_test', path.parent/'BuildProject.py')
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
+        build_root = path.parents[1]/'build'
+        build_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix='windows-relocation-', dir=build_root) as temporary:
+            root = Path(temporary)
+            build = root/'SDK/iiWebServer/build'
+            build.mkdir(parents=True)
+            (build/'CMakeCache.txt').write_text(
+                'CMAKE_GENERATOR:INTERNAL=Ninja\nCMAKE_CXX_COMPILER:FILEPATH=C:/Compiler/cl.exe\n'
+                'CMAKE_HOME_DIRECTORY:INTERNAL=C:/old/SDK/iiServerHost\n', encoding='utf-8')
+            with patch.object(builder, 'ROOT', root), patch.object(builder.shutil, 'which', return_value='C:/Compiler/cl.exe'), \
+                    patch.object(builder, 'environment', return_value={'CMAKE_PREFIX_PATH': ''}), \
+                    patch.dict(os.environ, {'DOKAN_ROOT': str(root/'dokan')}), \
+                    patch.object(builder, 'run', return_value={'exit_code': 1}) as run:
+                builder.configure('SDK/iiWebServer', [])
+            self.assertIn('--fresh', run.call_args.args[2])
+
+    def test_every_buildable_sdk_is_registered_and_native_ui_is_ordered(self):
+        sdk = path.parents[1]
+        projects = json.loads((path.parent/'projects.json').read_text(encoding='utf-8'))
+        discovered = {directory.name for directory in sdk.iterdir() if directory.is_dir()
+                      and any((directory/marker).is_file() for marker in ('CMakeLists.txt', 'package.json'))}
+        self.assertEqual(set(projects), discovered)
+        order = verification.dependency_order(projects)
+        for dependency, consumer in [('iiSDKCore', 'LVUI'), ('LVUI', 'iiGUI'),
+                                     ('iiGUI', 'LVRS'), ('iiImageCodec', 'iiSharedCanvas')]:
+            with self.subTest(dependency=dependency, consumer=consumer):
+                self.assertIn(dependency, projects[consumer]['dependencies'])
+                self.assertLess(order.index(dependency), order.index(consumer))
+
     @unittest.skipUnless(os.name == 'nt' and shutil.which('cl.exe'), 'Requires the Windows MSVC development shell')
     def test_clean_native_build_and_changed_header_relink_the_consumer(self):
         build_root = path.parents[1]/'build'
@@ -96,6 +193,62 @@ class WindowsVerificationTests(unittest.TestCase):
         self.assertFalse(verification.runtime_passed('one', receipt))
         receipt['steps'][1]['tests']['passed'] = 1
         self.assertFalse(verification.runtime_passed('one', receipt))
+
+    def test_failed_prerequisites_block_consumers_and_leave_independent_projects_runnable(self):
+        results = {'good': self.receipt(), 'bad': {'status': 'build-failed', 'steps': []},
+                   'blocked': {'status': 'dependency-failed', 'steps': []}}
+        self.assertEqual(verification.failed_dependencies({'dependencies': ['good', 'bad']}, results), ['bad'])
+        self.assertEqual(verification.failed_dependencies({'dependencies': ['blocked']}, results), ['blocked'])
+        self.assertEqual(verification.failed_dependencies({'dependencies': ['good']}, results), [])
+        self.assertEqual(verification.failed_dependencies({'dependencies': []}, results), [])
+        self.assertEqual(verification.failed_dependencies({'dependencies': ['external']}, results), [])
+
+    def test_changed_prerequisite_invalidates_already_executed_transitive_consumers(self):
+        projects = {'base': {'dependencies': []}, 'middle': {'dependencies': ['base']},
+                    'app': {'dependencies': ['middle']}, 'independent': {'dependencies': []}}
+        results = {name: self.receipt() for name in projects}
+        results['base']['status'] = 'stale-source'
+        verification.propagate_invalid_dependencies(projects, results)
+        self.assertEqual(results['middle']['status'], 'dependency-failed')
+        self.assertEqual(results['middle']['blocked_by'], ['base'])
+        self.assertEqual(results['app']['status'], 'dependency-failed')
+        self.assertTrue(verification.runtime_passed('independent', results['independent']))
+        self.assertFalse(verification.all_passed(projects, results))
+
+    def test_every_additional_configuration_must_execute_and_pass(self):
+        receipt = self.receipt()
+        second = copy.deepcopy(receipt['steps'][1])
+        second['phase'] = 'qt-test'
+        receipt['steps'].append(second)
+        self.assertTrue(verification.runtime_passed('LVRS', receipt))
+        for tests in ({'total': 0, 'passed': 0, 'failed': [], 'skipped': []},
+                      {'total': 1, 'passed': 0, 'failed': ['qt'], 'skipped': []},
+                      {'total': 1, 'passed': 0, 'failed': [], 'skipped': ['qt']}):
+            with self.subTest(tests=tests):
+                second['tests'] = tests
+                self.assertFalse(verification.runtime_passed('LVRS', receipt))
+
+    @unittest.skipUnless(os.name == 'nt', 'Windows SDK environment helper')
+    def test_qt_consumers_choose_the_separate_lvrs_prefix(self):
+        spec = importlib.util.spec_from_file_location('sdk_builder_qt_test', path.parent/'BuildProject.py')
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
+        build_root = path.parents[1]/'build'
+        build_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix='windows-qt-', dir=build_root) as temporary:
+            root = Path(temporary)
+            prefix = root/'.local/SDK/LVRS'
+            (prefix/'bin').mkdir(parents=True)
+            (prefix/'qt/bin').mkdir(parents=True)
+            with patch.object(builder, 'ROOT', root), patch.dict(os.environ, {'USERPROFILE': str(root)}):
+                qt = builder.environment('SDK/iiAcountManager')
+                native = builder.environment('SDK/LVRS')
+                configurations = builder.additional_configurations('SDK/LVRS')
+            self.assertIn((prefix/'qt').as_posix(), qt['CMAKE_PREFIX_PATH'].split(';'))
+            self.assertNotIn(prefix.as_posix(), qt['CMAKE_PREFIX_PATH'].split(';'))
+            self.assertIn(str(prefix/'qt/bin'), qt['PATH'].split(os.pathsep))
+            self.assertNotIn((prefix/'qt').as_posix(), native['CMAKE_PREFIX_PATH'].split(';'))
+            self.assertEqual(configurations[0][3], prefix/'qt')
 
     def test_only_known_unavailable_accelerators_may_skip(self):
         receipt = self.receipt()

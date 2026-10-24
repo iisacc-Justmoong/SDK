@@ -44,18 +44,36 @@ def runtime_passed(name, result):
         return False
     if any(step.get('exit_code') != 0 for step in result['steps']):
         return False
-    tests = next((step['tests'] for step in result['steps'] if step.get('tests')), None)
-    if not tests or tests.get('passed', 0) < 1 or tests.get('failed'):
+    suites = [step['tests'] for step in result['steps'] if 'tests' in step]
+    if not suites:
         return False
-    if tests.get('total') != tests['passed'] + len(tests.get('skipped', [])):
-        return False
-    if set(tests.get('skipped', [])) - OPTIONAL_SKIPS.get(name, set()):
-        return False
+    for tests in suites:
+        if tests.get('passed', 0) < 1 or tests.get('failed'):
+            return False
+        if tests.get('total') != tests['passed'] + len(tests.get('skipped', [])):
+            return False
+        if set(tests.get('skipped', [])) - OPTIONAL_SKIPS.get(name, set()):
+            return False
     return True
 
 
 def all_passed(projects, results):
     return bool(projects) and set(projects) == set(results) and all(runtime_passed(name, results[name]) for name in projects)
+
+
+def failed_dependencies(project, results):
+    return [name for name in project['dependencies']
+            if name in results and not runtime_passed(name, results[name])]
+
+
+def propagate_invalid_dependencies(projects, results):
+    for name in dependency_order(projects):
+        if name not in results:
+            continue
+        blocked = failed_dependencies(projects[name], results)
+        if blocked:
+            results[name]['status'] = 'dependency-failed'
+            results[name]['blocked_by'] = blocked
 
 
 def fingerprint(name):
@@ -156,6 +174,17 @@ def main():
             continue
         stamp = fingerprint(name)
         dependency_stamps = {dependency: fingerprint(dependency) for dependency in projects[name]['dependencies']}
+        for dependency, current_stamp in dependency_stamps.items():
+            parent = report['projects'].get(dependency)
+            if parent and parent.get('source') != current_stamp:
+                parent['status'] = 'stale-source'
+        blocked = failed_dependencies(projects[name], report['projects'])
+        if blocked:
+            report['projects'][name] = {'status': 'dependency-failed', 'blocked_by': blocked,
+                                        'steps': [], 'source': stamp, 'dependencies': dependency_stamps}
+            print('BLOCKED', name, ', '.join(blocked), flush=True)
+            save()
+            continue
         previous = prior.get('projects', {}).get(name, {})
         if prior.get('toolchain') == report['toolchain'] and previous.get('source') == stamp and previous.get('dependencies') == dependency_stamps and runtime_passed(name, previous):
             report['projects'][name] = previous
@@ -179,16 +208,17 @@ def main():
         save()
         if not runtime_passed(name, result):
             print('FAILED', name, result['status'], flush=True)
-            return 1
     report['finished_at'] = datetime.datetime.now().astimezone().isoformat()
     for name, result in report['projects'].items():
         if result['source'] != fingerprint(name) or any(stamp != fingerprint(dependency) for dependency, stamp in result['dependencies'].items()):
             result['status'] = 'stale-source'
+    propagate_invalid_dependencies(projects, report['projects'])
     report['all_projects_executed_successfully'] = all_passed(projects, report['projects'])
     report['commit_and_push_allowed'] = report['all_projects_executed_successfully']
     save()
     print('ALL SDKs PASSED' if report['commit_and_push_allowed'] else 'PARTIAL VERIFICATION; commit/push gate remains closed', flush=True)
-    return 0 if report['commit_and_push_allowed'] or args.only else 1
+    selected = {name: project for name, project in projects.items() if not args.only or name in args.only}
+    return 0 if all_passed(selected, report['projects']) else 1
 
 
 if __name__ == '__main__':

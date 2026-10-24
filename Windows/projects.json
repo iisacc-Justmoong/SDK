@@ -69,7 +69,8 @@
   "iiGUI": {
     "kind": "cmake",
     "dependencies": [
-      "iiSDKCore"
+      "iiSDKCore",
+      "LVUI"
     ]
   },
   "iiHtmlBlock": {
@@ -140,7 +141,9 @@
     "kind": "cmake",
     "dependencies": [
       "iiFileProvider",
-      "iiPaintEngine"
+      "iiPaintEngine",
+      "iiImageCodec",
+      "iiSDKCore"
     ]
   },
   "iiSocialPublish": {
@@ -191,7 +194,9 @@
   "LVRS": {
     "kind": "cmake",
     "dependencies": [
-      "iiFileProvider"
+      "iiFileProvider",
+      "iiGUI",
+      "iiSDKCore"
     ]
   },
   "LVRS-Svelte": {
@@ -215,5 +220,13 @@
       "iiSDKCore",
       "iiJson"
     ]
+  },
+  "LVUI": {
+    "kind": "cmake",
+    "dependencies": ["iiSDKCore"]
+  },
+  "iiImageCodec": {
+    "kind": "cmake",
+    "dependencies": []
   }
 }

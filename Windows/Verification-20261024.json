@@ -1,0 +1,1175 @@
+{
+  "audited_at": "2026-10-24T23:57:26.297007+09:00",
+  "configuration": "Windows x64 / MSVC / Ninja / Release / C++23",
+  "verification_report": "C:\\Users\\andud\\Workspace\\build\\maintenance\\20261024-windows-sdk-final\\verification.json",
+  "toolchain": "b62f475e8d61f97e76baf89fae73850a997c180d670cf053fa2ed38ce038bb81",
+  "projects": {
+    "iiAcountManager": {
+      "status": "installed",
+      "head": "cd7c1a93a0bd174cb09d7b76d285c5c1aaa0c270",
+      "source": "887a296920c4a42b4d08da334b842c82ffb9cb59839fbd51d0525a75ac6fb7a8",
+      "passed": 6,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 6,
+          "passed": 6,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiAcountManager",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiAcountManager\\build\\install_manifest.txt",
+          "files": 38
+        }
+      ],
+      "local_changes": []
+    },
+    "iiActorObject": {
+      "status": "installed",
+      "head": "21e4dc163ef1505ebdffd2ebf8104f12ed48faf1",
+      "source": "3d7d4e8c4e42c3b556a34b1542c4dd52a5820da0a31172e95351148208ee17ef",
+      "passed": 34,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 34,
+          "passed": 34,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiActorObject",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiActorObject\\build\\install_manifest.txt",
+          "files": 26
+        }
+      ],
+      "local_changes": []
+    },
+    "iiAudioGen": {
+      "status": "installed",
+      "head": "fe4933cdf8395c5429768d383ef49c4c8ebd5221",
+      "source": "ed960ca33eb13cc94ce2588ba598bb82620f85573cb3daa29858148553028cdd",
+      "passed": 7,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 7,
+          "passed": 7,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiAudioGen",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiAudioGen\\build\\install_manifest.txt",
+          "files": 16
+        }
+      ],
+      "local_changes": []
+    },
+    "iiCalendar": {
+      "status": "installed",
+      "head": "c8d431dbbe8a378a520044f4055c25a6bcdc277c",
+      "source": "952e430d23d0e2a8127d0c6fa66c45c80d83e6b45b089413c77d532a3a12c182",
+      "passed": 14,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 14,
+          "passed": 14,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiCalendar",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiCalendar\\build\\install_manifest.txt",
+          "files": 26
+        }
+      ],
+      "local_changes": []
+    },
+    "iiCameraIntergration": {
+      "status": "installed",
+      "head": "4ca7749f4e0a497c2c374b0c9a8a79e71e26f1ac",
+      "source": "9bc77d479a35f3aad87c850f0142714287fd305921b7d284319b0088bb73c9d5",
+      "passed": 26,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 26,
+          "passed": 26,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiCameraIntergration",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiCameraIntergration\\build\\install_manifest.txt",
+          "files": 28
+        }
+      ],
+      "local_changes": []
+    },
+    "iiColorManager": {
+      "status": "installed",
+      "head": "7098b7a45b70475726d87f3f0ace893ebb8be039",
+      "source": "49769543912e2259dafe31fe7193387deb76f23c8a98fbeaef4ccb0d1b0a6853",
+      "passed": 6,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 6,
+          "passed": 6,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiColorManager",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiColorManager\\build\\install_manifest.txt",
+          "files": 14
+        }
+      ],
+      "local_changes": []
+    },
+    "iiCSMIDI": {
+      "status": "installed",
+      "head": "5b3b3c688114d5dace35b604bfbe3ef55a3c2246",
+      "source": "f17aa8e61352a12b1453f6943a83fcbb2fedf7933da3ea6332384c94ff39098c",
+      "passed": 4,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 4,
+          "passed": 4,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiCSMIDI",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiCSMIDI\\build\\install_manifest.txt",
+          "files": 15
+        }
+      ],
+      "local_changes": []
+    },
+    "iiDecision": {
+      "status": "installed",
+      "head": "18011dd7ff1a2b8532cbfe4d9175b40bc2e42e37",
+      "source": "21fd0f81cfa2a3deebea6cb1f5e69e4b9b50afefb8be630c5edb0f7ecec20806",
+      "passed": 38,
+      "skipped": [
+        "iiDecision.Acceleration.metal",
+        "iiDecision.Acceleration.mlx",
+        "iiDecision.Acceleration.opencl",
+        "iiDecision.Acceleration.onnx"
+      ],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 42,
+          "passed": 38,
+          "failed": [],
+          "skipped": [
+            "iiDecision.Acceleration.metal",
+            "iiDecision.Acceleration.mlx",
+            "iiDecision.Acceleration.opencl",
+            "iiDecision.Acceleration.onnx"
+          ]
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiDecision",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiDecision\\build\\install_manifest.txt",
+          "files": 30
+        }
+      ],
+      "local_changes": []
+    },
+    "iiDeviceMultimedia": {
+      "status": "installed",
+      "head": "71b6d0ac6bb7cec445a560c5eb7d39c9f3057221",
+      "source": "d2ed56880179d81ea183ded15304492211291f11191c8feaabbe549ab1e04338",
+      "passed": 6,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 6,
+          "passed": 6,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiDeviceMultimedia",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiDeviceMultimedia\\build\\install_manifest.txt",
+          "files": 16
+        }
+      ],
+      "local_changes": []
+    },
+    "iiFileProvider": {
+      "status": "installed",
+      "head": "11cc7af6a375e9f87b9854c9f62cf5d1b5f28f96",
+      "source": "be3963ff3f1f861086d70c2c07614e00fa29c4d42d03d04a103bfe3ab9cfd007",
+      "passed": 50,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 49,
+          "passed": 49,
+          "failed": [],
+          "skipped": []
+        },
+        {
+          "phase": "compatibility-test",
+          "total": 1,
+          "passed": 1,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiFileProvider",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiFileProvider\\build\\install_manifest.txt",
+          "files": 93
+        },
+        {
+          "configuration": "compatibility",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiFileProvider",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiFileProvider\\build\\compatibility\\build\\install_manifest.txt",
+          "files": 6
+        }
+      ],
+      "local_changes": [
+        "M Compatibility/README.md",
+        " M Native/src/Presentation.cpp",
+        " M tests/python_adapter.py",
+        "?? docs/WindowsChangeTokens.md",
+        "?? docs/WindowsCompatibility.md"
+      ]
+    },
+    "iiGeneralDocument": {
+      "status": "installed",
+      "head": "74d174f0d0ff3a37eb6b7bce50b05d3cd61eb052",
+      "source": "c17301e76d48b8aeca7314a1a1011454f5237f28a88dc8e5e2e810809fd93a74",
+      "passed": 31,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 31,
+          "passed": 31,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiGeneralDocument",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiGeneralDocument\\build\\install_manifest.txt",
+          "files": 73
+        }
+      ],
+      "local_changes": []
+    },
+    "iiGraphicAdjust": {
+      "status": "installed",
+      "head": "0d31845160610cb2a4613c248d4469a9c3e1e671",
+      "source": "fd3ead8ac92fd29085cd2f03da32072f069904108cb6cbbfe2d3bf22b8e41dd0",
+      "passed": 202,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 202,
+          "passed": 202,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiGraphicAdjust",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiGraphicAdjust\\build\\install_manifest.txt",
+          "files": 113
+        }
+      ],
+      "local_changes": []
+    },
+    "iiGUI": {
+      "status": "installed",
+      "head": "3022a8cacf913458d89d0531b4e9a10cd6914942",
+      "source": "85c49ebac2d57acba468744ef0783d7ae4021090058ba1e3fcacdfc0ffeced17",
+      "passed": 138,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 138,
+          "passed": 138,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiGUI",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiGUI\\build\\install_manifest.txt",
+          "files": 99
+        }
+      ],
+      "local_changes": [
+        "M CMakeLists.txt",
+        " M docs/desktop.md",
+        " M resources/lvrs-native-appearance.json",
+        " M src/iiGUI/CanvasWindows.cpp",
+        " M src/iiGUI/DesktopWindows.cpp",
+        " M src/iiGUI/WidgetState.cpp",
+        " M tests/composition.cpp",
+        " M tests/content_host.cpp",
+        " M tests/host.cpp",
+        " M tests/lvui.cpp",
+        " M tests/text_input_provider.cpp",
+        " M tests/widget_interaction.cpp",
+        "?? docs/WindowsRegression.md",
+        "?? tests/desktop_windows.cpp"
+      ]
+    },
+    "iiHtmlBlock": {
+      "status": "installed",
+      "head": "a28282f0f95db8968ca40fd2ab52b6ceb92fbb33",
+      "source": "913dfd796d13de1c82c6bec5079feee73c646f160bca375814992448757e8bfb",
+      "passed": 13,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 13,
+          "passed": 13,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiHtmlBlock",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiHtmlBlock\\build\\install_manifest.txt",
+          "files": 17
+        }
+      ],
+      "local_changes": []
+    },
+    "iiJson": {
+      "status": "installed",
+      "head": "1a428a4135bf1f3d55173dd0cb075a4b9850dc3a",
+      "source": "6296e232d3c16fd1f2e372933639014f371e86f4b49c565cb7b1023776459641",
+      "passed": 2,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 2,
+          "passed": 2,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiJson",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiJson\\build\\install_manifest.txt",
+          "files": 10
+        }
+      ],
+      "local_changes": []
+    },
+    "iiLicenseManager": {
+      "status": "installed",
+      "head": "cdf9ae86a521c55dfcd2e2e6ccbad3607a10eb83",
+      "source": "c909be077066595a633dba4bb3b31998ae991ae51dc4aa48cb20cd7d552c4b99",
+      "passed": 2,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 2,
+          "passed": 2,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiLicenseManager",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiLicenseManager\\build\\install_manifest.txt",
+          "files": 11
+        }
+      ],
+      "local_changes": []
+    },
+    "iiLocalDiffusion": {
+      "status": "installed",
+      "head": "290507ecadcf5da66f0003c862528f1460e3cd24",
+      "source": "d2c6443d40425e60e707223c099a0157dbbd5676fa0fcc4cc7d0f77ae12d36d9",
+      "passed": 111,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 111,
+          "passed": 111,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiLocalDiffusion",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiLocalDiffusion\\build\\install_manifest.txt",
+          "files": 536
+        }
+      ],
+      "local_changes": [
+        "M reference/diffusers/native_image.py",
+        " M reference/diffusers/native_video.py",
+        " M reference/diffusers/standalone_image.py",
+        " M reference/diffusers/unified_image.py",
+        " M tests/BackendRegistryTests.py",
+        " M tests/DownloadedModelTests.py",
+        " M tests/ModelInspectionTests.py",
+        " M tests/ModelPackagingTests.py",
+        " M tests/NativeImageTests.py",
+        " M tests/StandaloneImageTests.py",
+        " M tests/UnifiedImageTests.py",
+        " M tools/iild-model-package/main.cpp",
+        "?? docs/WindowsPackaging.md"
+      ]
+    },
+    "iiLocalLLM": {
+      "status": "installed",
+      "head": "904d4f98d6d03c951a36458d764b64b69a87cd3d",
+      "source": "6fba4b129115144a264ae960b8a4bd56a398c9a44d2dd63178924dd79a140f4e",
+      "passed": 11,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 11,
+          "passed": 11,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiLocalLLM",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiLocalLLM\\build\\install_manifest.txt",
+          "files": 141
+        }
+      ],
+      "local_changes": []
+    },
+    "iiPaintEngine": {
+      "status": "installed",
+      "head": "d0d8f2e2ff832bbdaa7935abcd4323166a47a54c",
+      "source": "ed257e756f1541dc411ca8388d86bc7ccf8d6db134d83ae54daa2e8d014c4037",
+      "passed": 49,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 49,
+          "passed": 49,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiPaintEngine",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiPaintEngine\\build\\install_manifest.txt",
+          "files": 94
+        }
+      ],
+      "local_changes": []
+    },
+    "iiPhotoLibrary": {
+      "status": "installed",
+      "head": "dc7ba2fdbe7e9914797735068d021532c620043b",
+      "source": "222425e6334ff621adda8077985fdf774aec5f9b56d41a8992d27187bbcc35d2",
+      "passed": 8,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 8,
+          "passed": 8,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiPhotoLibrary",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiPhotoLibrary\\build\\install_manifest.txt",
+          "files": 34
+        }
+      ],
+      "local_changes": []
+    },
+    "iiSDKBuilder": {
+      "status": "installed",
+      "head": "2155ddb0a80f9c4e645831420403805feda32fa1",
+      "source": "3f2bdf869c185410f381c9a0828d3291f4e5c4a2b38fdd48ea851945f28fd57d",
+      "passed": 16,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 16,
+          "passed": 16,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiSDKBuilder",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiSDKBuilder\\build\\install_manifest.txt",
+          "files": 23
+        }
+      ],
+      "local_changes": []
+    },
+    "iiSDKCore": {
+      "status": "installed",
+      "head": "ec5288321ed2b6ae96c5319627adc4e6bd1a17ce",
+      "source": "ec3e073c10e61acc60e15ccf6f1d13434503df43c441c5b61ee9155d8a8a3ce5",
+      "passed": 58,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 58,
+          "passed": 58,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiSDKCore",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiSDKCore\\build\\install_manifest.txt",
+          "files": 117
+        }
+      ],
+      "local_changes": [
+        "M tests/architecture_policy.py",
+        " M tests/process.cpp",
+        " M tests/process_fixture.cpp",
+        " M tools/check_inheritance.py",
+        "?? docs/windows-architecture-check.md"
+      ]
+    },
+    "iiWebServer": {
+      "status": "installed",
+      "head": "8290b69c6c2063a66f0a65963d5310934dfd88c0",
+      "source": "4a6630f6d2cc32edffea2f5ae3911d9fb7db3077d2c15036b87b4a31791df269",
+      "passed": 16,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 16,
+          "passed": 16,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiWebServer",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiWebServer\\build\\install_manifest.txt",
+          "files": 50
+        }
+      ],
+      "local_changes": [
+        "M tests/http_cli.py",
+        " M tools/http.cpp",
+        "?? docs/WindowsShutdown.md"
+      ]
+    },
+    "iiSharedCanvas": {
+      "status": "installed",
+      "head": "30ae0f88b731329e2a7fa5fa7eeb298500d332fa",
+      "source": "876af8673efe323f18b4cde4c9c351b1ac29e7844af23d476bb297aa4c294dc2",
+      "passed": 89,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 67,
+          "passed": 67,
+          "failed": [],
+          "skipped": []
+        },
+        {
+          "phase": "native-test",
+          "total": 21,
+          "passed": 21,
+          "failed": [],
+          "skipped": []
+        },
+        {
+          "phase": "native-consumer-test",
+          "total": 1,
+          "passed": 1,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiSharedCanvas",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiSharedCanvas\\build\\install_manifest.txt",
+          "files": 107
+        },
+        {
+          "configuration": "native",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiSharedCanvas\\native",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiSharedCanvas\\build\\native\\build\\install_manifest.txt",
+          "files": 47
+        }
+      ],
+      "local_changes": [
+        "M CMakeLists.txt",
+        " M cmake/iiSharedCanvasNative.cmake",
+        " M src/File/DocumentFile.cpp",
+        " M src/Native/DocumentFile.cpp",
+        " M tests/AsyncFrameRendererTest.cpp",
+        " M tests/ProjectContractTest.cmake",
+        " M tests/PsdExportCliTest.cpp",
+        " M tests/SourceAccessTest.cpp",
+        " M tools/iisc-export-psd.cpp",
+        "?? docs/WindowsDocumentCommit.md",
+        "?? src/Document/DocumentCommit_p.hpp",
+        "?? tests/DocumentCommitTest.cpp"
+      ]
+    },
+    "iiSocialPublish": {
+      "status": "installed",
+      "head": "a8fe23b4896745d317d9237b2c1eb1115bc64fd9",
+      "source": "0f4d683f1e314e56a858f2c6b215d7e9ae659cf6a6862828ee34ee6d73c95901",
+      "passed": 17,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 17,
+          "passed": 17,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiSocialPublish",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiSocialPublish\\build\\install_manifest.txt",
+          "files": 16
+        }
+      ],
+      "local_changes": []
+    },
+    "iiSocietyContainer": {
+      "status": "installed",
+      "head": "ec4046f8a3844e508d4ba5c69dd8d71184094f58",
+      "source": "99b6fbd995232d9c032fdc00831a865a5c463f968160f18ae6bfdb21e19dd3d2",
+      "passed": 21,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 21,
+          "passed": 21,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiSocietyContainer",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiSocietyContainer\\build\\install_manifest.txt",
+          "files": 96
+        }
+      ],
+      "local_changes": [
+        "M CMakeLists.txt",
+        " M SharedStorage.cpp",
+        " M SocietyDrive.cpp",
+        " M StorageMaintenance.cpp",
+        " M src/iiSocietyContainer/DashboardFiles.cpp",
+        " M tests/dashboard.cpp",
+        " M tests/shared_storage.cpp",
+        " M tests/society_drive.cpp",
+        "?? docs/WindowsControlDirectories.md",
+        "?? docs/WindowsModelReadBoundary.md"
+      ]
+    },
+    "iiSocietyHelper": {
+      "status": "installed",
+      "head": "aaa62c865f758e865b3ae177c8134ad44029d65d",
+      "source": "c4fe004eccbac9f71b0100947faef3d46cbd9de54ea8de35982676394ad8af0d",
+      "passed": 27,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 27,
+          "passed": 27,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiSocietyHelper",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiSocietyHelper\\build\\install_manifest.txt",
+          "files": 71
+        }
+      ],
+      "local_changes": [
+        "M CMakeLists.txt",
+        " M src/FileSystem.cpp",
+        " M src/Helper.cpp",
+        " M tests/filesystem.cpp",
+        " M tests/observation.cpp",
+        "?? docs/WindowsCanvasDashboard.md",
+        "?? docs/WindowsPresencePublication.md"
+      ]
+    },
+    "iiUpdateManager": {
+      "status": "installed",
+      "head": "9ba0646629ce856c17208644765370952d8f5e22",
+      "source": "793e17ec3cd0f869cf8ff8a26290ca93d9952b6abd3b3833bf867425582ef6c4",
+      "passed": 4,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 4,
+          "passed": 4,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiUpdateManager",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiUpdateManager\\build\\install_manifest.txt",
+          "files": 15
+        }
+      ],
+      "local_changes": [
+        "M tests/UpdateFlowTest.cpp",
+        "?? docs/WindowsSignalLifetime.md"
+      ]
+    },
+    "iiVoiceOver": {
+      "status": "installed",
+      "head": "e9ab69a46a061a798673b2a70d64f09e18199abf",
+      "source": "dee3bda19f566d545fbee5b2c9466cf0269418097a047f8c1f6d6bbc97459f01",
+      "passed": 5,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 5,
+          "passed": 5,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiVoiceOver",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiVoiceOver\\build\\install_manifest.txt",
+          "files": 398
+        }
+      ],
+      "local_changes": []
+    },
+    "iiWhatsNew": {
+      "status": "installed",
+      "head": "68721523cc164f747cb57330c29356a27ec6523d",
+      "source": "f65047ec67272dd037607fe5643b26def51830d2a207441f6e35dbbd83ae5f50",
+      "passed": 1,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 1,
+          "passed": 1,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiWhatsNew",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiWhatsNew\\build\\install_manifest.txt",
+          "files": 8
+        }
+      ],
+      "local_changes": [
+        "M CMakeLists.txt",
+        "?? docs/WindowsBuild.md"
+      ]
+    },
+    "iiXml": {
+      "status": "installed",
+      "head": "7ca265429458bb6029fa6ceea35d639acef83e22",
+      "source": "7165fc804029868364146f7548a93d8d8bd8ba4b454a4a55e08d3c3420481267",
+      "passed": 16,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 16,
+          "passed": 16,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiXml",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiXml\\build\\install_manifest.txt",
+          "files": 25
+        }
+      ],
+      "local_changes": []
+    },
+    "LVRS": {
+      "status": "installed",
+      "head": "2aeb162a6b1a2ea3bf2bc796a2174cc310f186fa",
+      "source": "505279822884ddd66ace8bde8acbd9673deab5f0132828d52dadf864e5d8f5ca",
+      "passed": 593,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 529,
+          "passed": 529,
+          "failed": [],
+          "skipped": []
+        },
+        {
+          "phase": "qt-test",
+          "total": 64,
+          "passed": 64,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\LVRS",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\LVRS\\build\\install_manifest.txt",
+          "files": 232
+        },
+        {
+          "configuration": "qt",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\LVRS\\qt",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\LVRS\\build\\qt\\build\\install_manifest.txt",
+          "files": 3067
+        }
+      ],
+      "local_changes": [
+        "M CMakeLists.txt",
+        " M catalog/native/parity.json",
+        " M docs/native/Parity.md",
+        " M examples/NativeColorGallery/main.cpp",
+        " M examples/NativeDataTableGallery/main.cpp",
+        " M examples/NativeGallery/main.cpp",
+        " M examples/NativePickerGallery/main.cpp",
+        " M examples/NativePopoverGallery/main.cpp",
+        " M resources/figma_icon_aliases.qrc",
+        " M src/LVRS/CodeEditor.cpp",
+        " M src/LVRS/Table.cpp",
+        " M src/LVRS/TableDetail.h",
+        " M src/LVRS/TextDocumentStorage.cpp",
+        " M src/LVRS/Tooltip.cpp",
+        " M src/backend/text/textdocumentmodel.cpp",
+        " M src/qml/Theme.qml",
+        " M tests/fixtures/figma-contract.json",
+        " M tests/native/alert.cpp",
+        " M tests/native/code_editor.cpp",
+        " M tests/native/icons.cpp",
+        " M tests/native/materials.cpp",
+        " M tests/native/media.cpp",
+        " M tests/native/motion.cpp",
+        " M tests/native/table_view.cpp",
+        " M tests/native/tooltip.cpp",
+        " M tests/tst_figma_parity.cpp",
+        " M tests/tst_instance_state.cpp",
+        " M tests/tst_motion.cpp",
+        " M tests/tst_text_document_model.cpp",
+        " M tests/tst_tooltip.cpp",
+        "?? docs/native/WindowsValidation.md"
+      ]
+    },
+    "LVRS-Svelte": {
+      "status": "installed",
+      "head": "4a0259010e2c74509a452c9903cc612107907792",
+      "source": "b2688c0187d61e49ac73efe77a4c46cc216813f71589cb2a3a1673b6f9993116",
+      "passed": 6,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 6,
+          "passed": 6,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [],
+      "local_changes": []
+    },
+    "iiMultimodalAgent": {
+      "status": "installed",
+      "head": "c6dde76826f8db3a4bd4fa2849acd6697847a814",
+      "source": "2ac9f7251e0cf86fded5120efb2c0960060242d3be3e523f74a3f373a75c7135",
+      "passed": 68,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 68,
+          "passed": 68,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiMultimodalAgent",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiMultimodalAgent\\build\\install_manifest.txt",
+          "files": 149
+        }
+      ],
+      "local_changes": [
+        "M src/iiMultimodalAgent/agent/SessionHistory.cpp",
+        " M tests/CMakeTests.cmake",
+        " M tests/permission_updates_tests.cpp",
+        " M tests/project_memory_engine_tests.cpp",
+        " M tests/session_history_tests.cpp",
+        "?? docs/WindowsSessionHistory.md"
+      ]
+    },
+    "iiNetwork": {
+      "status": "installed",
+      "head": "a129ef6f09e53bbf139cc6967804e58226adb2a2",
+      "source": "858e94c0a9efc8ec857305ec6a75babec715c732076cc8cd9f41343180434bac",
+      "passed": 46,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 46,
+          "passed": 46,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiNetwork",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiNetwork\\build\\install_manifest.txt",
+          "files": 36
+        }
+      ],
+      "local_changes": [
+        "M src/iiNetwork/Address.cpp",
+        " M src/iiNetwork/SystemTrust.cpp",
+        " M tests/http_shutdown.cpp",
+        " M tests/interfaces.cpp",
+        "?? docs/WindowsAddress.md"
+      ]
+    },
+    "LVUI": {
+      "status": "installed",
+      "head": "139cac20d4bf872181fcbdec795e8003118c0bd6",
+      "source": "de8a672783ade6db5a48f339a88709cadf6180a1aca8f6c97a37c940e160ba9a",
+      "passed": 45,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 45,
+          "passed": 45,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\LVUI",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\LVUI\\build\\install_manifest.txt",
+          "files": 50
+        }
+      ],
+      "local_changes": [
+        "M catalog/lvrs-components.json",
+        " M docs/ReservedWords.md",
+        " M tests/compiler.cpp",
+        " M tests/test_keyword_inventory.py",
+        " M tools/update_lvrs_keywords.py",
+        "?? docs/WindowsValidation.md"
+      ]
+    },
+    "iiImageCodec": {
+      "status": "installed",
+      "head": "9a8392ea1ef5eac750945862632f1941b4ed5be9",
+      "source": "53a26977fb9c2bd371712acce7f061889e90c0f96b5fc502dd81255eb7491942",
+      "passed": 3,
+      "skipped": [],
+      "suites": [
+        {
+          "phase": "test",
+          "total": 3,
+          "passed": 3,
+          "failed": [],
+          "skipped": []
+        }
+      ],
+      "installations": [
+        {
+          "configuration": "default",
+          "prefix": "C:\\Users\\andud\\.local\\SDK\\iiImageCodec",
+          "manifest": "C:\\Users\\andud\\Workspace\\SDK\\iiImageCodec\\build\\install_manifest.txt",
+          "files": 13
+        }
+      ],
+      "local_changes": []
+    }
+  },
+  "totals": {
+    "cmake_passed": 1783,
+    "node_passed": 6,
+    "ctest_skipped": 4
+  },
+  "missing_install_files": [],
+  "not_buildable_directories": [
+    "Flamewall",
+    "Silentlocked",
+    "iiComputerHistory",
+    "iiComputerUse",
+    "iiEmailClient",
+    "iiGlobalSearch",
+    "iiPBRMaterial",
+    "iiVirtualizer",
+    "iiVolumetricSolidMesh"
+  ],
+  "additional_checks": {
+    "lvrs_rust_cli": {
+      "passed": 25,
+      "ignored": 0,
+      "installed": true
+    },
+    "verification_regressions_passed": 15,
+    "network_installed_consumer": {
+      "passed": 30,
+      "junit": "C:\\Users\\andud\\Workspace\\build\\maintenance\\20261024-windows-sdk\\consumers\\SDK__iiNetwork-consumer.xml"
+    },
+    "whats_new_installed_consumer": {
+      "passed": 1,
+      "junit": "C:\\Users\\andud\\Workspace\\build\\maintenance\\20261024-windows-sdk\\consumers\\SDK__iiWhatsNew-consumer.xml"
+    },
+    "dreamscapes_provider_consumer": {
+      "passed": 2,
+      "junit": "C:\\Users\\andud\\Workspace\\build\\maintenance\\20261024-windows-sdk\\consumers\\Product__Dreamscapes-consumer.xml"
+    },
+    "file_creation_boundary": {
+      "counts": {
+        "tooling": 83,
+        "runtime": 2994,
+        "fixture": 1344,
+        "provider": 131
+      },
+      "violations": [],
+      "unreadable": []
+    },
+    "whitespace": {
+      "repositories_passed": 16,
+      "report": "C:\\Users\\andud\\Workspace\\build\\maintenance\\20261024-windows-sdk-final\\diff-check.json"
+    }
+  },
+  "retained_temporary_file": {
+    "path": "C:\\Users\\andud\\Workspace\\SDK\\iiLocalDiffusion\\build\\inspection-ax1cl48q\\large.safetensors",
+    "bytes": 41422499916,
+    "reason": "Automatic approval review blocked deletion; no workaround attempted."
+  },
+  "all_projects_verified": true,
+  "committed_or_pushed": false
+}
