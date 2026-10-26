@@ -11,12 +11,12 @@
 | LVRS | master | `8360f4dcafe2e4a72605299d5dfeb010bba6e818` | 있음 |
 | LVRS-Svelte | master | `4a0259010e2c74509a452c9903cc612107907792` | 없음 |
 | LVUI | main | `dd9204d564b5cdd501b30804389af050008fe445` | 있음 |
-| iiAcountManager | master | `cd7c1a93a0bd174cb09d7b76d285c5c1aaa0c270` | 없음 |
+| iiAccountManager | master | `cd7c1a93a0bd174cb09d7b76d285c5c1aaa0c270` | 없음 |
 | iiActorObject | master | `21e4dc163ef1505ebdffd2ebf8104f12ed48faf1` | 없음 |
 | iiAudioGen | main | `fe4933cdf8395c5429768d383ef49c4c8ebd5221` | 없음 |
 | iiCSMIDI | master | `5b3b3c688114d5dace35b604bfbe3ef55a3c2246` | 없음 |
 | iiCalendar | main | `c8d431dbbe8a378a520044f4055c25a6bcdc277c` | 없음 |
-| iiCameraIntergration | main | `4ca7749f4e0a497c2c374b0c9a8a79e71e26f1ac` | 없음 |
+| iiCameraIntegration | main | `4ca7749f4e0a497c2c374b0c9a8a79e71e26f1ac` | 없음 |
 | iiColorManager | main | `7098b7a45b70475726d87f3f0ace893ebb8be039` | 없음 |
 | iiDecision | main | `18011dd7ff1a2b8532cbfe4d9175b40bc2e42e37` | 없음 |
 | iiDeviceMultimedia | main | `71b6d0ac6bb7cec445a560c5eb7d39c9f3057221` | 없음 |

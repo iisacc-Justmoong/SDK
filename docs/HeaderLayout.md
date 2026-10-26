@@ -27,7 +27,7 @@
 | iiSDKBuilder | `src/iiSDKBuilder/` |
 | iiSocialPublish | `src/iiSocialPublish/` |
 | iiUpdateManager | `src/iiUpdateManager/`, `Native/src/iiUpdateManager/` |
-| iiAcountManager | 네이티브 API의 `Native/src/iiAcountManager/` |
+| iiAccountManager | 네이티브 API의 `Native/src/iiAccountManager/` |
 | iiFileProvider | 파일 호환 API의 `Compatibility/src/` |
 
 ## 빌드와 패키지 계약

@@ -18,7 +18,7 @@ RUN.mkdir(parents=True, exist_ok=True)
 ctypes.windll.kernel32.SetErrorMode(0x8003)
 PYTHON = ROOT / 'Tools/Python314/tools/python.exe'
 
-QT_LVRS_CONSUMERS = {'SDK/iiAcountManager', 'SDK/iiLicenseManager',
+QT_LVRS_CONSUMERS = {'SDK/iiAccountManager', 'SDK/iiLicenseManager',
                      'SDK/iiSocietyHelper', 'SDK/iiPhotoLibrary', 'Product/Dreamscapes'}
 
 
@@ -132,7 +132,7 @@ def configure(key, extras, *, source=None, build=None, prefix=None, phase='confi
         'iiSharedCanvas': ['IISHAREDCANVAS_BUILD_SHARED=OFF', 'IISHAREDCANVAS_BUILD_QUICK=ON'],
         'iiGeneralDocument': ['IIGENERALDOCUMENT_USE_SYSTEM_LIBZIP=ON'],
         'iiSocietyContainer': ['Dokan_ROOT=' + os.environ['DOKAN_ROOT']],
-        'iiCameraIntergration': ['IICAMERA_FFMPEG_EXECUTABLE=' + (ROOT / 'Tools/FFmpeg/ffmpeg-9.0.2-essentials_build/bin/ffmpeg.exe').as_posix()],
+        'iiCameraIntegration': ['IICAMERA_FFMPEG_EXECUTABLE=' + (ROOT / 'Tools/FFmpeg/ffmpeg-9.0.2-essentials_build/bin/ffmpeg.exe').as_posix()],
     }
     command += ['-D' + option for option in options.get(source.name, [])]
     if key in QT_LVRS_CONSUMERS:

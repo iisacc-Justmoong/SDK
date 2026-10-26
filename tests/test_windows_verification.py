@@ -241,7 +241,7 @@ class WindowsVerificationTests(unittest.TestCase):
             (prefix/'bin').mkdir(parents=True)
             (prefix/'qt/bin').mkdir(parents=True)
             with patch.object(builder, 'ROOT', root), patch.dict(os.environ, {'USERPROFILE': str(root)}):
-                qt = builder.environment('SDK/iiAcountManager')
+                qt = builder.environment('SDK/iiAccountManager')
                 native = builder.environment('SDK/LVRS')
                 configurations = builder.additional_configurations('SDK/LVRS')
             self.assertIn((prefix/'qt').as_posix(), qt['CMAKE_PREFIX_PATH'].split(';'))

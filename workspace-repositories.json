@@ -59,8 +59,8 @@
       "lfs": false
     },
     {
-      "path": "SDK/iiAcountManager",
-      "url": "https://github.com/iisacc-Justmoong/iiAcountManager.git",
+      "path": "SDK/iiAccountManager",
+      "url": "https://github.com/iisacc-Justmoong/iiAccountManager.git",
       "branch": "master",
       "sourceCommit": "247aa53e6a787816291c50304d813e2a09690ecd",
       "lfs": false
@@ -318,8 +318,8 @@
       "lfs": false
     },
     {
-      "path": "SDK/iiCameraIntergration",
-      "url": "https://github.com/iisacc-Justmoong/iiCameraIntergration.git",
+      "path": "SDK/iiCameraIntegration",
+      "url": "https://github.com/iisacc-Justmoong/iiCameraIntegration.git",
       "branch": "main",
       "sourceCommit": "96a565586b744f7aabdcad518f8b83c0d488edf9",
       "lfs": false

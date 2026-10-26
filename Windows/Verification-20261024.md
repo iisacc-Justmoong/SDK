@@ -13,11 +13,11 @@ LVRS Rust CLI 25개, 검증 도구 회귀 15개, Network 설치 소비자 30개,
 
 | SDK | 통과 | 제외 | 구성별 테스트 |
 | --- | ---: | ---: | --- |
-| iiAcountManager | 6 | 0 | test: 6 |
+| iiAccountManager | 6 | 0 | test: 6 |
 | iiActorObject | 34 | 0 | test: 34 |
 | iiAudioGen | 7 | 0 | test: 7 |
 | iiCalendar | 14 | 0 | test: 14 |
-| iiCameraIntergration | 26 | 0 | test: 26 |
+| iiCameraIntegration | 26 | 0 | test: 26 |
 | iiColorManager | 6 | 0 | test: 6 |
 | iiCSMIDI | 4 | 0 | test: 4 |
 | iiDecision | 38 | 4 | test: 38 |

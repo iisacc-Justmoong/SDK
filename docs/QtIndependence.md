@@ -16,7 +16,7 @@
 | QtNetwork TCP/UDP/IPC, TLS, HTTP, 쿠키, 인증·프록시, REST | 기존 iiNetwork | 기존 모듈을 재사용한다. 세션 정책·계정 API·서버 프로토콜·애플리케이션 수명 이행은 상위 모듈 책임이다. |
 | QtWebSockets | **iiNetwork 0.5.0 확장** | HTTP/1.1 upgrade, 명시적 서버 승인, 메시지·마스크·fragmentation·UTF-8·ping/pong·종료. TCP/TLS 스트림은 기존 API로 조합한다. Qt 서버/클라이언트 소비자의 이행은 아직 완료하지 않았다. |
 | QtBluetooth BLE | 기존 iiDeviceMultimedia | Core와 독립된 동위 모듈의 central/GATT를 사용한다. 모든 Bluetooth 프로파일 및 모든 플랫폼의 물리 장치 지원을 주장하지 않는다. |
-| QtMultimedia 카메라·PCM·장치 | 기존 iiCameraIntergration, iiDeviceMultimedia | 네이티브 장치 계약을 재사용한다. 동영상 demux/codec, 전체 Qt 미디어 세션 및 권한 브리지의 동등성은 미완료이다. |
+| QtMultimedia 카메라·PCM·장치 | 기존 iiCameraIntegration, iiDeviceMultimedia | 네이티브 장치 계약을 재사용한다. 동영상 demux/codec, 전체 Qt 미디어 세션 및 권한 브리지의 동등성은 미완료이다. |
 | QPainter/Path, 폰트·텍스트 조판, PDF, SVG 렌더링 | iiPaintEngine / iiGraphicAdjust / iiColorManager의 독립 기능 + 별도 렌더링 경계 | QImage codec의 분리만으로 SharedCanvas의 오프스크린 벡터·텍스트·PDF QtGui 의존성을 제거할 수 없다. 실제 그래픽 계약과 기준 이미지 검증이 추가로 필요하다. |
 | QStandardPaths/QSettings, locale/timezone, 파일 감시·OS 서비스 | 명시적 파일 root + iiJson/FileProvider, 기존 도메인·플랫폼 API | 저장 경로/권한/기존 사용자 데이터 이행을 먼저 정의해야 한다. 이번에 포괄적인 자동 Qt 호환 계층은 추가하지 않았다. |
 | QtQml/Quick/Controls, 창·입력·화면 표시 | Qt/LVRS GUI 어댑터 | 현 제품 GUI의 명시적 의존성이다. 비GUI SDK의 공개 API와 분리한다. |

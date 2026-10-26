@@ -45,8 +45,8 @@
 | iiUpdateManager | 4 | 0 | 성공 | [5cb478584c](https://github.com/iisacc-Justmoong/iiUpdateManager/commit/5cb478584cb010f35c40159a0c055885c3371a0a) |
 | iiVoiceOver | 5 | 0 | 성공 | [3295a89854](https://github.com/iisacc-Justmoong/iiVoiceOver/commit/3295a898546387f7f381986b4263ebf7908a90fe) |
 | iiXml | 15 | 0 | 성공 | [c8fe80f6a8](https://github.com/iisacc-Justmoong/iiXml/commit/c8fe80f6a8fa449e33001d897658bc0065fafc4e) |
-| iiAcountManager | 6 | 0 | 성공 | [85916f215a](https://github.com/iisacc-Justmoong/iiAcountManager/commit/85916f215af097fb56b7ba9693d47f559d63b97e) |
-| iiCameraIntergration | 26 | 0 | 성공 | [ce960f269b](https://github.com/iisacc-Justmoong/iiCameraIntergration/commit/ce960f269b528ef35f0da8937afc6cf859a6a7ef) |
+| iiAccountManager | 6 | 0 | 성공 | [85916f215a](https://github.com/iisacc-Justmoong/iiAccountManager/commit/85916f215af097fb56b7ba9693d47f559d63b97e) |
+| iiCameraIntegration | 26 | 0 | 성공 | [ce960f269b](https://github.com/iisacc-Justmoong/iiCameraIntegration/commit/ce960f269b528ef35f0da8937afc6cf859a6a7ef) |
 | iiHtmlBlock | 13 | 0 | 성공 | [1d8b1b367c](https://github.com/iisacc-Justmoong/iiHtmlBlock/commit/1d8b1b367c94dc97c6b9bc843507193579bd53b4) |
 | iiSharedCanvas | 62 | 0 | 성공 | [0d55bfedd7](https://github.com/iisacc-Justmoong/iiSharedCanvas/commit/0d55bfedd7d4e9ed48d270fb04e8a2ead1f5b516) |
 | iiSocietyGeneration | 1 | 0 | 성공 | [12d3a8b524](https://github.com/iisacc-Justmoong/iiSocietyGeneration/commit/12d3a8b524484a8e3dbd834656ffe40309c8c480) |

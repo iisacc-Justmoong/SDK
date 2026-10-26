@@ -649,7 +649,7 @@
       "install_prefix": "~/.local/SDK/iiXml"
     },
     {
-      "name": "iiAcountManager",
+      "name": "iiAccountManager",
       "kind": "cmake",
       "tested_base_commit": "0c1dcc7f1d6eafc7723b2b4ef4e9255e77f52abb",
       "source_fingerprint": "1e284b2585b0adc2205369d73bf5bc24b1b1f18a321960408c29041a5d43295c",
@@ -669,10 +669,10 @@
         "CMAKE_BUILD_TYPE": "Release"
       },
       "build_and_install": "passed",
-      "install_prefix": "~/.local/SDK/iiAcountManager"
+      "install_prefix": "~/.local/SDK/iiAccountManager"
     },
     {
-      "name": "iiCameraIntergration",
+      "name": "iiCameraIntegration",
       "kind": "cmake",
       "tested_base_commit": "6d69f91f6330108f5c92a34a7afbbcd18ff851f8",
       "source_fingerprint": "ff381d99ef1822740e6c0bc97853e2fe9a95d5c31f8a8d28e83d3ca2f207983b",
@@ -692,7 +692,7 @@
         "CMAKE_BUILD_TYPE": "Release"
       },
       "build_and_install": "passed",
-      "install_prefix": "~/.local/SDK/iiCameraIntergration"
+      "install_prefix": "~/.local/SDK/iiCameraIntegration"
     },
     {
       "name": "iiHtmlBlock",

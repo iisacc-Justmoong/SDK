@@ -529,9 +529,9 @@
       "clean": true,
       "verified_at": "2026-10-25T06:54:20.632049+09:00"
     },
-    "SDK/iiCameraIntergration": {
+    "SDK/iiCameraIntegration": {
       "branch": "main",
-      "remote": "https://github.com/iisacc-Justmoong/iiCameraIntergration.git",
+      "remote": "https://github.com/iisacc-Justmoong/iiCameraIntegration.git",
       "previous_head": "4ca7749f4e0a497c2c374b0c9a8a79e71e26f1ac",
       "tested_fingerprint": "9bc77d479a35f3aad87c850f0142714287fd305921b7d284319b0088bb73c9d5",
       "tested_changed_files_sha256": {},
@@ -628,9 +628,9 @@
       "clean": true,
       "verified_at": "2026-10-25T06:54:37.186115+09:00"
     },
-    "SDK/iiAcountManager": {
+    "SDK/iiAccountManager": {
       "branch": "master",
-      "remote": "https://github.com/iisacc-Justmoong/iiAcountManager.git",
+      "remote": "https://github.com/iisacc-Justmoong/iiAccountManager.git",
       "previous_head": "cd7c1a93a0bd174cb09d7b76d285c5c1aaa0c270",
       "tested_fingerprint": "887a296920c4a42b4d08da334b842c82ffb9cb59839fbd51d0525a75ac6fb7a8",
       "tested_changed_files_sha256": {},

@@ -123,9 +123,9 @@
       ]
     },
     {
-      "module": "iiAcountManager",
+      "module": "iiAccountManager",
       "publicHeaders": [
-        "Native/src/iiAcountManager/NativeAccount.h"
+        "Native/src/iiAccountManager/NativeAccount.h"
       ]
     },
     {

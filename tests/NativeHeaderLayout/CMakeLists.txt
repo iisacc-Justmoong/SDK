@@ -7,11 +7,11 @@ find_package(iiSDKCore 0.18 CONFIG REQUIRED GLOBAL COMPONENTS Runtime)
 find_package(iiFileProviderNative 0.8 CONFIG REQUIRED GLOBAL)
 find_package(iiNetwork 0.4 CONFIG REQUIRED GLOBAL)
 add_subdirectory("${_sdk}/iiFileProvider/Compatibility" "${CMAKE_CURRENT_BINARY_DIR}/Compatibility")
-add_subdirectory("${_sdk}/iiAcountManager/Native" "${CMAKE_CURRENT_BINARY_DIR}/Account")
+add_subdirectory("${_sdk}/iiAccountManager/Native" "${CMAKE_CURRENT_BINARY_DIR}/Account")
 add_subdirectory("${_sdk}/iiLicenseManager/Native" "${CMAKE_CURRENT_BINARY_DIR}/License")
 add_subdirectory("${_sdk}/iiUpdateManager/Native" "${CMAKE_CURRENT_BINARY_DIR}/Update")
 add_executable(NativeHeaderLayout main.cpp)
-foreach(_header IN ITEMS iiAcountManager/NativeAccount.h iiLicenseManager/NativeLicenseClient.h
+foreach(_header IN ITEMS iiAccountManager/NativeAccount.h iiLicenseManager/NativeLicenseClient.h
         iiUpdateManager/NativeUpdateManager.h iiFileProviderCompatibility.h)
     string(MAKE_C_IDENTIFIER "${_header}" _name)
     set(_check "${CMAKE_CURRENT_BINARY_DIR}/headers/${_name}.cpp")
@@ -19,7 +19,7 @@ foreach(_header IN ITEMS iiAcountManager/NativeAccount.h iiLicenseManager/Native
     target_sources(NativeHeaderLayout PRIVATE "${_check}")
 endforeach()
 target_compile_features(NativeHeaderLayout PRIVATE cxx_std_23)
-target_link_libraries(NativeHeaderLayout PRIVATE iiAcountManager::Native
+target_link_libraries(NativeHeaderLayout PRIVATE iiAccountManager::Native
     iiLicenseManager::Native iiUpdateManager::Native iiFileProvider::Compatibility)
 add_test(NAME SourceHeaderLayout.NativeAdapters COMMAND NativeHeaderLayout)
 set(_pending NativeHeaderLayout)

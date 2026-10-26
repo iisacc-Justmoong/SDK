@@ -10,11 +10,11 @@ component from 0.8.0 to 0.8.1 and Core I/O adapter from 0.1.0 to 0.1.1.
 
 | Module | Previous | Release |
 | --- | --- | --- |
-| iiAcountManager | 0.2.9 | 0.2.10 |
+| iiAccountManager | 0.2.9 | 0.2.10 |
 | iiActorObject | 0.1.0 | 0.1.1 |
 | iiAudioGen | 0.3.0 | 0.3.1 |
 | iiCalendar | 0.2.0 | 0.2.1 |
-| iiCameraIntergration | 0.4.0 | 0.4.1 |
+| iiCameraIntegration | 0.4.0 | 0.4.1 |
 | iiColorManager | 0.1.0 | 0.1.1 |
 | iiCSMIDI | 0.3.0 | 0.3.1 |
 | iiDecision | 0.0.4 | 0.0.5 |

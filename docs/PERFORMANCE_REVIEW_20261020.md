@@ -125,7 +125,7 @@ the twelve implemented changes.
 | LVRS-Svelte | Script declarations are indexed; generated `.svelte-kit`/`dist` output is excluded. No browser-level performance gain is asserted without a consuming application profile. |
 | iiNetwork | The inspected send pump already advances a byte offset in a deque instead of repeatedly erasing a buffer prefix. Separate native-network expansion is preserved. |
 | iiGUI | Frame coalescing, deadlines and explicit surface capture have existing behavior. Separate text/renderer/backend work is preserved. |
-| iiDeviceMultimedia, iiCameraIntergration | Device callbacks, bounded streaming and platform ownership require their existing I/O/lifetime contracts. No speculative scheduler or device cache was added. |
+| iiDeviceMultimedia, iiCameraIntegration | Device callbacks, bounded streaming and platform ownership require their existing I/O/lifetime contracts. No speculative scheduler or device cache was added. |
 | iiDecision | Existing backend slots serialize non-reentrant contexts; independent work is not placed behind a new global lock. Evidence comparisons are input-dependent required work. |
 | iiAudioGen | Process stop polling is a bounded graceful-shutdown path. Generation/transport contracts are preserved. |
 | iiVoiceOver | Reusing Piper contexts without controlling process-global eSpeak state could change voice/language behavior. No speculative persistent-context cache was added; native speech remains covered by consuming-agent checks. |
@@ -140,7 +140,7 @@ the twelve implemented changes.
 | iiWebServer | Authentication, peer ownership and transport lifetime remain existing contracts. No unrelated thread-dispatch architecture was added. |
 | iiSocialPublish | Chunk bounds and remote-processing polling intervals are intentional. No shortened polling interval or unbounded batching was introduced. |
 | iiLocalDiffusion | Existing resident-weight and preview gating paths are retained. Native matrix/kernel loops are not classified as redundant merely because they are nested. |
-| iiAcountManager, iiLicenseManager, iiUpdateManager | Bounded configuration/identity/authentication validation is preserved; no unproven parse/result cache weakens account or update checks. |
+| iiAccountManager, iiLicenseManager, iiUpdateManager | Bounded configuration/identity/authentication validation is preserved; no unproven parse/result cache weakens account or update checks. |
 | iiJson, iiXml | Parser/serializer traversal is required by input/output size. Inspected XML active-tag/name indexes and direct comment/CDATA skipping are already present. |
 
 ## Validation and delivery boundaries

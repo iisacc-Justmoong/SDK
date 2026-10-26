@@ -1,4 +1,4 @@
-#include <iiAcountManager/NativeAccount.h>
+#include <iiAccountManager/NativeAccount.h>
 #include <iiLicenseManager/NativeLicenseClient.h>
 #include <iiUpdateManager/NativeUpdateManager.h>
 #include <iiFileProviderCompatibility.h>
