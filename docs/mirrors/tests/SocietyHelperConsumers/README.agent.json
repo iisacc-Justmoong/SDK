@@ -1,0 +1,130 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:79ad48b08ddd0e404d21c56f21aeceebb5a5f0299087762ed5b8b26bdd540e72",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "tests/SocietyHelperConsumers/README.md",
+    "sha256": "fe5816c4cb9ab6cea91b64ba58d67eecaee46ee82276310388fb440580cc8054",
+    "bytes": 1436,
+    "line_count": 26,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "Consolidated Society Helper application consumers",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Consolidated Society Helper application consumers\n",
+      "level": 1,
+      "title": "Consolidated Society Helper application consumers"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 9,
+      "raw": "This integration project compiles the actual Society account wrapper and\ncompatibility headers, Society's actual network/sync/host controller, encrypted\ngroup-state and file-projection regressions, and\nDreamscapes' migrated generation controller against installed iiSocietyHelper\n0.10.0. Core contains account/client access, Sync and Generation::Remote;\ndesktop generation explicitly selects `iiSocietyHelper::GenerationHost`.\nPhotoLibrary is a lower-level dependency of Society's network controller.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 10,
+      "end_line": 10,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 11,
+      "end_line": 13,
+      "raw": "The executables are ordinary native tests. They do not create an `.app`,\nreconfigure an existing product build, deploy a product or restart a process.\nFixtures and compiler outputs belong beneath `SDK/build/`.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 14,
+      "end_line": 14,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "fenced_code",
+      "start_line": 15,
+      "end_line": 21,
+      "raw": "```sh\ncmake -S SDK/tests/SocietyHelperConsumers -B SDK/build/society-helper-consumers/build \\\n    -DiiSocietyHelper_DIR=/path/to/iiSocietyHelper/lib/cmake/iiSocietyHelper \\\n    -DCMAKE_PREFIX_PATH='/path/to/qt;/path/to/dependency-prefixes'\ncmake --build SDK/build/society-helper-consumers/build --parallel 4\nctest --test-dir SDK/build/society-helper-consumers/build --output-on-failure\n```\n",
+      "language": "sh",
+      "code": "cmake -S SDK/tests/SocietyHelperConsumers -B SDK/build/society-helper-consumers/build \\\n    -DiiSocietyHelper_DIR=/path/to/iiSocietyHelper/lib/cmake/iiSocietyHelper \\\n    -DCMAKE_PREFIX_PATH='/path/to/qt;/path/to/dependency-prefixes'\ncmake --build SDK/build/society-helper-consumers/build --parallel 4\nctest --test-dir SDK/build/society-helper-consumers/build --output-on-failure\n",
+      "closed": true
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 22,
+      "end_line": 22,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 23,
+      "end_line": 26,
+      "raw": "The Dreamscapes cases use injected inference and a synthetic model. They verify\nreal application state and publication behavior, not model quality or device\ninference. The SDK's own session tests separately prove authenticated LAN TLS,\nrelay and same-device native drive access.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Consolidated Society Helper application consumers",
+      "anchor": "consolidated-society-helper-application-consumers",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000005",
+        "line": 11,
+        "text": "The executables are ordinary native tests. They do not create an `.app`,",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [
+      {
+        "block_id": "b000007",
+        "language": "sh",
+        "code": "cmake -S SDK/tests/SocietyHelperConsumers -B SDK/build/society-helper-consumers/build \\\n    -DiiSocietyHelper_DIR=/path/to/iiSocietyHelper/lib/cmake/iiSocietyHelper \\\n    -DCMAKE_PREFIX_PATH='/path/to/qt;/path/to/dependency-prefixes'\ncmake --build SDK/build/society-helper-consumers/build --parallel 4\nctest --test-dir SDK/build/society-helper-consumers/build --output-on-failure\n"
+      }
+    ],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

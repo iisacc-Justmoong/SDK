@@ -1,0 +1,187 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:321c65110bc64db24b2bcb2d569f4bcc0b4826850e04f3f2951f98452a6fb5f2",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "tests/LocalPhotoBrush/README.md",
+    "sha256": "38ed025a404562654082173445d12a8b872edcdfbbd308f71a6e2ac1d4cfb4cb",
+    "bytes": 2579,
+    "line_count": 44,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "Local photo correction consumer",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Local photo correction consumer\n",
+      "level": 1,
+      "title": "Local photo correction consumer"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 8,
+      "raw": "This C++23 consumer links the separately installed `iiPaintEngine 0.4.2` and\n`iiGraphicAdjust 0.5.1` packages. The modules do not depend on one another.\nThe application owns the composition: pointer input makes a float pixel mask;\nthe same borrowed coverage localizes white balance, light, curves, color,\ndetail, and grain processing. Public API inputs are sufficient; there are no\nprivate includes or links to Qt, Adobe, or a scripting runtime.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 9,
+      "end_line": 9,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "fenced_code",
+      "start_line": 10,
+      "end_line": 17,
+      "raw": "```sh\ncmake -S tests/LocalPhotoBrush -B build/local-photo-processing/consumer \\\n  -DCMAKE_PREFIX_PATH=\"$HOME/.local/SDK/iiPaintEngine;$HOME/.local/SDK/iiGraphicAdjust\" \\\n  -DCMAKE_BUILD_TYPE=Release\ncmake --build build/local-photo-processing/consumer --parallel 2\nctest --test-dir build/local-photo-processing/consumer --output-on-failure\nbuild/local-photo-processing/consumer/LocalPhotoBrush build/local-photo-processing/images\n```\n",
+      "language": "sh",
+      "code": "cmake -S tests/LocalPhotoBrush -B build/local-photo-processing/consumer \\\n  -DCMAKE_PREFIX_PATH=\"$HOME/.local/SDK/iiPaintEngine;$HOME/.local/SDK/iiGraphicAdjust\" \\\n  -DCMAKE_BUILD_TYPE=Release\ncmake --build build/local-photo-processing/consumer --parallel 2\nctest --test-dir build/local-photo-processing/consumer --output-on-failure\nbuild/local-photo-processing/consumer/LocalPhotoBrush build/local-photo-processing/images\n",
+      "closed": true
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 18,
+      "end_line": 18,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 19,
+      "end_line": 23,
+      "raw": "Commands assume the parent `SDK` directory. All output stays under `build/`.\nThe example generates a synthetic 256x144 image and writes source, mask, full\ncorrection, local correction, and a three-panel comparison as PNG. `result.json`\nreports actual changed pixels, exact preservation outside the mask, and source\nand alpha preservation. It uses no user photograph, account, Adobe GUI, or model.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 24,
+      "end_line": 24,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 25,
+      "end_line": 27,
+      "raw": "The integration test verifies preview/commit/cancel and pixel undo/redo across\nthe two packages, strong color-boundary Auto Mask, alpha-zero source handling,\nfractional correction strength, detached output, and failure on invalid masks.\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 28,
+      "end_line": 28,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "paragraph",
+      "start_line": 29,
+      "end_line": 35,
+      "raw": "An optional source comparison accepts\n`-DPHOTOSHOP_RECONSTRUCTION_ROOT=/Volumes/Storage/Workspace/Engineering/Projects/Adobe/Photoshop`.\nIt builds the workspace's pinned, independently authored Average/Solarize\nreconstruction only into a test executable, and compares every Solarize integer\ninput plus tiled/strided selected Average cases to the installed SDK. This is\nseparate from the previous original-instruction replay. It does not run Adobe\ninstructions or prove Adobe application pixel parity for the new local brush.\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 36,
+      "end_line": 36,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 37,
+      "end_line": 41,
+      "raw": "On macOS, CTest unsets inherited `DYLD_LIBRARY_PATH`/`DYLD_FRAMEWORK_PATH` for\nthese tests only, so a login shell's older SDK overrides do not replace the\nselected package's rpaths. It does not modify global shell settings. Actual\nhost installation is also validated with the normal login environment and the\nexisting macOS package mirror.\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 42,
+      "end_line": 42,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 43,
+      "end_line": 44,
+      "raw": "See [verification and evidence boundaries](Verification.md) for the completed\nmodule, original-kernel, staged-package, actual-installation, and runtime checks.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Local photo correction consumer",
+      "anchor": "local-photo-correction-consumer",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000003",
+        "line": 4,
+        "text": "`iiGraphicAdjust 0.5.1` packages. The modules do not depend on one another.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000013",
+        "line": 38,
+        "text": "these tests only, so a login shell's older SDK overrides do not replace the",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [
+      {
+        "block_id": "b000005",
+        "language": "sh",
+        "code": "cmake -S tests/LocalPhotoBrush -B build/local-photo-processing/consumer \\\n  -DCMAKE_PREFIX_PATH=\"$HOME/.local/SDK/iiPaintEngine;$HOME/.local/SDK/iiGraphicAdjust\" \\\n  -DCMAKE_BUILD_TYPE=Release\ncmake --build build/local-photo-processing/consumer --parallel 2\nctest --test-dir build/local-photo-processing/consumer --output-on-failure\nbuild/local-photo-processing/consumer/LocalPhotoBrush build/local-photo-processing/images\n"
+      }
+    ],
+    "links": [
+      {
+        "block_id": "b000015",
+        "label": "verification and evidence boundaries",
+        "target": "Verification.md",
+        "kind": "relative",
+        "line": 43
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

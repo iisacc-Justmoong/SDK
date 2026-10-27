@@ -11,6 +11,7 @@ Qt 소비자는 `iiAccountManager` 패키지와 `iiAccountManager::iiAccountMana
 
 `python3 -B -m unittest discover -s tests -p test_account_manager_name.py`가
 소스 경로와 패키지 설정, SDK·제품의 주요 소비자 참조의 일치를 검사한다.
+Society의 계정 소비자 경로는 `Product/Society/App/Society/Account/`이다.
 Windows 검증 및 헤더 배치 검사도
 새 이름을 기준으로 수행한다. 계정·세션 데이터나 이미 설치된 제품은 이름
 교정의 대상으로 사용하지 않는다.

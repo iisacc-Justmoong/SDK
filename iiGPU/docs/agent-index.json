@@ -1,0 +1,83 @@
+{
+  "format": "iisacc.agent-document-index",
+  "schema_version": 1,
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiGPU",
+    "name": "iiGPU",
+    "root": "SDK/iiGPU",
+    "kind": "sdk"
+  },
+  "documentation_root": "docs",
+  "agent_schema": "docs/agent-document.schema.json",
+  "documents": [
+    {
+      "document_id": "urn:iisacc:document:15dc1fd75ef8a4dc9df8b91ba25ae8327a8b57a306a545eea1cb081cd1da05e1",
+      "source": "AGENT.md",
+      "agent_json": "docs/entrypoints/AGENT.agent.json",
+      "source_sha256": "98c7278474372b8c45e851a5858ca0b3974c96acfe405c580961bd020249c817",
+      "role": "instructions"
+    },
+    {
+      "document_id": "urn:iisacc:document:043106b2ae142cf05818726e839d9f961d32bd06b81bddf6dd56951e2e7b444c",
+      "source": "README.md",
+      "agent_json": "docs/entrypoints/README.agent.json",
+      "source_sha256": "f433cf5da44f8a9d11e8ad07dfef053de6855f9ed4ad79b6e18c804773d0e46c",
+      "role": "overview"
+    },
+    {
+      "document_id": "urn:iisacc:document:c348ccadfae56def69ba4d6dd4c5a4f3344b1a74bb5a52bbb2e9373eefb70f21",
+      "source": "docs/Contracts.md",
+      "agent_json": "docs/Contracts.agent.json",
+      "source_sha256": "0ea372acd1c50c48f1fea0fefe8b8dd0e15d4a12b10dcf30ba8495d5bac7992a",
+      "role": "reference"
+    },
+    {
+      "document_id": "urn:iisacc:document:4ac475614635725a7ccd279a088788e2be4011eb6459e2e221c7bdd5cfda19bc",
+      "source": "docs/README.md",
+      "agent_json": "docs/README.agent.json",
+      "source_sha256": "2d8e16f785e1a158997c24ea04fa01f916967f0de258979aa567a774e140b9c3",
+      "role": "overview"
+    },
+    {
+      "document_id": "urn:iisacc:document:72a42addd9d9e081c50c8945a3a3a669af4f1ec7e2ab1f0879d7d03146036f67",
+      "source": "docs/Verification.md",
+      "agent_json": "docs/Verification.agent.json",
+      "source_sha256": "e0f3785ad01850b3658c899e5bc5ec00d294354e2f4eef677ed2be02090407ac",
+      "role": "evidence"
+    },
+    {
+      "document_id": "urn:iisacc:document:2346a5bae3a890bccb7b5e86c9d8da7902cda193a0a5e384c0ce5ad97fbe82fc",
+      "source": "docs/WebGPUContract.md",
+      "agent_json": "docs/WebGPUContract.agent.json",
+      "source_sha256": "300752a69c4eaba9cd9517f54f36f329ba2b6ff9090d25a9cbf16448c568e032",
+      "role": "reference"
+    },
+    {
+      "document_id": "urn:iisacc:document:fc87b8b74132f9b8d13a1dd39355373a979022be8b4167bd81591fd770917de8",
+      "source": "docs/WebGPUVerification.md",
+      "agent_json": "docs/WebGPUVerification.agent.json",
+      "source_sha256": "361fabfcb9481d67b116f9b27f8aae6afb2aa5b17a82fde290f713933d76e986",
+      "role": "evidence"
+    },
+    {
+      "document_id": "urn:iisacc:document:bb482222d11e02c5b1fe4d4c157a3481d5ae6f08412f1086956c1ca9e5397030",
+      "source": "docs/documentation-structure.md",
+      "agent_json": "docs/documentation-structure.agent.json",
+      "source_sha256": "529380547df1557f6b449f62f445754092a9e8bef09706e9fb584c1bd1706b15",
+      "role": "guide"
+    }
+  ],
+  "layout": {
+    "human_entry": "README.md",
+    "agent_entry": "AGENT.md",
+    "human_format": "markdown",
+    "agent_format": "structured_json",
+    "source_authority": "markdown"
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

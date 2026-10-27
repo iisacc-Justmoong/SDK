@@ -1,0 +1,198 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:9ea1cdf4c44ef1a12acabf193aae1956b5dc7d94b8f6748348bee4ce1746143d",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "PatchRelease-20261019.md",
+    "sha256": "817287fa829e9b17113a89eb796083a0c0c6b12f180e0e40f8f31bc54a9b284a",
+    "bytes": 745,
+    "line_count": 20,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "Document moved",
+    "role": "compatibility",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Document moved\n",
+      "level": 1,
+      "title": "Document moved"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "html",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "<!-- workspace-docs:redirect -->\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 4,
+      "end_line": 4,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 5,
+      "end_line": 5,
+      "raw": "The maintained document is [PatchRelease-20261019.md](docs/PatchRelease-20261019.md).\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "html",
+      "start_line": 7,
+      "end_line": 8,
+      "raw": "<a id=\"sdk-patch-release--2026-10-19\"></a>\n[Continue to this section](docs/PatchRelease-20261019.md#sdk-patch-release--2026-10-19).\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 9,
+      "end_line": 9,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "html",
+      "start_line": 10,
+      "end_line": 11,
+      "raw": "<a id=\"package-versions\"></a>\n[Continue to this section](docs/PatchRelease-20261019.md#package-versions).\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 12,
+      "end_line": 12,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "html",
+      "start_line": 13,
+      "end_line": 14,
+      "raw": "<a id=\"installation-and-verification\"></a>\n[Continue to this section](docs/PatchRelease-20261019.md#installation-and-verification).\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 15,
+      "end_line": 15,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "html",
+      "start_line": 16,
+      "end_line": 17,
+      "raw": "<a id=\"compatibility-repairs\"></a>\n[Continue to this section](docs/PatchRelease-20261019.md#compatibility-repairs).\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 18,
+      "end_line": 18,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "html",
+      "start_line": 19,
+      "end_line": 20,
+      "raw": "<a id=\"verified-sdk-delivery\"></a>\n[Continue to this section](docs/PatchRelease-20261019.md#verified-sdk-delivery).\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Document moved",
+      "anchor": "document-moved",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000005",
+        "label": "PatchRelease-20261019.md",
+        "target": "docs/PatchRelease-20261019.md",
+        "kind": "relative",
+        "line": 5
+      },
+      {
+        "block_id": "b000007",
+        "label": "Continue to this section",
+        "target": "docs/PatchRelease-20261019.md#sdk-patch-release--2026-10-19",
+        "kind": "relative",
+        "line": 8
+      },
+      {
+        "block_id": "b000009",
+        "label": "Continue to this section",
+        "target": "docs/PatchRelease-20261019.md#package-versions",
+        "kind": "relative",
+        "line": 11
+      },
+      {
+        "block_id": "b000011",
+        "label": "Continue to this section",
+        "target": "docs/PatchRelease-20261019.md#installation-and-verification",
+        "kind": "relative",
+        "line": 14
+      },
+      {
+        "block_id": "b000013",
+        "label": "Continue to this section",
+        "target": "docs/PatchRelease-20261019.md#compatibility-repairs",
+        "kind": "relative",
+        "line": 17
+      },
+      {
+        "block_id": "b000015",
+        "label": "Continue to this section",
+        "target": "docs/PatchRelease-20261019.md#verified-sdk-delivery",
+        "kind": "relative",
+        "line": 20
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

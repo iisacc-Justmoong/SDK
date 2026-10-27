@@ -1,0 +1,185 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:4edb656091cd0e9105e245031c9f43aa2f32cb554620a1e31af5d32562220834",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "docs/GPU.md",
+    "sha256": "0e599825da96a1293833288efb908d8fa18cbe7e695d17699d7b1f67457aa3e0",
+    "bytes": 1895,
+    "line_count": 29,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "GPU 공통 모듈과 설치 순서",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# GPU 공통 모듈과 설치 순서\n",
+      "level": 1,
+      "title": "GPU 공통 모듈과 설치 순서"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 5,
+      "raw": "iiGPU 0.1은 SDK 공통의 네이티브 GPU 명령·컴퓨트·동기화 모듈이다.\n현재 Metal·Vulkan 백엔드를 제공하며 상위 모듈의 도메인 계산과 렌더러를\n내부로 역수입하지 않는다. iiSDKCore는 iiGPU를 참조하지 않는다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 7,
+      "end_line": 11,
+      "raw": "기본 타깃 iiGPU::iiGPU는 Core 런타임 없이 소비할 수 있다. 선택적인\niiGPU::Runtime은 Core EventLoop에서 GPU 완료를 비차단 관측한다.\niiDecision은 Metal·Vulkan 장치와 명령 관리를 iiGPU에 위임하고 정확한\nuint32 증거 커널·마스크와 long double 확률 계산을 계속 소유한다.\niiGUI의 기존 렌더러 전체를 이전한 상태는 아니다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 12,
+      "end_line": 12,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 13,
+      "end_line": 16,
+      "raw": "일괄 설치 도구는 CMake의 find_package/find_dependency에서\niiSDKCore → iiGPU → iiDecision 순서를 발견한다. Windows의 projects.json에도\n같은 순서를 명시한다. Windows에서 Metal 검사 6개와 iiDecision Metal 재사용\n검사는 지원 대상 외 skip이다. Vulkan 실행 실패를 정상 skip으로 허용하지 않는다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 17,
+      "end_line": 17,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 18,
+      "end_line": 21,
+      "raw": "Windows에서는 Vulkan SDK와 드라이버를 준비하고 IIGPU_VULKAN=ON으로\n빌드한다. 전체 검증 도구가 GPU 실행을 요구하는 환경에서 Vulkan 장치 부재를\n소스 빌드 성공으로 대체하지 않는다. macOS의 현재 실행 증거와 다른 운영체제의\n소스·교차 빌드 증거는 분리한다.\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 22,
+      "end_line": 22,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "paragraph",
+      "start_line": 23,
+      "end_line": 24,
+      "raw": "[모듈 API와 수명 계약](../iiGPU/docs/Contracts.md),\n[플랫폼·재현·검증 기록](../iiGPU/docs/Verification.md)을 따른다.\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 25,
+      "end_line": 25,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 26,
+      "end_line": 29,
+      "raw": "목록 완전성 검사에서 기존 CMake 모듈 iiBrushTools·iiOnnxRuntime·iiVirtualizer의\nWindows 목록 누락도 확인하여 실제 의존성과 함께 등록했다. 이 등록은 세\n모듈의 Windows 실행 성공을 의미하지 않는다. 일괄 설치 도구 검사와 Windows\n검증 정책의 호스트 회귀 검사는 통과했다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "GPU 공통 모듈과 설치 순서",
+      "anchor": "gpu-공통-모듈과-설치-순서",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000003",
+        "line": 5,
+        "text": "내부로 역수입하지 않는다. iiSDKCore는 iiGPU를 참조하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000007",
+        "line": 16,
+        "text": "검사는 지원 대상 외 skip이다. Vulkan 실행 실패를 정상 skip으로 허용하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000009",
+        "line": 20,
+        "text": "소스 빌드 성공으로 대체하지 않는다. macOS의 현재 실행 증거와 다른 운영체제의",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000013",
+        "line": 28,
+        "text": "모듈의 Windows 실행 성공을 의미하지 않는다. 일괄 설치 도구 검사와 Windows",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000011",
+        "label": "모듈 API와 수명 계약",
+        "target": "../iiGPU/docs/Contracts.md",
+        "kind": "relative",
+        "line": 23
+      },
+      {
+        "block_id": "b000011",
+        "label": "플랫폼·재현·검증 기록",
+        "target": "../iiGPU/docs/Verification.md",
+        "kind": "relative",
+        "line": 24
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

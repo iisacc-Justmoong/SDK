@@ -18,7 +18,10 @@ SDK = HERE.parent
 WORKSPACE = SDK.parent
 OPTIONAL_SKIPS = {'iiDecision': {
     'iiDecision.Acceleration.metal', 'iiDecision.Acceleration.mlx',
-    'iiDecision.Acceleration.opencl', 'iiDecision.Acceleration.onnx'}}
+    'iiDecision.Acceleration.opencl',
+    'iiDecision.Acceleration.metal_reuse'},
+    'iiGPU': {'iiGPU.metal.'+case for case in
+        ('contracts','transfers','dispatch','lifecycle','concurrency','interop')}}
 
 
 def dependency_order(projects):

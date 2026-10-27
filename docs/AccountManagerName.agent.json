@@ -1,0 +1,107 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:355daf817a0fd02a8822bd679caeda6e2566b13ce40ae0f4e554881b77204d90",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "docs/AccountManagerName.md",
+    "sha256": "b50b16b8a36b033832d8008e51c6b1c37d1fa84c74c7a9a7691abec94969846d",
+    "bytes": 1106,
+    "line_count": 17,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "계정 SDK의 명명 계약",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# 계정 SDK의 명명 계약\n",
+      "level": 1,
+      "title": "계정 SDK의 명명 계약"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 5,
+      "raw": "계정 SDK의 모듈 이름은 `iiAccountManager`이다. `SDK/iiAccountManager`와\nGit 저장소 등록 이름, Windows 빌드 목록, 설치 경로 및 CMake 소비자는 같은\n표기를 사용한다. Qt API, Quick 인증 뷰와 Qt 없는 Native API를 모두 포함한다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 7,
+      "end_line": 10,
+      "raw": "표준 설치 경로는 `~/.local/SDK/iiAccountManager`이다. 네이티브 소비자는\n`iiAccountManagerNative` 패키지를 찾고 `iiAccountManager::Native`를 링크한다.\nQt 소비자는 `iiAccountManager` 패키지와 `iiAccountManager::iiAccountManager`를\n사용한다. 모든 공개 헤더 접두사는 `iiAccountManager/`이다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 11,
+      "end_line": 11,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 12,
+      "end_line": 17,
+      "raw": "`python3 -B -m unittest discover -s tests -p test_account_manager_name.py`가\n소스 경로와 패키지 설정, SDK·제품의 주요 소비자 참조의 일치를 검사한다.\nSociety의 계정 소비자 경로는 `Product/Society/App/Society/Account/`이다.\nWindows 검증 및 헤더 배치 검사도\n새 이름을 기준으로 수행한다. 계정·세션 데이터나 이미 설치된 제품은 이름\n교정의 대상으로 사용하지 않는다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "계정 SDK의 명명 계약",
+      "anchor": "계정-sdk의-명명-계약",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000007",
+        "line": 17,
+        "text": "교정의 대상으로 사용하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

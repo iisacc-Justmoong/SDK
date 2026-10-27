@@ -42,7 +42,9 @@
   },
   "iiDecision": {
     "kind": "cmake",
-    "dependencies": []
+    "dependencies": [
+      "iiGPU"
+    ]
   },
   "iiDeviceMultimedia": {
     "kind": "cmake",
@@ -60,6 +62,12 @@
       "iiFileProvider"
     ]
   },
+  "iiGPU": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiSDKCore"
+    ]
+  },
   "iiGraphicAdjust": {
     "kind": "cmake",
     "dependencies": [
@@ -71,12 +79,6 @@
     "dependencies": [
       "iiSDKCore",
       "LVUI"
-    ]
-  },
-  "iiHtmlBlock": {
-    "kind": "cmake",
-    "dependencies": [
-      "iiXml"
     ]
   },
   "iiJson": {
@@ -102,6 +104,24 @@
     "kind": "cmake",
     "dependencies": [
       "iiFileProvider"
+    ]
+  },
+  "iiMultimodalAgent": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiAudioGen",
+      "iiDecision",
+      "iiFileProvider",
+      "iiLocalDiffusion",
+      "iiLocalLLM",
+      "iiVoiceOver"
+    ]
+  },
+  "iiNetwork": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiSDKCore",
+      "iiJson"
     ]
   },
   "iiPaintEngine": {
@@ -130,19 +150,12 @@
     "kind": "cmake",
     "dependencies": []
   },
-  "iiWebServer": {
-    "kind": "cmake",
-    "dependencies": [
-      "iiFileProvider",
-      "iiNetwork"
-    ]
-  },
   "iiSharedCanvas": {
     "kind": "cmake",
     "dependencies": [
       "iiFileProvider",
       "iiPaintEngine",
-      "iiImageCodec",
+      "iiVisualCodec",
       "iiSDKCore"
     ]
   },
@@ -174,11 +187,22 @@
       "iiFileProvider"
     ]
   },
+  "iiVisualCodec": {
+    "kind": "cmake",
+    "dependencies": []
+  },
   "iiVoiceOver": {
     "kind": "cmake",
     "dependencies": [
       "iiFileProvider",
       "iiSDKCore"
+    ]
+  },
+  "iiWebServer": {
+    "kind": "cmake",
+    "dependencies": [
+      "iiFileProvider",
+      "iiNetwork"
     ]
   },
   "iiWhatsNew": {
@@ -203,30 +227,30 @@
     "kind": "npm",
     "dependencies": []
   },
-  "iiMultimodalAgent": {
+  "LVUI": {
     "kind": "cmake",
     "dependencies": [
-      "iiAudioGen",
-      "iiDecision",
-      "iiFileProvider",
-      "iiLocalDiffusion",
-      "iiLocalLLM",
-      "iiVoiceOver"
+      "iiSDKCore"
     ]
   },
-  "iiNetwork": {
+  "iiVirtualizer": {
     "kind": "cmake",
     "dependencies": [
       "iiSDKCore",
-      "iiJson"
+      "iiJson",
+      "iiFileProvider",
+      "iiNetwork",
+      "iiAccountManager"
     ]
   },
-  "LVUI": {
+  "iiGlobalSearch": {
     "kind": "cmake",
-    "dependencies": ["iiSDKCore"]
-  },
-  "iiImageCodec": {
-    "kind": "cmake",
-    "dependencies": []
+    "dependencies": [
+      "iiSDKCore",
+      "iiJson",
+      "iiFileProvider",
+      "iiSocietyContainer",
+      "iiNetwork"
+    ]
   }
 }

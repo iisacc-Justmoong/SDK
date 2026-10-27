@@ -1,0 +1,431 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:043106b2ae142cf05818726e839d9f961d32bd06b81bddf6dd56951e2e7b444c",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiGPU",
+    "name": "iiGPU",
+    "root": "SDK/iiGPU",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "README.md",
+    "sha256": "f433cf5da44f8a9d11e8ad07dfef053de6855f9ed4ad79b6e18c804773d0e46c",
+    "bytes": 4327,
+    "line_count": 91,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "iiGPU",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# iiGPU\n",
+      "level": 1,
+      "title": "iiGPU"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 7,
+      "raw": "iiGPU is a Qt-free C++23 GPU command and compute foundation for iiSDK. It owns\nnative adapters, queues, shared/device buffers, reusable compute pipelines,\ncommand recording, explicit memory dependencies and observable completion.\nMetal serves Apple platforms; Vulkan serves native desktop and Android targets.\nAn optional `iiGPU::Runtime` adapter delivers completion on an iiSDKCore 0.20+ EventLoop.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 9,
+      "end_line": 18,
+      "raw": "WebGPU device negotiation, resources, WGSL and standard WebGPU C access are\nintegrated as the optional `iiGPU::WebGPU` component. The existing\n`iiWebGPU::iiWebGPU` package name is a compatibility alias for that component.\nThe base target does not link Dawn or import WebGPU types. `IIGPU_WEBGPU` accepts\n`AUTO`, `ON`, or `OFF`; `ON` requires a target-native Dawn distribution in\n`resources/dawn/<target>` or the explicitly configured `IIGPU_DAWN_ROOT`. For\nexample, macOS arm64 and Windows x64 resources live in different directories;\nthe configured compiler target selects the directory. The pinned\n`tools/fetch_dawn.py` prepares that resource through iiFileProvider. No GPU\nbackend or shader format is silently substituted for another.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 19,
+      "end_line": 19,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 20,
+      "end_line": 24,
+      "raw": "The base library does not depend on iiGUI, iiDecision, iiSDKCore or an interpreter.\niiDecision uses it for exact integer evidence filtering. Graphics widgets,\npresentation, model runtimes and probability calculations remain in their own\nmodules. `native_access` permits platform extensions through borrowed native\nhandles with a strictly bounded lifetime.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 25,
+      "end_line": 25,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "heading",
+      "start_line": 26,
+      "end_line": 26,
+      "raw": "## Build and install\n",
+      "level": 2,
+      "title": "Build and install"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 27,
+      "end_line": 27,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "fenced_code",
+      "start_line": 28,
+      "end_line": 35,
+      "raw": "```sh\ncmake -S . -B build -DCMAKE_BUILD_TYPE=Release \\\n  -DiiSDKCore_DIR=\"$HOME/.local/SDK/iiSDKCore/lib/cmake/iiSDKCore\" \\\n  -DCMAKE_INSTALL_PREFIX=\"$HOME/.local/SDK/iiGPU\"\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\ncmake --install build\n```\n",
+      "language": "sh",
+      "code": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \\\n  -DiiSDKCore_DIR=\"$HOME/.local/SDK/iiSDKCore/lib/cmake/iiSDKCore\" \\\n  -DCMAKE_INSTALL_PREFIX=\"$HOME/.local/SDK/iiGPU\"\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\ncmake --install build\n",
+      "closed": true
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 36,
+      "end_line": 36,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 37,
+      "end_line": 43,
+      "raw": "`IIGPU_METAL` and `IIGPU_VULKAN` accept `AUTO`, `ON` or `OFF`. `ON` fails if the\nSDK is unavailable; a backend disabled at build time returns `unsupported` at\nruntime. Vulkan needs the platform's native loader and driver; Apple Vulkan\nvalidation uses an externally installed MoltenVK. Set `Vulkan_INCLUDE_DIR` and\n`Vulkan_LIBRARY` if discovery requires explicit paths. No vendor SDK is fetched\nor bundled automatically. `IIGPU_BUILD_RUNTIME=OFF` removes the Core adapter.\n`install.sh` runs the same build/test/install sequence.\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 44,
+      "end_line": 44,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 45,
+      "end_line": 46,
+      "raw": "To build the optional WebGPU component, prepare the locked host distribution\nfirst, then configure it explicitly:\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 47,
+      "end_line": 47,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "fenced_code",
+      "start_line": 48,
+      "end_line": 53,
+      "raw": "```sh\npython3 -B tools/fetch_dawn.py\ncmake -S . -B build -DIIGPU_WEBGPU=ON\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\n```\n",
+      "language": "sh",
+      "code": "python3 -B tools/fetch_dawn.py\ncmake -S . -B build -DIIGPU_WEBGPU=ON\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\n",
+      "closed": true
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 54,
+      "end_line": 54,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "paragraph",
+      "start_line": 55,
+      "end_line": 58,
+      "raw": "For cross compilation, `--platform windows-x64` or another key in the lock file\nfetches the target's distribution into its own directory. Supply a matching\ntarget toolchain. Unsupported target architectures and universal binaries\nrequire an explicitly prepared `IIGPU_DAWN_ROOT`.\n"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 59,
+      "end_line": 59,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "heading",
+      "start_line": 60,
+      "end_line": 60,
+      "raw": "## Consume the installed package\n",
+      "level": 2,
+      "title": "Consume the installed package"
+    },
+    {
+      "id": "b000022",
+      "kind": "blank",
+      "start_line": 61,
+      "end_line": 61,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "fenced_code",
+      "start_line": 62,
+      "end_line": 71,
+      "raw": "```cmake\nfind_package(iiGPU 0.1 CONFIG REQUIRED)\ntarget_link_libraries(MyCompute PRIVATE iiGPU::iiGPU)\n# Request only when EventLoop completion integration is needed:\nfind_package(iiGPU 0.1 CONFIG REQUIRED COMPONENTS Runtime)\ntarget_link_libraries(MyApp PRIVATE iiGPU::Runtime)\n# Request WebGPU only when used; the compatibility iiWebGPU package also works.\nfind_package(iiGPU 0.1 CONFIG REQUIRED COMPONENTS WebGPU)\ntarget_link_libraries(MyWebGPUApp PRIVATE iiGPU::WebGPU)\n```\n",
+      "language": "cmake",
+      "code": "find_package(iiGPU 0.1 CONFIG REQUIRED)\ntarget_link_libraries(MyCompute PRIVATE iiGPU::iiGPU)\n# Request only when EventLoop completion integration is needed:\nfind_package(iiGPU 0.1 CONFIG REQUIRED COMPONENTS Runtime)\ntarget_link_libraries(MyApp PRIVATE iiGPU::Runtime)\n# Request WebGPU only when used; the compatibility iiWebGPU package also works.\nfind_package(iiGPU 0.1 CONFIG REQUIRED COMPONENTS WebGPU)\ntarget_link_libraries(MyWebGPUApp PRIVATE iiGPU::WebGPU)\n",
+      "closed": true
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 72,
+      "end_line": 72,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
+      "kind": "paragraph",
+      "start_line": 73,
+      "end_line": 76,
+      "raw": "The [acceleration example](example/Acceleration/main.cpp) uploads 257 integers,\ndispatches a shader, waits for completion and checks every output. Run\n`build/iiGPUAcceleration metal` or `build/iiGPUAcceleration vulkan`. It requires\na physical GPU by default and does not silently run a CPU implementation.\n"
+    },
+    {
+      "id": "b000026",
+      "kind": "blank",
+      "start_line": 77,
+      "end_line": 77,
+      "raw": "\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "paragraph",
+      "start_line": 78,
+      "end_line": 80,
+      "raw": "See the Korean [API and lifetime contract](docs/Contracts.md),\n[platform and verification record](docs/Verification.md), and\n[agent document index](docs/agent-index.json).\n"
+    },
+    {
+      "id": "b000028",
+      "kind": "blank",
+      "start_line": 81,
+      "end_line": 81,
+      "raw": "\n"
+    },
+    {
+      "id": "b000029",
+      "kind": "paragraph",
+      "start_line": 82,
+      "end_line": 82,
+      "raw": "WebGPU source, migration and verification: [contract](docs/WebGPUContract.md), [verification](docs/WebGPUVerification.md).\n"
+    },
+    {
+      "id": "b000030",
+      "kind": "blank",
+      "start_line": 83,
+      "end_line": 83,
+      "raw": "\n"
+    },
+    {
+      "id": "b000031",
+      "kind": "html",
+      "start_line": 84,
+      "end_line": 84,
+      "raw": "<!-- workspace-docs:readme:start -->\n"
+    },
+    {
+      "id": "b000032",
+      "kind": "heading",
+      "start_line": 85,
+      "end_line": 85,
+      "raw": "## Documentation entry points\n",
+      "level": 2,
+      "title": "Documentation entry points"
+    },
+    {
+      "id": "b000033",
+      "kind": "blank",
+      "start_line": 86,
+      "end_line": 86,
+      "raw": "\n"
+    },
+    {
+      "id": "b000034",
+      "kind": "list",
+      "start_line": 87,
+      "end_line": 90,
+      "raw": "- Human overview: this English `README.md`.\n- Agent instructions: [AGENT.md](AGENT.md).\n- Human documentation: [documentation index](docs/README.md).\n- Structured agent documentation: [agent index](docs/agent-index.json).\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "Human overview: this English `README.md`.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Agent instructions: [AGENT.md](AGENT.md).",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Human documentation: [documentation index](docs/README.md).",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Structured agent documentation: [agent index](docs/agent-index.json).",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000035",
+      "kind": "html",
+      "start_line": 91,
+      "end_line": 91,
+      "raw": "<!-- workspace-docs:readme:end -->\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "iiGPU",
+      "anchor": "iigpu",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000009",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Build and install",
+      "anchor": "build-and-install",
+      "start_line": 26
+    },
+    {
+      "block_id": "b000021",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Consume the installed package",
+      "anchor": "consume-the-installed-package",
+      "start_line": 60
+    },
+    {
+      "block_id": "b000032",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Documentation entry points",
+      "anchor": "documentation-entry-points",
+      "start_line": 85
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [
+      {
+        "block_id": "b000011",
+        "language": "sh",
+        "code": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \\\n  -DiiSDKCore_DIR=\"$HOME/.local/SDK/iiSDKCore/lib/cmake/iiSDKCore\" \\\n  -DCMAKE_INSTALL_PREFIX=\"$HOME/.local/SDK/iiGPU\"\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\ncmake --install build\n"
+      },
+      {
+        "block_id": "b000017",
+        "language": "sh",
+        "code": "python3 -B tools/fetch_dawn.py\ncmake -S . -B build -DIIGPU_WEBGPU=ON\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\n"
+      }
+    ],
+    "links": [
+      {
+        "block_id": "b000025",
+        "label": "acceleration example",
+        "target": "example/Acceleration/main.cpp",
+        "kind": "relative",
+        "line": 73
+      },
+      {
+        "block_id": "b000027",
+        "label": "API and lifetime contract",
+        "target": "docs/Contracts.md",
+        "kind": "relative",
+        "line": 78
+      },
+      {
+        "block_id": "b000027",
+        "label": "platform and verification record",
+        "target": "docs/Verification.md",
+        "kind": "relative",
+        "line": 79
+      },
+      {
+        "block_id": "b000027",
+        "label": "agent document index",
+        "target": "docs/agent-index.json",
+        "kind": "relative",
+        "line": 80
+      },
+      {
+        "block_id": "b000029",
+        "label": "contract",
+        "target": "docs/WebGPUContract.md",
+        "kind": "relative",
+        "line": 82
+      },
+      {
+        "block_id": "b000029",
+        "label": "verification",
+        "target": "docs/WebGPUVerification.md",
+        "kind": "relative",
+        "line": 82
+      },
+      {
+        "block_id": "b000034",
+        "label": "AGENT.md",
+        "target": "AGENT.md",
+        "kind": "relative",
+        "line": 88
+      },
+      {
+        "block_id": "b000034",
+        "label": "documentation index",
+        "target": "docs/README.md",
+        "kind": "relative",
+        "line": 89
+      },
+      {
+        "block_id": "b000034",
+        "label": "agent index",
+        "target": "docs/agent-index.json",
+        "kind": "relative",
+        "line": 90
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

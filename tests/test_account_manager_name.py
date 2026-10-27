@@ -60,7 +60,7 @@ class AccountManagerNameTests(unittest.TestCase):
             "SDK/iiSocietyHelper/src/iiSocietyHelper/AccountSession.h",
             "SDK/iiSocietyHelper/cmake/iiSocietyHelperConfig.cmake.in",
             "SDK/iiVirtualizer/cmake/iiVirtualizerConfig.cmake.in",
-            "Product/Society/src/App/Account/AccountController.h",
+            "Product/Society/App/Society/Account/AccountController.h",
             "Product/Congregation/App/Engine/LicenseService.h",
             "Product/build-policy/SingleApp.cmake",
         )

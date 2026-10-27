@@ -1,0 +1,1057 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:240481b89a16da645513fd721375160e405db410bb09acc2f12978b19daae5f8",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "docs/QtIndependence.md",
+    "sha256": "4092bc32868895a4c9ecf84dd77bea8e34571c37cc967e7b85c69d705f6ba013",
+    "bytes": 13373,
+    "line_count": 100,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "비GUI Qt 독립 모듈과 이행 경계",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# 비GUI Qt 독립 모듈과 이행 경계\n",
+      "level": 1,
+      "title": "비GUI Qt 독립 모듈과 이행 경계"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 4,
+      "raw": "현재 이미지 모듈의 이름은 iiVisualCodec이다. 과거 iiImageCodec 0.1.0 검증 기록은 당시 명칭을 유지한다. 새 Video·Spatial·USD 기능과 검증 범위는 iiVisualCodec/docs/ 문서를 따른다.\n2026-10-22 Dreamscapes와 SDK의 실제 소스·공개 계약·CMake 의존성을 조사하고, 누락된 기반 기능을 네 개 모듈에서 구현·확장했다. 공통 실행기는 기존 iiSDKCore를 재사용하며 파일·네트워크·코덱·문서 기능을 Core에 역수입하지 않는다. 이 문서는 대체 SDK 제공, 소비자 이행, GUI 어댑터 유지, 실행 검증을 구분한다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 5,
+      "end_line": 5,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "heading",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "## Qt 기능별 소유자\n",
+      "level": 2,
+      "title": "Qt 기능별 소유자"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "table",
+      "start_line": 8,
+      "end_line": 23,
+      "raw": "| Qt 영역 / 실제 사용 기능 | iiSDK 또는 표준 기반 | 현재 범위와 남은 이행 |\n|---|---|---|\n| QtCore 문자열, 바이트, 컨테이너, 시간 | `std::string`, span/vector/map/variant, chrono, filesystem | 독립 계약에는 표준 값을 사용한다. 기존 서비스·문서 공개 API의 QString/QVariant 타입은 소비자와 함께 이행해야 한다. |\n| QObject 비GUI 작업, QtConcurrent, QThread/QTimer, QProcess | 기존 iiSDKCore Runtime, SerialQueue, TaskScope, QueryPort, EventLoop, Process | 중복 실행기를 만들지 않는다. Dreamscapes 외부 worker는 이미 Core를 사용한다. 모델 제출·관측의 QtConcurrent와 UI 전달 QObject는 여전히 남아 있다. |\n| QtCore 파일·원자적 저장·임시 디렉터리 | 기존 iiFileProviderNative | 새 코드도 제공자의 CRUD와 원자적 저장을 사용한다. QFile/QSaveFile 사용처의 자동 이행을 의미하지 않는다. |\n| QJsonDocument/Object/Array, QVariant 데이터 | 기존 iiJson + Core Value/Contracts | 새 JSON 엔진을 만들지 않는다. 기존 서비스 JSON 스키마, 누락/null, 숫자 범위, Qt 변환은 소비자 이행 시 명시해야 한다. |\n| QXmlStreamReader/Writer | **iiXml::Native 추가** | UTF-8 pull 이벤트와 XML writer. 기존 QObject XML API와 분리하여 Qt 없이 구성·설치·소비한다. SVG/FCPXML 소비 코드 이행은 별도이다. |\n| QSqlDatabase/QSqlQuery의 SQLite 사용 | **iiFileProviderNative 0.9.0 확장** | 표준 타입 연결·문장·바인딩·행·트랜잭션. 전역 Qt SQL 연결/드라이버가 없다. SQLite 외 SQL 드라이버와 ORM은 제공하지 않는다. Helper의 기존 Qt SQL 스키마·질의는 그대로 남아 있다. |\n| QtGui의 비GUI PNG/JPEG 인코딩·디코딩 | **iiImageCodec 0.1.0 신설** | RGB/RGBA PNG, RGB JPEG, RGBA8 디코딩, 한도/오류. 워터마크·ICC/EXIF·고비트·모든 플러그인 포맷을 대체하지 않는다. |\n| QtNetwork TCP/UDP/IPC, TLS, HTTP, 쿠키, 인증·프록시, REST | 기존 iiNetwork | 기존 모듈을 재사용한다. 세션 정책·계정 API·서버 프로토콜·애플리케이션 수명 이행은 상위 모듈 책임이다. |\n| QtWebSockets | **iiNetwork 0.5.0 확장** | HTTP/1.1 upgrade, 명시적 서버 승인, 메시지·마스크·fragmentation·UTF-8·ping/pong·종료. TCP/TLS 스트림은 기존 API로 조합한다. Qt 서버/클라이언트 소비자의 이행은 아직 완료하지 않았다. |\n| QtBluetooth BLE | 기존 iiDeviceMultimedia | Core와 독립된 동위 모듈의 central/GATT를 사용한다. 모든 Bluetooth 프로파일 및 모든 플랫폼의 물리 장치 지원을 주장하지 않는다. |\n| QtMultimedia 카메라·PCM·장치 | 기존 iiCameraIntegration, iiDeviceMultimedia | 네이티브 장치 계약을 재사용한다. 동영상 demux/codec, 전체 Qt 미디어 세션 및 권한 브리지의 동등성은 미완료이다. |\n| QPainter/Path, 폰트·텍스트 조판, PDF, SVG 렌더링 | iiPaintEngine / iiGraphicAdjust / iiColorManager의 독립 기능 + 별도 렌더링 경계 | QImage codec의 분리만으로 SharedCanvas의 오프스크린 벡터·텍스트·PDF QtGui 의존성을 제거할 수 없다. 실제 그래픽 계약과 기준 이미지 검증이 추가로 필요하다. |\n| QStandardPaths/QSettings, locale/timezone, 파일 감시·OS 서비스 | 명시적 파일 root + iiJson/FileProvider, 기존 도메인·플랫폼 API | 저장 경로/권한/기존 사용자 데이터 이행을 먼저 정의해야 한다. 이번에 포괄적인 자동 Qt 호환 계층은 추가하지 않았다. |\n| QtQml/Quick/Controls, 창·입력·화면 표시 | Qt/LVRS GUI 어댑터 | 현 제품 GUI의 명시적 의존성이다. 비GUI SDK의 공개 API와 분리한다. |\n",
+      "columns": [
+        "Qt 영역 / 실제 사용 기능",
+        "iiSDK 또는 표준 기반",
+        "현재 범위와 남은 이행"
+      ],
+      "rows": [
+        [
+          "QtCore 문자열, 바이트, 컨테이너, 시간",
+          "`std::string`, span/vector/map/variant, chrono, filesystem",
+          "독립 계약에는 표준 값을 사용한다. 기존 서비스·문서 공개 API의 QString/QVariant 타입은 소비자와 함께 이행해야 한다."
+        ],
+        [
+          "QObject 비GUI 작업, QtConcurrent, QThread/QTimer, QProcess",
+          "기존 iiSDKCore Runtime, SerialQueue, TaskScope, QueryPort, EventLoop, Process",
+          "중복 실행기를 만들지 않는다. Dreamscapes 외부 worker는 이미 Core를 사용한다. 모델 제출·관측의 QtConcurrent와 UI 전달 QObject는 여전히 남아 있다."
+        ],
+        [
+          "QtCore 파일·원자적 저장·임시 디렉터리",
+          "기존 iiFileProviderNative",
+          "새 코드도 제공자의 CRUD와 원자적 저장을 사용한다. QFile/QSaveFile 사용처의 자동 이행을 의미하지 않는다."
+        ],
+        [
+          "QJsonDocument/Object/Array, QVariant 데이터",
+          "기존 iiJson + Core Value/Contracts",
+          "새 JSON 엔진을 만들지 않는다. 기존 서비스 JSON 스키마, 누락/null, 숫자 범위, Qt 변환은 소비자 이행 시 명시해야 한다."
+        ],
+        [
+          "QXmlStreamReader/Writer",
+          "**iiXml::Native 추가**",
+          "UTF-8 pull 이벤트와 XML writer. 기존 QObject XML API와 분리하여 Qt 없이 구성·설치·소비한다. SVG/FCPXML 소비 코드 이행은 별도이다."
+        ],
+        [
+          "QSqlDatabase/QSqlQuery의 SQLite 사용",
+          "**iiFileProviderNative 0.9.0 확장**",
+          "표준 타입 연결·문장·바인딩·행·트랜잭션. 전역 Qt SQL 연결/드라이버가 없다. SQLite 외 SQL 드라이버와 ORM은 제공하지 않는다. Helper의 기존 Qt SQL 스키마·질의는 그대로 남아 있다."
+        ],
+        [
+          "QtGui의 비GUI PNG/JPEG 인코딩·디코딩",
+          "**iiImageCodec 0.1.0 신설**",
+          "RGB/RGBA PNG, RGB JPEG, RGBA8 디코딩, 한도/오류. 워터마크·ICC/EXIF·고비트·모든 플러그인 포맷을 대체하지 않는다."
+        ],
+        [
+          "QtNetwork TCP/UDP/IPC, TLS, HTTP, 쿠키, 인증·프록시, REST",
+          "기존 iiNetwork",
+          "기존 모듈을 재사용한다. 세션 정책·계정 API·서버 프로토콜·애플리케이션 수명 이행은 상위 모듈 책임이다."
+        ],
+        [
+          "QtWebSockets",
+          "**iiNetwork 0.5.0 확장**",
+          "HTTP/1.1 upgrade, 명시적 서버 승인, 메시지·마스크·fragmentation·UTF-8·ping/pong·종료. TCP/TLS 스트림은 기존 API로 조합한다. Qt 서버/클라이언트 소비자의 이행은 아직 완료하지 않았다."
+        ],
+        [
+          "QtBluetooth BLE",
+          "기존 iiDeviceMultimedia",
+          "Core와 독립된 동위 모듈의 central/GATT를 사용한다. 모든 Bluetooth 프로파일 및 모든 플랫폼의 물리 장치 지원을 주장하지 않는다."
+        ],
+        [
+          "QtMultimedia 카메라·PCM·장치",
+          "기존 iiCameraIntegration, iiDeviceMultimedia",
+          "네이티브 장치 계약을 재사용한다. 동영상 demux/codec, 전체 Qt 미디어 세션 및 권한 브리지의 동등성은 미완료이다."
+        ],
+        [
+          "QPainter/Path, 폰트·텍스트 조판, PDF, SVG 렌더링",
+          "iiPaintEngine / iiGraphicAdjust / iiColorManager의 독립 기능 + 별도 렌더링 경계",
+          "QImage codec의 분리만으로 SharedCanvas의 오프스크린 벡터·텍스트·PDF QtGui 의존성을 제거할 수 없다. 실제 그래픽 계약과 기준 이미지 검증이 추가로 필요하다."
+        ],
+        [
+          "QStandardPaths/QSettings, locale/timezone, 파일 감시·OS 서비스",
+          "명시적 파일 root + iiJson/FileProvider, 기존 도메인·플랫폼 API",
+          "저장 경로/권한/기존 사용자 데이터 이행을 먼저 정의해야 한다. 이번에 포괄적인 자동 Qt 호환 계층은 추가하지 않았다."
+        ],
+        [
+          "QtQml/Quick/Controls, 창·입력·화면 표시",
+          "Qt/LVRS GUI 어댑터",
+          "현 제품 GUI의 명시적 의존성이다. 비GUI SDK의 공개 API와 분리한다."
+        ]
+      ]
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 24,
+      "end_line": 24,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 25,
+      "end_line": 25,
+      "raw": "SDK에는 이미 JSON·네트워크·프로세스·런타임·파일·장치·색상·그래픽 계산 기반이 존재한다. Qt 모듈 개수와 동일한 수의 새 iiSDK를 만들거나 표준 컨테이너를 다시 구현하지 않는다. 상위 서비스와 도메인을 표준 값/메서드로 이행한 뒤 GUI 경계에서 Qt 값을 변환한다.\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 26,
+      "end_line": 26,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "heading",
+      "start_line": 27,
+      "end_line": 27,
+      "raw": "## 새 계약과 의존성\n",
+      "level": 2,
+      "title": "새 계약과 의존성"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 28,
+      "end_line": 28,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "table",
+      "start_line": 29,
+      "end_line": 34,
+      "raw": "| 패키지 / 타깃 | 공개 헤더 | 직접 외부 구현 의존성 |\n|---|---|---|\n| iiVisualCodec 0.2.0 / `iiVisualCodec::Image` | `iiVisualCodec/ImageCodec.h` | libpng >= 1.6, libjpeg 호환 구현; zlib는 PNG 패키지를 통해 전달 |\n| iiXmlNative 0.1.x / `iiXml::Native` | `iiXml/Xml.h` | libxml2 >= 2.9 |\n| iiFileProviderNative 0.9.0 / `iiFileProvider::Native` | `iiFileProviderDatabase.h` | 기존 SQLite/플랫폼 파일 구현. 별도 상위 SDK 의존성 없음 |\n| iiNetwork 0.5.0 / `iiNetwork::iiNetwork` | `iiNetwork/WebSocket.h` | 기존 Core Runtime, iiJson, libcurl, OpenSSL. 새 Qt 의존성 없음 |\n",
+      "columns": [
+        "패키지 / 타깃",
+        "공개 헤더",
+        "직접 외부 구현 의존성"
+      ],
+      "rows": [
+        [
+          "iiVisualCodec 0.2.0 / `iiVisualCodec::Image`",
+          "`iiVisualCodec/ImageCodec.h`",
+          "libpng >= 1.6, libjpeg 호환 구현; zlib는 PNG 패키지를 통해 전달"
+        ],
+        [
+          "iiXmlNative 0.1.x / `iiXml::Native`",
+          "`iiXml/Xml.h`",
+          "libxml2 >= 2.9"
+        ],
+        [
+          "iiFileProviderNative 0.9.0 / `iiFileProvider::Native`",
+          "`iiFileProviderDatabase.h`",
+          "기존 SQLite/플랫폼 파일 구현. 별도 상위 SDK 의존성 없음"
+        ],
+        [
+          "iiNetwork 0.5.0 / `iiNetwork::iiNetwork`",
+          "`iiNetwork/WebSocket.h`",
+          "기존 Core Runtime, iiJson, libcurl, OpenSSL. 새 Qt 의존성 없음"
+        ]
+      ]
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 35,
+      "end_line": 35,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 36,
+      "end_line": 36,
+      "raw": "각 기능의 상세 의미론·한도·예외 범위는 다음 문서가 소유한다.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 37,
+      "end_line": 37,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "list",
+      "start_line": 38,
+      "end_line": 41,
+      "raw": "- `iiVisualCodec/docs/Contracts.md`\n- `iiXml/docs/native.md`\n- `iiFileProvider/docs/NATIVE_DATABASE.md`\n- `iiNetwork/docs/WebSocket.md`\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "`iiVisualCodec/docs/Contracts.md`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "`iiXml/docs/native.md`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "`iiFileProvider/docs/NATIVE_DATABASE.md`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "`iiNetwork/docs/WebSocket.md`",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 42,
+      "end_line": 42,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "paragraph",
+      "start_line": 43,
+      "end_line": 43,
+      "raw": "외부 코덱/SQL/TLS 라이브러리를 전부 자체 구현했다는 주장은 하지 않는다. 새 public API는 해당 C 라이브러리의 포인터·핸들·Qt 타입을 노출하지 않아 구현 교체 경계를 유지한다. 실제 장치·외부 서비스·다른 운영체제의 실행은 별도 증거가 필요하다.\n"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 44,
+      "end_line": 44,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "heading",
+      "start_line": 45,
+      "end_line": 45,
+      "raw": "## 실제 Dreamscapes 채택\n",
+      "level": 2,
+      "title": "실제 Dreamscapes 채택"
+    },
+    {
+      "id": "b000022",
+      "kind": "blank",
+      "start_line": 46,
+      "end_line": 46,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "paragraph",
+      "start_line": 47,
+      "end_line": 47,
+      "raw": "`DreamscapesNativeGeneration`을 별도의 C++23 타깃으로 분리했다. `NativeGenerationWork`의 디렉터리와 프리뷰 파일 이름은 filesystem path와 std::string으로 전달한다. PNG 인코딩은 iiImageCodec, 원자적 저장은 iiFileProviderNative가 맡는다. QString/QImage/QFileInfo/QIODevice와 Qt 저장 장치를 worker에서 제거했다. Qt 변환은 GenerationExecution/GenerationProgress의 GUI 전달 경계에 둔다. provider 요청, 취소 토큰, 소유 수명, 단조 프리뷰 순서와 잠금 밖 통지는 유지한다.\n"
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 48,
+      "end_line": 48,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
+      "kind": "paragraph",
+      "start_line": 49,
+      "end_line": 49,
+      "raw": "`tests/native-generation`은 실제 앱 worker 소스와 SDK 헤더를 Qt 패키지 없이 직접 컴파일한다. 가짜 추론 provider가 만든 실제 RGB를 PNG로 저장·다시 디코딩하고, 중복/이전/잘못된 프레임, 취소, source lease 제거, provider 예외를 검증한다. 별도의 모델 엔진이나 작업별 실행 스레드를 추가하지 않는다.\n"
+    },
+    {
+      "id": "b000026",
+      "kind": "blank",
+      "start_line": 50,
+      "end_line": 50,
+      "raw": "\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "paragraph",
+      "start_line": 51,
+      "end_line": 51,
+      "raw": "앱 전체에서 QtConcurrent, 서비스·문서의 Qt 타입, 기존 스토리지 어댑터, 그래픽/미디어 코드가 제거된 것은 아니다. XML·SQL·WebSocket 모듈의 제공을 해당 상위 소비자들의 전체 이행으로 표현해서는 안 된다. 새 SDK 연결은 GUI FPS 개선 또는 앱 크기 감소의 측정값이 아니다.\n"
+    },
+    {
+      "id": "b000028",
+      "kind": "blank",
+      "start_line": 52,
+      "end_line": 52,
+      "raw": "\n"
+    },
+    {
+      "id": "b000029",
+      "kind": "heading",
+      "start_line": 53,
+      "end_line": 53,
+      "raw": "## 재현 가능한 검증\n",
+      "level": 2,
+      "title": "재현 가능한 검증"
+    },
+    {
+      "id": "b000030",
+      "kind": "blank",
+      "start_line": 54,
+      "end_line": 54,
+      "raw": "\n"
+    },
+    {
+      "id": "b000031",
+      "kind": "paragraph",
+      "start_line": 55,
+      "end_line": 55,
+      "raw": "모든 구성/컴파일 출력은 각 프로젝트의 `build/`에 둔다. 공통 설치 스테이지와 결과는 `SDK/build/qt-independence-20261022/`이다. 설치본 `~/.local`이나 다른 사용자의 dirty 소스, 실행 앱 및 실제 Society 저장소를 바꾸지 않는다.\n"
+    },
+    {
+      "id": "b000032",
+      "kind": "blank",
+      "start_line": 56,
+      "end_line": 56,
+      "raw": "\n"
+    },
+    {
+      "id": "b000033",
+      "kind": "list",
+      "start_line": 57,
+      "end_line": 63,
+      "raw": "1. 모듈 단위 빌드와 전체 계약 테스트를 실행한다.\n2. iiXml은 `IIXML_BUILD_QT_API=OFF`의 독립 구성과 ON의 기존 API 회귀를 구분한다.\n3. CMake 설치 패키지를 Workspace 스테이지에 출력한다.\n4. `SDK/tests/qtfree`는 설치 패키지로 JSON → PNG → 파일/SQLite → XML → WebSocket 데이터 경로 및 실제 Dreamscapes worker를 빌드·실행한다. Qt5/Qt6 검색을 비활성화하며 Qt 타깃이 생기면 구성을 거절한다.\n5. 실제 실행에서 dyld 로딩 기록과 direct dependencies를 확인한다. 소스 include 검사만으로 Qt 독립을 주장하지 않는다.\n6. 같은 소비자를 `IISDK_QTFREE_SOURCE_MODULES=ON`, `IISDK_QTFREE_SANITIZERS=ON`으로 구성하면 변경된 네 모듈과 실제 worker를 함께 ASan/UBSan으로 컴파일한다. 외부 코덱·기존 설치 Core/JSON은 계측되지 않는다.\n7. Dreamscapes는 기존 `build/bin/Dreamscapes.app` 하나만 빌드하고 프리뷰·생성·취소·패키지 시작 회귀를 확인한다. 설치·재시작·실제 모델 실행은 별도이다.\n",
+      "items": [
+        {
+          "marker": "1.",
+          "text": "모듈 단위 빌드와 전체 계약 테스트를 실행한다.",
+          "checked": null
+        },
+        {
+          "marker": "2.",
+          "text": "iiXml은 `IIXML_BUILD_QT_API=OFF`의 독립 구성과 ON의 기존 API 회귀를 구분한다.",
+          "checked": null
+        },
+        {
+          "marker": "3.",
+          "text": "CMake 설치 패키지를 Workspace 스테이지에 출력한다.",
+          "checked": null
+        },
+        {
+          "marker": "4.",
+          "text": "`SDK/tests/qtfree`는 설치 패키지로 JSON → PNG → 파일/SQLite → XML → WebSocket 데이터 경로 및 실제 Dreamscapes worker를 빌드·실행한다. Qt5/Qt6 검색을 비활성화하며 Qt 타깃이 생기면 구성을 거절한다.",
+          "checked": null
+        },
+        {
+          "marker": "5.",
+          "text": "실제 실행에서 dyld 로딩 기록과 direct dependencies를 확인한다. 소스 include 검사만으로 Qt 독립을 주장하지 않는다.",
+          "checked": null
+        },
+        {
+          "marker": "6.",
+          "text": "같은 소비자를 `IISDK_QTFREE_SOURCE_MODULES=ON`, `IISDK_QTFREE_SANITIZERS=ON`으로 구성하면 변경된 네 모듈과 실제 worker를 함께 ASan/UBSan으로 컴파일한다. 외부 코덱·기존 설치 Core/JSON은 계측되지 않는다.",
+          "checked": null
+        },
+        {
+          "marker": "7.",
+          "text": "Dreamscapes는 기존 `build/bin/Dreamscapes.app` 하나만 빌드하고 프리뷰·생성·취소·패키지 시작 회귀를 확인한다. 설치·재시작·실제 모델 실행은 별도이다.",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000034",
+      "kind": "blank",
+      "start_line": 64,
+      "end_line": 64,
+      "raw": "\n"
+    },
+    {
+      "id": "b000035",
+      "kind": "paragraph",
+      "start_line": 65,
+      "end_line": 65,
+      "raw": "호스트 셸의 `DYLD_LIBRARY_PATH`가 오래된 동일 SONAME SDK를 강제로 불러오는 것을 확인했다. Native 테스트에는 해당 재정의만 제거하고 CMake build RPATH를 사용하는 환경을 명시했다. 환경 때문에 새 API가 없는 0.8.1 dylib을 불러온 실패와 코드 테스트 결과를 구분한다. 전역 셸 설정은 변경하지 않았다.\n"
+    },
+    {
+      "id": "b000036",
+      "kind": "blank",
+      "start_line": 66,
+      "end_line": 66,
+      "raw": "\n"
+    },
+    {
+      "id": "b000037",
+      "kind": "paragraph",
+      "start_line": 67,
+      "end_line": 67,
+      "raw": "`tools/audit_qt_dependencies.py`는 build/·모델을 탐색하지 않고 C++ 소스 루트와 CMake 선언을 인벤토리한다. 미추적 소스도 포함하며 test 여부를 기록하고, 대소문자 비구분 파일 시스템의 src/Src 중복도 제거한다. 이 목록은 조건부 선언을 포함하는 정적 후보 목록이며 실제 활성 링크 그래프나 GUI/비GUI 의미 분석의 대체물이 아니다.\n"
+    },
+    {
+      "id": "b000038",
+      "kind": "blank",
+      "start_line": 68,
+      "end_line": 68,
+      "raw": "\n"
+    },
+    {
+      "id": "b000039",
+      "kind": "heading",
+      "start_line": 69,
+      "end_line": 69,
+      "raw": "## 검토에 사용한 일차 자료\n",
+      "level": 2,
+      "title": "검토에 사용한 일차 자료"
+    },
+    {
+      "id": "b000040",
+      "kind": "blank",
+      "start_line": 70,
+      "end_line": 70,
+      "raw": "\n"
+    },
+    {
+      "id": "b000041",
+      "kind": "list",
+      "start_line": 71,
+      "end_line": 74,
+      "raw": "- [SQLite prepared statements](https://www.sqlite.org/c3ref/stmt.html), [step](https://www.sqlite.org/c3ref/step.html), [close](https://www.sqlite.org/c3ref/close.html)\n- [libxml2 reader API](https://gnome.pages.gitlab.gnome.org/libxml2/html/xmlreader_8h.html), [parser options](https://gnome.pages.gitlab.gnome.org/libxml2/html/parser_8h.html)\n- [libpng public API](https://github.com/pnggroup/libpng/blob/libpng18/png.h) 및 빌드에서 실제 사용한 1.6.59 헤더\n- [RFC 6455](https://www.rfc-editor.org/rfc/rfc6455)\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "[SQLite prepared statements](https://www.sqlite.org/c3ref/stmt.html), [step](https://www.sqlite.org/c3ref/step.html), [close](https://www.sqlite.org/c3ref/close.html)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[libxml2 reader API](https://gnome.pages.gitlab.gnome.org/libxml2/html/xmlreader_8h.html), [parser options](https://gnome.pages.gitlab.gnome.org/libxml2/html/parser_8h.html)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[libpng public API](https://github.com/pnggroup/libpng/blob/libpng18/png.h) 및 빌드에서 실제 사용한 1.6.59 헤더",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[RFC 6455](https://www.rfc-editor.org/rfc/rfc6455)",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000042",
+      "kind": "blank",
+      "start_line": 75,
+      "end_line": 75,
+      "raw": "\n"
+    },
+    {
+      "id": "b000043",
+      "kind": "heading",
+      "start_line": 76,
+      "end_line": 76,
+      "raw": "## 2026-10-22 완료 검증 결과\n",
+      "level": 2,
+      "title": "2026-10-22 완료 검증 결과"
+    },
+    {
+      "id": "b000044",
+      "kind": "blank",
+      "start_line": 77,
+      "end_line": 77,
+      "raw": "\n"
+    },
+    {
+      "id": "b000045",
+      "kind": "table",
+      "start_line": 78,
+      "end_line": 90,
+      "raw": "| 검증 | 결과 |\n|---|---|\n| iiImageCodec 계약 | 1/1 그룹 통과 |\n| iiFileProviderNative 전체 | 새 SQLite를 포함한 5/5 그룹 통과 |\n| iiXml Native 전용 구성 | 1/1 그룹 통과 |\n| iiXml 기존 Qt API + Native 구성 | 16/16 그룹 통과 |\n| iiNetwork 전체 | 새 WebSocket 4개 그룹을 포함한 28/28 통과 |\n| 설치된 SDK 패키지만 사용하는 독립 소비자 | 2/2 통과, 실제 로딩된 Qt 라이브러리 각각 0개 |\n| ASan + UBSan 소스 결합 구성 | 변경 모듈·실제 worker의 생산 번역 단위 31개 계측, 35/35 그룹 통과 |\n| Dreamscapes 선택 회귀 | NativeGeneration / DependencyBoundary / LocalSociety / PackagedApplication / Generation / GenerationProcess를 한 번에 실행하여 6/6 통과 |\n| SDK 소스 헤더 배치 / 인벤토리 도구 | 기존 2개 + 새 1개 Python 테스트 통과 |\n| SDK 선언 의존성 | 37개 노드의 선언 그래프에 순환 없음, FileProvider의 상위 SDK 참조 없음 |\n| 앱 산출물 | 버전·빌드 번호 0.1.1, canonical 앱 1개, deep/strict 서명 검사 통과 |\n",
+      "columns": [
+        "검증",
+        "결과"
+      ],
+      "rows": [
+        [
+          "iiImageCodec 계약",
+          "1/1 그룹 통과"
+        ],
+        [
+          "iiFileProviderNative 전체",
+          "새 SQLite를 포함한 5/5 그룹 통과"
+        ],
+        [
+          "iiXml Native 전용 구성",
+          "1/1 그룹 통과"
+        ],
+        [
+          "iiXml 기존 Qt API + Native 구성",
+          "16/16 그룹 통과"
+        ],
+        [
+          "iiNetwork 전체",
+          "새 WebSocket 4개 그룹을 포함한 28/28 통과"
+        ],
+        [
+          "설치된 SDK 패키지만 사용하는 독립 소비자",
+          "2/2 통과, 실제 로딩된 Qt 라이브러리 각각 0개"
+        ],
+        [
+          "ASan + UBSan 소스 결합 구성",
+          "변경 모듈·실제 worker의 생산 번역 단위 31개 계측, 35/35 그룹 통과"
+        ],
+        [
+          "Dreamscapes 선택 회귀",
+          "NativeGeneration / DependencyBoundary / LocalSociety / PackagedApplication / Generation / GenerationProcess를 한 번에 실행하여 6/6 통과"
+        ],
+        [
+          "SDK 소스 헤더 배치 / 인벤토리 도구",
+          "기존 2개 + 새 1개 Python 테스트 통과"
+        ],
+        [
+          "SDK 선언 의존성",
+          "37개 노드의 선언 그래프에 순환 없음, FileProvider의 상위 SDK 참조 없음"
+        ],
+        [
+          "앱 산출물",
+          "버전·빌드 번호 0.1.1, canonical 앱 1개, deep/strict 서명 검사 통과"
+        ]
+      ]
+    },
+    {
+      "id": "b000046",
+      "kind": "blank",
+      "start_line": 91,
+      "end_line": 91,
+      "raw": "\n"
+    },
+    {
+      "id": "b000047",
+      "kind": "paragraph",
+      "start_line": 92,
+      "end_line": 92,
+      "raw": "각 행은 서로 다른 검증 모드의 테스트 그룹 수이며 합산한 고유 기능 수가 아니다. ASan 구성은 leak 검출을 비활성화했으며 외부 PNG/JPEG/libxml2/SQLite/OpenSSL 및 이미 설치된 Core/JSON 바이너리는 계측하지 않았다. macOS arm64 실행 결과이며 다른 OS와 물리 장치 검증을 대신하지 않는다.\n"
+    },
+    {
+      "id": "b000048",
+      "kind": "blank",
+      "start_line": 93,
+      "end_line": 93,
+      "raw": "\n"
+    },
+    {
+      "id": "b000049",
+      "kind": "paragraph",
+      "start_line": 94,
+      "end_line": 94,
+      "raw": "초기 Dreamscapes 회귀에서 백그라운드/진행률 시간 조건의 실패를 관측했다. 같은 코드와 기존 200/300ms watchdog 및 테스트 제한을 유지한 채 개별 행, LocalSociety 전체, 최종 6개 그룹 연속 실행 순서로 재검증했고 마지막 실행은 모두 통과했다. 초기의 실패한 재시도 기록도 보존하며 시간 민감성의 원인을 확정했다고 주장하지 않는다. 실제 모델/원격 모델을 지정하는 선택 테스트는 수행하지 않았다. 전체 GUI 회귀 110여 그룹을 이번 작업에서 다시 실행한 것은 아니다.\n"
+    },
+    {
+      "id": "b000050",
+      "kind": "blank",
+      "start_line": 95,
+      "end_line": 95,
+      "raw": "\n"
+    },
+    {
+      "id": "b000051",
+      "kind": "paragraph",
+      "start_line": 96,
+      "end_line": 96,
+      "raw": "설치 스테이지는 `SDK/build/qt-independence-20261022/prefix`, 최종 결과 원본·실행 로딩 기록·소스/패키지 해시는 같은 경로의 `final/`이다. 전역 SDK 설치, Git commit/push 및 `/Applications` 재설치는 수행하지 않았다. Dreamscapes의 빌드 후보만 갱신했으며 실행 중인 사용자의 앱/작업을 재시작하지 않았다.\n"
+    },
+    {
+      "id": "b000052",
+      "kind": "blank",
+      "start_line": 97,
+      "end_line": 97,
+      "raw": "\n"
+    },
+    {
+      "id": "b000053",
+      "kind": "paragraph",
+      "start_line": 98,
+      "end_line": 98,
+      "raw": "Vision·OpenCV 확장은 iiVisualCodec 0.3에서 독립 타깃으로 제공한다. 이미지 전용 소스 소비자는 IIVISUALCODEC_OPENCV=OFF를 지정하고, 설치 소비자는 Image 구성요소만 요청한다. Vision 객체는 OpenCV 없이 사용할 수 있다.\n"
+    },
+    {
+      "id": "b000054",
+      "kind": "blank",
+      "start_line": 99,
+      "end_line": 99,
+      "raw": "\n"
+    },
+    {
+      "id": "b000055",
+      "kind": "paragraph",
+      "start_line": 100,
+      "end_line": 100,
+      "raw": "iiVisualCodec 0.4는 표준 C++ Geometry와 선택적 Asset3D(Assimp)·CAD(Open CASCADE) 타깃을 추가한다. 이미지 전용 소스 소비자는 IIVISUALCODEC_3D=OFF와 IIVISUALCODEC_CAD=OFF도 지정한다. Geometry 단독 패키지는 두 백엔드를 탐색하지 않는다. 상세 계약과 실제 플랫폼 검증은 iiVisualCodec/docs/Geometry.md·Asset3D.md·CAD.md·GeometryVerification.md를 기준으로 한다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "비GUI Qt 독립 모듈과 이행 경계",
+      "anchor": "비gui-qt-독립-모듈과-이행-경계",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000005",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Qt 기능별 소유자",
+      "anchor": "qt-기능별-소유자",
+      "start_line": 6
+    },
+    {
+      "block_id": "b000011",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "새 계약과 의존성",
+      "anchor": "새-계약과-의존성",
+      "start_line": 27
+    },
+    {
+      "block_id": "b000021",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "실제 Dreamscapes 채택",
+      "anchor": "실제-dreamscapes-채택",
+      "start_line": 45
+    },
+    {
+      "block_id": "b000029",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "재현 가능한 검증",
+      "anchor": "재현-가능한-검증",
+      "start_line": 53
+    },
+    {
+      "block_id": "b000039",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "검토에 사용한 일차 자료",
+      "anchor": "검토에-사용한-일차-자료",
+      "start_line": 69
+    },
+    {
+      "block_id": "b000043",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "2026-10-22 완료 검증 결과",
+      "anchor": "2026-10-22-완료-검증-결과",
+      "start_line": 76
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000003",
+        "line": 4,
+        "text": "2026-10-22 Dreamscapes와 SDK의 실제 소스·공개 계약·CMake 의존성을 조사하고, 누락된 기반 기능을 네 개 모듈에서 구현·확장했다. 공통 실행기는 기존 iiSDKCore를 재사용하며 파일·네트워크·코덱·문서 기능을 Core에 역수입하지 않는다. 이 문서는 대체 SDK 제공, 소비자 이행, GUI 어댑터 유지, 실행 검증을 구분한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000007",
+        "line": 10,
+        "text": "| QtCore 문자열, 바이트, 컨테이너, 시간 | `std::string`, span/vector/map/variant, chrono, filesystem | 독립 계약에는 표준 값을 사용한다. 기존 서비스·문서 공개 API의 QString/QVariant 타입은 소비자와 함께 이행해야 한다. |",
+        "basis": "lexical_match",
+        "context": "table"
+      },
+      {
+        "block_id": "b000007",
+        "line": 12,
+        "text": "| QtCore 파일·원자적 저장·임시 디렉터리 | 기존 iiFileProviderNative | 새 코드도 제공자의 CRUD와 원자적 저장을 사용한다. QFile/QSaveFile 사용처의 자동 이행을 의미하지 않는다. |",
+        "basis": "lexical_match",
+        "context": "table"
+      },
+      {
+        "block_id": "b000007",
+        "line": 13,
+        "text": "| QJsonDocument/Object/Array, QVariant 데이터 | 기존 iiJson + Core Value/Contracts | 새 JSON 엔진을 만들지 않는다. 기존 서비스 JSON 스키마, 누락/null, 숫자 범위, Qt 변환은 소비자 이행 시 명시해야 한다. |",
+        "basis": "lexical_match",
+        "context": "table"
+      },
+      {
+        "block_id": "b000007",
+        "line": 15,
+        "text": "| QSqlDatabase/QSqlQuery의 SQLite 사용 | **iiFileProviderNative 0.9.0 확장** | 표준 타입 연결·문장·바인딩·행·트랜잭션. 전역 Qt SQL 연결/드라이버가 없다. SQLite 외 SQL 드라이버와 ORM은 제공하지 않는다. Helper의 기존 Qt SQL 스키마·질의는 그대로 남아 있다. |",
+        "basis": "lexical_match",
+        "context": "table"
+      },
+      {
+        "block_id": "b000007",
+        "line": 16,
+        "text": "| QtGui의 비GUI PNG/JPEG 인코딩·디코딩 | **iiImageCodec 0.1.0 신설** | RGB/RGBA PNG, RGB JPEG, RGBA8 디코딩, 한도/오류. 워터마크·ICC/EXIF·고비트·모든 플러그인 포맷을 대체하지 않는다. |",
+        "basis": "lexical_match",
+        "context": "table"
+      },
+      {
+        "block_id": "b000007",
+        "line": 19,
+        "text": "| QtBluetooth BLE | 기존 iiDeviceMultimedia | Core와 독립된 동위 모듈의 central/GATT를 사용한다. 모든 Bluetooth 프로파일 및 모든 플랫폼의 물리 장치 지원을 주장하지 않는다. |",
+        "basis": "lexical_match",
+        "context": "table"
+      },
+      {
+        "block_id": "b000007",
+        "line": 22,
+        "text": "| QStandardPaths/QSettings, locale/timezone, 파일 감시·OS 서비스 | 명시적 파일 root + iiJson/FileProvider, 기존 도메인·플랫폼 API | 저장 경로/권한/기존 사용자 데이터 이행을 먼저 정의해야 한다. 이번에 포괄적인 자동 Qt 호환 계층은 추가하지 않았다. |",
+        "basis": "lexical_match",
+        "context": "table"
+      },
+      {
+        "block_id": "b000009",
+        "line": 25,
+        "text": "SDK에는 이미 JSON·네트워크·프로세스·런타임·파일·장치·색상·그래픽 계산 기반이 존재한다. Qt 모듈 개수와 동일한 수의 새 iiSDK를 만들거나 표준 컨테이너를 다시 구현하지 않는다. 상위 서비스와 도메인을 표준 값/메서드로 이행한 뒤 GUI 경계에서 Qt 값을 변환한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000019",
+        "line": 43,
+        "text": "외부 코덱/SQL/TLS 라이브러리를 전부 자체 구현했다는 주장은 하지 않는다. 새 public API는 해당 C 라이브러리의 포인터·핸들·Qt 타입을 노출하지 않아 구현 교체 경계를 유지한다. 실제 장치·외부 서비스·다른 운영체제의 실행은 별도 증거가 필요하다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000025",
+        "line": 49,
+        "text": "`tests/native-generation`은 실제 앱 worker 소스와 SDK 헤더를 Qt 패키지 없이 직접 컴파일한다. 가짜 추론 provider가 만든 실제 RGB를 PNG로 저장·다시 디코딩하고, 중복/이전/잘못된 프레임, 취소, source lease 제거, provider 예외를 검증한다. 별도의 모델 엔진이나 작업별 실행 스레드를 추가하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000027",
+        "line": 51,
+        "text": "앱 전체에서 QtConcurrent, 서비스·문서의 Qt 타입, 기존 스토리지 어댑터, 그래픽/미디어 코드가 제거된 것은 아니다. XML·SQL·WebSocket 모듈의 제공을 해당 상위 소비자들의 전체 이행으로 표현해서는 안 된다. 새 SDK 연결은 GUI FPS 개선 또는 앱 크기 감소의 측정값이 아니다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000033",
+        "line": 61,
+        "text": "5. 실제 실행에서 dyld 로딩 기록과 direct dependencies를 확인한다. 소스 include 검사만으로 Qt 독립을 주장하지 않는다.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000047",
+        "line": 92,
+        "text": "각 행은 서로 다른 검증 모드의 테스트 그룹 수이며 합산한 고유 기능 수가 아니다. ASan 구성은 leak 검출을 비활성화했으며 외부 PNG/JPEG/libxml2/SQLite/OpenSSL 및 이미 설치된 Core/JSON 바이너리는 계측하지 않았다. macOS arm64 실행 결과이며 다른 OS와 물리 장치 검증을 대신하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000049",
+        "line": 94,
+        "text": "초기 Dreamscapes 회귀에서 백그라운드/진행률 시간 조건의 실패를 관측했다. 같은 코드와 기존 200/300ms watchdog 및 테스트 제한을 유지한 채 개별 행, LocalSociety 전체, 최종 6개 그룹 연속 실행 순서로 재검증했고 마지막 실행은 모두 통과했다. 초기의 실패한 재시도 기록도 보존하며 시간 민감성의 원인을 확정했다고 주장하지 않는다. 실제 모델/원격 모델을 지정하는 선택 테스트는 수행하지 않았다. 전체 GUI 회귀 110여 그룹을 이번 작업에서 다시 실행한 것은 아니다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000055",
+        "line": 100,
+        "text": "iiVisualCodec 0.4는 표준 C++ Geometry와 선택적 Asset3D(Assimp)·CAD(Open CASCADE) 타깃을 추가한다. 이미지 전용 소스 소비자는 IIVISUALCODEC_3D=OFF와 IIVISUALCODEC_CAD=OFF도 지정한다. Geometry 단독 패키지는 두 백엔드를 탐색하지 않는다. 상세 계약과 실제 플랫폼 검증은 iiVisualCodec/docs/Geometry.md·Asset3D.md·CAD.md·GeometryVerification.md를 기준으로 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000041",
+        "label": "SQLite prepared statements",
+        "target": "https://www.sqlite.org/c3ref/stmt.html",
+        "kind": "external",
+        "line": 71
+      },
+      {
+        "block_id": "b000041",
+        "label": "step",
+        "target": "https://www.sqlite.org/c3ref/step.html",
+        "kind": "external",
+        "line": 71
+      },
+      {
+        "block_id": "b000041",
+        "label": "close",
+        "target": "https://www.sqlite.org/c3ref/close.html",
+        "kind": "external",
+        "line": 71
+      },
+      {
+        "block_id": "b000041",
+        "label": "libxml2 reader API",
+        "target": "https://gnome.pages.gitlab.gnome.org/libxml2/html/xmlreader_8h.html",
+        "kind": "external",
+        "line": 72
+      },
+      {
+        "block_id": "b000041",
+        "label": "parser options",
+        "target": "https://gnome.pages.gitlab.gnome.org/libxml2/html/parser_8h.html",
+        "kind": "external",
+        "line": 72
+      },
+      {
+        "block_id": "b000041",
+        "label": "libpng public API",
+        "target": "https://github.com/pnggroup/libpng/blob/libpng18/png.h",
+        "kind": "external",
+        "line": 73
+      },
+      {
+        "block_id": "b000041",
+        "label": "RFC 6455",
+        "target": "https://www.rfc-editor.org/rfc/rfc6455",
+        "kind": "external",
+        "line": 74
+      }
+    ],
+    "tables": [
+      {
+        "block_id": "b000007",
+        "columns": [
+          "Qt 영역 / 실제 사용 기능",
+          "iiSDK 또는 표준 기반",
+          "현재 범위와 남은 이행"
+        ],
+        "rows": [
+          [
+            "QtCore 문자열, 바이트, 컨테이너, 시간",
+            "`std::string`, span/vector/map/variant, chrono, filesystem",
+            "독립 계약에는 표준 값을 사용한다. 기존 서비스·문서 공개 API의 QString/QVariant 타입은 소비자와 함께 이행해야 한다."
+          ],
+          [
+            "QObject 비GUI 작업, QtConcurrent, QThread/QTimer, QProcess",
+            "기존 iiSDKCore Runtime, SerialQueue, TaskScope, QueryPort, EventLoop, Process",
+            "중복 실행기를 만들지 않는다. Dreamscapes 외부 worker는 이미 Core를 사용한다. 모델 제출·관측의 QtConcurrent와 UI 전달 QObject는 여전히 남아 있다."
+          ],
+          [
+            "QtCore 파일·원자적 저장·임시 디렉터리",
+            "기존 iiFileProviderNative",
+            "새 코드도 제공자의 CRUD와 원자적 저장을 사용한다. QFile/QSaveFile 사용처의 자동 이행을 의미하지 않는다."
+          ],
+          [
+            "QJsonDocument/Object/Array, QVariant 데이터",
+            "기존 iiJson + Core Value/Contracts",
+            "새 JSON 엔진을 만들지 않는다. 기존 서비스 JSON 스키마, 누락/null, 숫자 범위, Qt 변환은 소비자 이행 시 명시해야 한다."
+          ],
+          [
+            "QXmlStreamReader/Writer",
+            "**iiXml::Native 추가**",
+            "UTF-8 pull 이벤트와 XML writer. 기존 QObject XML API와 분리하여 Qt 없이 구성·설치·소비한다. SVG/FCPXML 소비 코드 이행은 별도이다."
+          ],
+          [
+            "QSqlDatabase/QSqlQuery의 SQLite 사용",
+            "**iiFileProviderNative 0.9.0 확장**",
+            "표준 타입 연결·문장·바인딩·행·트랜잭션. 전역 Qt SQL 연결/드라이버가 없다. SQLite 외 SQL 드라이버와 ORM은 제공하지 않는다. Helper의 기존 Qt SQL 스키마·질의는 그대로 남아 있다."
+          ],
+          [
+            "QtGui의 비GUI PNG/JPEG 인코딩·디코딩",
+            "**iiImageCodec 0.1.0 신설**",
+            "RGB/RGBA PNG, RGB JPEG, RGBA8 디코딩, 한도/오류. 워터마크·ICC/EXIF·고비트·모든 플러그인 포맷을 대체하지 않는다."
+          ],
+          [
+            "QtNetwork TCP/UDP/IPC, TLS, HTTP, 쿠키, 인증·프록시, REST",
+            "기존 iiNetwork",
+            "기존 모듈을 재사용한다. 세션 정책·계정 API·서버 프로토콜·애플리케이션 수명 이행은 상위 모듈 책임이다."
+          ],
+          [
+            "QtWebSockets",
+            "**iiNetwork 0.5.0 확장**",
+            "HTTP/1.1 upgrade, 명시적 서버 승인, 메시지·마스크·fragmentation·UTF-8·ping/pong·종료. TCP/TLS 스트림은 기존 API로 조합한다. Qt 서버/클라이언트 소비자의 이행은 아직 완료하지 않았다."
+          ],
+          [
+            "QtBluetooth BLE",
+            "기존 iiDeviceMultimedia",
+            "Core와 독립된 동위 모듈의 central/GATT를 사용한다. 모든 Bluetooth 프로파일 및 모든 플랫폼의 물리 장치 지원을 주장하지 않는다."
+          ],
+          [
+            "QtMultimedia 카메라·PCM·장치",
+            "기존 iiCameraIntegration, iiDeviceMultimedia",
+            "네이티브 장치 계약을 재사용한다. 동영상 demux/codec, 전체 Qt 미디어 세션 및 권한 브리지의 동등성은 미완료이다."
+          ],
+          [
+            "QPainter/Path, 폰트·텍스트 조판, PDF, SVG 렌더링",
+            "iiPaintEngine / iiGraphicAdjust / iiColorManager의 독립 기능 + 별도 렌더링 경계",
+            "QImage codec의 분리만으로 SharedCanvas의 오프스크린 벡터·텍스트·PDF QtGui 의존성을 제거할 수 없다. 실제 그래픽 계약과 기준 이미지 검증이 추가로 필요하다."
+          ],
+          [
+            "QStandardPaths/QSettings, locale/timezone, 파일 감시·OS 서비스",
+            "명시적 파일 root + iiJson/FileProvider, 기존 도메인·플랫폼 API",
+            "저장 경로/권한/기존 사용자 데이터 이행을 먼저 정의해야 한다. 이번에 포괄적인 자동 Qt 호환 계층은 추가하지 않았다."
+          ],
+          [
+            "QtQml/Quick/Controls, 창·입력·화면 표시",
+            "Qt/LVRS GUI 어댑터",
+            "현 제품 GUI의 명시적 의존성이다. 비GUI SDK의 공개 API와 분리한다."
+          ]
+        ]
+      },
+      {
+        "block_id": "b000013",
+        "columns": [
+          "패키지 / 타깃",
+          "공개 헤더",
+          "직접 외부 구현 의존성"
+        ],
+        "rows": [
+          [
+            "iiVisualCodec 0.2.0 / `iiVisualCodec::Image`",
+            "`iiVisualCodec/ImageCodec.h`",
+            "libpng >= 1.6, libjpeg 호환 구현; zlib는 PNG 패키지를 통해 전달"
+          ],
+          [
+            "iiXmlNative 0.1.x / `iiXml::Native`",
+            "`iiXml/Xml.h`",
+            "libxml2 >= 2.9"
+          ],
+          [
+            "iiFileProviderNative 0.9.0 / `iiFileProvider::Native`",
+            "`iiFileProviderDatabase.h`",
+            "기존 SQLite/플랫폼 파일 구현. 별도 상위 SDK 의존성 없음"
+          ],
+          [
+            "iiNetwork 0.5.0 / `iiNetwork::iiNetwork`",
+            "`iiNetwork/WebSocket.h`",
+            "기존 Core Runtime, iiJson, libcurl, OpenSSL. 새 Qt 의존성 없음"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000045",
+        "columns": [
+          "검증",
+          "결과"
+        ],
+        "rows": [
+          [
+            "iiImageCodec 계약",
+            "1/1 그룹 통과"
+          ],
+          [
+            "iiFileProviderNative 전체",
+            "새 SQLite를 포함한 5/5 그룹 통과"
+          ],
+          [
+            "iiXml Native 전용 구성",
+            "1/1 그룹 통과"
+          ],
+          [
+            "iiXml 기존 Qt API + Native 구성",
+            "16/16 그룹 통과"
+          ],
+          [
+            "iiNetwork 전체",
+            "새 WebSocket 4개 그룹을 포함한 28/28 통과"
+          ],
+          [
+            "설치된 SDK 패키지만 사용하는 독립 소비자",
+            "2/2 통과, 실제 로딩된 Qt 라이브러리 각각 0개"
+          ],
+          [
+            "ASan + UBSan 소스 결합 구성",
+            "변경 모듈·실제 worker의 생산 번역 단위 31개 계측, 35/35 그룹 통과"
+          ],
+          [
+            "Dreamscapes 선택 회귀",
+            "NativeGeneration / DependencyBoundary / LocalSociety / PackagedApplication / Generation / GenerationProcess를 한 번에 실행하여 6/6 통과"
+          ],
+          [
+            "SDK 소스 헤더 배치 / 인벤토리 도구",
+            "기존 2개 + 새 1개 Python 테스트 통과"
+          ],
+          [
+            "SDK 선언 의존성",
+            "37개 노드의 선언 그래프에 순환 없음, FileProvider의 상위 SDK 참조 없음"
+          ],
+          [
+            "앱 산출물",
+            "버전·빌드 번호 0.1.1, canonical 앱 1개, deep/strict 서명 검사 통과"
+          ]
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

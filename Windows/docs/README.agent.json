@@ -1,0 +1,382 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:537fa4dae5c2ef8982e33d989ef81bf5fb16900c53b450b2c118f0f7ecb72372",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FWindows",
+    "name": "Windows",
+    "root": "SDK/Windows",
+    "kind": "scaffold"
+  },
+  "source": {
+    "path": "docs/README.md",
+    "sha256": "e882525ff819c1e57422e5e82be37c4235c05b2790a810d8e54a274eba5917e4",
+    "bytes": 1349,
+    "line_count": 21,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "Windows Documentation",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Windows Documentation\n",
+      "level": 1,
+      "title": "Windows Documentation"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "html",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "<!-- workspace-docs:document-map:start -->\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "heading",
+      "start_line": 4,
+      "end_line": 4,
+      "raw": "## Human and agent document map\n",
+      "level": 2,
+      "title": "Human and agent document map"
+    },
+    {
+      "id": "b000005",
+      "kind": "blank",
+      "start_line": 5,
+      "end_line": 5,
+      "raw": "\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "paragraph",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "Markdown is the maintained human source. Agent JSON is a structured, source-traceable projection.\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "blank",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "table",
+      "start_line": 8,
+      "end_line": 20,
+      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`Publication-20261025.md`](../Publication-20261025.md) | [JSON](entrypoints/Publication-20261025.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`Verification-20261020.md`](../Verification-20261020.md) | [JSON](entrypoints/Verification-20261020.agent.json) |\n| [`Verification-20261024.md`](../Verification-20261024.md) | [JSON](entrypoints/Verification-20261024.agent.json) |\n| [`docs/GPU.md`](GPU.md) | [JSON](GPU.agent.json) |\n| [`docs/Publication-20261025.md`](Publication-20261025.md) | [JSON](Publication-20261025.agent.json) |\n| [`docs/RuntimeRetirement.md`](RuntimeRetirement.md) | [JSON](RuntimeRetirement.agent.json) |\n| [`docs/Verification-20261020.md`](Verification-20261020.md) | [JSON](Verification-20261020.agent.json) |\n| [`docs/Verification-20261024.md`](Verification-20261024.md) | [JSON](Verification-20261024.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n",
+      "columns": [
+        "Document",
+        "Agent JSON"
+      ],
+      "rows": [
+        [
+          "[`AGENT.md`](../AGENT.md)",
+          "[JSON](entrypoints/AGENT.agent.json)"
+        ],
+        [
+          "[`Publication-20261025.md`](../Publication-20261025.md)",
+          "[JSON](entrypoints/Publication-20261025.agent.json)"
+        ],
+        [
+          "[`README.md`](../README.md)",
+          "[JSON](entrypoints/README.agent.json)"
+        ],
+        [
+          "[`Verification-20261020.md`](../Verification-20261020.md)",
+          "[JSON](entrypoints/Verification-20261020.agent.json)"
+        ],
+        [
+          "[`Verification-20261024.md`](../Verification-20261024.md)",
+          "[JSON](entrypoints/Verification-20261024.agent.json)"
+        ],
+        [
+          "[`docs/GPU.md`](GPU.md)",
+          "[JSON](GPU.agent.json)"
+        ],
+        [
+          "[`docs/Publication-20261025.md`](Publication-20261025.md)",
+          "[JSON](Publication-20261025.agent.json)"
+        ],
+        [
+          "[`docs/RuntimeRetirement.md`](RuntimeRetirement.md)",
+          "[JSON](RuntimeRetirement.agent.json)"
+        ],
+        [
+          "[`docs/Verification-20261020.md`](Verification-20261020.md)",
+          "[JSON](Verification-20261020.agent.json)"
+        ],
+        [
+          "[`docs/Verification-20261024.md`](Verification-20261024.md)",
+          "[JSON](Verification-20261024.agent.json)"
+        ],
+        [
+          "[`docs/documentation-structure.md`](documentation-structure.md)",
+          "[JSON](documentation-structure.agent.json)"
+        ]
+      ]
+    },
+    {
+      "id": "b000009",
+      "kind": "html",
+      "start_line": 21,
+      "end_line": 21,
+      "raw": "<!-- workspace-docs:document-map:end -->\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Windows Documentation",
+      "anchor": "windows-documentation",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000004",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Human and agent document map",
+      "anchor": "human-and-agent-document-map",
+      "start_line": 4
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000008",
+        "label": "`AGENT.md`",
+        "target": "../AGENT.md",
+        "kind": "relative",
+        "line": 10
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "entrypoints/AGENT.agent.json",
+        "kind": "relative",
+        "line": 10
+      },
+      {
+        "block_id": "b000008",
+        "label": "`Publication-20261025.md`",
+        "target": "../Publication-20261025.md",
+        "kind": "relative",
+        "line": 11
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "entrypoints/Publication-20261025.agent.json",
+        "kind": "relative",
+        "line": 11
+      },
+      {
+        "block_id": "b000008",
+        "label": "`README.md`",
+        "target": "../README.md",
+        "kind": "relative",
+        "line": 12
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "entrypoints/README.agent.json",
+        "kind": "relative",
+        "line": 12
+      },
+      {
+        "block_id": "b000008",
+        "label": "`Verification-20261020.md`",
+        "target": "../Verification-20261020.md",
+        "kind": "relative",
+        "line": 13
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "entrypoints/Verification-20261020.agent.json",
+        "kind": "relative",
+        "line": 13
+      },
+      {
+        "block_id": "b000008",
+        "label": "`Verification-20261024.md`",
+        "target": "../Verification-20261024.md",
+        "kind": "relative",
+        "line": 14
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "entrypoints/Verification-20261024.agent.json",
+        "kind": "relative",
+        "line": 14
+      },
+      {
+        "block_id": "b000008",
+        "label": "`docs/GPU.md`",
+        "target": "GPU.md",
+        "kind": "relative",
+        "line": 15
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "GPU.agent.json",
+        "kind": "relative",
+        "line": 15
+      },
+      {
+        "block_id": "b000008",
+        "label": "`docs/Publication-20261025.md`",
+        "target": "Publication-20261025.md",
+        "kind": "relative",
+        "line": 16
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "Publication-20261025.agent.json",
+        "kind": "relative",
+        "line": 16
+      },
+      {
+        "block_id": "b000008",
+        "label": "`docs/RuntimeRetirement.md`",
+        "target": "RuntimeRetirement.md",
+        "kind": "relative",
+        "line": 17
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "RuntimeRetirement.agent.json",
+        "kind": "relative",
+        "line": 17
+      },
+      {
+        "block_id": "b000008",
+        "label": "`docs/Verification-20261020.md`",
+        "target": "Verification-20261020.md",
+        "kind": "relative",
+        "line": 18
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "Verification-20261020.agent.json",
+        "kind": "relative",
+        "line": 18
+      },
+      {
+        "block_id": "b000008",
+        "label": "`docs/Verification-20261024.md`",
+        "target": "Verification-20261024.md",
+        "kind": "relative",
+        "line": 19
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "Verification-20261024.agent.json",
+        "kind": "relative",
+        "line": 19
+      },
+      {
+        "block_id": "b000008",
+        "label": "`docs/documentation-structure.md`",
+        "target": "documentation-structure.md",
+        "kind": "relative",
+        "line": 20
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "documentation-structure.agent.json",
+        "kind": "relative",
+        "line": 20
+      }
+    ],
+    "tables": [
+      {
+        "block_id": "b000008",
+        "columns": [
+          "Document",
+          "Agent JSON"
+        ],
+        "rows": [
+          [
+            "[`AGENT.md`](../AGENT.md)",
+            "[JSON](entrypoints/AGENT.agent.json)"
+          ],
+          [
+            "[`Publication-20261025.md`](../Publication-20261025.md)",
+            "[JSON](entrypoints/Publication-20261025.agent.json)"
+          ],
+          [
+            "[`README.md`](../README.md)",
+            "[JSON](entrypoints/README.agent.json)"
+          ],
+          [
+            "[`Verification-20261020.md`](../Verification-20261020.md)",
+            "[JSON](entrypoints/Verification-20261020.agent.json)"
+          ],
+          [
+            "[`Verification-20261024.md`](../Verification-20261024.md)",
+            "[JSON](entrypoints/Verification-20261024.agent.json)"
+          ],
+          [
+            "[`docs/GPU.md`](GPU.md)",
+            "[JSON](GPU.agent.json)"
+          ],
+          [
+            "[`docs/Publication-20261025.md`](Publication-20261025.md)",
+            "[JSON](Publication-20261025.agent.json)"
+          ],
+          [
+            "[`docs/RuntimeRetirement.md`](RuntimeRetirement.md)",
+            "[JSON](RuntimeRetirement.agent.json)"
+          ],
+          [
+            "[`docs/Verification-20261020.md`](Verification-20261020.md)",
+            "[JSON](Verification-20261020.agent.json)"
+          ],
+          [
+            "[`docs/Verification-20261024.md`](Verification-20261024.md)",
+            "[JSON](Verification-20261024.agent.json)"
+          ],
+          [
+            "[`docs/documentation-structure.md`](documentation-structure.md)",
+            "[JSON](documentation-structure.agent.json)"
+          ]
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

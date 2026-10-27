@@ -1,0 +1,198 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:c01ba913eeb3de8cc3ca5f66b833d170187a769172ea30161722005e545abb74",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FWindows",
+    "name": "Windows",
+    "root": "SDK/Windows",
+    "kind": "scaffold"
+  },
+  "source": {
+    "path": "Verification-20261020.md",
+    "sha256": "3f82bb5f6bdfd460fae09e6c41757806d06450b006bcb91616f532c4dd72b2d3",
+    "bytes": 953,
+    "line_count": 20,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "Document moved",
+    "role": "compatibility",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Document moved\n",
+      "level": 1,
+      "title": "Document moved"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "html",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "<!-- workspace-docs:redirect -->\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 4,
+      "end_line": 4,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 5,
+      "end_line": 5,
+      "raw": "The maintained document is [Verification-20261020.md](docs/Verification-20261020.md).\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "html",
+      "start_line": 7,
+      "end_line": 8,
+      "raw": "<a id=\"windows-sdk-전체-검증-기록--2026-10-20\"></a>\n[Continue to this section](docs/Verification-20261020.md#windows-sdk-%EC%A0%84%EC%B2%B4-%EA%B2%80%EC%A6%9D-%EA%B8%B0%EB%A1%9D--2026-10-20).\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 9,
+      "end_line": 9,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "html",
+      "start_line": 10,
+      "end_line": 11,
+      "raw": "<a id=\"프로젝트별-결과와-원격-commit\"></a>\n[Continue to this section](docs/Verification-20261020.md#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%B3%84-%EA%B2%B0%EA%B3%BC%EC%99%80-%EC%9B%90%EA%B2%A9-commit).\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 12,
+      "end_line": 12,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "html",
+      "start_line": 13,
+      "end_line": 14,
+      "raw": "<a id=\"windows-복구-사항\"></a>\n[Continue to this section](docs/Verification-20261020.md#windows-%EB%B3%B5%EA%B5%AC-%EC%82%AC%ED%95%AD).\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 15,
+      "end_line": 15,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "html",
+      "start_line": 16,
+      "end_line": 17,
+      "raw": "<a id=\"실행-범위\"></a>\n[Continue to this section](docs/Verification-20261020.md#%EC%8B%A4%ED%96%89-%EB%B2%94%EC%9C%84).\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 18,
+      "end_line": 18,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "html",
+      "start_line": 19,
+      "end_line": 20,
+      "raw": "<a id=\"환경과-재현\"></a>\n[Continue to this section](docs/Verification-20261020.md#%ED%99%98%EA%B2%BD%EA%B3%BC-%EC%9E%AC%ED%98%84).\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Document moved",
+      "anchor": "document-moved",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000005",
+        "label": "Verification-20261020.md",
+        "target": "docs/Verification-20261020.md",
+        "kind": "relative",
+        "line": 5
+      },
+      {
+        "block_id": "b000007",
+        "label": "Continue to this section",
+        "target": "docs/Verification-20261020.md#windows-sdk-%EC%A0%84%EC%B2%B4-%EA%B2%80%EC%A6%9D-%EA%B8%B0%EB%A1%9D--2026-10-20",
+        "kind": "relative",
+        "line": 8
+      },
+      {
+        "block_id": "b000009",
+        "label": "Continue to this section",
+        "target": "docs/Verification-20261020.md#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%B3%84-%EA%B2%B0%EA%B3%BC%EC%99%80-%EC%9B%90%EA%B2%A9-commit",
+        "kind": "relative",
+        "line": 11
+      },
+      {
+        "block_id": "b000011",
+        "label": "Continue to this section",
+        "target": "docs/Verification-20261020.md#windows-%EB%B3%B5%EA%B5%AC-%EC%82%AC%ED%95%AD",
+        "kind": "relative",
+        "line": 14
+      },
+      {
+        "block_id": "b000013",
+        "label": "Continue to this section",
+        "target": "docs/Verification-20261020.md#%EC%8B%A4%ED%96%89-%EB%B2%94%EC%9C%84",
+        "kind": "relative",
+        "line": 17
+      },
+      {
+        "block_id": "b000015",
+        "label": "Continue to this section",
+        "target": "docs/Verification-20261020.md#%ED%99%98%EA%B2%BD%EA%B3%BC-%EC%9E%AC%ED%98%84",
+        "kind": "relative",
+        "line": 20
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

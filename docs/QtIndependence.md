@@ -1,5 +1,6 @@
 # 비GUI Qt 독립 모듈과 이행 경계
 
+현재 이미지 모듈의 이름은 iiVisualCodec이다. 과거 iiImageCodec 0.1.0 검증 기록은 당시 명칭을 유지한다. 새 Video·Spatial·USD 기능과 검증 범위는 iiVisualCodec/docs/ 문서를 따른다.
 2026-10-22 Dreamscapes와 SDK의 실제 소스·공개 계약·CMake 의존성을 조사하고, 누락된 기반 기능을 네 개 모듈에서 구현·확장했다. 공통 실행기는 기존 iiSDKCore를 재사용하며 파일·네트워크·코덱·문서 기능을 Core에 역수입하지 않는다. 이 문서는 대체 SDK 제공, 소비자 이행, GUI 어댑터 유지, 실행 검증을 구분한다.
 
 ## Qt 기능별 소유자
@@ -27,15 +28,15 @@ SDK에는 이미 JSON·네트워크·프로세스·런타임·파일·장치·�
 
 | 패키지 / 타깃 | 공개 헤더 | 직접 외부 구현 의존성 |
 |---|---|---|
-| iiImageCodec 0.1.0 / `iiImageCodec::iiImageCodec` | `iiImageCodec/ImageCodec.h` | libpng >= 1.6, libjpeg 호환 구현; zlib는 PNG 패키지를 통해 전달 |
+| iiVisualCodec 0.2.0 / `iiVisualCodec::Image` | `iiVisualCodec/ImageCodec.h` | libpng >= 1.6, libjpeg 호환 구현; zlib는 PNG 패키지를 통해 전달 |
 | iiXmlNative 0.1.x / `iiXml::Native` | `iiXml/Xml.h` | libxml2 >= 2.9 |
 | iiFileProviderNative 0.9.0 / `iiFileProvider::Native` | `iiFileProviderDatabase.h` | 기존 SQLite/플랫폼 파일 구현. 별도 상위 SDK 의존성 없음 |
 | iiNetwork 0.5.0 / `iiNetwork::iiNetwork` | `iiNetwork/WebSocket.h` | 기존 Core Runtime, iiJson, libcurl, OpenSSL. 새 Qt 의존성 없음 |
 
 각 기능의 상세 의미론·한도·예외 범위는 다음 문서가 소유한다.
 
-- `iiImageCodec/docs/Contracts.md`
-- `iiXml/Docs/native.md`
+- `iiVisualCodec/docs/Contracts.md`
+- `iiXml/docs/native.md`
 - `iiFileProvider/docs/NATIVE_DATABASE.md`
 - `iiNetwork/docs/WebSocket.md`
 
@@ -93,3 +94,7 @@ SDK에는 이미 JSON·네트워크·프로세스·런타임·파일·장치·�
 초기 Dreamscapes 회귀에서 백그라운드/진행률 시간 조건의 실패를 관측했다. 같은 코드와 기존 200/300ms watchdog 및 테스트 제한을 유지한 채 개별 행, LocalSociety 전체, 최종 6개 그룹 연속 실행 순서로 재검증했고 마지막 실행은 모두 통과했다. 초기의 실패한 재시도 기록도 보존하며 시간 민감성의 원인을 확정했다고 주장하지 않는다. 실제 모델/원격 모델을 지정하는 선택 테스트는 수행하지 않았다. 전체 GUI 회귀 110여 그룹을 이번 작업에서 다시 실행한 것은 아니다.
 
 설치 스테이지는 `SDK/build/qt-independence-20261022/prefix`, 최종 결과 원본·실행 로딩 기록·소스/패키지 해시는 같은 경로의 `final/`이다. 전역 SDK 설치, Git commit/push 및 `/Applications` 재설치는 수행하지 않았다. Dreamscapes의 빌드 후보만 갱신했으며 실행 중인 사용자의 앱/작업을 재시작하지 않았다.
+
+Vision·OpenCV 확장은 iiVisualCodec 0.3에서 독립 타깃으로 제공한다. 이미지 전용 소스 소비자는 IIVISUALCODEC_OPENCV=OFF를 지정하고, 설치 소비자는 Image 구성요소만 요청한다. Vision 객체는 OpenCV 없이 사용할 수 있다.
+
+iiVisualCodec 0.4는 표준 C++ Geometry와 선택적 Asset3D(Assimp)·CAD(Open CASCADE) 타깃을 추가한다. 이미지 전용 소스 소비자는 IIVISUALCODEC_3D=OFF와 IIVISUALCODEC_CAD=OFF도 지정한다. Geometry 단독 패키지는 두 백엔드를 탐색하지 않는다. 상세 계약과 실제 플랫폼 검증은 iiVisualCodec/docs/Geometry.md·Asset3D.md·CAD.md·GeometryVerification.md를 기준으로 한다.

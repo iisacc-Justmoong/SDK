@@ -1,0 +1,158 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:d668a7c95e12e39a097ebc3825b76b4fd7c36a2ecf8c0cda2087343b9cef4958",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FWindows",
+    "name": "Windows",
+    "root": "SDK/Windows",
+    "kind": "scaffold"
+  },
+  "source": {
+    "path": "docs/RuntimeRetirement.md",
+    "sha256": "111744002333b3f70f1722c6e889acbb9e4affa948c6d99dba663e3c63b53673",
+    "bytes": 1099,
+    "line_count": 19,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "Windows 빌드의 폐기 런타임 차단",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Windows 빌드의 폐기 런타임 차단\n",
+      "level": 1,
+      "title": "Windows 빌드의 폐기 런타임 차단"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 5,
+      "raw": "ONNX·ONNX Runtime은 더 이상 Windows 빌드의 의존성이 아니다. 빌드 환경을 만들 때\n상속된 ONNX 환경 변수와 PATH 항목, 이전 iiOnnxRuntime SDK 설치 접두사를 제외한다.\niiDecision 설정에서는 기존 CMake 캐시의 ONNX·Laya 활성화 옵션을 제거한다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 7,
+      "end_line": 8,
+      "raw": "검증 도구는 폐기한 ONNX 가속 검사 이름을 선택적 건너뛰기 목록으로 인정하지 않는다.\n과거 검증 보고서는 당시 실행 기록이며 현재의 지원 선언이 아니다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 9,
+      "end_line": 9,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 10,
+      "end_line": 11,
+      "raw": "macOS 등 다른 호스트에서는 다음 명령으로 환경 구성·설정 인자·증거 판정 규칙을\n확인할 수 있다. 이 결과는 Windows 컴파일이나 장치 실행을 대신하지 않는다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 12,
+      "end_line": 12,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "fenced_code",
+      "start_line": 13,
+      "end_line": 16,
+      "raw": "```sh\npython3 -B -m unittest discover -s SDK/Windows/tests -p 'test_*.py'\nPYTHONPYCACHEPREFIX=SDK/Windows/build/pycache python3 -m compileall -q SDK/Windows\n```\n",
+      "language": "sh",
+      "code": "python3 -B -m unittest discover -s SDK/Windows/tests -p 'test_*.py'\nPYTHONPYCACHEPREFIX=SDK/Windows/build/pycache python3 -m compileall -q SDK/Windows\n",
+      "closed": true
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 17,
+      "end_line": 17,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "paragraph",
+      "start_line": 18,
+      "end_line": 19,
+      "raw": "실제 Windows에서는 기존 `BuildProject.py check`와 `Verify.py`를 사용하여 해당 SDK의\n설정·빌드·CTest·설치를 새 소스로 수행해야 한다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Windows 빌드의 폐기 런타임 차단",
+      "anchor": "windows-빌드의-폐기-런타임-차단",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000005",
+        "line": 7,
+        "text": "검증 도구는 폐기한 ONNX 가속 검사 이름을 선택적 건너뛰기 목록으로 인정하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000007",
+        "line": 11,
+        "text": "확인할 수 있다. 이 결과는 Windows 컴파일이나 장치 실행을 대신하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000011",
+        "line": 19,
+        "text": "설정·빌드·CTest·설치를 새 소스로 수행해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [
+      {
+        "block_id": "b000009",
+        "language": "sh",
+        "code": "python3 -B -m unittest discover -s SDK/Windows/tests -p 'test_*.py'\nPYTHONPYCACHEPREFIX=SDK/Windows/build/pycache python3 -m compileall -q SDK/Windows\n"
+      }
+    ],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

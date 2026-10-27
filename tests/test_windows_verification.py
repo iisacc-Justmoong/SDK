@@ -108,10 +108,20 @@ class WindowsVerificationTests(unittest.TestCase):
         self.assertEqual(set(projects), discovered)
         order = verification.dependency_order(projects)
         for dependency, consumer in [('iiSDKCore', 'LVUI'), ('LVUI', 'iiGUI'),
-                                     ('iiGUI', 'LVRS'), ('iiImageCodec', 'iiSharedCanvas')]:
+                                     ('iiGUI', 'LVRS'), ('iiVisualCodec', 'iiSharedCanvas'),
+                                     ('iiSDKCore', 'iiGPU'), ('iiGPU', 'iiDecision')]:
             with self.subTest(dependency=dependency, consumer=consumer):
                 self.assertIn(dependency, projects[consumer]['dependencies'])
                 self.assertLess(order.index(dependency), order.index(consumer))
+
+    def test_native_gpu_skips_do_not_hide_vulkan_execution_failure(self):
+        allowed=verification.OPTIONAL_SKIPS['iiGPU']
+        self.assertEqual(allowed, {'iiGPU.metal.'+case for case in
+            ('contracts','transfers','dispatch','lifecycle','concurrency','interop')})
+        self.assertIn('iiDecision.Acceleration.metal_reuse', verification.OPTIONAL_SKIPS['iiDecision'])
+        self.assertNotIn('iiDecision.Acceleration.vulkan_reuse', verification.OPTIONAL_SKIPS['iiDecision'])
+        options=(path.parent/'BuildProject.py').read_text(encoding='utf-8')
+        self.assertIn("'iiGPU': ['IIGPU_METAL=OFF', 'IIGPU_VULKAN=ON']", options)
 
     @unittest.skipUnless(os.name == 'nt' and shutil.which('cl.exe'), 'Requires the Windows MSVC development shell')
     def test_clean_native_build_and_changed_header_relink_the_consumer(self):

@@ -2,8 +2,14 @@
 !/tests/
 !/Windows/
 !/docs/
+!/resources/
 !/tools/
 !/benchmarks/
+!/iiGPU/
+!/iiGlobalSearch/
 build/
 .DS_Store
 __pycache__/
+**/.iisacc-temporary.lock
+**/.*.iisacc-preview
+**/*.iisacc.json

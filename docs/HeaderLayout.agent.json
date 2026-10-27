@@ -1,0 +1,516 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:9eb4bd2071510fd39aba987201160dc770198700be0e5ece2ecd631b132ea0c8",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "docs/HeaderLayout.md",
+    "sha256": "1626134dd34d079f81460aa7dd9860b799c491345ed08dda098cf8a1ba3da583",
+    "bytes": 4419,
+    "line_count": 66,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "헤더와 구현의 배치",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# 헤더와 구현의 배치\n",
+      "level": 1,
+      "title": "헤더와 구현의 배치"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 5,
+      "raw": "공개 헤더는 대응 구현과 같은 소스 디렉터리에 둔다. 저장소에 공개 헤더만을 위한\n`include/` 트리를 만들지 않는다. 네이티브 API와 호환 계층에도 같은 규칙을 적용한다.\n헤더 전용 타입과 umbrella 헤더도 해당 구현 모듈의 소스 옆에 둔다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 7,
+      "end_line": 10,
+      "raw": "기본 배치는 `src/<모듈명>/`이다. 예를 들어 `iiNetwork`의 `Peer.h`와 `Peer.cpp`는\n모두 `src/iiNetwork/`에 있다. CMake 빌드 인터페이스는 `src/`를 제공하므로 소비자의\n`#include <iiNetwork/Peer.h>`는 그대로 유지된다. 독립 배포되는 저장소는 이 레이아웃을\n자체 CMake와 문서로 설명해야 하며, 상위 SDK 체크아웃에 대한 빌드 의존성을 추가하지 않는다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 11,
+      "end_line": 11,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "heading",
+      "start_line": 12,
+      "end_line": 12,
+      "raw": "## 2026-10-21 전환 범위\n",
+      "level": 2,
+      "title": "2026-10-21 전환 범위"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 13,
+      "end_line": 13,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 14,
+      "end_line": 14,
+      "raw": "14개 모듈의 공개 헤더 64개를 옮기고, 공개 헤더 전용 트리 16곳을 제거했다.\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 15,
+      "end_line": 15,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "table",
+      "start_line": 16,
+      "end_line": 31,
+      "raw": "| 모듈 | 소스와 공개 헤더의 위치 |\n| --- | --- |\n| LVUI | `src/LVUI/` |\n| iiActorObject | `src/iiActorObject/` |\n| iiCalendar | `src/iiCalendar/` |\n| iiColorManager | `src/iiColorManager/` |\n| iiGUI | `src/iiGUI/` |\n| iiJson | `src/iiJson/` |\n| iiLicenseManager | `src/iiLicenseManager/`, `Native/src/iiLicenseManager/` |\n| iiNetwork | `src/iiNetwork/` |\n| iiPhotoLibrary | `src/iiPhotoLibrary/` |\n| iiSDKBuilder | `src/iiSDKBuilder/` |\n| iiSocialPublish | `src/iiSocialPublish/` |\n| iiUpdateManager | `src/iiUpdateManager/`, `Native/src/iiUpdateManager/` |\n| iiAccountManager | 네이티브 API의 `Native/src/iiAccountManager/` |\n| iiFileProvider | 파일 호환 API의 `Compatibility/src/` |\n",
+      "columns": [
+        "모듈",
+        "소스와 공개 헤더의 위치"
+      ],
+      "rows": [
+        [
+          "LVUI",
+          "`src/LVUI/`"
+        ],
+        [
+          "iiActorObject",
+          "`src/iiActorObject/`"
+        ],
+        [
+          "iiCalendar",
+          "`src/iiCalendar/`"
+        ],
+        [
+          "iiColorManager",
+          "`src/iiColorManager/`"
+        ],
+        [
+          "iiGUI",
+          "`src/iiGUI/`"
+        ],
+        [
+          "iiJson",
+          "`src/iiJson/`"
+        ],
+        [
+          "iiLicenseManager",
+          "`src/iiLicenseManager/`, `Native/src/iiLicenseManager/`"
+        ],
+        [
+          "iiNetwork",
+          "`src/iiNetwork/`"
+        ],
+        [
+          "iiPhotoLibrary",
+          "`src/iiPhotoLibrary/`"
+        ],
+        [
+          "iiSDKBuilder",
+          "`src/iiSDKBuilder/`"
+        ],
+        [
+          "iiSocialPublish",
+          "`src/iiSocialPublish/`"
+        ],
+        [
+          "iiUpdateManager",
+          "`src/iiUpdateManager/`, `Native/src/iiUpdateManager/`"
+        ],
+        [
+          "iiAccountManager",
+          "네이티브 API의 `Native/src/iiAccountManager/`"
+        ],
+        [
+          "iiFileProvider",
+          "파일 호환 API의 `Compatibility/src/`"
+        ]
+      ]
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 32,
+      "end_line": 32,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "heading",
+      "start_line": 33,
+      "end_line": 33,
+      "raw": "## 빌드와 패키지 계약\n",
+      "level": 2,
+      "title": "빌드와 패키지 계약"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 34,
+      "end_line": 34,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "list",
+      "start_line": 35,
+      "end_line": 40,
+      "raw": "- 공개 include 이름, CMake 타깃과 ABI를 유지한다. 소스 배치 변경을 이유로 버전을 올리지 않는다.\n- CMake의 소스 목록, 헤더 검색 경로, 테스트의 내부 헤더 참조, 플랫폼별 구현 및 검사 도구를 함께 변경한다.\n- 설치에는 명시된 공개 헤더만 포함한다. 구현 파일과 내부 헤더를 디렉터리째 설치하지 않는다.\n- 설치 패키지의 `include/`는 소비자용 표준 배치이다. 소스의 분리된 `include/` 트리와 구분한다.\n- 컴파일러와 플랫폼에서 생성하는 export 헤더는 `build/`에 둔다. 외부 의존성의 소스와 설치 헤더는 재배치하지 않는다.\n- 사용자 설치본을 수정하지 않고 `build/` 아래에 패키지를 스테이징하여 독립 소비자를 구성·빌드·실행한다.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "공개 include 이름, CMake 타깃과 ABI를 유지한다. 소스 배치 변경을 이유로 버전을 올리지 않는다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "CMake의 소스 목록, 헤더 검색 경로, 테스트의 내부 헤더 참조, 플랫폼별 구현 및 검사 도구를 함께 변경한다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "설치에는 명시된 공개 헤더만 포함한다. 구현 파일과 내부 헤더를 디렉터리째 설치하지 않는다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "설치 패키지의 `include/`는 소비자용 표준 배치이다. 소스의 분리된 `include/` 트리와 구분한다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "컴파일러와 플랫폼에서 생성하는 export 헤더는 `build/`에 둔다. 외부 의존성의 소스와 설치 헤더는 재배치하지 않는다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "사용자 설치본을 수정하지 않고 `build/` 아래에 패키지를 스테이징하여 독립 소비자를 구성·빌드·실행한다.",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 41,
+      "end_line": 41,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "heading",
+      "start_line": 42,
+      "end_line": 42,
+      "raw": "## 검증\n",
+      "level": 2,
+      "title": "검증"
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 43,
+      "end_line": 43,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "paragraph",
+      "start_line": 44,
+      "end_line": 46,
+      "raw": "SDK 루트에서 `python3 -B tests/test_source_header_layout.py`를 실행한다. 이 검사는\n자체 CMake 모듈에 분리된 `include/` 트리가 없는지, 전환한 공개 헤더가 실제 구현 옆에\n존재하는지 확인한다. 검사 대상 목록은 `tests/fixtures/source-header-layout.json`이다.\n"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 47,
+      "end_line": 47,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "paragraph",
+      "start_line": 48,
+      "end_line": 50,
+      "raw": "배치 검사만으로 패키지 호환성을 주장하지 않는다. 변경한 각 모듈을 `build/`에서\n재구성·빌드하고 기존 CTest를 실행한 후, 설치된 헤더를 모두 포함하는 독립 소비자를\n검증한다. 현재 호스트의 실행 결과와 다른 플랫폼의 실행 여부는 구분하여 기록한다.\n"
+    },
+    {
+      "id": "b000022",
+      "kind": "blank",
+      "start_line": 51,
+      "end_line": 51,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "heading",
+      "start_line": 52,
+      "end_line": 52,
+      "raw": "## 전환 검증 결과\n",
+      "level": 2,
+      "title": "전환 검증 결과"
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 53,
+      "end_line": 53,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
+      "kind": "paragraph",
+      "start_line": 54,
+      "end_line": 54,
+      "raw": "2026-10-21 macOS arm64에서 다음 검증을 완료했다.\n"
+    },
+    {
+      "id": "b000026",
+      "kind": "blank",
+      "start_line": 55,
+      "end_line": 55,
+      "raw": "\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "list",
+      "start_line": 56,
+      "end_line": 63,
+      "raw": "- 독립 패키지 12개의 재구성·빌드·설치 스테이징과 기존 CTest 137개가 통과했다.\n- 설치된 공개 헤더 60개를 각각 독립 번역 단위로 컴파일하고 패키지 소비자 12개를 실행했다.\n- 소스 형태로 제공되는 네이티브·호환 API 헤더 4개도 각각 독립 컴파일했다. 네 계층을 함께\n  빌드한 네이티브 소비자가 통과했으며, CMake 타깃 그래프에서 Qt 의존성이 없는지 검사했다.\n- 독립 소비자는 셸의 `CPATH`, `LIBRARY_PATH` 등 경로 보정을 제거한 상태로 새로 구성하고\n  빌드했다. 설치 소비자의 검색 경로에 SDK 소스 디렉터리가 없는 것도 확인했다.\n- 공개 헤더 64개의 내용은 이동 전과 바이트 단위로 동일하다. 설치 대상에는 명시된 공개\n  헤더만 포함되며, 분리된 소스 `include/` 트리의 재등장을 막는 Python 검사 2개도 통과했다.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "독립 패키지 12개의 재구성·빌드·설치 스테이징과 기존 CTest 137개가 통과했다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "설치된 공개 헤더 60개를 각각 독립 번역 단위로 컴파일하고 패키지 소비자 12개를 실행했다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "소스 형태로 제공되는 네이티브·호환 API 헤더 4개도 각각 독립 컴파일했다. 네 계층을 함께",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "독립 소비자는 셸의 `CPATH`, `LIBRARY_PATH` 등 경로 보정을 제거한 상태로 새로 구성하고",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "공개 헤더 64개의 내용은 이동 전과 바이트 단위로 동일하다. 설치 대상에는 명시된 공개",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000028",
+      "kind": "blank",
+      "start_line": 64,
+      "end_line": 64,
+      "raw": "\n"
+    },
+    {
+      "id": "b000029",
+      "kind": "paragraph",
+      "start_line": 65,
+      "end_line": 66,
+      "raw": "검증 기록은 Workspace의 `build/header-layout-20261021/summary.json`에 있다. 사용자 설치본과\n앱은 갱신하지 않았으며, Windows·Linux·모바일·WASM에서의 실제 실행은 이 검증에 포함하지 않는다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "헤더와 구현의 배치",
+      "anchor": "헤더와-구현의-배치",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000007",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "2026-10-21 전환 범위",
+      "anchor": "2026-10-21-전환-범위",
+      "start_line": 12
+    },
+    {
+      "block_id": "b000013",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "빌드와 패키지 계약",
+      "anchor": "빌드와-패키지-계약",
+      "start_line": 33
+    },
+    {
+      "block_id": "b000017",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "검증",
+      "anchor": "검증",
+      "start_line": 42
+    },
+    {
+      "block_id": "b000023",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "전환 검증 결과",
+      "anchor": "전환-검증-결과",
+      "start_line": 52
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000005",
+        "line": 10,
+        "text": "자체 CMake와 문서로 설명해야 하며, 상위 SDK 체크아웃에 대한 빌드 의존성을 추가하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000015",
+        "line": 37,
+        "text": "- 설치에는 명시된 공개 헤더만 포함한다. 구현 파일과 내부 헤더를 디렉터리째 설치하지 않는다.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000015",
+        "line": 39,
+        "text": "- 컴파일러와 플랫폼에서 생성하는 export 헤더는 `build/`에 둔다. 외부 의존성의 소스와 설치 헤더는 재배치하지 않는다.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000021",
+        "line": 48,
+        "text": "배치 검사만으로 패키지 호환성을 주장하지 않는다. 변경한 각 모듈을 `build/`에서",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000029",
+        "line": 66,
+        "text": "앱은 갱신하지 않았으며, Windows·Linux·모바일·WASM에서의 실제 실행은 이 검증에 포함하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [],
+    "tables": [
+      {
+        "block_id": "b000011",
+        "columns": [
+          "모듈",
+          "소스와 공개 헤더의 위치"
+        ],
+        "rows": [
+          [
+            "LVUI",
+            "`src/LVUI/`"
+          ],
+          [
+            "iiActorObject",
+            "`src/iiActorObject/`"
+          ],
+          [
+            "iiCalendar",
+            "`src/iiCalendar/`"
+          ],
+          [
+            "iiColorManager",
+            "`src/iiColorManager/`"
+          ],
+          [
+            "iiGUI",
+            "`src/iiGUI/`"
+          ],
+          [
+            "iiJson",
+            "`src/iiJson/`"
+          ],
+          [
+            "iiLicenseManager",
+            "`src/iiLicenseManager/`, `Native/src/iiLicenseManager/`"
+          ],
+          [
+            "iiNetwork",
+            "`src/iiNetwork/`"
+          ],
+          [
+            "iiPhotoLibrary",
+            "`src/iiPhotoLibrary/`"
+          ],
+          [
+            "iiSDKBuilder",
+            "`src/iiSDKBuilder/`"
+          ],
+          [
+            "iiSocialPublish",
+            "`src/iiSocialPublish/`"
+          ],
+          [
+            "iiUpdateManager",
+            "`src/iiUpdateManager/`, `Native/src/iiUpdateManager/`"
+          ],
+          [
+            "iiAccountManager",
+            "네이티브 API의 `Native/src/iiAccountManager/`"
+          ],
+          [
+            "iiFileProvider",
+            "파일 호환 API의 `Compatibility/src/`"
+          ]
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

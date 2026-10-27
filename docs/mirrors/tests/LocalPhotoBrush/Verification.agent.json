@@ -1,0 +1,558 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:af638f206363201f41bd711fc1e4eff0faef480680aaacc98ee89e7a3607bfac",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "tests/LocalPhotoBrush/Verification.md",
+    "sha256": "52be53988047611474c62dea8d123fb1c6a8248118541327f85d58e034ed978a",
+    "bytes": 5868,
+    "line_count": 98,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "Local brush and correction verification",
+    "role": "evidence",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Local brush and correction verification\n",
+      "level": 1,
+      "title": "Local brush and correction verification"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 5,
+      "raw": "Verified on 2026-10-14 on macOS arm64 with AppleClang 21.0.0.21000334. Implementation\nis split between iiPaintEngine 0.4.2 and iiGraphicAdjust 0.5.1. There is no dependency\nbetween these SDKs; this upper-level consumer composes public installed APIs.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "heading",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "## Implemented scope\n",
+      "level": 2,
+      "title": "Implemented scope"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "table",
+      "start_line": 9,
+      "end_line": 15,
+      "raw": "| Owner | Functionality |\n|---|---|\n| iiPaintEngine/Core | Detached normalized float PixelMask storage and validation |\n| iiPaintEngine/Brush | Local size/feather/flow/density/stroke-opacity/Add/Erase/AutoMask options, optional pressure size/opacity, recovered pure feather/radius math |\n| iiPaintEngine/Application | Immediate pointer-to-mask preview, commit/cancel, dirty-rectangle pixel undo/redo |\n| iiGraphicAdjust/LocalCorrections | Already-computed RGB correction through borrowed mask, amount/inversion, encoded/linear sRGB interpolation, original alpha/hiddenRGB preservation |\n| iiGraphicAdjust/SampleFilters | Evidence-bound Average8/16/Float32 and integer Solarize8/16 sample kernels |\n",
+      "columns": [
+        "Owner",
+        "Functionality"
+      ],
+      "rows": [
+        [
+          "iiPaintEngine/Core",
+          "Detached normalized float PixelMask storage and validation"
+        ],
+        [
+          "iiPaintEngine/Brush",
+          "Local size/feather/flow/density/stroke-opacity/Add/Erase/AutoMask options, optional pressure size/opacity, recovered pure feather/radius math"
+        ],
+        [
+          "iiPaintEngine/Application",
+          "Immediate pointer-to-mask preview, commit/cancel, dirty-rectangle pixel undo/redo"
+        ],
+        [
+          "iiGraphicAdjust/LocalCorrections",
+          "Already-computed RGB correction through borrowed mask, amount/inversion, encoded/linear sRGB interpolation, original alpha/hiddenRGB preservation"
+        ],
+        [
+          "iiGraphicAdjust/SampleFilters",
+          "Evidence-bound Average8/16/Float32 and integer Solarize8/16 sample kernels"
+        ]
+      ]
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 16,
+      "end_line": 16,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 17,
+      "end_line": 21,
+      "raw": "Existing painting density remains dab placement density. The new local mask's\ndensity is an absolute Add coverage ceiling. Existing Photoshop-style tone/color\nand Lightroom-style rendered correction functions retain their own independent\nnumeric contracts. Local point curves, Kelvin white balance, HSL, detail, grain,\nand other same-sized correction results can now use the same mask composition.\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 22,
+      "end_line": 22,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "heading",
+      "start_line": 23,
+      "end_line": 23,
+      "raw": "## Results\n",
+      "level": 2,
+      "title": "Results"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 24,
+      "end_line": 24,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "table",
+      "start_line": 25,
+      "end_line": 38,
+      "raw": "| Check | Result |\n|---|---|\n| iiPaintEngine Release |45/45 passed |\n| iiPaintEngine ASan/UBSan/float-cast-overflow |45/45 passed |\n| iiGraphicAdjust Release |163/163 passed |\n| iiGraphicAdjust ASan/UBSan |163/163 passed |\n| Temporary installed-package consumer |3/3 passed |\n| Actual host installed-package consumer |3/3 passed |\n| Lightroom original numeric prototypes |21 vectors, output radius/weight/profile float64 bits match |\n| Photoshop original arm64 kernel replay against new SDK |78 Average + 26 Solarize cases,1,730,775 active samples,1,291,286 assertions passed |\n| Separate pinned C++ reconstruction comparison |170 cases,4,147,431 checks passed |\n| Product compile language |iiPaintEngine 109 units / iiGraphicAdjust 59 units, all C++23 |\n| Library sources |iiPaintEngine 64 / iiGraphicAdjust 30, all `.cpp` |\n| Direct library dependencies |libc++ and libSystem only |\n",
+      "columns": [
+        "Check",
+        "Result"
+      ],
+      "rows": [
+        [
+          "iiPaintEngine Release",
+          "45/45 passed"
+        ],
+        [
+          "iiPaintEngine ASan/UBSan/float-cast-overflow",
+          "45/45 passed"
+        ],
+        [
+          "iiGraphicAdjust Release",
+          "163/163 passed"
+        ],
+        [
+          "iiGraphicAdjust ASan/UBSan",
+          "163/163 passed"
+        ],
+        [
+          "Temporary installed-package consumer",
+          "3/3 passed"
+        ],
+        [
+          "Actual host installed-package consumer",
+          "3/3 passed"
+        ],
+        [
+          "Lightroom original numeric prototypes",
+          "21 vectors, output radius/weight/profile float64 bits match"
+        ],
+        [
+          "Photoshop original arm64 kernel replay against new SDK",
+          "78 Average + 26 Solarize cases,1,730,775 active samples,1,291,286 assertions passed"
+        ],
+        [
+          "Separate pinned C++ reconstruction comparison",
+          "170 cases,4,147,431 checks passed"
+        ],
+        [
+          "Product compile language",
+          "iiPaintEngine 109 units / iiGraphicAdjust 59 units, all C++23"
+        ],
+        [
+          "Library sources",
+          "iiPaintEngine 64 / iiGraphicAdjust 30, all `.cpp`"
+        ],
+        [
+          "Direct library dependencies",
+          "libc++ and libSystem only"
+        ]
+      ]
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 39,
+      "end_line": 39,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 40,
+      "end_line": 45,
+      "raw": "The example uses a synthetic 256x144 image. At float pixel precision it changed\n14,046 selected pixels, preserved 22,818 unselected pixels exactly, preserved source\nalpha, and left input storage unchanged. It wrote five actual PNG files and a\nmachine-readable result. The committed integration test additionally confirms\npreview separation, cancel, undo/redo, Erase, AutoMask color-boundary restriction,\nhiddenRGB protection, and rejection of invalid borrowed coverage.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 46,
+      "end_line": 46,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "heading",
+      "start_line": 47,
+      "end_line": 47,
+      "raw": "## Source and original execution evidence\n",
+      "level": 2,
+      "title": "Source and original execution evidence"
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 48,
+      "end_line": 48,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "paragraph",
+      "start_line": 49,
+      "end_line": 55,
+      "raw": "The completed\n[Adobe feature audit](/Volumes/Storage/Workspace/Engineering/Projects/Adobe/evidence/sdk-local-processing/evidence-audit.md)\nbinds declarations to original bytecode/resource hashes and records unresolved\nnative boundaries. Six pure Lua prototypes were copied unchanged into a\ncontrolled closure harness for the 21 numeric vectors; the module main and native\nCameraRaw bindings were excluded. Source ranges/interpreter/oracle/vector hashes\nwere independently checked by the parent task.\n"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 56,
+      "end_line": 56,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "paragraph",
+      "start_line": 57,
+      "end_line": 62,
+      "raw": "The original Average/Solarize arm64 replay uses owned mappings of SHA-bound\nbinary copies and synthetic host records. The comparison calls the new exported\nSDK functions through names-only inline wrappers; it does not link the workspace\nreconstruction. Original applications and installed binaries are unchanged.\nOriginal instructions are uninstrumented; SDK unit suites separately provide\nsanitizer coverage. The 170 case C++ reconstruction comparison is a separate check.\n"
+    },
+    {
+      "id": "b000022",
+      "kind": "blank",
+      "start_line": 63,
+      "end_line": 63,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "heading",
+      "start_line": 64,
+      "end_line": 64,
+      "raw": "## Host installation\n",
+      "level": 2,
+      "title": "Host installation"
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 65,
+      "end_line": 65,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
+      "kind": "paragraph",
+      "start_line": 66,
+      "end_line": 70,
+      "raw": "Generated, tested CMake packages were published with same-directory atomic leaf\nreplacement to `~/.local/SDK/iiPaintEngine`, its existing `platforms/macos` mirror,\nand `~/.local/SDK/iiGraphicAdjust`. All 242 published package-file/hash or symlink\nchecks passed. Older iiGraphicAdjust ABI libraries and unrelated files were\npreserved. Existing packages were backed up under the workspace build tree.\n"
+    },
+    {
+      "id": "b000026",
+      "kind": "blank",
+      "start_line": 71,
+      "end_line": 71,
+      "raw": "\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "paragraph",
+      "start_line": 72,
+      "end_line": 78,
+      "raw": "The normal login shell globally prefers the older macOS SDK mirror through\n`DYLD_LIBRARY_PATH`. That override initially loaded the old painting library;\nPython's startup stripped those loader variables and therefore did not expose\nthe same environment. CTest now unsets inherited loader overrides only for this\nconsumer to prove the selected package independently. Global shell settings are\nunchanged. The actual host and mirror were then updated and normal login-shell\nexecution succeeded, with both loaded library paths/UUIDs matching the new files:\n"
+    },
+    {
+      "id": "b000028",
+      "kind": "blank",
+      "start_line": 79,
+      "end_line": 79,
+      "raw": "\n"
+    },
+    {
+      "id": "b000029",
+      "kind": "table",
+      "start_line": 80,
+      "end_line": 83,
+      "raw": "| Library | Verified SHA-256 |\n|---|---|\n| iiPaintEngine host and mirror |`88a8a28b2020fd3aff3ef6e4bec6f0e1847a9bf22caba2a8704970c80bef8e4c` |\n| iiGraphicAdjust 0.5.1 |`7a8c59ef5671dcfa6dbafbdb0ffdd3c70ef87ce564388104c966f758400a08f6` |\n",
+      "columns": [
+        "Library",
+        "Verified SHA-256"
+      ],
+      "rows": [
+        [
+          "iiPaintEngine host and mirror",
+          "`88a8a28b2020fd3aff3ef6e4bec6f0e1847a9bf22caba2a8704970c80bef8e4c`"
+        ],
+        [
+          "iiGraphicAdjust 0.5.1",
+          "`7a8c59ef5671dcfa6dbafbdb0ffdd3c70ef87ce564388104c966f758400a08f6`"
+        ]
+      ]
+    },
+    {
+      "id": "b000030",
+      "kind": "blank",
+      "start_line": 84,
+      "end_line": 84,
+      "raw": "\n"
+    },
+    {
+      "id": "b000031",
+      "kind": "paragraph",
+      "start_line": 85,
+      "end_line": 88,
+      "raw": "The painting package explicitly fixes its install name to `@rpath`. No app was\nrestarted. Source build, staged package, actual installed package, and normal\nruntime evidence are recorded separately in\n[verification.json](/Volumes/Storage/Workspace/SDK/build/local-photo-processing/verification.json).\n"
+    },
+    {
+      "id": "b000032",
+      "kind": "blank",
+      "start_line": 89,
+      "end_line": 89,
+      "raw": "\n"
+    },
+    {
+      "id": "b000033",
+      "kind": "heading",
+      "start_line": 90,
+      "end_line": 90,
+      "raw": "## Limits\n",
+      "level": 2,
+      "title": "Limits"
+    },
+    {
+      "id": "b000034",
+      "kind": "blank",
+      "start_line": 91,
+      "end_line": 91,
+      "raw": "\n"
+    },
+    {
+      "id": "b000035",
+      "kind": "paragraph",
+      "start_line": 92,
+      "end_line": 98,
+      "raw": "The new float feather/flow/density/opacity/RGB AutoMask and correction composition\nare independent SDK models. The narrowly recovered numeric helpers and sample\nkernels have stronger original-execution evidence; that evidence does not prove\ncomplete Photoshop/Lightroom output parity. CameraRaw native processing, GPU/AI,\nABR/PSD edit compatibility, physical pen behavior, Windows/Linux/mobile builds,\nand consumer product UI migration are not established by this work. No user\nphoto, catalog, account, or active app session was accessed.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Local brush and correction verification",
+      "anchor": "local-brush-and-correction-verification",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000005",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Implemented scope",
+      "anchor": "implemented-scope",
+      "start_line": 7
+    },
+    {
+      "block_id": "b000011",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Results",
+      "anchor": "results",
+      "start_line": 23
+    },
+    {
+      "block_id": "b000017",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Source and original execution evidence",
+      "anchor": "source-and-original-execution-evidence",
+      "start_line": 47
+    },
+    {
+      "block_id": "b000023",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Host installation",
+      "anchor": "host-installation",
+      "start_line": 64
+    },
+    {
+      "block_id": "b000033",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Limits",
+      "anchor": "limits",
+      "start_line": 90
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000019",
+        "label": "Adobe feature audit",
+        "target": "/Volumes/Storage/Workspace/Engineering/Projects/Adobe/evidence/sdk-local-processing/evidence-audit.md",
+        "kind": "relative",
+        "line": 50
+      },
+      {
+        "block_id": "b000031",
+        "label": "verification.json",
+        "target": "/Volumes/Storage/Workspace/SDK/build/local-photo-processing/verification.json",
+        "kind": "relative",
+        "line": 88
+      }
+    ],
+    "tables": [
+      {
+        "block_id": "b000007",
+        "columns": [
+          "Owner",
+          "Functionality"
+        ],
+        "rows": [
+          [
+            "iiPaintEngine/Core",
+            "Detached normalized float PixelMask storage and validation"
+          ],
+          [
+            "iiPaintEngine/Brush",
+            "Local size/feather/flow/density/stroke-opacity/Add/Erase/AutoMask options, optional pressure size/opacity, recovered pure feather/radius math"
+          ],
+          [
+            "iiPaintEngine/Application",
+            "Immediate pointer-to-mask preview, commit/cancel, dirty-rectangle pixel undo/redo"
+          ],
+          [
+            "iiGraphicAdjust/LocalCorrections",
+            "Already-computed RGB correction through borrowed mask, amount/inversion, encoded/linear sRGB interpolation, original alpha/hiddenRGB preservation"
+          ],
+          [
+            "iiGraphicAdjust/SampleFilters",
+            "Evidence-bound Average8/16/Float32 and integer Solarize8/16 sample kernels"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000013",
+        "columns": [
+          "Check",
+          "Result"
+        ],
+        "rows": [
+          [
+            "iiPaintEngine Release",
+            "45/45 passed"
+          ],
+          [
+            "iiPaintEngine ASan/UBSan/float-cast-overflow",
+            "45/45 passed"
+          ],
+          [
+            "iiGraphicAdjust Release",
+            "163/163 passed"
+          ],
+          [
+            "iiGraphicAdjust ASan/UBSan",
+            "163/163 passed"
+          ],
+          [
+            "Temporary installed-package consumer",
+            "3/3 passed"
+          ],
+          [
+            "Actual host installed-package consumer",
+            "3/3 passed"
+          ],
+          [
+            "Lightroom original numeric prototypes",
+            "21 vectors, output radius/weight/profile float64 bits match"
+          ],
+          [
+            "Photoshop original arm64 kernel replay against new SDK",
+            "78 Average + 26 Solarize cases,1,730,775 active samples,1,291,286 assertions passed"
+          ],
+          [
+            "Separate pinned C++ reconstruction comparison",
+            "170 cases,4,147,431 checks passed"
+          ],
+          [
+            "Product compile language",
+            "iiPaintEngine 109 units / iiGraphicAdjust 59 units, all C++23"
+          ],
+          [
+            "Library sources",
+            "iiPaintEngine 64 / iiGraphicAdjust 30, all `.cpp`"
+          ],
+          [
+            "Direct library dependencies",
+            "libc++ and libSystem only"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000029",
+        "columns": [
+          "Library",
+          "Verified SHA-256"
+        ],
+        "rows": [
+          [
+            "iiPaintEngine host and mirror",
+            "`88a8a28b2020fd3aff3ef6e4bec6f0e1847a9bf22caba2a8704970c80bef8e4c`"
+          ],
+          [
+            "iiGraphicAdjust 0.5.1",
+            "`7a8c59ef5671dcfa6dbafbdb0ffdd3c70ef87ce564388104c966f758400a08f6`"
+          ]
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

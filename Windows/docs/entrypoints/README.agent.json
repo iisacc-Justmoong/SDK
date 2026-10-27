@@ -1,0 +1,657 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:f2c6ae0d9c43cd4ff731bdd060902d91e7fba1e4906f995f71d99b5849682407",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FWindows",
+    "name": "Windows",
+    "root": "SDK/Windows",
+    "kind": "scaffold"
+  },
+  "source": {
+    "path": "README.md",
+    "sha256": "751679fa588c90bd6bff852f580a3323d385e0510f20f9649eab1a24b6f51da6",
+    "bytes": 9134,
+    "line_count": 98,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "Windows SDK Verification",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "html",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "<a id=\"windows-sdk-검증\"></a>\n"
+    },
+    {
+      "id": "b000002",
+      "kind": "heading",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "# Windows SDK Verification\n",
+      "level": 1,
+      "title": "Windows SDK Verification"
+    },
+    {
+      "id": "b000003",
+      "kind": "blank",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "paragraph",
+      "start_line": 4,
+      "end_line": 5,
+      "raw": "The iiImageCodec module has been renamed to iiVisualCodec, and projects.json uses the new name. Historical verification and publication reports retain the name used on their recorded date. A complete Visual build requires separate LGPL FFmpeg and OpenUSD CMake/pkg-config installations; follow iiVisualCodec/docs/Packaging.md.\nSelect the compiler using the absolute `cl.exe` path found in the development shell. After configuration, inspect the actual cache for Release mode, compiler, installation prefix, toolchain and include settings. If CMake resets requested arguments while changing compilers, reconfigure the same `build/` with `--fresh`; stop verification if any mismatch remains.\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "paragraph",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "Build the active SDKs in `projects.json` in dependency order, run every registered execution check, and install into the user SDK prefix. Deprecated and Utility projects are excluded. Directories without source build definitions do not count as successful executions.\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "blank",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "html",
+      "start_line": 9,
+      "end_line": 9,
+      "raw": "<a id=\"사용법\"></a>\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "heading",
+      "start_line": 10,
+      "end_line": 10,
+      "raw": "## Usage\n",
+      "level": 2,
+      "title": "Usage"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 11,
+      "end_line": 11,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "paragraph",
+      "start_line": 12,
+      "end_line": 12,
+      "raw": "Run from PowerShell at the Workspace root. Prepare the C++ build tools, Qt/vcpkg, Python/Node and project-specific external tools according to each repository's Windows instructions.\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 13,
+      "end_line": 13,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "fenced_code",
+      "start_line": 14,
+      "end_line": 19,
+      "raw": "```powershell\n. ./SDK/Windows/Enter-DevEnvironment.ps1\n$python = Join-Path (Get-Location) 'Tools/Python314/tools/python.exe'\n& $python ./SDK/Windows/Verify.py --report-dir ./build/maintenance/windows-sdk-verification\nif ($LASTEXITCODE -ne 0) { throw '전체 SDK 검증 미완료' }\n```\n",
+      "language": "powershell",
+      "code": ". ./SDK/Windows/Enter-DevEnvironment.ps1\n$python = Join-Path (Get-Location) 'Tools/Python314/tools/python.exe'\n& $python ./SDK/Windows/Verify.py --report-dir ./build/maintenance/windows-sdk-verification\nif ($LASTEXITCODE -ne 0) { throw '전체 SDK 검증 미완료' }\n",
+      "closed": true
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 20,
+      "end_line": 20,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 21,
+      "end_line": 21,
+      "raw": "After fixing a failure, add `--resume` to the same command to reuse successful records whose sources, dependencies and verification tools are unchanged. `--only <SDK 이름...>` is a partial check and does not satisfy the conditions for a complete commit and push.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 22,
+      "end_line": 22,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "paragraph",
+      "start_line": 23,
+      "end_line": 26,
+      "raw": "The batch run records consumers of a failed SDK as `dependency-failed` and continues checking independent SDKs.\nIt does not validate consumers against an older installation of a failed prerequisite. Any failure or blockage\nmakes the complete run fail. With `--only`, every selected SDK must pass before the command\nexits successfully. Resuming after a fix also executes previously blocked SDKs again.\n"
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 27,
+      "end_line": 27,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "paragraph",
+      "start_line": 28,
+      "end_line": 28,
+      "raw": "Use `BuildProject.py check SDK/<이름>` to run every stage for one SDK. All CMake output is generated under that project's `build/`. The tool uses Release MSVC x64 and applies Ninja's localized include output handling and a UTF-8 manifest.\n"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 29,
+      "end_line": 29,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "html",
+      "start_line": 30,
+      "end_line": 30,
+      "raw": "<a id=\"검증-범위와-결과\"></a>\n"
+    },
+    {
+      "id": "b000022",
+      "kind": "heading",
+      "start_line": 31,
+      "end_line": 31,
+      "raw": "## Verification scope and results\n",
+      "level": 2,
+      "title": "Verification scope and results"
+    },
+    {
+      "id": "b000023",
+      "kind": "blank",
+      "start_line": 32,
+      "end_line": 32,
+      "raw": "\n"
+    },
+    {
+      "id": "b000024",
+      "kind": "list",
+      "start_line": 33,
+      "end_line": 37,
+      "raw": "- CMake SDKs must complete configuration, build, the entire CTest suite and installation. Zero tests, unregistered executions and failed installations are not successes.\n- LVRS-Svelte verifies dependency installation, Node checks, Svelte checks, the Vite build, an actual preview HTTP response and local package installation.\n- ONNX is retired. Windows builds remove inherited runtime hints and retired SDK search paths, and clear legacy iiDecision cache options. iiDecision verifies its retired learned-model boundary and supported native decision interfaces. Unavailable Metal/MLX/OpenCL accelerator enumeration checks are recorded separately as skips and do not count as successful device execution. Skips outside the allowlist fail verification.\n- Source or prerequisite SDK changes invalidate existing execution results. `all_projects_executed_successfully` and `commit_and_push_allowed` in `verification.json` are true only when the complete scope remains valid.\n- This tool does not run Git commit, push, checkout or pull. Publishing verified changes through Git is a separate task.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "CMake SDKs must complete configuration, build, the entire CTest suite and installation. Zero tests, unregistered executions and failed installations are not successes.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "LVRS-Svelte verifies dependency installation, Node checks, Svelte checks, the Vite build, an actual preview HTTP response and local package installation.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "ONNX is retired. Windows builds remove inherited runtime hints and retired SDK search paths, and clear legacy iiDecision cache options. iiDecision verifies its retired learned-model boundary and supported native decision interfaces. Unavailable Metal/MLX/OpenCL accelerator enumeration checks are recorded separately as skips and do not count as successful device execution. Skips outside the allowlist fail verification.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Source or prerequisite SDK changes invalidate existing execution results. `all_projects_executed_successfully` and `commit_and_push_allowed` in `verification.json` are true only when the complete scope remains valid.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "This tool does not run Git commit, push, checkout or pull. Publishing verified changes through Git is a separate task.",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000025",
+      "kind": "blank",
+      "start_line": 38,
+      "end_line": 38,
+      "raw": "\n"
+    },
+    {
+      "id": "b000026",
+      "kind": "paragraph",
+      "start_line": 39,
+      "end_line": 39,
+      "raw": "Separate live integration with personal accounts, paid services, physical devices and large model weights from repository fixture and consumer execution checks. Record the execution scope in each project's instructions.\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "blank",
+      "start_line": 40,
+      "end_line": 40,
+      "raw": "\n"
+    },
+    {
+      "id": "b000028",
+      "kind": "html",
+      "start_line": 41,
+      "end_line": 41,
+      "raw": "<a id=\"의존성-및-windows-조치\"></a>\n"
+    },
+    {
+      "id": "b000029",
+      "kind": "heading",
+      "start_line": 42,
+      "end_line": 42,
+      "raw": "## Dependencies and Windows adjustments\n",
+      "level": 2,
+      "title": "Dependencies and Windows adjustments"
+    },
+    {
+      "id": "b000030",
+      "kind": "blank",
+      "start_line": 43,
+      "end_line": 43,
+      "raw": "\n"
+    },
+    {
+      "id": "b000031",
+      "kind": "paragraph",
+      "start_line": 44,
+      "end_line": 44,
+      "raw": "The active SDKs currently do not use C++ module file sets. The shared CMake include sets `CMAKE_CXX_SCAN_FOR_MODULES=OFF` on Windows MSVC to disable unnecessary module dyndep generation. This avoids configurations on this machine that repeatedly produced LNK1104 because linking began before new objects were generated during module scanning, while retaining C++23 and `/showIncludes` header dependency tracking. Actual module file sets follow CMake's mandatory scanning rules. See [CMake's scanning rules](https://cmake.org/cmake/help/latest/manual/cmake-cxxmodules.7.html).\n"
+    },
+    {
+      "id": "b000032",
+      "kind": "blank",
+      "start_line": 45,
+      "end_line": 45,
+      "raw": "\n"
+    },
+    {
+      "id": "b000033",
+      "kind": "paragraph",
+      "start_line": 46,
+      "end_line": 46,
+      "raw": "`Enter-DevEnvironment.ps1` uses Workspace `Tools` and the user's `~/.local/SDK`. Do not add all of `/usr/bin` in a regular shell because similarly named Git tools can conflict with the MSVC linker. Python 3.14 is used for reproducible builds and remains separate from the system default Python.\n"
+    },
+    {
+      "id": "b000034",
+      "kind": "blank",
+      "start_line": 47,
+      "end_line": 47,
+      "raw": "\n"
+    },
+    {
+      "id": "b000035",
+      "kind": "paragraph",
+      "start_line": 48,
+      "end_line": 48,
+      "raw": "`vcpkg-overlays/mdnsresponder` replaces a resource header that depends on MFC with a Windows SDK header. Record network service installation and physical device availability in the execution scope of the individual project.\n"
+    },
+    {
+      "id": "b000036",
+      "kind": "blank",
+      "start_line": 49,
+      "end_line": 49,
+      "raw": "\n"
+    },
+    {
+      "id": "b000037",
+      "kind": "html",
+      "start_line": 50,
+      "end_line": 50,
+      "raw": "<a id=\"이번-머신의-완료-기록\"></a>\n"
+    },
+    {
+      "id": "b000038",
+      "kind": "heading",
+      "start_line": 51,
+      "end_line": 51,
+      "raw": "## Completion records for this machine\n",
+      "level": 2,
+      "title": "Completion records for this machine"
+    },
+    {
+      "id": "b000039",
+      "kind": "blank",
+      "start_line": 52,
+      "end_line": 52,
+      "raw": "\n"
+    },
+    {
+      "id": "b000040",
+      "kind": "paragraph",
+      "start_line": 53,
+      "end_line": 64,
+      "raw": "The active build list for the sources synchronized on 2026-10-24 contains 37 SDKs. It includes `LVUI` and `iiImageCodec`.\nNative UI configuration follows iiSDKCore → LVUI → iiGUI → LVRS.\nThe list also records the prerequisites of the native iiSharedCanvas codec.\nJudge the current run using the new `verification.json` and logs. Do not reuse completion counts from\nearlier dates as proof that the current sources pass.\nAfter a repository path changes, such as `iiServerHost` → `iiWebServer`, inspect the source path in the existing CMake cache\nand reconfigure the same `build/` with `--fresh`. Do not delete existing output or user files\nto conceal a path mismatch.\nBuild subprocesses receive a deduplicated PATH that preserves search order.\nThis fixes the Windows reproduction in which repeated development-shell and SDK prefix entries, combined with nested npm `.bin` paths,\ncaused `node` discovery to fail. The system PATH is not modified.\nThe related platform restriction is described in [Microsoft's command environment variable length documentation](https://learn.microsoft.com/en-us/troubleshoot/windows-client/shell-experience/command-line-string-limitation).\n"
+    },
+    {
+      "id": "b000041",
+      "kind": "blank",
+      "start_line": 65,
+      "end_line": 65,
+      "raw": "\n"
+    },
+    {
+      "id": "b000042",
+      "kind": "paragraph",
+      "start_line": 66,
+      "end_line": 85,
+      "raw": "`check` also verifies the additional configurations used by actual consumers. iiFileProvider's\nCompatibility package is installed into its default installation prefix. The default native LVRS configuration\nand its existing Qt compatibility configuration each receive independent builds, complete test runs and installations. The Qt configuration\nis installed in `~/.local/SDK/LVRS/qt`. Existing Qt consumers specify this prefix and LVRS_DIR\nexplicitly to avoid mixing native and Qt configurations. Qt state capture checks are also enabled and executed.\nThe Qt compatibility and Qt-free native iiSharedCanvas configurations are checked separately. The native\ninstallation uses `~/.local/SDK/iiSharedCanvas/native`. A separate installed consumer discovers this package,\nperforms an actual file round trip and confirms that Qt targets are not imported.\nVerification inspects the test records from every configuration; success in the first configuration alone does not pass the project.\nIf a previously verified prerequisite SDK changes during the run, its record is invalidated and its consumers are blocked.\nAt completion, failed and invalid states are also propagated to transitive consumers. Recording a new source fingerprint\nmust not allow an execution against an older installation to be reused as a successful resumed result.\nRuntime SDK bin directories are also searched in dependency order. This fixes the reproduction in which\na higher-level SDK's old copy of iiSDKCore.dll loaded before the latest Core installation and stopped execution\nbefore process entry. The current project prefers new build/ output and does not put its own old installation\nahead of build dependency DLLs. CTest uses a default 300-second timeout while retaining project-specific\nexplicit limits.\nSearch order is the installations of manifest-declared transitive SDK dependencies, the current SDK's build/ and\nits Native output directories, then the remaining SDKs. Regression checks also ensure that DLLs copied by unrelated higher-level SDKs\ndo not hide the current SDK's new Native DLLs.\n"
+    },
+    {
+      "id": "b000043",
+      "kind": "blank",
+      "start_line": 86,
+      "end_line": 86,
+      "raw": "\n"
+    },
+    {
+      "id": "b000044",
+      "kind": "paragraph",
+      "start_line": 87,
+      "end_line": 87,
+      "raw": "[The complete 2026-10-24 verification record](Verification-20261024.md) and [structured results](Verification-20261024.json) record actual execution counts by configuration, installation audits, corrections and exclusions for 37 active SDKs.\n"
+    },
+    {
+      "id": "b000045",
+      "kind": "blank",
+      "start_line": 88,
+      "end_line": 88,
+      "raw": "\n"
+    },
+    {
+      "id": "b000046",
+      "kind": "paragraph",
+      "start_line": 89,
+      "end_line": 89,
+      "raw": "[The complete 2026-10-20 verification record](Verification-20261020.md) and [structured results](Verification-20261020.json) record execution counts, configurations, installation locations and remotely verified commits for 36 SDKs.\n"
+    },
+    {
+      "id": "b000047",
+      "kind": "blank",
+      "start_line": 90,
+      "end_line": 90,
+      "raw": "\n"
+    },
+    {
+      "id": "b000048",
+      "kind": "html",
+      "start_line": 91,
+      "end_line": 91,
+      "raw": "<!-- workspace-docs:readme:start -->\n"
+    },
+    {
+      "id": "b000049",
+      "kind": "heading",
+      "start_line": 92,
+      "end_line": 92,
+      "raw": "## Documentation entry points\n",
+      "level": 2,
+      "title": "Documentation entry points"
+    },
+    {
+      "id": "b000050",
+      "kind": "blank",
+      "start_line": 93,
+      "end_line": 93,
+      "raw": "\n"
+    },
+    {
+      "id": "b000051",
+      "kind": "list",
+      "start_line": 94,
+      "end_line": 97,
+      "raw": "- Human overview: this English `README.md`.\n- Agent instructions: [AGENT.md](AGENT.md).\n- Human documentation: [documentation index](docs/README.md).\n- Structured agent documentation: [agent index](docs/agent-index.json).\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "Human overview: this English `README.md`.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Agent instructions: [AGENT.md](AGENT.md).",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Human documentation: [documentation index](docs/README.md).",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Structured agent documentation: [agent index](docs/agent-index.json).",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000052",
+      "kind": "html",
+      "start_line": 98,
+      "end_line": 98,
+      "raw": "<!-- workspace-docs:readme:end -->\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000002",
+      "parent_id": null,
+      "level": 1,
+      "title": "Windows SDK Verification",
+      "anchor": "windows-sdk-verification",
+      "start_line": 2
+    },
+    {
+      "block_id": "b000009",
+      "parent_id": "b000002",
+      "level": 2,
+      "title": "Usage",
+      "anchor": "usage",
+      "start_line": 10
+    },
+    {
+      "block_id": "b000022",
+      "parent_id": "b000002",
+      "level": 2,
+      "title": "Verification scope and results",
+      "anchor": "verification-scope-and-results",
+      "start_line": 31
+    },
+    {
+      "block_id": "b000029",
+      "parent_id": "b000002",
+      "level": 2,
+      "title": "Dependencies and Windows adjustments",
+      "anchor": "dependencies-and-windows-adjustments",
+      "start_line": 42
+    },
+    {
+      "block_id": "b000038",
+      "parent_id": "b000002",
+      "level": 2,
+      "title": "Completion records for this machine",
+      "anchor": "completion-records-for-this-machine",
+      "start_line": 51
+    },
+    {
+      "block_id": "b000049",
+      "parent_id": "b000002",
+      "level": 2,
+      "title": "Documentation entry points",
+      "anchor": "documentation-entry-points",
+      "start_line": 92
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000006",
+        "line": 7,
+        "text": "Build the active SDKs in `projects.json` in dependency order, run every registered execution check, and install into the user SDK prefix. Deprecated and Utility projects are excluded. Directories without source build definitions do not count as successful executions.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000017",
+        "line": 25,
+        "text": "makes the complete run fail. With `--only`, every selected SDK must pass before the command",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000024",
+        "line": 33,
+        "text": "- CMake SDKs must complete configuration, build, the entire CTest suite and installation. Zero tests, unregistered executions and failed installations are not successes.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000024",
+        "line": 35,
+        "text": "- ONNX is retired. Windows builds remove inherited runtime hints and retired SDK search paths, and clear legacy iiDecision cache options. iiDecision verifies its retired learned-model boundary and supported native decision interfaces. Unavailable Metal/MLX/OpenCL accelerator enumeration checks are recorded separately as skips and do not count as successful device execution. Skips outside the allowlist fail verification.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000031",
+        "line": 44,
+        "text": "The active SDKs currently do not use C++ module file sets. The shared CMake include sets `CMAKE_CXX_SCAN_FOR_MODULES=OFF` on Windows MSVC to disable unnecessary module dyndep generation. This avoids configurations on this machine that repeatedly produced LNK1104 because linking began before new objects were generated during module scanning, while retaining C++23 and `/showIncludes` header dependency tracking. Actual module file sets follow CMake's mandatory scanning rules. See [CMake's scanning rules](https://cmake.org/cmake/help/latest/manual/cmake-cxxmodules.7.html).",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000033",
+        "line": 46,
+        "text": "`Enter-DevEnvironment.ps1` uses Workspace `Tools` and the user's `~/.local/SDK`. Do not add all of `/usr/bin` in a regular shell because similarly named Git tools can conflict with the MSVC linker. Python 3.14 is used for reproducible builds and remains separate from the system default Python.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000040",
+        "line": 56,
+        "text": "Judge the current run using the new `verification.json` and logs. Do not reuse completion counts from",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000040",
+        "line": 59,
+        "text": "and reconfigure the same `build/` with `--fresh`. Do not delete existing output or user files",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000042",
+        "line": 77,
+        "text": "must not allow an execution against an older installation to be reused as a successful resumed result.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000042",
+        "line": 85,
+        "text": "do not hide the current SDK's new Native DLLs.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [
+      {
+        "block_id": "b000013",
+        "language": "powershell",
+        "code": ". ./SDK/Windows/Enter-DevEnvironment.ps1\n$python = Join-Path (Get-Location) 'Tools/Python314/tools/python.exe'\n& $python ./SDK/Windows/Verify.py --report-dir ./build/maintenance/windows-sdk-verification\nif ($LASTEXITCODE -ne 0) { throw '전체 SDK 검증 미완료' }\n"
+      }
+    ],
+    "links": [
+      {
+        "block_id": "b000031",
+        "label": "CMake's scanning rules",
+        "target": "https://cmake.org/cmake/help/latest/manual/cmake-cxxmodules.7.html",
+        "kind": "external",
+        "line": 44
+      },
+      {
+        "block_id": "b000040",
+        "label": "Microsoft's command environment variable length documentation",
+        "target": "https://learn.microsoft.com/en-us/troubleshoot/windows-client/shell-experience/command-line-string-limitation",
+        "kind": "external",
+        "line": 64
+      },
+      {
+        "block_id": "b000044",
+        "label": "The complete 2026-10-24 verification record",
+        "target": "Verification-20261024.md",
+        "kind": "relative",
+        "line": 87
+      },
+      {
+        "block_id": "b000044",
+        "label": "structured results",
+        "target": "Verification-20261024.json",
+        "kind": "relative",
+        "line": 87
+      },
+      {
+        "block_id": "b000046",
+        "label": "The complete 2026-10-20 verification record",
+        "target": "Verification-20261020.md",
+        "kind": "relative",
+        "line": 89
+      },
+      {
+        "block_id": "b000046",
+        "label": "structured results",
+        "target": "Verification-20261020.json",
+        "kind": "relative",
+        "line": 89
+      },
+      {
+        "block_id": "b000051",
+        "label": "AGENT.md",
+        "target": "AGENT.md",
+        "kind": "relative",
+        "line": 95
+      },
+      {
+        "block_id": "b000051",
+        "label": "documentation index",
+        "target": "docs/README.md",
+        "kind": "relative",
+        "line": 96
+      },
+      {
+        "block_id": "b000051",
+        "label": "agent index",
+        "target": "docs/agent-index.json",
+        "kind": "relative",
+        "line": 97
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

@@ -10,6 +10,26 @@ OLD_CAMERA = "iiCamera" + "Inter" + "gration"
 
 
 class ModuleNameTests(unittest.TestCase):
+    def test_visual_codec_replaces_the_image_checkout_and_catalog_entry(self):
+        name = "iiVisualCodec"
+        old = "iiImageCodec"
+        self.assertTrue((SDK / name / "src" / name / "VisualCodec.h").is_file())
+        self.assertFalse((SDK / old).exists())
+        catalog = json.loads((SDK / "workspace-repositories.json").read_text())
+        entries = {row["path"]: row for row in catalog["repositories"]}
+        self.assertIn("SDK/" + name, entries)
+        self.assertNotIn("SDK/" + old, entries)
+        projects = json.loads((SDK / "Windows/projects.json").read_text())
+        self.assertIn(name, projects)
+        self.assertNotIn(old, projects)
+        self.assertIn(name, projects["iiSharedCanvas"]["dependencies"])
+        consumer = (SDK / "tests/qtfree/CMakeLists.txt").read_text()
+        self.assertIn("../../" + name, consumer)
+        self.assertIn("iiVisualCodec::Image", consumer)
+        self.assertIn("IIVISUALCODEC_OPENCV OFF", consumer)
+        self.assertIn("IIVISUALCODEC_3D OFF", consumer)
+        self.assertIn("IIVISUALCODEC_CAD OFF", consumer)
+
     def test_camera_checkout_headers_and_export_use_the_canonical_name(self):
         module = SDK / CAMERA
         self.assertTrue(module.is_dir())
@@ -40,7 +60,7 @@ class ModuleNameTests(unittest.TestCase):
             self.assertNotIn(OLD_CAMERA, project.get("dependencies", []))
 
     def test_society_integration_units_use_the_correct_suffix(self):
-        directory = SDK.parent / "Product/Society/src/App/AI"
+        directory = SDK.parent / "Product/Society/App/Society/AI"
         for provider in ("HuggingFace", "Civitai", "Ollama"):
             name = provider + "Integration"
             old = provider + "Inter" + "gration"

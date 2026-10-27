@@ -1,0 +1,136 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:6d47fc1b65d5542e0cbf71a98b8c53a72ed4d13481c2c6f9d56dbbae8e6fab5d",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FWindows",
+    "name": "Windows",
+    "root": "SDK/Windows",
+    "kind": "scaffold"
+  },
+  "source": {
+    "path": "docs/GPU.md",
+    "sha256": "d33728bd1e64af35c78bbb1cf10fcd261f7d5e9b09d291195c0c7aab1405e4e1",
+    "bytes": 1195,
+    "line_count": 18,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "Windows GPU 모듈 검증",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Windows GPU 모듈 검증\n",
+      "level": 1,
+      "title": "Windows GPU 모듈 검증"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 5,
+      "raw": "iiGPU는 Windows에서 Vulkan 1.1의 네이티브 큐·버퍼·파이프라인·전송·컴퓨트·\n장벽·fence를 사용한다. D3D12 전용 백엔드를 제공한다고 선언하지 않는다.\nVulkan SDK 헤더·로더와 GPU 드라이버를 준비한다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 7,
+      "end_line": 10,
+      "raw": "projects.json은 iiSDKCore → iiGPU → iiDecision 순서를 가진다.\nBuildProject.py는 iiGPU를 IIGPU_METAL=OFF, IIGPU_VULKAN=ON으로 구성한다.\niiGPU의 실제 설치 패키지를 사용하는 iiDecision도 동일한 Vulkan 의존성을\n발견할 수 있어야 한다. SDK나 드라이버 부재를 CPU 가속 성공으로 바꾸지 않는다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 11,
+      "end_line": 11,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 12,
+      "end_line": 14,
+      "raw": "Windows에서는 Metal의 6개 iiGPU 검사와 iiDecision의 Metal 재사용 검사를\n지원 대상 외 skip으로 기록한다. Vulkan 커널·버퍼 재사용 검사가 skip되면\n전체 실행 검증은 성공이 아니다. 메모리·커널·동기화 오류도 실패로 유지한다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 15,
+      "end_line": 15,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 16,
+      "end_line": 18,
+      "raw": "이번 macOS 작업의 Windows 증거는 빌드 계약·의존 순서·skip 정책에 대한\n소스 수준의 회귀 검사이다. Windows 실기기 실행 증거로 해석하지 않는다.\n[전체 GPU 계약](../../iiGPU/docs/Contracts.md)을 참고한다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Windows GPU 모듈 검증",
+      "anchor": "windows-gpu-모듈-검증",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000003",
+        "line": 4,
+        "text": "장벽·fence를 사용한다. D3D12 전용 백엔드를 제공한다고 선언하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000009",
+        "line": 17,
+        "text": "소스 수준의 회귀 검사이다. Windows 실기기 실행 증거로 해석하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000009",
+        "label": "전체 GPU 계약",
+        "target": "../../iiGPU/docs/Contracts.md",
+        "kind": "relative",
+        "line": 18
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

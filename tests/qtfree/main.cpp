@@ -1,6 +1,6 @@
 #include <iiSDKCore/Runtime/Runtime.h>
 #include <iiJson/Json.h>
-#include <iiImageCodec/ImageCodec.h>
+#include <iiVisualCodec/ImageCodec.h>
 #include <iiXml/Xml.h>
 #include <iiNetwork/WebSocket.h>
 #include <iiFileProviderNative.h>
@@ -18,11 +18,11 @@ int main(int argc,char** argv) {
     auto value=ii::json::parse("{\"kind\":\"preview\",\"width\":2}"); CHECK(value);
     auto json=ii::json::stringify(*value); CHECK(json);
     std::vector<std::uint8_t> pixels{11,12,13,255,14,15,16,0};
-    auto png=ii::image::encode_png({2,1,ii::image::PixelFormat::rgba8,0,pixels}); CHECK(png);
+    auto png=ii::visual::image::encode_png({2,1,ii::visual::image::PixelFormat::rgba8,0,pixels}); CHECK(png);
     const std::string bytes(reinterpret_cast<const char*>(png->data()),png->size());
     File::write(temporary.path()/"preview.png",bytes);
     auto raw=File::read(temporary.path()/"preview.png"); CHECK(raw==bytes);
-    auto image=ii::image::decode({reinterpret_cast<const std::uint8_t*>(raw.data()),raw.size()}); CHECK(image && image->rgba==pixels);
+    auto image=ii::visual::image::decode({reinterpret_cast<const std::uint8_t*>(raw.data()),raw.size()}); CHECK(image && image->rgba==pixels);
     sql::Options options; options.mode=sql::OpenMode::create;
     auto db=sql::Database::open(temporary.path()/"data.sqlite",options); CHECK(db);
     CHECK(db->execute("CREATE TABLE outputs (id INTEGER PRIMARY KEY, png BLOB, parameters TEXT)"));

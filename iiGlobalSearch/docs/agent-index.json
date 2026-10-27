@@ -1,0 +1,76 @@
+{
+  "format": "iisacc.agent-document-index",
+  "schema_version": 1,
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiGlobalSearch",
+    "name": "iiGlobalSearch",
+    "root": "SDK/iiGlobalSearch",
+    "kind": "sdk"
+  },
+  "documentation_root": "docs",
+  "agent_schema": "docs/agent-document.schema.json",
+  "documents": [
+    {
+      "document_id": "urn:iisacc:document:5a7fc99a0f6af56888249bea65ebf614bb57c33df555ad3f72c352419a1024f9",
+      "source": "AGENT.md",
+      "agent_json": "docs/entrypoints/AGENT.agent.json",
+      "source_sha256": "3f55c3b88405e29990b0190af81b03e1ecaf852a87fd33743b09af51bb113ba4",
+      "role": "instructions"
+    },
+    {
+      "document_id": "urn:iisacc:document:d66e9ac7bd7c3aec8bb4f3ee2849d0549412e1dca3b11df26f63556492579d1e",
+      "source": "README.md",
+      "agent_json": "docs/entrypoints/README.agent.json",
+      "source_sha256": "3510c5f1682b2df07d9402ff5d522da16e18afcec898b6789f7fe869a0b13876",
+      "role": "overview"
+    },
+    {
+      "document_id": "urn:iisacc:document:42d7ef70712400a7762c22a639e9d94131a9b00034cf6eb1aba563a049be50e6",
+      "source": "docs/Answers.md",
+      "agent_json": "docs/Answers.agent.json",
+      "source_sha256": "23fb70f909fd4928c7f9a60fc7feeef1edc2d7e0490df882aea22afa9514d3da",
+      "role": "guide"
+    },
+    {
+      "document_id": "urn:iisacc:document:a503b1c5ea6a935d1dafa834e86bc01cda552ae408343d1a3447da1b5380588b",
+      "source": "docs/Indexing.md",
+      "agent_json": "docs/Indexing.agent.json",
+      "source_sha256": "65c3f702645a803a755fd626d2b4b21496e8f99f5e0a0cb004b50eaeca37cd3e",
+      "role": "guide"
+    },
+    {
+      "document_id": "urn:iisacc:document:c53020658f1bc0c3ea0af64154df692066fbcd660e87e271899d306f0fcd0468",
+      "source": "docs/README.md",
+      "agent_json": "docs/README.agent.json",
+      "source_sha256": "0be732d6319cdc1c542773ce960a6341a86f723aa44d7ce4b86d470b44748eed",
+      "role": "overview"
+    },
+    {
+      "document_id": "urn:iisacc:document:e0e8a2c5a9a617a0e729e6ae9d9c877df7bbf9c82e3b4b87cbd94d63d0f70c9f",
+      "source": "docs/WebSearch.md",
+      "agent_json": "docs/WebSearch.agent.json",
+      "source_sha256": "14e2454779e5945d88f7af002a00369aaf82696abbe309667d2316e2c018ef87",
+      "role": "guide"
+    },
+    {
+      "document_id": "urn:iisacc:document:3349b6b7bd025cf9611f6b4752683229a1f6b28c5e0dfec481ed4170c56c81af",
+      "source": "docs/documentation-structure.md",
+      "agent_json": "docs/documentation-structure.agent.json",
+      "source_sha256": "28eeaa3ffb48ab1d2fe871b8df0af204ddec4cab0c1f093e766aaa1cbfdd338a",
+      "role": "guide"
+    }
+  ],
+  "layout": {
+    "human_entry": "README.md",
+    "agent_entry": "AGENT.md",
+    "human_format": "markdown",
+    "agent_format": "structured_json",
+    "source_authority": "markdown"
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

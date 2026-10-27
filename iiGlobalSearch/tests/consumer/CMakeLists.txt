@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.24)
+project(iiGlobalSearchInstalledConsumer LANGUAGES CXX)
+find_package(iiGlobalSearch 0.1 CONFIG REQUIRED COMPONENTS Local Web)
+add_executable(iiGlobalSearchInstalledConsumer main.cpp)
+target_link_libraries(iiGlobalSearchInstalledConsumer PRIVATE iiGlobalSearch::iiGlobalSearch iiGlobalSearch::Web)

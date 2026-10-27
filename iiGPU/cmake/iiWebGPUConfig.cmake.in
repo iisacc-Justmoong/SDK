@@ -1,0 +1,12 @@
+@PACKAGE_INIT@
+include(CMakeFindDependencyMacro)
+if((NOT DEFINED iiGPU_DIR OR iiGPU_DIR STREQUAL "" OR iiGPU_DIR MATCHES "-NOTFOUND$")
+        AND EXISTS "${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@/cmake/iiGPU/iiGPUConfig.cmake")
+    set(iiGPU_DIR "${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@/cmake/iiGPU")
+endif()
+find_dependency(iiGPU 0.1 CONFIG COMPONENTS WebGPU)
+if(NOT TARGET iiWebGPU::iiWebGPU)
+    add_library(iiWebGPU::iiWebGPU INTERFACE IMPORTED)
+    set_property(TARGET iiWebGPU::iiWebGPU PROPERTY INTERFACE_LINK_LIBRARIES iiGPU::WebGPU)
+endif()
+check_required_components(iiWebGPU)

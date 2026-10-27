@@ -1,0 +1,317 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:d66e9ac7bd7c3aec8bb4f3ee2849d0549412e1dca3b11df26f63556492579d1e",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiGlobalSearch",
+    "name": "iiGlobalSearch",
+    "root": "SDK/iiGlobalSearch",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "README.md",
+    "sha256": "3510c5f1682b2df07d9402ff5d522da16e18afcec898b6789f7fe869a0b13876",
+    "bytes": 4158,
+    "line_count": 69,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "iiGlobalSearch",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# iiGlobalSearch\n",
+      "level": 1,
+      "title": "iiGlobalSearch"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 8,
+      "raw": "iiGlobalSearch builds a searchable, in-memory snapshot of iiFileProvider\nclassification and presentation information in one `.societycontainer`\ndirectory package. A reusable iiSDKCore worker indexes asynchronously; callers\ncan query partial results, observe progress, cancel, and explicitly refresh.\nProvider catalogs and portable companions are read through their public APIs.\nUser payloads and provider indexes are never modified by this SDK.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 9,
+      "end_line": 9,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 10,
+      "end_line": 17,
+      "raw": "The separate web search API starts each queued task with a new crawl frontier,\nvisits live HTTP(S) pages through iiNetwork, follows links subject to robots\nrules and ranks the resulting page content in memory. It does not query a\nthird-party search database or build a persistent search index. It returns\nmetadata, structured data, links and a flat DOM. An isolated Chromium session\nrenders JavaScript by default; an application can provide another renderer.\nCoverage is bounded by the selected seeds and crawl limits, and is not the\nwhole web or Google's ranking. See [web search](docs/WebSearch.md).\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 18,
+      "end_line": 18,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 19,
+      "end_line": 27,
+      "raw": "Local `searchAnswer()` and web `WebTask::answer()` return recursive, structured\nin-memory objects containing the data actually found. Values support integers,\nfloats, strings, heterogeneous lists, images, video, audio, numeric vectors and\nvector graphics, spreadsheets, graphs and scenes. Remote and local media use\nreferences until explicitly loaded into memory by the bounded asynchronous\n`MediaLoader`. HTML tables and inline SVG can already be present in the page;\nexternal spreadsheet and scene documents are references, not decoded models.\nExisting vector-returning methods remain available at source level; C++ consumers\nmust rebuild for the changed public ABI. See [structured answers](docs/Answers.md).\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 28,
+      "end_line": 28,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 29,
+      "end_line": 36,
+      "raw": "The local and web APIs are separate CMake components. Local search uses\n`iiGlobalSearch::iiGlobalSearch`; request the `Web` component and link\n`iiGlobalSearch::Web` for network search. Both components and the common answer\nlibrary require iiSDKCore 0.18 or later. The web component requires iiNetwork\n0.5 or later, iiJson, iiFileProviderNative, libxml2,\nlibcurl and OpenSSL 3 or later. JavaScript rendering additionally needs a\ncompatible Chromium executable. Set `OPENSSL_ROOT_DIR` when CMake cannot locate\nOpenSSL. Local search retains its iiSocietyContainer and SQLite/FTS5 dependencies.\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 37,
+      "end_line": 37,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "paragraph",
+      "start_line": 38,
+      "end_line": 44,
+      "raw": "The index is scoped to visible, non-redirected files under the selected package.\nIt includes catalog entries (including unpublished metadata), independently\ntransported classification companions, and valid presentation companions. It\ndoes not index arbitrary files without provider information. Presentation\nverification reads a bounded sample of the source; classification alone does\nnot read its payload. Hidden directories and provider control files are skipped.\nResults are a snapshot and should be refreshed after changes.\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 45,
+      "end_line": 45,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "fenced_code",
+      "start_line": 46,
+      "end_line": 53,
+      "raw": "```sh\ncmake -S . -B build -DCMAKE_BUILD_TYPE=Release \\\n  -DCMAKE_PREFIX_PATH=\"$HOME/.local/SDK/iiSDKCore;$HOME/.local/SDK/iiJson;$HOME/.local/SDK/iiFileProvider;$HOME/.local/SDK/iiSocietyContainer;$HOME/.local/SDK/iiNetwork\"\ncmake --build build --parallel\nctest --test-dir build --output-on-failure\nbuild/ii-global-search index /absolute/Library.societycontainer \"campaign portrait\" --limit 50\nbuild/ii-global-search web \"creative tools\" --seed https://example.com/ --max-pages 10 --depth 2\n```\n",
+      "language": "sh",
+      "code": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \\\n  -DCMAKE_PREFIX_PATH=\"$HOME/.local/SDK/iiSDKCore;$HOME/.local/SDK/iiJson;$HOME/.local/SDK/iiFileProvider;$HOME/.local/SDK/iiSocietyContainer;$HOME/.local/SDK/iiNetwork\"\ncmake --build build --parallel\nctest --test-dir build --output-on-failure\nbuild/ii-global-search index /absolute/Library.societycontainer \"campaign portrait\" --limit 50\nbuild/ii-global-search web \"creative tools\" --seed https://example.com/ --max-pages 10 --depth 2\n",
+      "closed": true
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 54,
+      "end_line": 54,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 55,
+      "end_line": 60,
+      "raw": "The CLI emits JSON and waits for the background indexing job. Applications can\nlink `iiGlobalSearch::iiGlobalSearch` and use `iiGlobalSearch::Index` without Qt;\nsee [the indexing contract](docs/Indexing.md) and [the example](example/search.cpp).\n`./install.sh` stages the package to `build/install` by default. A consumer must\nexplicitly start a refresh; this library does not start a service or change an\nalready running application.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 61,
+      "end_line": 61,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "html",
+      "start_line": 62,
+      "end_line": 62,
+      "raw": "<!-- workspace-docs:readme:start -->\n"
+    },
+    {
+      "id": "b000018",
+      "kind": "heading",
+      "start_line": 63,
+      "end_line": 63,
+      "raw": "## Documentation entry points\n",
+      "level": 2,
+      "title": "Documentation entry points"
+    },
+    {
+      "id": "b000019",
+      "kind": "blank",
+      "start_line": 64,
+      "end_line": 64,
+      "raw": "\n"
+    },
+    {
+      "id": "b000020",
+      "kind": "list",
+      "start_line": 65,
+      "end_line": 68,
+      "raw": "- Human overview: this English `README.md`.\n- Agent instructions: [AGENT.md](AGENT.md).\n- Human documentation: [documentation index](docs/README.md).\n- Structured agent documentation: [agent index](docs/agent-index.json).\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "Human overview: this English `README.md`.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Agent instructions: [AGENT.md](AGENT.md).",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Human documentation: [documentation index](docs/README.md).",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Structured agent documentation: [agent index](docs/agent-index.json).",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000021",
+      "kind": "html",
+      "start_line": 69,
+      "end_line": 69,
+      "raw": "<!-- workspace-docs:readme:end -->\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "iiGlobalSearch",
+      "anchor": "iiglobalsearch",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000018",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Documentation entry points",
+      "anchor": "documentation-entry-points",
+      "start_line": 63
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000003",
+        "line": 8,
+        "text": "User payloads and provider indexes are never modified by this SDK.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000007",
+        "line": 27,
+        "text": "must rebuild for the changed public ABI. See [structured answers](docs/Answers.md).",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000011",
+        "line": 44,
+        "text": "Results are a snapshot and should be refreshed after changes.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000015",
+        "line": 58,
+        "text": "`./install.sh` stages the package to `build/install` by default. A consumer must",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [
+      {
+        "block_id": "b000013",
+        "language": "sh",
+        "code": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \\\n  -DCMAKE_PREFIX_PATH=\"$HOME/.local/SDK/iiSDKCore;$HOME/.local/SDK/iiJson;$HOME/.local/SDK/iiFileProvider;$HOME/.local/SDK/iiSocietyContainer;$HOME/.local/SDK/iiNetwork\"\ncmake --build build --parallel\nctest --test-dir build --output-on-failure\nbuild/ii-global-search index /absolute/Library.societycontainer \"campaign portrait\" --limit 50\nbuild/ii-global-search web \"creative tools\" --seed https://example.com/ --max-pages 10 --depth 2\n"
+      }
+    ],
+    "links": [
+      {
+        "block_id": "b000005",
+        "label": "web search",
+        "target": "docs/WebSearch.md",
+        "kind": "relative",
+        "line": 17
+      },
+      {
+        "block_id": "b000007",
+        "label": "structured answers",
+        "target": "docs/Answers.md",
+        "kind": "relative",
+        "line": 27
+      },
+      {
+        "block_id": "b000015",
+        "label": "the indexing contract",
+        "target": "docs/Indexing.md",
+        "kind": "relative",
+        "line": 57
+      },
+      {
+        "block_id": "b000015",
+        "label": "the example",
+        "target": "example/search.cpp",
+        "kind": "relative",
+        "line": 57
+      },
+      {
+        "block_id": "b000020",
+        "label": "AGENT.md",
+        "target": "AGENT.md",
+        "kind": "relative",
+        "line": 66
+      },
+      {
+        "block_id": "b000020",
+        "label": "documentation index",
+        "target": "docs/README.md",
+        "kind": "relative",
+        "line": 67
+      },
+      {
+        "block_id": "b000020",
+        "label": "agent index",
+        "target": "docs/agent-index.json",
+        "kind": "relative",
+        "line": 68
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

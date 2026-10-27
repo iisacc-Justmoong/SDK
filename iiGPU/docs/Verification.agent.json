@@ -1,0 +1,602 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:72a42addd9d9e081c50c8945a3a3a669af4f1ec7e2ab1f0879d7d03146036f67",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiGPU",
+    "name": "iiGPU",
+    "root": "SDK/iiGPU",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "docs/Verification.md",
+    "sha256": "e0f3785ad01850b3658c899e5bc5ec00d294354e2f4eef677ed2be02090407ac",
+    "bytes": 5144,
+    "line_count": 92,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "플랫폼과 검증",
+    "role": "evidence",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# 플랫폼과 검증\n",
+      "level": 1,
+      "title": "플랫폼과 검증"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "heading",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "## 대상과 증거의 구분\n",
+      "level": 2,
+      "title": "대상과 증거의 구분"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 4,
+      "end_line": 4,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "table",
+      "start_line": 5,
+      "end_line": 12,
+      "raw": "| 플랫폼 | 구현 경로 | 현재 검증 범위 |\n| --- | --- | --- |\n| macOS | Metal, 선택적 Vulkan/MoltenVK | Apple GPU의 네이티브 전송·정수 커널·동기화 실행 |\n| iOS | Metal | Apple SDK 교차 컴파일 대상이며 실기기 실행은 별도 검증 |\n| Windows | Vulkan 1.1 | 같은 C++23 소스·공개 API, 실기기 실행 미검증 |\n| Linux | Vulkan 1.1 | 같은 C++23 소스·공개 API, 실기기 실행 미검증 |\n| Android | Vulkan 1.1 | NDK 교차 컴파일 대상, 이번 모듈의 실기기 실행 미검증 |\n| Web/WASM | 없음 | 장치 생성은 unsupported, WebGPU 지원을 선언하지 않음 |\n",
+      "columns": [
+        "플랫폼",
+        "구현 경로",
+        "현재 검증 범위"
+      ],
+      "rows": [
+        [
+          "macOS",
+          "Metal, 선택적 Vulkan/MoltenVK",
+          "Apple GPU의 네이티브 전송·정수 커널·동기화 실행"
+        ],
+        [
+          "iOS",
+          "Metal",
+          "Apple SDK 교차 컴파일 대상이며 실기기 실행은 별도 검증"
+        ],
+        [
+          "Windows",
+          "Vulkan 1.1",
+          "같은 C++23 소스·공개 API, 실기기 실행 미검증"
+        ],
+        [
+          "Linux",
+          "Vulkan 1.1",
+          "같은 C++23 소스·공개 API, 실기기 실행 미검증"
+        ],
+        [
+          "Android",
+          "Vulkan 1.1",
+          "NDK 교차 컴파일 대상, 이번 모듈의 실기기 실행 미검증"
+        ],
+        [
+          "Web/WASM",
+          "없음",
+          "장치 생성은 unsupported, WebGPU 지원을 선언하지 않음"
+        ]
+      ]
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 13,
+      "end_line": 13,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 14,
+      "end_line": 16,
+      "raw": "CPU·소프트웨어 Vulkan은 `require_hardware=false`로 명시한 경우에만 선택할 수\n있으며 하드웨어 검증으로 집계하지 않는다. 이번 모듈의 검증을 이전 Android\nHello World 실행 검증과 합치지 않는다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 17,
+      "end_line": 17,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "heading",
+      "start_line": 18,
+      "end_line": 18,
+      "raw": "## 재현\n",
+      "level": 2,
+      "title": "재현"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 19,
+      "end_line": 19,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "fenced_code",
+      "start_line": 20,
+      "end_line": 32,
+      "raw": "```sh\ncmake -S . -B build -DCMAKE_BUILD_TYPE=Release \\\n  -DiiSDKCore_DIR=\"$HOME/.local/SDK/iiSDKCore/lib/cmake/iiSDKCore\"\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\nbuild/iiGPUAcceleration metal\nbuild/iiGPUAcceleration vulkan\ncmake --install build --prefix \"$PWD/build/prefix\"\ncmake -S tests/consumer -B build/consumer \\\n  -DiiGPU_DIR=\"$PWD/build/prefix/lib/cmake/iiGPU\"\ncmake --build build/consumer --parallel 4\nctest --test-dir build/consumer --output-on-failure\n```\n",
+      "language": "sh",
+      "code": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \\\n  -DiiSDKCore_DIR=\"$HOME/.local/SDK/iiSDKCore/lib/cmake/iiSDKCore\"\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\nbuild/iiGPUAcceleration metal\nbuild/iiGPUAcceleration vulkan\ncmake --install build --prefix \"$PWD/build/prefix\"\ncmake -S tests/consumer -B build/consumer \\\n  -DiiGPU_DIR=\"$PWD/build/prefix/lib/cmake/iiGPU\"\ncmake --build build/consumer --parallel 4\nctest --test-dir build/consumer --output-on-failure\n",
+      "closed": true
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 33,
+      "end_line": 33,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 34,
+      "end_line": 36,
+      "raw": "Vulkan을 찾지 못하면 실제 설치된 헤더·로더를 명시한다. macOS에서 MoltenVK를\n사용하면 소비자 구성에도 같은 Vulkan 패키지가 필요하다. 동적 로더의 의존성은\n`DYLD_LIBRARY_PATH`로 숨기지 않고 설치된 CMake 패키지에서 전달한다.\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 37,
+      "end_line": 37,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 38,
+      "end_line": 42,
+      "raw": "검사는 창을 생성하지 않는다. 유닛 검사는 장치 소유권·범위·상태·예산·취소·\n실행 중 메모리 접근, 전송 왕복, 정수 커널 결과, 장벽 누락, 자원 수명,\n다중 생산자 제출과 네이티브 핸들 수명을 검사한다. Core 연결 검사는 같은 루프\n실행 영역의 단일 완료 전달·관측 취소·루프 용량 제한을 검사한다.\n장치 부재는 77로 skip하고 네이티브 실행 오류를 skip으로 처리하지 않는다.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 43,
+      "end_line": 43,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "paragraph",
+      "start_line": 44,
+      "end_line": 46,
+      "raw": "셰이더 원문은 `example/Acceleration/transform.comp`이고 생성된 `Shader.h`에\n원문 SHA-256을 기록한다. 갱신은 `tools/compile_shader.py --compiler <glslang>`을\n사용한다. 생성 중간 파일은 build/shaders/에 둔다.\n"
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 47,
+      "end_line": 47,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "heading",
+      "start_line": 48,
+      "end_line": 48,
+      "raw": "## 수행 기록\n",
+      "level": 2,
+      "title": "수행 기록"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 49,
+      "end_line": 49,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "paragraph",
+      "start_line": 50,
+      "end_line": 54,
+      "raw": "최종 실행 기록·CTest XML·설치 소비자 결과·소스 해시는 build/verification.json과\n해당 로그에 기록한다. GPU 발견 목록만으로 커널 실행이나 성능 개선을 증명하지\n않는다. 이 예제의 검증은 입력마다 `value * 7 + 13`의 정확한 결과가 나오는지\n비교하는 기능 검증이며 CPU 대비 속도 개선이나 모든 GPU 제조사 호환성의\n증거로 사용하지 않는다.\n"
+    },
+    {
+      "id": "b000022",
+      "kind": "blank",
+      "start_line": 55,
+      "end_line": 55,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "heading",
+      "start_line": 56,
+      "end_line": 56,
+      "raw": "## 2026-10-27 macOS ARM64 실행 결과\n",
+      "level": 2,
+      "title": "2026-10-27 macOS ARM64 실행 결과"
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 57,
+      "end_line": 57,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
+      "kind": "paragraph",
+      "start_line": 58,
+      "end_line": 60,
+      "raw": "Apple M1 Max에서 Metal과 Vulkan/MoltenVK가 모두 hardware=true로 표시되었고\n각각 257개 정수의 `value * 7 + 13` 결과를 비교했다. 첫 값 13, 마지막 값\n1805가 일치했다. 테스트·소비자 실행은 창을 생성하지 않았다.\n"
+    },
+    {
+      "id": "b000026",
+      "kind": "blank",
+      "start_line": 61,
+      "end_line": 61,
+      "raw": "\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "table",
+      "start_line": 62,
+      "end_line": 74,
+      "raw": "| 구성 | 통과 | skip | 실패 |\n| --- | --- | --- | --- |\n| iiGPU 정적 + Core 연결 | 15 | 0 | 0 |\n| iiGPU 공유 | 14 | 0 | 0 |\n| iiGPU ASan + UBSan | 14 | 0 | 0 |\n| 백엔드 비활성 구성 | 3 | 12 | 0 |\n| iiDecision Metal·Vulkan 구성 | 32 | 12 | 0 |\n| iiDecision CPU 전용 구성 | 28 | 16 | 0 |\n| iiGPU 설치 소비자 | 3 | 0 | 0 |\n| Core 연결 설치 소비자 | 1 | 0 | 0 |\n| 다른 경로로 옮긴 공유 iiGPU 소비자 | 3 | 0 | 0 |\n| 정적 iiDecision 설치 소비자 | 3 | 0 | 0 |\n| 공유 iiDecision 설치 소비자 | 3 | 0 | 0 |\n",
+      "columns": [
+        "구성",
+        "통과",
+        "skip",
+        "실패"
+      ],
+      "rows": [
+        [
+          "iiGPU 정적 + Core 연결",
+          "15",
+          "0",
+          "0"
+        ],
+        [
+          "iiGPU 공유",
+          "14",
+          "0",
+          "0"
+        ],
+        [
+          "iiGPU ASan + UBSan",
+          "14",
+          "0",
+          "0"
+        ],
+        [
+          "백엔드 비활성 구성",
+          "3",
+          "12",
+          "0"
+        ],
+        [
+          "iiDecision Metal·Vulkan 구성",
+          "32",
+          "12",
+          "0"
+        ],
+        [
+          "iiDecision CPU 전용 구성",
+          "28",
+          "16",
+          "0"
+        ],
+        [
+          "iiGPU 설치 소비자",
+          "3",
+          "0",
+          "0"
+        ],
+        [
+          "Core 연결 설치 소비자",
+          "1",
+          "0",
+          "0"
+        ],
+        [
+          "다른 경로로 옮긴 공유 iiGPU 소비자",
+          "3",
+          "0",
+          "0"
+        ],
+        [
+          "정적 iiDecision 설치 소비자",
+          "3",
+          "0",
+          "0"
+        ],
+        [
+          "공유 iiDecision 설치 소비자",
+          "3",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "id": "b000028",
+      "kind": "blank",
+      "start_line": 75,
+      "end_line": 75,
+      "raw": "\n"
+    },
+    {
+      "id": "b000029",
+      "kind": "paragraph",
+      "start_line": 76,
+      "end_line": 79,
+      "raw": "구성별로 겹치는 검사가 있으므로 위 숫자를 합쳐 고유 검사 수로 해석하지\n않는다. iiDecision의 Laya·MLX·OpenCL·ONNX는 이 구성에서 명시적으로 OFF로\n두었고 해당 skip을 GPU 실행 성공으로 포함하지 않았다. Metal·Vulkan과\n버퍼 재사용 검사는 모두 실행했다. 기존 Decimal oracle과 확률 검사도 통과했다.\n"
+    },
+    {
+      "id": "b000030",
+      "kind": "blank",
+      "start_line": 80,
+      "end_line": 80,
+      "raw": "\n"
+    },
+    {
+      "id": "b000031",
+      "kind": "paragraph",
+      "start_line": 81,
+      "end_line": 84,
+      "raw": "실제 설치 헤더와 라이브러리로 구성한 소비자는 원본 iiGPU/src/를 참조하지\n않았다. 공유 패키지는 다른 prefix로 복사해 재구성했고 동적 라이브러리 검색\n우회 환경 변수를 제거한 채 커널을 실행했다. 기본 iiGPU 소비자가 Core\n런타임을 import하지 않는 것도 확인했다.\n"
+    },
+    {
+      "id": "b000032",
+      "kind": "blank",
+      "start_line": 85,
+      "end_line": 85,
+      "raw": "\n"
+    },
+    {
+      "id": "b000033",
+      "kind": "paragraph",
+      "start_line": 86,
+      "end_line": 89,
+      "raw": "NDK 30, Android API 26, arm64-v8a의 Vulkan 정적 라이브러리와 iOS 18 이상,\narm64의 Metal 정적 라이브러리가 교차 빌드되었다. Core 완료 어댑터는 이 두\n교차 빌드에 포함하지 않았다. Android 런타임에는 Vulkan 1.1 드라이버가 별도로\n필요하다. Windows·Linux 및 모바일의 실제 GPU 실행은 이번 검증 범위 밖이다.\n"
+    },
+    {
+      "id": "b000034",
+      "kind": "blank",
+      "start_line": 90,
+      "end_line": 90,
+      "raw": "\n"
+    },
+    {
+      "id": "b000035",
+      "kind": "paragraph",
+      "start_line": 91,
+      "end_line": 92,
+      "raw": "추가한 retirement 검사는 성공·실패 제출 핸들 128개를 보관한 상태에서도\n네이티브 작업 자원과 장치 추적 항목이 0개로 반환되는지 검사한다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "플랫폼과 검증",
+      "anchor": "플랫폼과-검증",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000003",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "대상과 증거의 구분",
+      "anchor": "대상과-증거의-구분",
+      "start_line": 3
+    },
+    {
+      "block_id": "b000009",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "재현",
+      "anchor": "재현",
+      "start_line": 18
+    },
+    {
+      "block_id": "b000019",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "수행 기록",
+      "anchor": "수행-기록",
+      "start_line": 48
+    },
+    {
+      "block_id": "b000023",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "2026-10-27 macOS ARM64 실행 결과",
+      "anchor": "2026-10-27-macos-arm64-실행-결과",
+      "start_line": 56
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000007",
+        "line": 15,
+        "text": "있으며 하드웨어 검증으로 집계하지 않는다. 이번 모듈의 검증을 이전 Android",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000015",
+        "line": 38,
+        "text": "검사는 창을 생성하지 않는다. 유닛 검사는 장치 소유권·범위·상태·예산·취소·",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000015",
+        "line": 42,
+        "text": "장치 부재는 77로 skip하고 네이티브 실행 오류를 skip으로 처리하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000021",
+        "line": 54,
+        "text": "증거로 사용하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [
+      {
+        "block_id": "b000011",
+        "language": "sh",
+        "code": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \\\n  -DiiSDKCore_DIR=\"$HOME/.local/SDK/iiSDKCore/lib/cmake/iiSDKCore\"\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\nbuild/iiGPUAcceleration metal\nbuild/iiGPUAcceleration vulkan\ncmake --install build --prefix \"$PWD/build/prefix\"\ncmake -S tests/consumer -B build/consumer \\\n  -DiiGPU_DIR=\"$PWD/build/prefix/lib/cmake/iiGPU\"\ncmake --build build/consumer --parallel 4\nctest --test-dir build/consumer --output-on-failure\n"
+      }
+    ],
+    "links": [],
+    "tables": [
+      {
+        "block_id": "b000005",
+        "columns": [
+          "플랫폼",
+          "구현 경로",
+          "현재 검증 범위"
+        ],
+        "rows": [
+          [
+            "macOS",
+            "Metal, 선택적 Vulkan/MoltenVK",
+            "Apple GPU의 네이티브 전송·정수 커널·동기화 실행"
+          ],
+          [
+            "iOS",
+            "Metal",
+            "Apple SDK 교차 컴파일 대상이며 실기기 실행은 별도 검증"
+          ],
+          [
+            "Windows",
+            "Vulkan 1.1",
+            "같은 C++23 소스·공개 API, 실기기 실행 미검증"
+          ],
+          [
+            "Linux",
+            "Vulkan 1.1",
+            "같은 C++23 소스·공개 API, 실기기 실행 미검증"
+          ],
+          [
+            "Android",
+            "Vulkan 1.1",
+            "NDK 교차 컴파일 대상, 이번 모듈의 실기기 실행 미검증"
+          ],
+          [
+            "Web/WASM",
+            "없음",
+            "장치 생성은 unsupported, WebGPU 지원을 선언하지 않음"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000027",
+        "columns": [
+          "구성",
+          "통과",
+          "skip",
+          "실패"
+        ],
+        "rows": [
+          [
+            "iiGPU 정적 + Core 연결",
+            "15",
+            "0",
+            "0"
+          ],
+          [
+            "iiGPU 공유",
+            "14",
+            "0",
+            "0"
+          ],
+          [
+            "iiGPU ASan + UBSan",
+            "14",
+            "0",
+            "0"
+          ],
+          [
+            "백엔드 비활성 구성",
+            "3",
+            "12",
+            "0"
+          ],
+          [
+            "iiDecision Metal·Vulkan 구성",
+            "32",
+            "12",
+            "0"
+          ],
+          [
+            "iiDecision CPU 전용 구성",
+            "28",
+            "16",
+            "0"
+          ],
+          [
+            "iiGPU 설치 소비자",
+            "3",
+            "0",
+            "0"
+          ],
+          [
+            "Core 연결 설치 소비자",
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "다른 경로로 옮긴 공유 iiGPU 소비자",
+            "3",
+            "0",
+            "0"
+          ],
+          [
+            "정적 iiDecision 설치 소비자",
+            "3",
+            "0",
+            "0"
+          ],
+          [
+            "공유 iiDecision 설치 소비자",
+            "3",
+            "0",
+            "0"
+          ]
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

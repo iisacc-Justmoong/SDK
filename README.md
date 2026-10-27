@@ -2,12 +2,27 @@
 
 # SDK batch reinstallation
 
+Model policy: ONNX model files and the retired ONNX runtime are unsupported. GGUF,
+safetensors and other previously supported non-ONNX formats remain permitted.
+Each backend must report which formats and model architectures it can actually run.
+
+Project-owned fixed inputs belong in each module's `resources/` directory.
+`build/` contains generated build outputs and temporary test data, not separately
+provisioned model or asset resources.
+
+[`iiGPU`](iiGPU/README.md) provides Qt-free C++23 native GPU buffers, compute
+pipelines, command lists, explicit barriers and observable submission completion.
+Metal and Vulkan share this contract; the optional `iiGPU::Runtime` target
+connects completion to iiSDKCore's EventLoop. iiDecision's native Metal/Vulkan
+paths consume this module. Batch installation discovers the order
+iiSDKCore → iiGPU → iiDecision. See [the GPU ownership boundary](docs/GPU.md).
+
 Public headers live beside their implementations in each module's source tree.
 Separate authored `include/` trees are prohibited; public include names and
 installed package layouts remain compatible. See [the source layout contract](docs/HeaderLayout.md)
 and run `python3 -B tests/test_source_header_layout.py` from this directory.
 
-Windows의 의존성 순서 빌드·전체 실행 검증·설치는 [Windows SDK 검증](Windows/README.md)을 따른다. 각 SDK의 README에는 해당 프로젝트의 Windows 빌드 및 실행 지침을 연결한다.
+Follow [Windows SDK verification](Windows/README.md) for dependency-ordered Windows builds, complete execution checks and installation. Each SDK README links to that project's Windows build and execution instructions.
 
 [`iiFileProvider`](iiFileProvider/README.md) 0.6.0 owns common file creation,
 opening, staging and provision. Its Qt-free native Catalog adds file-owned
@@ -44,6 +59,14 @@ native sRGB/HSB/generic-CMYK/D50-Lab conversion, web-safe selection and shared
 picker state. It is a Qt-free leaf package; Dreamscapes uses its installed CMake
 target through a small GUI adapter and LVRS controls.
 
+[`iiGPU::WebGPU`](iiGPU/README.md) is the optional Qt-free C++23 WebGPU component.
+It owns adapter/device negotiation, logical allocation budgets, aligned buffer
+suballocation, resource lifetime, WGSL pipelines, command submission, mapping and
+completion. The standard native C API remains available for surfaces, rendering,
+indirect commands and queries. The pinned Dawn backend executes on native GPU
+APIs; Core and inference SDKs remain independent. See [its execution and memory
+contract](iiGPU/docs/WebGPUContract.md) and [platform verification](iiGPU/docs/WebGPUVerification.md).
+
 [`iiSocialPublish`](iiSocialPublish/README.md) provides Qt-free C++23 publishing
 objects for X, Facebook Pages, Instagram Professional, Threads, Pinterest,
 Tumblr, Mastodon and LinkedIn, with explicit unsupported Pixiv/ArtStation
@@ -60,6 +83,17 @@ composition. Neither module depends on the other. The
 installed APIs, verifies preview/commit/cancel and pixel undo/redo, and writes
 synthetic source/mask/correction PNGs. Its builds and verification records belong
 under `build/local-photo-processing`. These two packages require no Qt prefix.
+
+[`iiPaintEngine::BrushTools`](iiPaintEngine/README.md) is the C++23 brush authoring layer above
+iiPaintEngine. It defines 22 controls and their tool availability, whole-gesture
+size taper, bounded post correction, generated bristle tips and final pixel tiles.
+The lower engine and canvas document keep their streaming/pixel contracts. It is
+an optional component in the iiPaintEngine repository; the legacy iiBrushTools
+package name remains available as a compatibility alias.
+See [the authoring boundary and delivery contract](docs/BRUSH_AUTHORING.md).
+
+The [module consolidation guide](docs/ModuleConsolidation.md) records component
+ownership, compatibility aliases, remaining overlap and validation boundaries.
 
 Iterate through the SDK in this directory with `./install.sh --qt-prefix /Volumes/Storage/Qt/6.8.3/macos` to update the host installation. Python 3 standard libraries and existing SDK installer, CMake /CTest are reused, and SDK name or installation order arrays are not embedded in code.
 
@@ -87,9 +121,10 @@ packages except LVRS by one patch. LVRS-Svelte is included as an independent
 package. The release records host builds, tests, reinstalls and remote commits
 separately; LVRS installer recovery is tracked as a subsequent operation.
 
-## 2026-10-20 Windows SDK 검증
+<a id="2026-10-20-windows-sdk-검증"></a>
+## Windows SDK verification, 2026-10-20
 
-활성 SDK 36개의 Windows Release 빌드·실행·설치 및 원격 commit 검증 결과는 [Windows 전체 검증 기록](Windows/Verification-20261020.md)에 기록한다. 프로젝트별 Windows 지침과 공통 검증 도구를 포함하며, Deprecated와 Utility 및 소스가 없는 디렉터리는 성공 수에서 제외한다.
+[The complete Windows verification record](Windows/Verification-20261020.md) records Windows Release builds, execution, installation and remote commit verification for 36 active SDKs. It includes project-specific Windows instructions and shared verification tools. Deprecated and Utility projects and directories without source are excluded from the success count.
 
 ## Multimodal agent ownership
 
@@ -122,3 +157,63 @@ SPDX-License-Identifier: MIT
 The original code and documentation in this repository are licensed under the
 [MIT License](LICENSE). Third-party code, libraries, fonts, tools, and model
 weights retain their respective licenses.
+
+<!-- workspace-docs:readme:start -->
+## Documentation entry points
+
+- Human overview: this English `README.md`.
+- Agent instructions: [AGENT.md](AGENT.md).
+- Human documentation: [documentation index](docs/README.md).
+- Structured agent documentation: [agent index](docs/agent-index.json).
+
+### Child projects
+
+- [`SDK/Flamewall`](Flamewall/README.md)
+- [`SDK/LVRS`](LVRS/README.md)
+- [`SDK/LVRS-Svelte`](LVRS-Svelte/README.md)
+- [`SDK/LVUI`](LVUI/README.md)
+- [`SDK/Silentlocked`](Silentlocked/README.md)
+- [`SDK/Windows`](Windows/README.md)
+- [`SDK/ii3DGen`](ii3DGen/README.md)
+- [`SDK/iiAccountManager`](iiAccountManager/README.md)
+- [`SDK/iiActorObject`](iiActorObject/README.md)
+- [`SDK/iiAudioGen`](iiAudioGen/README.md)
+- [`SDK/iiCSMIDI`](iiCSMIDI/README.md)
+- [`SDK/iiCalendar`](iiCalendar/README.md)
+- [`SDK/iiCameraIntegration`](iiCameraIntegration/README.md)
+- [`SDK/iiColorManager`](iiColorManager/README.md)
+- [`SDK/iiComputerHistory`](iiComputerHistory/README.md)
+- [`SDK/iiComputerUse`](iiComputerUse/README.md)
+- [`SDK/iiDecision`](iiDecision/README.md)
+- [`SDK/iiDeviceMultimedia`](iiDeviceMultimedia/README.md)
+- [`SDK/iiEmailClient`](iiEmailClient/README.md)
+- [`SDK/iiFileProvider`](iiFileProvider/README.md)
+- [`SDK/iiGPU`](iiGPU/README.md)
+- [`SDK/iiGUI`](iiGUI/README.md)
+- [`SDK/iiGeneralDocument`](iiGeneralDocument/README.md)
+- [`SDK/iiGlobalSearch`](iiGlobalSearch/README.md)
+- [`SDK/iiGraphicAdjust`](iiGraphicAdjust/README.md)
+- [`SDK/iiJson`](iiJson/README.md)
+- [`SDK/iiLicenseManager`](iiLicenseManager/README.md)
+- [`SDK/iiLocalDiffusion`](iiLocalDiffusion/README.md)
+- [`SDK/iiLocalLLM`](iiLocalLLM/README.md)
+- [`SDK/iiMultimodalAgent`](iiMultimodalAgent/README.md)
+- [`SDK/iiNetwork`](iiNetwork/README.md)
+- [`SDK/iiPBRMaterial`](iiPBRMaterial/README.md)
+- [`SDK/iiPaintEngine`](iiPaintEngine/README.md)
+- [`SDK/iiPhotoLibrary`](iiPhotoLibrary/README.md)
+- [`SDK/iiSDKBuilder`](iiSDKBuilder/README.md)
+- [`SDK/iiSDKCore`](iiSDKCore/README.md)
+- [`SDK/iiSharedCanvas`](iiSharedCanvas/README.md)
+- [`SDK/iiSocialPublish`](iiSocialPublish/README.md)
+- [`SDK/iiSocietyContainer`](iiSocietyContainer/README.md)
+- [`SDK/iiSocietyHelper`](iiSocietyHelper/README.md)
+- [`SDK/iiUpdateManager`](iiUpdateManager/README.md)
+- [`SDK/iiVirtualizer`](iiVirtualizer/README.md)
+- [`SDK/iiVisualCodec`](iiVisualCodec/README.md)
+- [`SDK/iiVoiceOver`](iiVoiceOver/README.md)
+- [`SDK/iiVolumetricSolidMesh`](iiVolumetricSolidMesh/README.md)
+- [`SDK/iiWebServer`](iiWebServer/README.md)
+- [`SDK/iiWhatsNew`](iiWhatsNew/README.md)
+- [`SDK/iiXml`](iiXml/README.md)
+<!-- workspace-docs:readme:end -->

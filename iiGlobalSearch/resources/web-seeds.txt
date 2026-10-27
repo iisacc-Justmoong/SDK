@@ -1,0 +1,5 @@
+# Initial public starting points; each task traverses the live web afresh.
+https://en.wikipedia.org/wiki/Main_Page
+https://developer.mozilla.org/en-US/
+https://www.w3.org/
+https://github.com/explore

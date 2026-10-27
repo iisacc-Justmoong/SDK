@@ -16,6 +16,14 @@ spec.loader.exec_module(installer)
 
 
 class InstallAllTest(unittest.TestCase):
+    def test_native_gpu_dependency_is_discovered_from_the_real_cmake_packages(self):
+        projects, _ = installer.discover(ROOT)
+        order=installer.ordered(projects)
+        self.assertIn('iiSDKCore', projects['iiGPU']['dependencies'])
+        self.assertIn('iiGPU', projects['iiDecision']['dependencies'])
+        self.assertLess(order.index('iiSDKCore'),order.index('iiGPU'))
+        self.assertLess(order.index('iiGPU'),order.index('iiDecision'))
+
     @unittest.skipUnless(os.name == "nt", "Windows shell selection")
     def test_windows_shell_selection_never_starts_wsl(self):
         with self.assertRaisesRegex(ValueError, "not WSL"):

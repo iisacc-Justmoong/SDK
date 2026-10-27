@@ -27,7 +27,7 @@ def environment(key, build=None, qt_lvrs=False):
     env['CL'] = '/Zc:__cplusplus /bigobj /DNOMINMAX' if key == 'SDK/iiVoiceOver' else '/utf-8 /Zc:__cplusplus /bigobj /DNOMINMAX'
     build = build or ROOT / key / 'build'
     sdk_root = Path(os.environ['USERPROFILE']) / '.local/SDK'
-    installed = {path.name: path for path in sdk_root.iterdir() if path.is_dir() and path.name != 'node_modules'}
+    installed = {path.name: path for path in sdk_root.iterdir() if path.is_dir() and path.name != 'node_modules' and 'onnx' not in path.name.casefold()}
     projects = json.loads(Path(__file__).with_name('projects.json').read_text(encoding='utf-8'))
     pending = set(installed) & set(projects)
     prefixes = []
@@ -49,7 +49,9 @@ def environment(key, build=None, qt_lvrs=False):
     env['RUSTUP_HOME'] = str(ROOT/'Tools/Rust/rustup')
     env['CARGO_HOME'] = str(ROOT/'Tools/Rust/cargo')
     env['CARGO_BUILD_JOBS'] = '4'
-    env['ONNXRuntime_ROOT'] = str(ROOT/'Tools/ONNXRuntime/onnxruntime-win-x64-1.31.0')
+    for name in tuple(env):
+        if 'onnx' in name.casefold():
+            env.pop(name)
     use_qt = qt_lvrs or key in QT_LVRS_CONSUMERS
     def selected(path):
         return path/'qt' if use_qt and path.name == 'LVRS' else path
@@ -59,7 +61,7 @@ def environment(key, build=None, qt_lvrs=False):
     env['PATH'] = os.pathsep.join([str(selected(path)/'bin') for path in prefixes if path.name in required]
         + [str(build)] + sorted({str(p.parent) for p in build.rglob('*.dll')})
         + [str(selected(path)/'bin') for path in prefixes if path.name not in required and path.name != Path(key).name]
-        + [str(ROOT/'Tools/Rust/cargo/bin'), str(Path(env['ONNXRuntime_ROOT'])/'lib'), env['PATH']])
+        + [str(ROOT/'Tools/Rust/cargo/bin'), env['PATH']])
     if key == 'SDK/iiWebServer':
         env['PYTHONPATH'] = str(ROOT/'Tools/python-serverhost') + os.pathsep + env.get('PYTHONPATH', '')
         env['IIWEBSERVER_TEST_FTP_PYTHON'] = str(ROOT/'Tools/PythonServerHost/Scripts/python.exe')
@@ -70,7 +72,9 @@ def environment(key, build=None, qt_lvrs=False):
     paths, seen = [], set()
     for entry in env['PATH'].split(os.pathsep):
         normalized = os.path.normcase(os.path.normpath(entry))
-        if normalized not in seen:
+        retired = any('onnxruntime' in part.casefold() or part.casefold() == 'onnx'
+                      for part in normalized.replace('\\', '/').split('/'))
+        if normalized not in seen and not retired:
             seen.add(normalized)
             paths.append(entry)
     env['PATH'] = os.pathsep.join(paths)
@@ -125,16 +129,17 @@ def configure(key, extras, *, source=None, build=None, prefix=None, phase='confi
     command = [('-DCMAKE_C_COMPILER='+compiler) if argument == '-DCMAKE_C_COMPILER=cl.exe' else ('-DCMAKE_CXX_COMPILER='+compiler) if argument == '-DCMAKE_CXX_COMPILER=cl.exe' else argument for argument in command]
     options = {
         'LVRS': ['LVRS_BACKEND=native', 'LVRS_ENABLE_IPO=OFF', 'LVRS_BUILD_TESTS=ON', 'LVRS_BUILD_EXAMPLES=ON'],
-        'iiDecision': ['IIDECISION_ONNX=ON', 'IIDECISION_LAYA=ON', 'ONNXRuntime_ROOT=' + (ROOT/'Tools/ONNXRuntime/onnxruntime-win-x64-1.31.0').as_posix()],
+        'iiGPU': ['IIGPU_METAL=OFF', 'IIGPU_VULKAN=ON'],
         'iiFileProvider': ['IIFILEPROVIDER_BUILD_CORE_IO=ON'],
         'iiXml': ['IIXML_BUILD_SHARED=OFF'],
-        'iiHtmlBlock': ['IIHTMLBLOCK_BUILD_SHARED=OFF'],
         'iiSharedCanvas': ['IISHAREDCANVAS_BUILD_SHARED=OFF', 'IISHAREDCANVAS_BUILD_QUICK=ON'],
         'iiGeneralDocument': ['IIGENERALDOCUMENT_USE_SYSTEM_LIBZIP=ON'],
         'iiSocietyContainer': ['Dokan_ROOT=' + os.environ['DOKAN_ROOT']],
         'iiCameraIntegration': ['IICAMERA_FFMPEG_EXECUTABLE=' + (ROOT / 'Tools/FFmpeg/ffmpeg-9.0.2-essentials_build/bin/ffmpeg.exe').as_posix()],
     }
     command += ['-D' + option for option in options.get(source.name, [])]
+    if source.name == 'iiDecision':
+        command += ['-UIIDECISION_ONNX', '-UIIDECISION_LAYA', '-UONNXRuntime_*']
     if key in QT_LVRS_CONSUMERS:
         command += ['-DLVRS_DIR='+(Path(os.environ['USERPROFILE'])/'.local/SDK/LVRS/qt/lib/cmake/LVRS').as_posix()]
     command += extras

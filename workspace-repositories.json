@@ -115,13 +115,6 @@
       "lfs": false
     },
     {
-      "path": "SDK/iiHtmlBlock",
-      "url": "https://github.com/iisacc-Justmoong/iiHtmlBlock.git",
-      "branch": "master",
-      "sourceCommit": "95de6223ed7db12c94422ea44e527c6e5c80cf52",
-      "lfs": false
-    },
-    {
       "path": "SDK/iiLicenseManager",
       "url": "https://github.com/iisacc-Justmoong/iiLicenseManager.git",
       "branch": "master",
@@ -353,10 +346,17 @@
       "lfs": false
     },
     {
-      "path": "SDK/iiImageCodec",
-      "url": "https://github.com/iisacc-Justmoong/iiImageCodec.git",
+      "path": "SDK/iiVisualCodec",
+      "url": "https://github.com/iisacc-Justmoong/iiVisualCodec.git",
       "branch": "main",
       "sourceCommit": "9a8392ea1ef5eac750945862632f1941b4ed5be9",
+      "lfs": false
+    },
+    {
+      "path": "SDK/iiVirtualizer",
+      "url": "https://github.com/iisacc-Justmoong/iiVirtualizer.git",
+      "branch": "main",
+      "sourceCommit": "2d63386d660fc2149b7adc9a8038615582bf307b",
       "lfs": false
     }
   ],
@@ -424,5 +424,17 @@
     "Service/Society.iisacc.com/src/models/contest",
     "Service/Society.iisacc.com/src/models/hub",
     "Service/Society.iisacc.com/src/models/guild"
+  ],
+  "bundledModules": [
+    {
+      "path": "SDK/iiGPU",
+      "repositoryPath": "SDK",
+      "sourcePath": "iiGPU"
+    },
+    {
+      "path": "SDK/iiGlobalSearch",
+      "repositoryPath": "SDK",
+      "sourcePath": "iiGlobalSearch"
+    }
   ]
 }

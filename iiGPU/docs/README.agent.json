@@ -1,0 +1,360 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:4ac475614635725a7ccd279a088788e2be4011eb6459e2e221c7bdd5cfda19bc",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiGPU",
+    "name": "iiGPU",
+    "root": "SDK/iiGPU",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "docs/README.md",
+    "sha256": "2d8e16f785e1a158997c24ea04fa01f916967f0de258979aa567a774e140b9c3",
+    "bytes": 1218,
+    "line_count": 24,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "iiGPU 문서",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# iiGPU 문서\n",
+      "level": 1,
+      "title": "iiGPU 문서"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "list",
+      "start_line": 3,
+      "end_line": 5,
+      "raw": "- [API·자원 수명·동기화·의존성](Contracts.md)\n- [플랫폼과 재현·검증 범위](Verification.md)\n- [에이전트 문서 색인](agent-index.json)\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "[API·자원 수명·동기화·의존성](Contracts.md)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[플랫폼과 재현·검증 범위](Verification.md)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[에이전트 문서 색인](agent-index.json)",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 7,
+      "end_line": 8,
+      "raw": "사람용 Markdown이 원본이며 agent JSON은 원문 해시와 줄 범위를 보존한\n파생 문서이다. 기능·검증 상태는 각 문서에 명시된 현재 범위만 해석한다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 9,
+      "end_line": 9,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "html",
+      "start_line": 10,
+      "end_line": 10,
+      "raw": "<!-- workspace-docs:document-map:start -->\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "heading",
+      "start_line": 11,
+      "end_line": 11,
+      "raw": "## Human and agent document map\n",
+      "level": 2,
+      "title": "Human and agent document map"
+    },
+    {
+      "id": "b000009",
+      "kind": "blank",
+      "start_line": 12,
+      "end_line": 12,
+      "raw": "\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "paragraph",
+      "start_line": 13,
+      "end_line": 13,
+      "raw": "Markdown is the maintained human source. Agent JSON is a structured, source-traceable projection.\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "blank",
+      "start_line": 14,
+      "end_line": 14,
+      "raw": "\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "table",
+      "start_line": 15,
+      "end_line": 23,
+      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/Contracts.md`](Contracts.md) | [JSON](Contracts.agent.json) |\n| [`docs/Verification.md`](Verification.md) | [JSON](Verification.agent.json) |\n| [`docs/WebGPUContract.md`](WebGPUContract.md) | [JSON](WebGPUContract.agent.json) |\n| [`docs/WebGPUVerification.md`](WebGPUVerification.md) | [JSON](WebGPUVerification.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n",
+      "columns": [
+        "Document",
+        "Agent JSON"
+      ],
+      "rows": [
+        [
+          "[`AGENT.md`](../AGENT.md)",
+          "[JSON](entrypoints/AGENT.agent.json)"
+        ],
+        [
+          "[`README.md`](../README.md)",
+          "[JSON](entrypoints/README.agent.json)"
+        ],
+        [
+          "[`docs/Contracts.md`](Contracts.md)",
+          "[JSON](Contracts.agent.json)"
+        ],
+        [
+          "[`docs/Verification.md`](Verification.md)",
+          "[JSON](Verification.agent.json)"
+        ],
+        [
+          "[`docs/WebGPUContract.md`](WebGPUContract.md)",
+          "[JSON](WebGPUContract.agent.json)"
+        ],
+        [
+          "[`docs/WebGPUVerification.md`](WebGPUVerification.md)",
+          "[JSON](WebGPUVerification.agent.json)"
+        ],
+        [
+          "[`docs/documentation-structure.md`](documentation-structure.md)",
+          "[JSON](documentation-structure.agent.json)"
+        ]
+      ]
+    },
+    {
+      "id": "b000013",
+      "kind": "html",
+      "start_line": 24,
+      "end_line": 24,
+      "raw": "<!-- workspace-docs:document-map:end -->\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "iiGPU 문서",
+      "anchor": "iigpu-문서",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000008",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Human and agent document map",
+      "anchor": "human-and-agent-document-map",
+      "start_line": 11
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000003",
+        "label": "API·자원 수명·동기화·의존성",
+        "target": "Contracts.md",
+        "kind": "relative",
+        "line": 3
+      },
+      {
+        "block_id": "b000003",
+        "label": "플랫폼과 재현·검증 범위",
+        "target": "Verification.md",
+        "kind": "relative",
+        "line": 4
+      },
+      {
+        "block_id": "b000003",
+        "label": "에이전트 문서 색인",
+        "target": "agent-index.json",
+        "kind": "relative",
+        "line": 5
+      },
+      {
+        "block_id": "b000012",
+        "label": "`AGENT.md`",
+        "target": "../AGENT.md",
+        "kind": "relative",
+        "line": 17
+      },
+      {
+        "block_id": "b000012",
+        "label": "JSON",
+        "target": "entrypoints/AGENT.agent.json",
+        "kind": "relative",
+        "line": 17
+      },
+      {
+        "block_id": "b000012",
+        "label": "`README.md`",
+        "target": "../README.md",
+        "kind": "relative",
+        "line": 18
+      },
+      {
+        "block_id": "b000012",
+        "label": "JSON",
+        "target": "entrypoints/README.agent.json",
+        "kind": "relative",
+        "line": 18
+      },
+      {
+        "block_id": "b000012",
+        "label": "`docs/Contracts.md`",
+        "target": "Contracts.md",
+        "kind": "relative",
+        "line": 19
+      },
+      {
+        "block_id": "b000012",
+        "label": "JSON",
+        "target": "Contracts.agent.json",
+        "kind": "relative",
+        "line": 19
+      },
+      {
+        "block_id": "b000012",
+        "label": "`docs/Verification.md`",
+        "target": "Verification.md",
+        "kind": "relative",
+        "line": 20
+      },
+      {
+        "block_id": "b000012",
+        "label": "JSON",
+        "target": "Verification.agent.json",
+        "kind": "relative",
+        "line": 20
+      },
+      {
+        "block_id": "b000012",
+        "label": "`docs/WebGPUContract.md`",
+        "target": "WebGPUContract.md",
+        "kind": "relative",
+        "line": 21
+      },
+      {
+        "block_id": "b000012",
+        "label": "JSON",
+        "target": "WebGPUContract.agent.json",
+        "kind": "relative",
+        "line": 21
+      },
+      {
+        "block_id": "b000012",
+        "label": "`docs/WebGPUVerification.md`",
+        "target": "WebGPUVerification.md",
+        "kind": "relative",
+        "line": 22
+      },
+      {
+        "block_id": "b000012",
+        "label": "JSON",
+        "target": "WebGPUVerification.agent.json",
+        "kind": "relative",
+        "line": 22
+      },
+      {
+        "block_id": "b000012",
+        "label": "`docs/documentation-structure.md`",
+        "target": "documentation-structure.md",
+        "kind": "relative",
+        "line": 23
+      },
+      {
+        "block_id": "b000012",
+        "label": "JSON",
+        "target": "documentation-structure.agent.json",
+        "kind": "relative",
+        "line": 23
+      }
+    ],
+    "tables": [
+      {
+        "block_id": "b000012",
+        "columns": [
+          "Document",
+          "Agent JSON"
+        ],
+        "rows": [
+          [
+            "[`AGENT.md`](../AGENT.md)",
+            "[JSON](entrypoints/AGENT.agent.json)"
+          ],
+          [
+            "[`README.md`](../README.md)",
+            "[JSON](entrypoints/README.agent.json)"
+          ],
+          [
+            "[`docs/Contracts.md`](Contracts.md)",
+            "[JSON](Contracts.agent.json)"
+          ],
+          [
+            "[`docs/Verification.md`](Verification.md)",
+            "[JSON](Verification.agent.json)"
+          ],
+          [
+            "[`docs/WebGPUContract.md`](WebGPUContract.md)",
+            "[JSON](WebGPUContract.agent.json)"
+          ],
+          [
+            "[`docs/WebGPUVerification.md`](WebGPUVerification.md)",
+            "[JSON](WebGPUVerification.agent.json)"
+          ],
+          [
+            "[`docs/documentation-structure.md`](documentation-structure.md)",
+            "[JSON](documentation-structure.agent.json)"
+          ]
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

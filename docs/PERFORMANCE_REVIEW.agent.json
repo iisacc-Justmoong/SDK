@@ -1,0 +1,241 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:989817baa1a7ed24dca12cbe6ef58eba1af45c571df3aa0e6152a11429933320",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "docs/PERFORMANCE_REVIEW.md",
+    "sha256": "a060e8fc874fba00c989365435b2383060c1be8dfa6836b850a89428755966a4",
+    "bytes": 3347,
+    "line_count": 59,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "SDK performance review",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# SDK performance review\n",
+      "level": 1,
+      "title": "SDK performance review"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 7,
+      "raw": "Performance work preserves observable output, ordering, cancellation, ownership,\ndurability and security boundaries. Source-pattern findings are review leads,\nnot proof that a loop, lock, allocation or model reset is unnecessary. Independent\nwork must remain parallel where its API permits it; serialization belongs at\nshared-state and non-reentrant backend boundaries.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "heading",
+      "start_line": 9,
+      "end_line": 9,
+      "raw": "## Reproducible source inventory\n",
+      "level": 2,
+      "title": "Reproducible source inventory"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 10,
+      "end_line": 10,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 11,
+      "end_line": 20,
+      "raw": "`tools/performance_audit.py` inventories repository-owned C/C++/Objective-C,\nQML/JavaScript/TypeScript, Python, Rust and Swift declarations. It records source\npaths, line locations, hashes, object/member/function declarations, callbacks,\nloop/call structure and review leads. Qt properties are extracted separately\nfrom annotations; QML IDs scope properties and functions. Vendored dependencies,\ngenerated builds (including Svelte package output), tests and development tools are distinguished from runtime\nsources. Svelte script blocks are inspected; template markup is not a complete\nsemantic component analysis.\nThe top-level Windows build/verification toolkit is cataloged as platform\ntooling rather than counted as another runtime SDK module.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 21,
+      "end_line": 21,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 22,
+      "end_line": 26,
+      "raw": "Use a Python 3.12 development environment with the pinned parser requirements.\nThe QML grammar is upstream `yuja/tree-sitter-qmljs` revision\n`de96ed62abded51fcdfcbeaaa120e0dd0d20c697`. Its Python binding is a development\ndependency only. The 2026-10-20 run retains its bootstrap, revision and test logs\nunder `build/performance-20261020/tools/`.\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 27,
+      "end_line": 27,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "fenced_code",
+      "start_line": 28,
+      "end_line": 32,
+      "raw": "```sh\npython -m pip install -r tools/performance-audit-requirements.txt\npython tools/performance_audit.py --sdk \"$PWD\" --output build/performance-audit\npython tests/test_performance_audit.py\n```\n",
+      "language": "sh",
+      "code": "python -m pip install -r tools/performance-audit-requirements.txt\npython tools/performance_audit.py --sdk \"$PWD\" --output build/performance-audit\npython tests/test_performance_audit.py\n",
+      "closed": true
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 33,
+      "end_line": 33,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 34,
+      "end_line": 39,
+      "raw": "An optional `--inventory` pins file coverage. `--source-archive` reads the same\nmodule/path entries from a saved ZIP for before/after analysis. Syntax recovery\nlocations are explicit in `coverage.json`. This is a source index, not a C++\ncompiler/preprocessor, full cross-language call graph, concurrency proof or\nautomatic performance-bug classifier. Conditional compilation, Objective-C\nfallback selectors and recovered syntax require contract inspection.\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 40,
+      "end_line": 40,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "heading",
+      "start_line": 41,
+      "end_line": 41,
+      "raw": "## Measurement and validation\n",
+      "level": 2,
+      "title": "Measurement and validation"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 42,
+      "end_line": 42,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "paragraph",
+      "start_line": 43,
+      "end_line": 46,
+      "raw": "`benchmarks/performance` builds C++23 consumer executables against installed\npackages. The default probes have no Qt dependency. Optional legacy probes\nexercise the existing Qt-based LLM catalog and LVRS models. The application\nruntime gains no Python, Tree-sitter or interpreter dependency.\n"
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 47,
+      "end_line": 47,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "paragraph",
+      "start_line": 48,
+      "end_line": 53,
+      "raw": "Record compiler/optimization flags, platform, input sizes, repetitions and result\nchecksums. Compare paired runs after build activity, retain raw samples, and\nreport medians as microbenchmarks. A capacity-sensitive dispatch probe, a filter\nkernel or a catalog-validation probe does not establish whole-application FPS,\nlaunch time or memory savings. Persistent model indexes and unchanged-file\nversions require behavioral tests independently of throughput.\n"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 54,
+      "end_line": 54,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "paragraph",
+      "start_line": 55,
+      "end_line": 59,
+      "raw": "Changed modules require their relevant regression suites and staged package\nconsumers. Keep source/build/test evidence separate from global installation,\nactive-process adoption and measurements in a real consuming application.\nDo not overwrite concurrent work or attribute another task's edits to this\nreview. The dated report records those boundaries and retained initial failures.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "SDK performance review",
+      "anchor": "sdk-performance-review",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000005",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Reproducible source inventory",
+      "anchor": "reproducible-source-inventory",
+      "start_line": 9
+    },
+    {
+      "block_id": "b000015",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Measurement and validation",
+      "anchor": "measurement-and-validation",
+      "start_line": 41
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000003",
+        "line": 6,
+        "text": "work must remain parallel where its API permits it; serialization belongs at",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000021",
+        "line": 58,
+        "text": "Do not overwrite concurrent work or attribute another task's edits to this",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [
+      {
+        "block_id": "b000011",
+        "language": "sh",
+        "code": "python -m pip install -r tools/performance-audit-requirements.txt\npython tools/performance_audit.py --sdk \"$PWD\" --output build/performance-audit\npython tests/test_performance_audit.py\n"
+      }
+    ],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

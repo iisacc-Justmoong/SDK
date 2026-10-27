@@ -1,0 +1,802 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:9762b36df012f3ebf0c6006218abea2e9a9f0b2c523f276cc4ad1a22651fdd59",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "docs/PatchRelease-20261019.md",
+    "sha256": "5b33265c715aea7c2e83e6b29021fc740c1642c26cdb1414f449a551ce388fc4",
+    "bytes": 6237,
+    "line_count": 123,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "SDK patch release — 2026-10-19",
+    "role": "history",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# SDK patch release — 2026-10-19\n",
+      "level": 1,
+      "title": "SDK patch release — 2026-10-19"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 7,
+      "raw": "This maintenance release increments each installable SDK except LVRS by one patch.\nLVRS remains 1.0.1; its separately requested installer repair follows this release.\nLVRS-Svelte is an independent package and is included.\nThe iiFileProvider package also updates its independently versioned Native\ncomponent from 0.8.0 to 0.8.1 and Core I/O adapter from 0.1.0 to 0.1.1.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "heading",
+      "start_line": 9,
+      "end_line": 9,
+      "raw": "## Package versions\n",
+      "level": 2,
+      "title": "Package versions"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 10,
+      "end_line": 10,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "table",
+      "start_line": 11,
+      "end_line": 47,
+      "raw": "| Module | Previous | Release |\n| --- | --- | --- |\n| iiAccountManager | 0.2.9 | 0.2.10 |\n| iiActorObject | 0.1.0 | 0.1.1 |\n| iiAudioGen | 0.3.0 | 0.3.1 |\n| iiCalendar | 0.2.0 | 0.2.1 |\n| iiCameraIntegration | 0.4.0 | 0.4.1 |\n| iiColorManager | 0.1.0 | 0.1.1 |\n| iiCSMIDI | 0.3.0 | 0.3.1 |\n| iiDecision | 0.0.4 | 0.0.5 |\n| iiDeviceMultimedia | 0.2.0 | 0.2.1 |\n| iiFileProvider | 0.7.1 | 0.7.2 |\n| iiGeneralDocument | 0.4.0 | 0.4.1 |\n| iiGraphicAdjust | 0.6.0 | 0.6.1 |\n| iiGUI | 0.4.0 | 0.4.1 |\n| iiHtmlBlock | 0.1.0 | 0.1.1 |\n| iiJson | 0.1.0 | 0.1.1 |\n| iiLicenseManager | 0.3.0 | 0.3.1 |\n| iiLocalDiffusion | 0.6.1 | 0.6.2 |\n| iiLocalLLM | 0.55.0 | 0.55.1 |\n| iiPaintEngine | 0.5.0 | 0.5.1 |\n| iiPhotoLibrary | 0.1.0 | 0.1.1 |\n| iiSDKBuilder | 0.2.0 | 0.2.1 |\n| iiSDKCore | 0.18.0 | 0.18.1 |\n| iiWebServer | 0.6.0 | 0.6.1 |\n| iiSharedCanvas | 0.31.0 | 0.31.1 |\n| iiSocialPublish | 0.1.0 | 0.1.1 |\n| iiSocietyContainer | 0.16.1 | 0.16.2 |\n| iiSocietyGeneration | 0.1.0 | 0.1.1 |\n| iiSocietyHelper | 0.9.3 | 0.9.4 |\n| iiSocietyMonitor | 0.1.0 | 0.1.1 |\n| iiSocietySync | 0.8.3 | 0.8.4 |\n| iiUpdateManager | 0.3.0 | 0.3.1 |\n| iiVoiceOver | 0.1.0 | 0.1.1 |\n| iiWhatsNew | 0.1.0 | 0.1.1 |\n| iiXml | 0.1.0 | 0.1.1 |\n| LVRS-Svelte | 0.2.1 | 0.2.2 |\n",
+      "columns": [
+        "Module",
+        "Previous",
+        "Release"
+      ],
+      "rows": [
+        [
+          "iiAccountManager",
+          "0.2.9",
+          "0.2.10"
+        ],
+        [
+          "iiActorObject",
+          "0.1.0",
+          "0.1.1"
+        ],
+        [
+          "iiAudioGen",
+          "0.3.0",
+          "0.3.1"
+        ],
+        [
+          "iiCalendar",
+          "0.2.0",
+          "0.2.1"
+        ],
+        [
+          "iiCameraIntegration",
+          "0.4.0",
+          "0.4.1"
+        ],
+        [
+          "iiColorManager",
+          "0.1.0",
+          "0.1.1"
+        ],
+        [
+          "iiCSMIDI",
+          "0.3.0",
+          "0.3.1"
+        ],
+        [
+          "iiDecision",
+          "0.0.4",
+          "0.0.5"
+        ],
+        [
+          "iiDeviceMultimedia",
+          "0.2.0",
+          "0.2.1"
+        ],
+        [
+          "iiFileProvider",
+          "0.7.1",
+          "0.7.2"
+        ],
+        [
+          "iiGeneralDocument",
+          "0.4.0",
+          "0.4.1"
+        ],
+        [
+          "iiGraphicAdjust",
+          "0.6.0",
+          "0.6.1"
+        ],
+        [
+          "iiGUI",
+          "0.4.0",
+          "0.4.1"
+        ],
+        [
+          "iiHtmlBlock",
+          "0.1.0",
+          "0.1.1"
+        ],
+        [
+          "iiJson",
+          "0.1.0",
+          "0.1.1"
+        ],
+        [
+          "iiLicenseManager",
+          "0.3.0",
+          "0.3.1"
+        ],
+        [
+          "iiLocalDiffusion",
+          "0.6.1",
+          "0.6.2"
+        ],
+        [
+          "iiLocalLLM",
+          "0.55.0",
+          "0.55.1"
+        ],
+        [
+          "iiPaintEngine",
+          "0.5.0",
+          "0.5.1"
+        ],
+        [
+          "iiPhotoLibrary",
+          "0.1.0",
+          "0.1.1"
+        ],
+        [
+          "iiSDKBuilder",
+          "0.2.0",
+          "0.2.1"
+        ],
+        [
+          "iiSDKCore",
+          "0.18.0",
+          "0.18.1"
+        ],
+        [
+          "iiWebServer",
+          "0.6.0",
+          "0.6.1"
+        ],
+        [
+          "iiSharedCanvas",
+          "0.31.0",
+          "0.31.1"
+        ],
+        [
+          "iiSocialPublish",
+          "0.1.0",
+          "0.1.1"
+        ],
+        [
+          "iiSocietyContainer",
+          "0.16.1",
+          "0.16.2"
+        ],
+        [
+          "iiSocietyGeneration",
+          "0.1.0",
+          "0.1.1"
+        ],
+        [
+          "iiSocietyHelper",
+          "0.9.3",
+          "0.9.4"
+        ],
+        [
+          "iiSocietyMonitor",
+          "0.1.0",
+          "0.1.1"
+        ],
+        [
+          "iiSocietySync",
+          "0.8.3",
+          "0.8.4"
+        ],
+        [
+          "iiUpdateManager",
+          "0.3.0",
+          "0.3.1"
+        ],
+        [
+          "iiVoiceOver",
+          "0.1.0",
+          "0.1.1"
+        ],
+        [
+          "iiWhatsNew",
+          "0.1.0",
+          "0.1.1"
+        ],
+        [
+          "iiXml",
+          "0.1.0",
+          "0.1.1"
+        ],
+        [
+          "LVRS-Svelte",
+          "0.2.1",
+          "0.2.2"
+        ]
+      ]
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 48,
+      "end_line": 48,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "heading",
+      "start_line": 49,
+      "end_line": 49,
+      "raw": "## Installation and verification\n",
+      "level": 2,
+      "title": "Installation and verification"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 50,
+      "end_line": 50,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "paragraph",
+      "start_line": 51,
+      "end_line": 55,
+      "raw": "Host builds use each module's fixed `build/` directory and retain its enabled features.\nThe existing LVRS macOS package is reused for dependent SDKs during the batch.\niiSharedCanvas exports ExactVersion metadata, so its SDK consumers request 0.31.1.\nThe Decision cache was regenerated with its feature options preserved because a\nprevious SDK environment had incorrectly cached SDK headers as compiler defaults.\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 56,
+      "end_line": 56,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 57,
+      "end_line": 59,
+      "raw": "Per-module build, CTest, installation and Git results are collected in\n`build/patch-release-20261019/` and `build/install-all/`. Runtime checks on other\noperating systems and model generation requiring user assets are separate evidence.\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 60,
+      "end_line": 60,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 61,
+      "end_line": 62,
+      "raw": "Directories without a package version or install rule are outside this release:\nFlamewall, LVUI, Silentlocked, iiComputerHistory, iiComputerUse and iiNetwork.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 63,
+      "end_line": 63,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "paragraph",
+      "start_line": 64,
+      "end_line": 66,
+      "raw": "The iiGraphicAdjust feature implementation concurrently advanced to 0.6.0 after\nthe initial 0.5.2 patch build. That completed source is preserved, then incremented\nby one patch to 0.6.1 and rebuilt, tested and reinstalled for this release.\n"
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 67,
+      "end_line": 67,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "heading",
+      "start_line": 68,
+      "end_line": 68,
+      "raw": "## Compatibility repairs\n",
+      "level": 2,
+      "title": "Compatibility repairs"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 69,
+      "end_line": 69,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "list",
+      "start_line": 70,
+      "end_line": 85,
+      "raw": "- iiSDKBuilder now links its file-provider adapter only to targets that use it,\n  preserving the embedded iiSDKCore foundation boundary.\n- iiFileProvider supplies a relocatable, bundled SQLite provider for mobile and\n  WebAssembly builds. It also retains standard cancellation on the Qt WebAssembly\n  toolchain and handles time zones when that kit has no Qt time-zone database.\n  The iOS, Android arm64 and multithreaded WebAssembly libraries were built and\n  installed with their target Qt kits, without linking host libraries.\n- iiSocietyMonitor consumes the extracted iiFileProvider Core I/O adapter.\n  iiSocietySync distinguishes provider-owned presentation files and lease\n  controls from replicated payloads, preserving confined filesystem operations.\n- iiLocalDiffusion retains its enabled backends while fixing current Clang\n  header compatibility, preview-aware model identities, known VAE manifest\n  entries, and the ONNX initialization/shutdown telemetry issue.\n- iiLocalLLM compiles its pinned llama backend with current Clang by providing\n  required standard headers and correctly ordered graph specializations in\n  build-local copies. The pinned dependency checkout remains unchanged.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "iiSDKBuilder now links its file-provider adapter only to targets that use it,",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "iiFileProvider supplies a relocatable, bundled SQLite provider for mobile and",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "iiSocietyMonitor consumes the extracted iiFileProvider Core I/O adapter.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "iiLocalDiffusion retains its enabled backends while fixing current Clang",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "iiLocalLLM compiles its pinned llama backend with current Clang by providing",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000022",
+      "kind": "blank",
+      "start_line": 86,
+      "end_line": 86,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "paragraph",
+      "start_line": 87,
+      "end_line": 90,
+      "raw": "Verification that exercises file synchronization, presentation generation and\nlarge model fixtures is run serially across modules. Under concurrent disk-heavy\nvalidation, otherwise successful synchronization operations exceeded their\nexisting test deadlines; the deadlines are retained for the final isolated run.\n"
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 91,
+      "end_line": 91,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
+      "kind": "paragraph",
+      "start_line": 92,
+      "end_line": 98,
+      "raw": "The iiLocalLLM release scope includes all 105 host contract tests and six\nadditional real-model agent scenarios: plan mode, user questions, project\nmemory, memory recall, memory extraction and session history. The host set also\ncontains the configured vision and audio inference checks. The other 34 optional\n`inference`-label qualifications remain registered with their existing model\nsettings and are recorded as not run for this maintenance release. No runtime\nbackend or model configuration is disabled to obtain a passing result.\n"
+    },
+    {
+      "id": "b000026",
+      "kind": "blank",
+      "start_line": 99,
+      "end_line": 99,
+      "raw": "\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "heading",
+      "start_line": 100,
+      "end_line": 100,
+      "raw": "## Verified SDK delivery\n",
+      "level": 2,
+      "title": "Verified SDK delivery"
+    },
+    {
+      "id": "b000028",
+      "kind": "blank",
+      "start_line": 101,
+      "end_line": 101,
+      "raw": "\n"
+    },
+    {
+      "id": "b000029",
+      "kind": "paragraph",
+      "start_line": 102,
+      "end_line": 107,
+      "raw": "All 35 source versions match the installed package metadata. Each module has a\nclean worktree and a local commit matching its live remote branch. The workspace\nrepository manifest pins those verified module commits; LVRS remains outside\nthe version bump. LVRS-Svelte is installed as a package copy at\n`~/.local/SDK/lib/node_modules/lvrs-svelte`; native package prefixes are under\n`~/.local/SDK/<module>`.\n"
+    },
+    {
+      "id": "b000030",
+      "kind": "blank",
+      "start_line": 108,
+      "end_line": 108,
+      "raw": "\n"
+    },
+    {
+      "id": "b000031",
+      "kind": "table",
+      "start_line": 109,
+      "end_line": 117,
+      "raw": "| Package | Verified host evidence |\n| --- | --- |\n| iiFileProvider | 36 tests, including a relocated bundled-SQLite consumer |\n| iiSharedCanvas | 63 source tests and 28 independent installed-consumer tests |\n| iiLocalLLM | 105 host contracts and 6 additional real-model agent scenarios |\n| iiLocalDiffusion | All 137 configured tests, including relocated installation |\n| iiSocietySync | All 12 tests with existing deadlines retained |\n| iiPhotoLibrary | All 8 tests, including installed consumers |\n| iiSocietyHelper | All 12 tests, including delivery retry/rollback |\n",
+      "columns": [
+        "Package",
+        "Verified host evidence"
+      ],
+      "rows": [
+        [
+          "iiFileProvider",
+          "36 tests, including a relocated bundled-SQLite consumer"
+        ],
+        [
+          "iiSharedCanvas",
+          "63 source tests and 28 independent installed-consumer tests"
+        ],
+        [
+          "iiLocalLLM",
+          "105 host contracts and 6 additional real-model agent scenarios"
+        ],
+        [
+          "iiLocalDiffusion",
+          "All 137 configured tests, including relocated installation"
+        ],
+        [
+          "iiSocietySync",
+          "All 12 tests with existing deadlines retained"
+        ],
+        [
+          "iiPhotoLibrary",
+          "All 8 tests, including installed consumers"
+        ],
+        [
+          "iiSocietyHelper",
+          "All 12 tests, including delivery retry/rollback"
+        ]
+      ]
+    },
+    {
+      "id": "b000032",
+      "kind": "blank",
+      "start_line": 118,
+      "end_line": 118,
+      "raw": "\n"
+    },
+    {
+      "id": "b000033",
+      "kind": "paragraph",
+      "start_line": 119,
+      "end_line": 123,
+      "raw": "The other modules' CTest or npm test/check/build evidence is retained in their\nindividual installation reports. Fixes were followed by focused reruns; combined\nvalidation records retain both the original failures and the resolving results.\nThe final local index is `build/patch-release-20261019/sdk-final-audit.json`.\nCross builds do not constitute device or other-operating-system runtime proof.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "SDK patch release — 2026-10-19",
+      "anchor": "sdk-patch-release--2026-10-19",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000005",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Package versions",
+      "anchor": "package-versions",
+      "start_line": 9
+    },
+    {
+      "block_id": "b000009",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Installation and verification",
+      "anchor": "installation-and-verification",
+      "start_line": 49
+    },
+    {
+      "block_id": "b000019",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Compatibility repairs",
+      "anchor": "compatibility-repairs",
+      "start_line": 68
+    },
+    {
+      "block_id": "b000027",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Verified SDK delivery",
+      "anchor": "verified-sdk-delivery",
+      "start_line": 100
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000021",
+        "line": 84,
+        "text": "required standard headers and correctly ordered graph specializations in",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000033",
+        "line": 123,
+        "text": "Cross builds do not constitute device or other-operating-system runtime proof.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [],
+    "tables": [
+      {
+        "block_id": "b000007",
+        "columns": [
+          "Module",
+          "Previous",
+          "Release"
+        ],
+        "rows": [
+          [
+            "iiAccountManager",
+            "0.2.9",
+            "0.2.10"
+          ],
+          [
+            "iiActorObject",
+            "0.1.0",
+            "0.1.1"
+          ],
+          [
+            "iiAudioGen",
+            "0.3.0",
+            "0.3.1"
+          ],
+          [
+            "iiCalendar",
+            "0.2.0",
+            "0.2.1"
+          ],
+          [
+            "iiCameraIntegration",
+            "0.4.0",
+            "0.4.1"
+          ],
+          [
+            "iiColorManager",
+            "0.1.0",
+            "0.1.1"
+          ],
+          [
+            "iiCSMIDI",
+            "0.3.0",
+            "0.3.1"
+          ],
+          [
+            "iiDecision",
+            "0.0.4",
+            "0.0.5"
+          ],
+          [
+            "iiDeviceMultimedia",
+            "0.2.0",
+            "0.2.1"
+          ],
+          [
+            "iiFileProvider",
+            "0.7.1",
+            "0.7.2"
+          ],
+          [
+            "iiGeneralDocument",
+            "0.4.0",
+            "0.4.1"
+          ],
+          [
+            "iiGraphicAdjust",
+            "0.6.0",
+            "0.6.1"
+          ],
+          [
+            "iiGUI",
+            "0.4.0",
+            "0.4.1"
+          ],
+          [
+            "iiHtmlBlock",
+            "0.1.0",
+            "0.1.1"
+          ],
+          [
+            "iiJson",
+            "0.1.0",
+            "0.1.1"
+          ],
+          [
+            "iiLicenseManager",
+            "0.3.0",
+            "0.3.1"
+          ],
+          [
+            "iiLocalDiffusion",
+            "0.6.1",
+            "0.6.2"
+          ],
+          [
+            "iiLocalLLM",
+            "0.55.0",
+            "0.55.1"
+          ],
+          [
+            "iiPaintEngine",
+            "0.5.0",
+            "0.5.1"
+          ],
+          [
+            "iiPhotoLibrary",
+            "0.1.0",
+            "0.1.1"
+          ],
+          [
+            "iiSDKBuilder",
+            "0.2.0",
+            "0.2.1"
+          ],
+          [
+            "iiSDKCore",
+            "0.18.0",
+            "0.18.1"
+          ],
+          [
+            "iiWebServer",
+            "0.6.0",
+            "0.6.1"
+          ],
+          [
+            "iiSharedCanvas",
+            "0.31.0",
+            "0.31.1"
+          ],
+          [
+            "iiSocialPublish",
+            "0.1.0",
+            "0.1.1"
+          ],
+          [
+            "iiSocietyContainer",
+            "0.16.1",
+            "0.16.2"
+          ],
+          [
+            "iiSocietyGeneration",
+            "0.1.0",
+            "0.1.1"
+          ],
+          [
+            "iiSocietyHelper",
+            "0.9.3",
+            "0.9.4"
+          ],
+          [
+            "iiSocietyMonitor",
+            "0.1.0",
+            "0.1.1"
+          ],
+          [
+            "iiSocietySync",
+            "0.8.3",
+            "0.8.4"
+          ],
+          [
+            "iiUpdateManager",
+            "0.3.0",
+            "0.3.1"
+          ],
+          [
+            "iiVoiceOver",
+            "0.1.0",
+            "0.1.1"
+          ],
+          [
+            "iiWhatsNew",
+            "0.1.0",
+            "0.1.1"
+          ],
+          [
+            "iiXml",
+            "0.1.0",
+            "0.1.1"
+          ],
+          [
+            "LVRS-Svelte",
+            "0.2.1",
+            "0.2.2"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000031",
+        "columns": [
+          "Package",
+          "Verified host evidence"
+        ],
+        "rows": [
+          [
+            "iiFileProvider",
+            "36 tests, including a relocated bundled-SQLite consumer"
+          ],
+          [
+            "iiSharedCanvas",
+            "63 source tests and 28 independent installed-consumer tests"
+          ],
+          [
+            "iiLocalLLM",
+            "105 host contracts and 6 additional real-model agent scenarios"
+          ],
+          [
+            "iiLocalDiffusion",
+            "All 137 configured tests, including relocated installation"
+          ],
+          [
+            "iiSocietySync",
+            "All 12 tests with existing deadlines retained"
+          ],
+          [
+            "iiPhotoLibrary",
+            "All 8 tests, including installed consumers"
+          ],
+          [
+            "iiSocietyHelper",
+            "All 12 tests, including delivery retry/rollback"
+          ]
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

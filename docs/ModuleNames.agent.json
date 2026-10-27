@@ -1,0 +1,113 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:cebb3308e1875cfefe32c53f26e1a8918e580fd7c9fe71fea198c168efb1ae02",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "docs/ModuleNames.md",
+    "sha256": "4b1c738c72541fc8dddf4bd52e68d6b20abcb203df4a811eb76063c23526387c",
+    "bytes": 1067,
+    "line_count": 16,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "SDK 모듈의 명명 계약",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# SDK 모듈의 명명 계약\n",
+      "level": 1,
+      "title": "SDK 모듈의 명명 계약"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 5,
+      "raw": "모듈 디렉터리, CMake 프로젝트·패키지·타깃, 공개 헤더 접두사, C++ 모듈\n네임스페이스 및 워크스페이스 등록 이름을 같은 철자로 유지한다.\n카메라 모듈은 `iiCameraIntegration`, 계정 모듈은 `iiAccountManager`이다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 7,
+      "end_line": 9,
+      "raw": "기술 약어와 고유명은 철자 오류와 구분한다. `iiGUI`, `iiCSMIDI`, `iiHtmlBlock`,\n`LVUI`, `LVRS`와 브랜드 명칭은 기존 계약을 유지한다. 기능별 별도 패키지와\n컴포넌트 타깃도 모듈 디렉터리와 다른 이름을 사용할 수 있다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 10,
+      "end_line": 10,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 11,
+      "end_line": 12,
+      "raw": "네임스페이스를 변경하면 C++ 링크 심볼이 달라지므로 관련 라이브러리와\n소비자를 다시 빌드한다. 과거 검증 로그·Git 이력·원본 증거 스냅샷은 보존한다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 13,
+      "end_line": 13,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 14,
+      "end_line": 16,
+      "raw": "`tests/test_module_names.py`와 `tests/test_account_manager_name.py`는 모듈의\n소스·패키지·Windows 목록·동기화 URL 및 주요 제품 참조를 검사한다.\nSociety 소비자는 `Product/Society/App/Society/` 아래의 현재 소스 경로를 검사한다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "SDK 모듈의 명명 계약",
+      "anchor": "sdk-모듈의-명명-계약",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

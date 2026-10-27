@@ -13,3 +13,4 @@
 
 `tests/test_module_names.py`와 `tests/test_account_manager_name.py`는 모듈의
 소스·패키지·Windows 목록·동기화 URL 및 주요 제품 참조를 검사한다.
+Society 소비자는 `Product/Society/App/Society/` 아래의 현재 소스 경로를 검사한다.

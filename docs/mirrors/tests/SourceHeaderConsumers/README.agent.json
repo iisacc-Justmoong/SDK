@@ -1,0 +1,85 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:fb22b9608c56529e186775fba673ba0b3eb7fa63da757db4a85af68964245af7",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "tests/SourceHeaderConsumers/README.md",
+    "sha256": "0b134748379592ee772cb2cbc93d1dec751767e0f875da24c05578f1b39edcc8",
+    "bytes": 729,
+    "line_count": 12,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "Source header package consumers",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Source header package consumers\n",
+      "level": 1,
+      "title": "Source header package consumers"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 6,
+      "raw": "This C++23 project consumes the installed public targets of every package in\nthe source-header migration fixture. Each public header is compiled in its own\ntranslation unit. No source directory is added to a consumer's include path.\nAn executable per package also checks that its runtime dependencies load.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 8,
+      "end_line": 12,
+      "raw": "Configure with `cmake -S tests/SourceHeaderConsumers -B tests/SourceHeaderConsumers/build`\nfrom the SDK directory, providing staged package prefixes in `CMAKE_PREFIX_PATH`.\nSet `HEADER_STAGE_ROOT` to require package discovery below that staging root.\nThen build and run CTest in that `build/` directory. Native source-only adapters\nare covered separately by `tests/NativeHeaderLayout`.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Source header package consumers",
+      "anchor": "source-header-package-consumers",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

@@ -1,0 +1,8 @@
+/build/
+/resources/dawn/
+/resources/dawn-cache/
+**/.iisacc-temporary.lock
+**/.*.iisacc-preview
+**/*.iisacc.json
+.DS_Store
+__pycache__/

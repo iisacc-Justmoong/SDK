@@ -1,0 +1,72 @@
+{
+  "release": "v20261023.194543",
+  "revision": "1716e88cc9e58398fab5d4473f7f2e858667b677",
+  "assets": {
+    "macos-arm64": {
+      "url": "https://github.com/google/dawn/releases/download/v20261023.194543/Dawn-1716e88cc9e58398fab5d4473f7f2e858667b677-macos-latest-Release.tar.gz",
+      "sha256": "8f013482cad9e634995538089c8354c2a70b7a669a3952cd03ab60d297a55f9a"
+    },
+    "macos-x64": {
+      "url": "https://github.com/google/dawn/releases/download/v20261023.194543/Dawn-1716e88cc9e58398fab5d4473f7f2e858667b677-macos-15-intel-Release.tar.gz",
+      "sha256": "a22c3faa2777e01dee29aa5f969da80cd608d31fdaa57e95b532495838cb8048"
+    },
+    "linux-x64": {
+      "url": "https://github.com/google/dawn/releases/download/v20261023.194543/Dawn-1716e88cc9e58398fab5d4473f7f2e858667b677-ubuntu-latest-Release.tar.gz",
+      "sha256": "bef250fdfbd078ffc22ffc9a756b66b190e2b04121c0f6df216e7905395bc45b"
+    },
+    "windows-x64": {
+      "url": "https://github.com/google/dawn/releases/download/v20261023.194543/Dawn-1716e88cc9e58398fab5d4473f7f2e858667b677-windows-latest-Release.tar.gz",
+      "sha256": "14b540730f9005b9f25be75145edcdd4710af146c9f6eabe2f9e12807d8508a0"
+    }
+  },
+  "licenses": [
+    {
+      "name": "Dawn-LICENSE",
+      "url": "https://raw.githubusercontent.com/google/dawn/1716e88cc9e58398fab5d4473f7f2e858667b677/LICENSE",
+      "base64": false,
+      "sha256": "0493f897193af1796d5054659f45ec7d4c5af648fa67a99f01d30e55cc805abc"
+    },
+    {
+      "name": "Abseil-LICENSE",
+      "url": "https://chromium.googlesource.com/chromium/src/third_party/abseil-cpp/+/af5aede14a0b4013be6890148d34e0fd7b1fac69/LICENSE?format=TEXT",
+      "base64": true,
+      "sha256": "c79a7fea0e3cac04cd43f20e7b648e5a0ff8fa5344e644b0ee09ca1162b62747"
+    },
+    {
+      "name": "SPIRV-Tools-LICENSE",
+      "url": "https://raw.githubusercontent.com/KhronosGroup/SPIRV-Tools/7651d9234622041b3f1b09e5c684c7c6eb352d08/LICENSE",
+      "base64": false,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "name": "SPIRV-Headers-LICENSE",
+      "url": "https://raw.githubusercontent.com/KhronosGroup/SPIRV-Headers/fbf86836a9b1966586faf7be7bb8a6440e156d62/LICENSE",
+      "base64": false,
+      "sha256": "ea43b1de38a6f90c488800d66dec1ed671e68cda530266bc96951fb5b6307613"
+    },
+    {
+      "name": "Vulkan-Headers-LICENSE",
+      "url": "https://raw.githubusercontent.com/KhronosGroup/Vulkan-Headers/73814d006638aa00bd553215b054f0f02e457e22/LICENSE.md",
+      "base64": false,
+      "sha256": "95ad366d23fadf701d355bc45fb8b82ae2d700239471d35d41286ac3b08ff903"
+    },
+    {
+      "name": "Vulkan-Utility-Libraries-LICENSE",
+      "url": "https://raw.githubusercontent.com/KhronosGroup/Vulkan-Utility-Libraries/52cba06636dd66f1e15398810b310caf3df50598/LICENSE.md",
+      "base64": false,
+      "sha256": "69760673abf91cfd0280ae73739a29c078f493804d9016a122b3b189b48ad6e6"
+    },
+    {
+      "name": "GLSLang-LICENSE",
+      "url": "https://raw.githubusercontent.com/KhronosGroup/glslang/2465225163bb0127e3f76f3036acd324312899cd/LICENSE.txt",
+      "base64": false,
+      "sha256": "17e70c676e1521ff3e4686f04a2053d93a7e28a33be8de7ec37ab0ff72feb677"
+    },
+    {
+      "name": "VulkanMemoryAllocator-LICENSE",
+      "url": "https://chromium.googlesource.com/external/github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator/+/7e55b011e16182fc349149abbd3aaf3b1db46421/LICENSE.txt?format=TEXT",
+      "base64": true,
+      "sha256": "cdb520614db3ec62e667ece01e64e6afa21948fa51e85e748b1494597a7be907"
+    }
+  ]
+}
