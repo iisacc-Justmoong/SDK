@@ -1,5 +1,7 @@
 # iiGlobalSearch 에이전트 지침
 
+파일 색인과 FTS 질의는 iiFileProvider의 `FileSearchIndex`를 사용한다. Society 검증이나 웹 검색을 하위 제공자에 역참조시키지 않는다.
+
 - C++23과 iiSDKCore Runtime, iiFileProvider, iiSocietyContainer의 공개 API를 사용한다. 공개 헤더와 구현은 `src/`에 함께 둔다.
 - 작업 범위는 호출자가 선택한 정상 `.societycontainer` 하나이며, 숨김·제어 경로와 링크를 따라 외부로 이동하지 않는다. 원본이나 Provider 카탈로그를 수정하지 않는다.
 - 색인은 메모리 스냅샷이다. 비동기 부분 결과, 취소, 명시적 새로고침, 건너뛴 항목과 검색 직전 경로 재검사의 계약은 `docs/Indexing.md`를 따른다.

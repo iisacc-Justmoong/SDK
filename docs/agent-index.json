@@ -14,7 +14,7 @@
       "document_id": "urn:iisacc:document:a3c762e821b53c74db271785438c569a0bb3dd71cc35b22c051a78a5a8388e64",
       "source": "AGENT.md",
       "agent_json": "docs/entrypoints/AGENT.agent.json",
-      "source_sha256": "1c0dc31214ed3c6a1813f9da8017f312379bb0fb5d5b46f1dde6c493a97f63bc",
+      "source_sha256": "f60fc31a845703bdde28dd760df6f4167ac98e28968240abdbaa73303ab6daf7",
       "role": "instructions"
     },
     {
@@ -28,7 +28,7 @@
       "document_id": "urn:iisacc:document:3092d9e380578c64e1513873d4d532131973415c55b401335c07cc405a07fef5",
       "source": "README.md",
       "agent_json": "docs/entrypoints/README.agent.json",
-      "source_sha256": "54db44bd391ae8057f8d88eac4d4598b460b77aa42c72c5a139616a02c913ce5",
+      "source_sha256": "e8d6ae23ec4c5c520393433e51b147763a2a18017d5602810237a4041b3da57a",
       "role": "overview"
     },
     {
@@ -56,7 +56,7 @@
       "document_id": "urn:iisacc:document:4edb656091cd0e9105e245031c9f43aa2f32cb554620a1e31af5d32562220834",
       "source": "docs/GPU.md",
       "agent_json": "docs/GPU.agent.json",
-      "source_sha256": "0e599825da96a1293833288efb908d8fa18cbe7e695d17699d7b1f67457aa3e0",
+      "source_sha256": "f33d6523e4bedf152a99d978d6e81dbbeb8bb3a3c1a80969bc974dda5ace8544",
       "role": "guide"
     },
     {
@@ -70,7 +70,7 @@
       "document_id": "urn:iisacc:document:d4ac661f1c09124a3e1ff37e739083e09f6a684e0824f54a1a7862becd684d9f",
       "source": "docs/ModuleConsolidation.md",
       "agent_json": "docs/ModuleConsolidation.agent.json",
-      "source_sha256": "d6bbbea99bab8be0a14f001bcabfab0aa87bbd38638ead14dc1ae921fda3559a",
+      "source_sha256": "6281b69e6a69e16b379d63920749aab64f1155ba52b9b1767719e9ee6cf7249a",
       "role": "guide"
     },
     {
@@ -112,8 +112,15 @@
       "document_id": "urn:iisacc:document:870db892a5a3bfec40106a67ee98fa281ee77f744057bb2aa5983ef7feb7bfb9",
       "source": "docs/README.md",
       "agent_json": "docs/README.agent.json",
-      "source_sha256": "494e6b06f94fea005f28f4df92f35b71fa4f9cbf6c4c61567f2763dc16d3cf9c",
+      "source_sha256": "af0ffa80c014d3d0753eabec98f91f91135a4e2473df921f292c2f8a4fa7a3d1",
       "role": "overview"
+    },
+    {
+      "document_id": "urn:iisacc:document:2aab3265f49e4bba41249eee00c28c316a4b24ae3a5e849eb36d8d1fb080bf74",
+      "source": "docs/SDKIndependence.md",
+      "agent_json": "docs/SDKIndependence.agent.json",
+      "source_sha256": "3e6d4ff834ac899fac28c157fa981031811f4ab66cd43b09c98d07ac33b419af",
+      "role": "guide"
     },
     {
       "document_id": "urn:iisacc:document:d1bd15c136a152fdc53faee505e64de7fbe9c242f2e8d4e3c752cc9f804448a6",

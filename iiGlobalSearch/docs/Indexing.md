@@ -38,3 +38,7 @@ auto matches = index.search("campaign portrait", 50);
 `iiGlobalSearch.index`는 실제 Provider 카탈로그·발행 대기 분류·독립 동반 파일·표시 정보, 비동기 부분 결과, 동시 시작 거부, Unicode 검색, 손상과 컨테이너 경계, 삭제 및 재색인을 검사한다. 합성 컨테이너는 검사 종료 시 정리한다. `iiGlobalSearch.cli`는 JSON 결과와 잘못된 경로의 실패를 검사하는 별도 실행 검사이며 기본 CTest에서는 비활성화되어 있다. 해당 검사의 유지 리소스는 `resources/tests/`에 둔다.
 
 `build/iiGlobalSearchBenchmark <절대-build-경로>`는 발행 대기 분류 300개의 합성 카탈로그를 만들고 첫 부분 결과와 전체 완료까지의 시간을 별도로 출력한다. 생성 시간은 측정에 포함하지 않는다. 파일 시스템 캐시가 데워진 합성 조건이며 실제 컨테이너의 지연이나 성능 보장을 의미하지 않는다.
+
+## 파일 색인 소유권
+
+파일별 메타데이터 병합과 메모리 FTS 색인은 `iiFileProvider::FileSearchIndex`가 소유한다. Society 디렉터리의 안전한 탐색, 진행·취소, 스냅샷 교체와 결과 경로 재검사는 iiGlobalSearch에 남는다. 제공자는 Society나 검색 모듈을 참조하지 않는다. 웹 검색은 이 파일 색인에 의존하지 않는다. 영구 `FileCatalog` 검색은 별도의 수명과 필터 계약을 유지한다.

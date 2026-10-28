@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/README.md",
-    "sha256": "494e6b06f94fea005f28f4df92f35b71fa4f9cbf6c4c61567f2763dc16d3cf9c",
-    "bytes": 2474,
-    "line_count": 31,
+    "sha256": "af0ffa80c014d3d0753eabec98f91f91135a4e2473df921f292c2f8a4fa7a3d1",
+    "bytes": 2563,
+    "line_count": 32,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -79,8 +79,8 @@
       "id": "b000008",
       "kind": "table",
       "start_line": 8,
-      "end_line": 30,
-      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`PatchRelease-20261019.md`](../PatchRelease-20261019.md) | [JSON](entrypoints/PatchRelease-20261019.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`WorkspaceSync.md`](../WorkspaceSync.md) | [JSON](entrypoints/WorkspaceSync.agent.json) |\n| [`docs/AccountManagerName.md`](AccountManagerName.md) | [JSON](AccountManagerName.agent.json) |\n| [`docs/BRUSH_AUTHORING.md`](BRUSH_AUTHORING.md) | [JSON](BRUSH_AUTHORING.agent.json) |\n| [`docs/GPU.md`](GPU.md) | [JSON](GPU.agent.json) |\n| [`docs/HeaderLayout.md`](HeaderLayout.md) | [JSON](HeaderLayout.agent.json) |\n| [`docs/ModuleConsolidation.md`](ModuleConsolidation.md) | [JSON](ModuleConsolidation.agent.json) |\n| [`docs/ModuleNames.md`](ModuleNames.md) | [JSON](ModuleNames.agent.json) |\n| [`docs/PERFORMANCE_REVIEW.md`](PERFORMANCE_REVIEW.md) | [JSON](PERFORMANCE_REVIEW.agent.json) |\n| [`docs/PERFORMANCE_REVIEW_20261020.md`](PERFORMANCE_REVIEW_20261020.md) | [JSON](PERFORMANCE_REVIEW_20261020.agent.json) |\n| [`docs/PatchRelease-20261019.md`](PatchRelease-20261019.md) | [JSON](PatchRelease-20261019.agent.json) |\n| [`docs/QtIndependence.md`](QtIndependence.md) | [JSON](QtIndependence.agent.json) |\n| [`docs/WorkspaceSync.md`](WorkspaceSync.md) | [JSON](WorkspaceSync.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n| [`tests/LocalPhotoBrush/README.md`](../tests/LocalPhotoBrush/README.md) | [JSON](mirrors/tests/LocalPhotoBrush/README.agent.json) |\n| [`tests/LocalPhotoBrush/Verification.md`](../tests/LocalPhotoBrush/Verification.md) | [JSON](mirrors/tests/LocalPhotoBrush/Verification.agent.json) |\n| [`tests/NativeHeaderLayout/README.md`](../tests/NativeHeaderLayout/README.md) | [JSON](mirrors/tests/NativeHeaderLayout/README.agent.json) |\n| [`tests/SocietyHelperConsumers/README.md`](../tests/SocietyHelperConsumers/README.md) | [JSON](mirrors/tests/SocietyHelperConsumers/README.agent.json) |\n| [`tests/SourceHeaderConsumers/README.md`](../tests/SourceHeaderConsumers/README.md) | [JSON](mirrors/tests/SourceHeaderConsumers/README.agent.json) |\n",
+      "end_line": 31,
+      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`PatchRelease-20261019.md`](../PatchRelease-20261019.md) | [JSON](entrypoints/PatchRelease-20261019.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`WorkspaceSync.md`](../WorkspaceSync.md) | [JSON](entrypoints/WorkspaceSync.agent.json) |\n| [`docs/AccountManagerName.md`](AccountManagerName.md) | [JSON](AccountManagerName.agent.json) |\n| [`docs/BRUSH_AUTHORING.md`](BRUSH_AUTHORING.md) | [JSON](BRUSH_AUTHORING.agent.json) |\n| [`docs/GPU.md`](GPU.md) | [JSON](GPU.agent.json) |\n| [`docs/HeaderLayout.md`](HeaderLayout.md) | [JSON](HeaderLayout.agent.json) |\n| [`docs/ModuleConsolidation.md`](ModuleConsolidation.md) | [JSON](ModuleConsolidation.agent.json) |\n| [`docs/ModuleNames.md`](ModuleNames.md) | [JSON](ModuleNames.agent.json) |\n| [`docs/PERFORMANCE_REVIEW.md`](PERFORMANCE_REVIEW.md) | [JSON](PERFORMANCE_REVIEW.agent.json) |\n| [`docs/PERFORMANCE_REVIEW_20261020.md`](PERFORMANCE_REVIEW_20261020.md) | [JSON](PERFORMANCE_REVIEW_20261020.agent.json) |\n| [`docs/PatchRelease-20261019.md`](PatchRelease-20261019.md) | [JSON](PatchRelease-20261019.agent.json) |\n| [`docs/QtIndependence.md`](QtIndependence.md) | [JSON](QtIndependence.agent.json) |\n| [`docs/SDKIndependence.md`](SDKIndependence.md) | [JSON](SDKIndependence.agent.json) |\n| [`docs/WorkspaceSync.md`](WorkspaceSync.md) | [JSON](WorkspaceSync.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n| [`tests/LocalPhotoBrush/README.md`](../tests/LocalPhotoBrush/README.md) | [JSON](mirrors/tests/LocalPhotoBrush/README.agent.json) |\n| [`tests/LocalPhotoBrush/Verification.md`](../tests/LocalPhotoBrush/Verification.md) | [JSON](mirrors/tests/LocalPhotoBrush/Verification.agent.json) |\n| [`tests/NativeHeaderLayout/README.md`](../tests/NativeHeaderLayout/README.md) | [JSON](mirrors/tests/NativeHeaderLayout/README.agent.json) |\n| [`tests/SocietyHelperConsumers/README.md`](../tests/SocietyHelperConsumers/README.md) | [JSON](mirrors/tests/SocietyHelperConsumers/README.agent.json) |\n| [`tests/SourceHeaderConsumers/README.md`](../tests/SourceHeaderConsumers/README.md) | [JSON](mirrors/tests/SourceHeaderConsumers/README.agent.json) |\n",
       "columns": [
         "Document",
         "Agent JSON"
@@ -143,6 +143,10 @@
           "[JSON](QtIndependence.agent.json)"
         ],
         [
+          "[`docs/SDKIndependence.md`](SDKIndependence.md)",
+          "[JSON](SDKIndependence.agent.json)"
+        ],
+        [
           "[`docs/WorkspaceSync.md`](WorkspaceSync.md)",
           "[JSON](WorkspaceSync.agent.json)"
         ],
@@ -175,8 +179,8 @@
     {
       "id": "b000009",
       "kind": "html",
-      "start_line": 31,
-      "end_line": 31,
+      "start_line": 32,
+      "end_line": 32,
       "raw": "<!-- workspace-docs:document-map:end -->\n"
     }
   ],
@@ -400,101 +404,115 @@
       },
       {
         "block_id": "b000008",
+        "label": "`docs/SDKIndependence.md`",
+        "target": "SDKIndependence.md",
+        "kind": "relative",
+        "line": 24
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "SDKIndependence.agent.json",
+        "kind": "relative",
+        "line": 24
+      },
+      {
+        "block_id": "b000008",
         "label": "`docs/WorkspaceSync.md`",
         "target": "WorkspaceSync.md",
         "kind": "relative",
-        "line": 24
+        "line": 25
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "WorkspaceSync.agent.json",
         "kind": "relative",
-        "line": 24
+        "line": 25
       },
       {
         "block_id": "b000008",
         "label": "`docs/documentation-structure.md`",
         "target": "documentation-structure.md",
         "kind": "relative",
-        "line": 25
+        "line": 26
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "documentation-structure.agent.json",
         "kind": "relative",
-        "line": 25
+        "line": 26
       },
       {
         "block_id": "b000008",
         "label": "`tests/LocalPhotoBrush/README.md`",
         "target": "../tests/LocalPhotoBrush/README.md",
         "kind": "relative",
-        "line": 26
+        "line": 27
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "mirrors/tests/LocalPhotoBrush/README.agent.json",
         "kind": "relative",
-        "line": 26
+        "line": 27
       },
       {
         "block_id": "b000008",
         "label": "`tests/LocalPhotoBrush/Verification.md`",
         "target": "../tests/LocalPhotoBrush/Verification.md",
         "kind": "relative",
-        "line": 27
+        "line": 28
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "mirrors/tests/LocalPhotoBrush/Verification.agent.json",
         "kind": "relative",
-        "line": 27
+        "line": 28
       },
       {
         "block_id": "b000008",
         "label": "`tests/NativeHeaderLayout/README.md`",
         "target": "../tests/NativeHeaderLayout/README.md",
         "kind": "relative",
-        "line": 28
+        "line": 29
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "mirrors/tests/NativeHeaderLayout/README.agent.json",
         "kind": "relative",
-        "line": 28
+        "line": 29
       },
       {
         "block_id": "b000008",
         "label": "`tests/SocietyHelperConsumers/README.md`",
         "target": "../tests/SocietyHelperConsumers/README.md",
         "kind": "relative",
-        "line": 29
+        "line": 30
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "mirrors/tests/SocietyHelperConsumers/README.agent.json",
         "kind": "relative",
-        "line": 29
+        "line": 30
       },
       {
         "block_id": "b000008",
         "label": "`tests/SourceHeaderConsumers/README.md`",
         "target": "../tests/SourceHeaderConsumers/README.md",
         "kind": "relative",
-        "line": 30
+        "line": 31
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "mirrors/tests/SourceHeaderConsumers/README.agent.json",
         "kind": "relative",
-        "line": 30
+        "line": 31
       }
     ],
     "tables": [
@@ -560,6 +578,10 @@
           [
             "[`docs/QtIndependence.md`](QtIndependence.md)",
             "[JSON](QtIndependence.agent.json)"
+          ],
+          [
+            "[`docs/SDKIndependence.md`](SDKIndependence.md)",
+            "[JSON](SDKIndependence.agent.json)"
           ],
           [
             "[`docs/WorkspaceSync.md`](WorkspaceSync.md)",

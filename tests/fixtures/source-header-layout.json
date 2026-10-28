@@ -106,9 +106,12 @@
       ]
     },
     {
-      "module": "iiSocialPublish",
+      "module": "iiSocialIntegration",
       "publicHeaders": [
-        "src/iiSocialPublish/Publishing.h"
+        "src/iiSocialIntegration/Publishing.h",
+        "src/iiSocialIntegration/Review.h",
+        "src/iiSocialIntegration/Migration.h",
+        "src/iiSocialIntegration/UrlImport.h"
       ]
     },
     {

@@ -4,7 +4,9 @@ iiGPU is a Qt-free C++23 GPU command and compute foundation for iiSDK. It owns
 native adapters, queues, shared/device buffers, reusable compute pipelines,
 command recording, explicit memory dependencies and observable completion.
 Metal serves Apple platforms; Vulkan serves native desktop and Android targets.
-An optional `iiGPU::Runtime` adapter delivers completion on an iiSDKCore 0.20+ EventLoop.
+The optional `iiGPU::Runtime` component observes completion through a
+caller-supplied scheduler. An application can supply an iiSDKCore EventLoop or
+another compatible loop without making iiGPU depend on either implementation.
 
 WebGPU device negotiation, resources, WGSL and standard WebGPU C access are
 integrated as the optional `iiGPU::WebGPU` component. The existing
@@ -14,7 +16,8 @@ The base target does not link Dawn or import WebGPU types. `IIGPU_WEBGPU` accept
 `resources/dawn/<target>` or the explicitly configured `IIGPU_DAWN_ROOT`. For
 example, macOS arm64 and Windows x64 resources live in different directories;
 the configured compiler target selects the directory. The pinned
-`tools/fetch_dawn.py` prepares that resource through iiFileProvider. No GPU
+The separate workspace utility `../tools/fetch_gpu_dawn.py` supplies
+iiFileProvider to the resource preparation API. No GPU
 backend or shader format is silently substituted for another.
 
 The base library does not depend on iiGUI, iiDecision, iiSDKCore or an interpreter.
@@ -27,7 +30,6 @@ handles with a strictly bounded lifetime.
 
 ```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
-  -DiiSDKCore_DIR="$HOME/.local/SDK/iiSDKCore/lib/cmake/iiSDKCore" \
   -DCMAKE_INSTALL_PREFIX="$HOME/.local/SDK/iiGPU"
 cmake --build build --parallel 4
 ctest --test-dir build --output-on-failure
@@ -39,14 +41,15 @@ SDK is unavailable; a backend disabled at build time returns `unsupported` at
 runtime. Vulkan needs the platform's native loader and driver; Apple Vulkan
 validation uses an externally installed MoltenVK. Set `Vulkan_INCLUDE_DIR` and
 `Vulkan_LIBRARY` if discovery requires explicit paths. No vendor SDK is fetched
-or bundled automatically. `IIGPU_BUILD_RUNTIME=OFF` removes the Core adapter.
+or bundled automatically. `IIGPU_BUILD_RUNTIME=OFF` removes the optional
+completion observer.
 `install.sh` runs the same build/test/install sequence.
 
 To build the optional WebGPU component, prepare the locked host distribution
 first, then configure it explicitly:
 
 ```sh
-python3 -B tools/fetch_dawn.py
+python3 -B ../tools/fetch_gpu_dawn.py
 cmake -S . -B build -DIIGPU_WEBGPU=ON
 cmake --build build --parallel 4
 ctest --test-dir build --output-on-failure
@@ -62,13 +65,22 @@ require an explicitly prepared `IIGPU_DAWN_ROOT`.
 ```cmake
 find_package(iiGPU 0.1 CONFIG REQUIRED)
 target_link_libraries(MyCompute PRIVATE iiGPU::iiGPU)
-# Request only when EventLoop completion integration is needed:
+# Request only when scheduled completion observation is needed:
 find_package(iiGPU 0.1 CONFIG REQUIRED COMPONENTS Runtime)
 target_link_libraries(MyApp PRIVATE iiGPU::Runtime)
+# If the application uses Core, it finds and links it independently:
+find_package(iiSDKCore 0.20 CONFIG REQUIRED COMPONENTS Runtime)
+target_link_libraries(MyApp PRIVATE iiSDKCore::Runtime)
 # Request WebGPU only when used; the compatibility iiWebGPU package also works.
 find_package(iiGPU 0.1 CONFIG REQUIRED COMPONENTS WebGPU)
 target_link_libraries(MyWebGPUApp PRIVATE iiGPU::WebGPU)
 ```
+
+`CompletionWatch::create(loop, submission, callback)` also accepts a compatible
+caller-owned loop directly, or an application can supply `CompletionScheduler`
+callbacks. Cancellation stops observing; it does not cancel submitted GPU work.
+The old Core-specific binary interface has changed: rebuild applications that
+used it and link Core explicitly at the application boundary.
 
 The [acceleration example](example/Acceleration/main.cpp) uploads 257 integers,
 dispatches a shader, waits for completion and checks every output. Run

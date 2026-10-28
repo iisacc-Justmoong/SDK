@@ -18,8 +18,7 @@ Hello World 실행 검증과 합치지 않는다.
 ## 재현
 
 ```sh
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
-  -DiiSDKCore_DIR="$HOME/.local/SDK/iiSDKCore/lib/cmake/iiSDKCore"
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --parallel 4
 ctest --test-dir build --output-on-failure
 build/iiGPUAcceleration metal
@@ -37,8 +36,10 @@ Vulkan을 찾지 못하면 실제 설치된 헤더·로더를 명시한다. macO
 
 검사는 창을 생성하지 않는다. 유닛 검사는 장치 소유권·범위·상태·예산·취소·
 실행 중 메모리 접근, 전송 왕복, 정수 커널 결과, 장벽 누락, 자원 수명,
-다중 생산자 제출과 네이티브 핸들 수명을 검사한다. Core 연결 검사는 같은 루프
-실행 영역의 단일 완료 전달·관측 취소·루프 용량 제한을 검사한다.
+다중 생산자 제출과 네이티브 핸들 수명을 검사한다. 완료 관측 단위 검사는
+가짜 호출자 스케줄러를 사용해 단일 완료 전달·관측 취소·재진입·동시 취소와
+루프 용량 제한을 검사한다. Core와의 조합 검사는 별도 소비자 애플리케이션에서
+두 패키지를 명시적으로 찾고 링크해 수행한다.
 장치 부재는 77로 skip하고 네이티브 실행 오류를 skip으로 처리하지 않는다.
 
 셰이더 원문은 `example/Acceleration/transform.comp`이고 생성된 `Shader.h`에
@@ -52,6 +53,26 @@ Vulkan을 찾지 못하면 실제 설치된 헤더·로더를 명시한다. macO
 않는다. 이 예제의 검증은 입력마다 `value * 7 + 13`의 정확한 결과가 나오는지
 비교하는 기능 검증이며 CPU 대비 속도 개선이나 모든 GPU 제조사 호환성의
 증거로 사용하지 않는다.
+
+## 2026-10-28 의존성 경계 변경 검증
+
+Core 패키지 검색을 끈 구성에서 완료 관측·경계·오프라인 WebGPU 부트스트랩
+검사를 확인했다. 최초의 3개 검사 실행에서 완료 관측이 기존 30초 제한으로
+시간 초과되었고, 같은 제한으로 재실행한 검사와 이후 5회 반복은 통과했다.
+최초 지연의 원인은 확인되지 않았으므로 재실행 성공으로 지연을 해결했다고
+간주하지 않는다. GPU 작업은 제출하지 않았다.
+
+처음에는 캐시가 `iiDecision/build/dependencies/MoltenVK` 안의 제3자 Vulkan
+헤더와 로더를 사용했다. 이후 로더·헤더와 Apache 라이선스를 iiGPU의
+`build/sdk-vulkan-isolated-20261028`에 복사해 해당 경로를 명시하고 Metal,
+Vulkan, WebGPU를 활성화한 채 다시 빌드했다. 복사한 로더와 대표 헤더는 원본과
+바이트 단위로 비교했다. 이 복사본은 빌드 검증용이며 설치된 Vulkan SDK나 실제
+장치 실행을 증명하지 않는다. 설치 소비자는 독립된 Vulkan 헤더와 로더를
+별도로 제공해야 한다.
+
+같은 분리 경로에서 Core 검색을 끈 설치 소비자, Core를 명시적으로 조합하는
+소비자, iiDecision GPU 어댑터와 그 검사 실행 파일을 다시 컴파일했다. 이
+소비자와 장치 검사 실행 파일은 실행하지 않았다.
 
 ## 2026-10-27 macOS ARM64 실행 결과
 

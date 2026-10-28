@@ -46,9 +46,10 @@ struct FixtureCleanup {
 };
 
 int main(int argc, char** argv) try {
-    check(argc == 2, "build root required");
-    const auto base = fs::absolute(argv[1]) / "global-search-fixture";
-    fs::remove_all(base);
+    check(argc == 2, "resource root required");
+    const auto base = fs::absolute(argv[1]) / ("global-search-fixture-" +
+        std::to_string(std::chrono::steady_clock::now().time_since_epoch().count()));
+    check(fs::create_directory(base), "could not create unique fixture directory");
     FixtureCleanup cleanup{base};
     const auto root = base / "Library.societycontainer";
     fs::create_directories(root / "Files");
@@ -115,6 +116,14 @@ int main(int argc, char** argv) try {
     });
     ReleaseOnExit ensureRelease{mutex, changed, release};
     SearchProvider& provider = index;
+    bool rejected = false;
+    try { (void)index.search(std::string("bad\0query", 9)); }
+    catch (const std::invalid_argument&) { rejected = true; }
+    check(rejected, "NUL query must be rejected before indexing starts");
+    rejected = false;
+    try { (void)index.search("", 1025); }
+    catch (const std::invalid_argument&) { rejected = true; }
+    check(rejected, "invalid limit must be rejected before indexing starts");
     const auto before = std::chrono::steady_clock::now();
     check(provider.start(), "start rejected");
     check(std::chrono::steady_clock::now() - before < 1s, "start blocked on indexing");

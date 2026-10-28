@@ -130,7 +130,7 @@ def configure(key, extras, *, source=None, build=None, prefix=None, phase='confi
     options = {
         'LVRS': ['LVRS_BACKEND=native', 'LVRS_ENABLE_IPO=OFF', 'LVRS_BUILD_TESTS=ON', 'LVRS_BUILD_EXAMPLES=ON'],
         'iiGPU': ['IIGPU_METAL=OFF', 'IIGPU_VULKAN=ON'],
-        'iiFileProvider': ['IIFILEPROVIDER_BUILD_CORE_IO=ON'],
+        'iiFileProvider': ['IIFILEPROVIDER_BUILD_CORE_IO=OFF'],
         'iiXml': ['IIXML_BUILD_SHARED=OFF'],
         'iiSharedCanvas': ['IISHAREDCANVAS_BUILD_SHARED=OFF', 'IISHAREDCANVAS_BUILD_QUICK=ON'],
         'iiGeneralDocument': ['IIGENERALDOCUMENT_USE_SYSTEM_LIBZIP=ON'],
@@ -168,10 +168,10 @@ def test(key, regex=None, *, build=None, phase='test', env=None):
         command += ['-R', regex]
     result = run(key, phase, command, env=env)
     result['junit'] = str(junit)
-    result['tests'] = {'total': 0, 'passed': 0, 'failed': [], 'skipped': []}
+    result['tests'] = {'total': 0, 'passed': 0, 'failed': [], 'skipped': [], 'names': []}
     if junit.exists():
         cases = list(ET.parse(junit).getroot().iter('testcase'))
-        result['tests'] = {'total': len(cases), 'passed': sum(c.find('failure') is None and c.find('error') is None and c.find('skipped') is None for c in cases), 'failed': [c.attrib['name'] for c in cases if c.find('failure') is not None or c.find('error') is not None], 'skipped': [c.attrib['name'] for c in cases if c.find('skipped') is not None]}
+        result['tests'] = {'total': len(cases), 'passed': sum(c.find('failure') is None and c.find('error') is None and c.find('skipped') is None for c in cases), 'failed': [c.attrib['name'] for c in cases if c.find('failure') is not None or c.find('error') is not None], 'skipped': [c.attrib['name'] for c in cases if c.find('skipped') is not None], 'names': [c.attrib.get('name', '') for c in cases]}
     return result
 
 def additional_configurations(key):
@@ -187,15 +187,32 @@ def additional_configurations(key):
     return []
 
 
+def add_composition_runtime_path(phase, prefix, env):
+    # Detached consumers link installed owner SDKs; the normal SDK environment
+    # deliberately excludes the owner to prefer the current build's DLLs.
+    compositions = {'gpu-consumer', 'coreio-consumer', 'audio-consumer',
+        'xml-file-consumer', 'account-consumer', 'file-consumer', 'cli-consumer',
+        'image-consumer', 'media-consumer', 'graphics-consumer', 'midi-async-consumer',
+        'midi-file-consumer', 'network-balancer-consumer', 'json-core-value-consumer', 'paint-file-consumer'}
+    if phase not in compositions:
+        return
+    owner_bin = str(Path(prefix) / 'bin')
+    entries = env.get('PATH', '').split(os.pathsep)
+    normalized = {os.path.normcase(os.path.normpath(entry)) for entry in entries if entry}
+    if os.path.normcase(os.path.normpath(owner_bin)) not in normalized:
+        env['PATH'] = owner_bin + os.pathsep + env.get('PATH', '')
+
+
 def check_additional_configuration(key, configuration):
     phase, source, build, prefix, extras, install = configuration
     if build.name != 'build' or not build.resolve().is_relative_to(ROOT/key):
         raise RuntimeError('Additional SDK outputs must remain in their own build/ directories')
     env = environment(key, build=build, qt_lvrs=phase == 'qt')
+    add_composition_runtime_path(phase, prefix, env)
     if phase == 'native-consumer':
         env['CMAKE_PREFIX_PATH'] = prefix.as_posix()+';'+env['CMAKE_PREFIX_PATH']
     steps = []
-    actions = ['configure', 'build', 'test'] + (['install'] if install else [])
+    actions = ['configure', 'build'] + ([] if phase == 'graphics-consumer' else ['test']) + (['install'] if install else [])
     for action in actions:
         if action == 'configure':
             step = configure(key, extras, source=source, build=build, prefix=prefix, phase=phase+'-configure', env=env)

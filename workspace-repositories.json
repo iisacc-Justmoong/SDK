@@ -283,7 +283,7 @@
       "lfs": false
     },
     {
-      "path": "SDK/iiSocialPublish",
+      "path": "SDK/iiSocialIntegration",
       "url": "https://github.com/iisacc-Justmoong/iiSocialPublish.git",
       "branch": "main",
       "sourceCommit": "44aad3cc69975837cf234e213c744f1651f77202",

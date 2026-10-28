@@ -6,6 +6,7 @@ from pathlib import Path
 import tarfile
 import tempfile
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location("fetch_dawn", ROOT / "tools/fetch_dawn.py")
@@ -18,6 +19,7 @@ class BootstrapTests(unittest.TestCase):
         (ROOT / "build").mkdir(exist_ok=True)
         self.temp = tempfile.TemporaryDirectory(dir=ROOT / "build")
         self.root = Path(self.temp.name)
+        self.storage = mock.MagicMock()
 
     def tearDown(self):
         self.temp.cleanup()
@@ -35,18 +37,26 @@ class BootstrapTests(unittest.TestCase):
         self.assertNotEqual(fetch.default_destination("macos-arm64"), fetch.default_destination("windows-x64"))
 
     def test_changed_dependency_is_preserved(self):
-        p = self.root / "data"
-        fetch.put_verified(p, b"one")
-        fetch.put_verified(p, b"one")
+        p = mock.MagicMock()
+        p.exists.side_effect = (False, True, True)
+        p.read_bytes.side_effect = (b"one", b"one")
+        fetch.put_verified(p, b"one", storage=self.storage)
+        fetch.put_verified(p, b"one", storage=self.storage)
         with self.assertRaises(ValueError):
-            fetch.put_verified(p, b"two")
-        self.assertEqual(p.read_bytes(), b"one")
+            fetch.put_verified(p, b"two", storage=self.storage)
+        self.storage.mkdir.assert_called_once()
+        self.storage.open.assert_called_once()
+
+    def test_storage_is_explicitly_supplied(self):
+        self.assertFalse(hasattr(fetch, "provider"))
+        with self.assertRaises(TypeError):
+            fetch.put_verified(self.root / "data", b"one")
 
     def test_cached_archive_must_match_lock(self):
         p = self.root / "archive"
         p.write_bytes(b"corrupt")
         with self.assertRaises(ValueError):
-            fetch.checked_download("https://invalid.example/unused", fetch.digest(b"correct"), p)
+            fetch.checked_download("https://invalid.example/unused", fetch.digest(b"correct"), p, storage=self.storage)
 
     def test_archive_cannot_escape_destination(self):
         for name, symlink in (("root/../../escaped", False), ("/absolute", False), ("root/unsafe", True)):
@@ -62,7 +72,7 @@ class BootstrapTests(unittest.TestCase):
                         info.size = 1
                         archive.addfile(info, io.BytesIO(b"x"))
                 with self.assertRaises(ValueError):
-                    fetch.extract(p, self.root / "dest")
+                    fetch.extract(p, self.root / "dest", storage=self.storage)
         self.assertFalse((self.root.parent / "escaped").exists())
 
     def test_lock_has_exact_hashes_and_original_licenses(self):

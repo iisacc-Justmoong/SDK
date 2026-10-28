@@ -4,15 +4,13 @@ iiGPU 0.1은 SDK 공통의 네이티브 GPU 명령·컴퓨트·동기화 모듈�
 현재 Metal·Vulkan 백엔드를 제공하며 상위 모듈의 도메인 계산과 렌더러를
 내부로 역수입하지 않는다. iiSDKCore는 iiGPU를 참조하지 않는다.
 
-기본 타깃 iiGPU::iiGPU는 Core 런타임 없이 소비할 수 있다. 선택적인
-iiGPU::Runtime은 Core EventLoop에서 GPU 완료를 비차단 관측한다.
-iiDecision은 Metal·Vulkan 장치와 명령 관리를 iiGPU에 위임하고 정확한
-uint32 증거 커널·마스크와 long double 확률 계산을 계속 소유한다.
+기본 타깃 iiGPU::iiGPU와 선택적인 iiGPU::Runtime은 다른 SDK 없이 사용할 수 있다.
+애플리케이션이 Core EventLoop 등 스케줄러를 공급해 GPU 완료를 비차단 관측한다.
+앱은 iiDecision의 증거 백엔드 인터페이스와 iiGPU를 조합해 Metal·Vulkan을 사용한다.
+어댑터는 정확한 uint32 증거 커널·마스크를, iiDecision은 long double 확률 계산을 소유한다.
 iiGUI의 기존 렌더러 전체를 이전한 상태는 아니다.
 
-일괄 설치 도구는 CMake의 find_package/find_dependency에서
-iiSDKCore → iiGPU → iiDecision 순서를 발견한다. Windows의 projects.json에도
-같은 순서를 명시한다. Windows에서 Metal 검사 6개와 iiDecision Metal 재사용
+iiGPU와 iiDecision은 독립적으로 빌드된다. Windows에서 Metal 검사 6개와 iiDecision Metal 재사용
 검사는 지원 대상 외 skip이다. Vulkan 실행 실패를 정상 skip으로 허용하지 않는다.
 
 Windows에서는 Vulkan SDK와 드라이버를 준비하고 IIGPU_VULKAN=ON으로

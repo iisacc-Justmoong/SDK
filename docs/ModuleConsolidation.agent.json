@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/ModuleConsolidation.md",
-    "sha256": "d6bbbea99bab8be0a14f001bcabfab0aa87bbd38638ead14dc1ae921fda3559a",
-    "bytes": 2296,
-    "line_count": 32,
+    "sha256": "6281b69e6a69e16b379d63920749aab64f1155ba52b9b1767719e9ee6cf7249a",
+    "bytes": 2099,
+    "line_count": 30,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -128,8 +128,8 @@
       "id": "b000011",
       "kind": "list",
       "start_line": 18,
-      "end_line": 29,
-      "raw": "- iiNetwork는 소켓·TLS·HTTP 전송, iiWebServer는 라우팅·파일 공유·릴레이와\n  세션 정책을 소유한다. iiWebServer의 HTTP 객체도 iiNetwork 서버를 조합한다.\n- iiCSMIDI는 MIDI 파일 문서이고 iiDeviceMultimedia의 MIDI UMP는 실제 장치 통신이다.\n- iiGraphicAdjust의 이미지 연산과 iiPaintEngine의 입력·획·편집 이력은 독립적으로\n  소비되므로 서로에게 의존시키지 않는다.\n- iiGeneralDocument에는 iiXml과 iiHtmlBlock에서 이식한 Qt 없는 별도 마크업 파서가\n  여전히 있다. 문서 메타데이터·수정 범위·오류 계약을 유지하는 공통 네이티브\n  파서 추출과 소비자 전환은 아직 완료되지 않았다.\n- iiGlobalSearch는 Society 컨테이너의 제공자 정보 인덱싱과 별도의 웹 검색을\n  제공한다. 컨테이너 검색과 겹치는 부분은 있지만 전체를 컨테이너 모듈에 합치면\n  웹 검색의 책임까지 끌어들이게 된다. 동시 진행 중인 검색 기능 변경을 보호하며\n  공유할 수 있는 인덱싱 경계를 별도로 검토해야 한다.\n",
+      "end_line": 27,
+      "raw": "- iiNetwork는 소켓·TLS·HTTP 전송, iiWebServer는 라우팅·파일 공유·릴레이와\n  세션 정책을 소유한다. iiWebServer의 HTTP 객체도 iiNetwork 서버를 조합한다.\n- iiCSMIDI는 MIDI 파일 문서이고 iiDeviceMultimedia의 MIDI UMP는 실제 장치 통신이다.\n- iiGraphicAdjust의 이미지 연산과 iiPaintEngine의 입력·획·편집 이력은 독립적으로\n  소비되므로 서로에게 의존시키지 않는다.\n- iiGeneralDocument의 XML·HTML 소스 범위 파서 복사본은 제거하고 Qt 없는\n  `iiXml::Markup`을 사용한다. 공개 문서 모델과 독립 PDF 구성요소는 유지한다.\n- iiFileProvider는 파일 메타데이터의 메모리 `FileSearchIndex`를 소유한다.\n  iiGlobalSearch는 Society 경로 검증, 비동기 작업 및 결과 재검사를 맡고,\n  웹 검색은 독립적으로 유지한다. 제공자에서 Society로 향하는 역참조는 없다.\n",
       "items": [
         {
           "marker": "-",
@@ -148,12 +148,12 @@
         },
         {
           "marker": "-",
-          "text": "iiGeneralDocument에는 iiXml과 iiHtmlBlock에서 이식한 Qt 없는 별도 마크업 파서가",
+          "text": "iiGeneralDocument의 XML·HTML 소스 범위 파서 복사본은 제거하고 Qt 없는",
           "checked": null
         },
         {
           "marker": "-",
-          "text": "iiGlobalSearch는 Society 컨테이너의 제공자 정보 인덱싱과 별도의 웹 검색을",
+          "text": "iiFileProvider는 파일 메타데이터의 메모리 `FileSearchIndex`를 소유한다.",
           "checked": null
         }
       ]
@@ -161,15 +161,15 @@
     {
       "id": "b000012",
       "kind": "blank",
-      "start_line": 30,
-      "end_line": 30,
+      "start_line": 28,
+      "end_line": 28,
       "raw": "\n"
     },
     {
       "id": "b000013",
       "kind": "paragraph",
-      "start_line": 31,
-      "end_line": 32,
+      "start_line": 29,
+      "end_line": 30,
       "raw": "각 구성요소의 빌드·설치 소비자 검증과 운영체제별 범위는 소유 모듈의 문서와\n`build/` 테스트 로그를 따른다. macOS 검사는 Windows·Linux 실기기 실행을 대신하지 않는다.\n"
     }
   ],
@@ -216,15 +216,8 @@
         "context": "paragraph"
       },
       {
-        "block_id": "b000011",
-        "line": 29,
-        "text": "공유할 수 있는 인덱싱 경계를 별도로 검토해야 한다.",
-        "basis": "lexical_match",
-        "context": "list"
-      },
-      {
         "block_id": "b000013",
-        "line": 32,
+        "line": 30,
         "text": "`build/` 테스트 로그를 따른다. macOS 검사는 Windows·Linux 실기기 실행을 대신하지 않는다.",
         "basis": "lexical_match",
         "context": "paragraph"

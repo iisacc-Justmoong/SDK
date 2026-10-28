@@ -6,6 +6,22 @@ Select the compiler using the absolute `cl.exe` path found in the development sh
 
 Build the active SDKs in `projects.json` in dependency order, run every registered execution check, and install into the user SDK prefix. Deprecated and Utility projects are excluded. Directories without source build definitions do not count as successful executions.
 
+`iiSocialIntegration` replaces `iiSocialPublish` as the checkout and package
+name. The legacy headers and package are source compatibility aliases of the
+same module, so Windows verifies the new checkout once.
+
+The iiFileProvider build leaves its Core I/O adapter disabled. Applications that
+use it configure `SDK/iiFileProvider/example/CoreIO` separately after installing
+iiFileProvider Native and iiSDKCore, and link the packages at the consumer boundary.
+After the independent SDK builds, the full verification separately builds and
+checks the Core I/O, audio-file, XML file-input, calendar-account, calendar-file, voice-file, camera-image, camera-media, MIDI file, MIDI async, JSON-Core value, bitmap-file, network load-balancer and decision GPU consumers, and compiles the
+voice CLI and image-adjustment examples. It verifies that the moved contract tests are present;
+a missing or failed composition keeps the full release gate closed. Vulkan
+execution and shared-GPU concurrency cannot be counted as passed when skipped.
+Partial `--only` runs execute a composition only when all of its SDKs are selected.
+Detached consumer checks add the owning SDK's installed `bin` directory to their
+runtime search path; other configurations keep the current build's path policy.
+
 <a id="사용법"></a>
 ## Usage
 

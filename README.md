@@ -13,11 +13,17 @@ provisioned model or asset resources.
 [`iiGPU`](iiGPU/README.md) provides Qt-free C++23 native GPU buffers, compute
 pipelines, command lists, explicit barriers and observable submission completion.
 Metal and Vulkan share this contract; the optional `iiGPU::Runtime` target
-connects completion to iiSDKCore's EventLoop. iiDecision's native Metal/Vulkan
-paths consume this module. Batch installation discovers the order
-iiSDKCore → iiGPU → iiDecision. See [the GPU ownership boundary](docs/GPU.md).
+observes completion using a scheduler supplied by the application. Applications
+may compose it with iiSDKCore's EventLoop. Applications compose iiDecision's
+GPU evidence adapter with iiGPU independently. See
+[the GPU ownership boundary](docs/GPU.md).
 
 Public headers live beside their implementations in each module's source tree.
+
+SDK modules are being migrated to independently built packages. Applications
+compose them through caller-owned interfaces and link each selected module
+directly; the transition and remaining dependency audit are documented in
+[SDK independence](docs/SDKIndependence.md).
 Separate authored `include/` trees are prohibited; public include names and
 installed package layouts remain compatible. See [the source layout contract](docs/HeaderLayout.md)
 and run `python3 -B tests/test_source_header_layout.py` from this directory.
@@ -67,11 +73,13 @@ indirect commands and queries. The pinned Dawn backend executes on native GPU
 APIs; Core and inference SDKs remain independent. See [its execution and memory
 contract](iiGPU/docs/WebGPUContract.md) and [platform verification](iiGPU/docs/WebGPUVerification.md).
 
-[`iiSocialPublish`](iiSocialPublish/README.md) provides Qt-free C++23 publishing
+[`iiSocialIntegration`](iiSocialIntegration/README.md) provides Qt-free C++23 publishing
 objects for X, Facebook Pages, Instagram Professional, Threads, Pinterest,
-Tumblr, Mastodon and LinkedIn, with explicit unsupported Pixiv/ArtStation
-capabilities. It streams media through libcurl, handles provider processing,
-and reports ambiguous publication without automatic retries. Dreamscapes owns
+Tumblr, Mastodon, LinkedIn and YouTube, with explicit unsupported Pixiv/ArtStation
+publishing capabilities. It streams media through libcurl, handles provider processing,
+and reports ambiguous publication without automatic retries. It also converts
+supplied external posts into Society draft objects, and discovers and streams
+selected media from web-page URLs. Dreamscapes owns
 the separate asynchronous product adapter. The batch installer discovers the
 module's CMake package automatically.
 
@@ -205,7 +213,7 @@ weights retain their respective licenses.
 - [`SDK/iiSDKBuilder`](iiSDKBuilder/README.md)
 - [`SDK/iiSDKCore`](iiSDKCore/README.md)
 - [`SDK/iiSharedCanvas`](iiSharedCanvas/README.md)
-- [`SDK/iiSocialPublish`](iiSocialPublish/README.md)
+- [`SDK/iiSocialIntegration`](iiSocialIntegration/README.md)
 - [`SDK/iiSocietyContainer`](iiSocietyContainer/README.md)
 - [`SDK/iiSocietyHelper`](iiSocietyHelper/README.md)
 - [`SDK/iiUpdateManager`](iiUpdateManager/README.md)

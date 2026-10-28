@@ -20,13 +20,11 @@
 - iiCSMIDI는 MIDI 파일 문서이고 iiDeviceMultimedia의 MIDI UMP는 실제 장치 통신이다.
 - iiGraphicAdjust의 이미지 연산과 iiPaintEngine의 입력·획·편집 이력은 독립적으로
   소비되므로 서로에게 의존시키지 않는다.
-- iiGeneralDocument에는 iiXml과 iiHtmlBlock에서 이식한 Qt 없는 별도 마크업 파서가
-  여전히 있다. 문서 메타데이터·수정 범위·오류 계약을 유지하는 공통 네이티브
-  파서 추출과 소비자 전환은 아직 완료되지 않았다.
-- iiGlobalSearch는 Society 컨테이너의 제공자 정보 인덱싱과 별도의 웹 검색을
-  제공한다. 컨테이너 검색과 겹치는 부분은 있지만 전체를 컨테이너 모듈에 합치면
-  웹 검색의 책임까지 끌어들이게 된다. 동시 진행 중인 검색 기능 변경을 보호하며
-  공유할 수 있는 인덱싱 경계를 별도로 검토해야 한다.
+- iiGeneralDocument의 XML·HTML 소스 범위 파서 복사본은 제거하고 Qt 없는
+  `iiXml::Markup`을 사용한다. 공개 문서 모델과 독립 PDF 구성요소는 유지한다.
+- iiFileProvider는 파일 메타데이터의 메모리 `FileSearchIndex`를 소유한다.
+  iiGlobalSearch는 Society 경로 검증, 비동기 작업 및 결과 재검사를 맡고,
+  웹 검색은 독립적으로 유지한다. 제공자에서 Society로 향하는 역참조는 없다.
 
 각 구성요소의 빌드·설치 소비자 검증과 운영체제별 범위는 소유 모듈의 문서와
 `build/` 테스트 로그를 따른다. macOS 검사는 Windows·Linux 실기기 실행을 대신하지 않는다.

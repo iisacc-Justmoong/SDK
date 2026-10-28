@@ -11,22 +11,15 @@
   },
   "iiAudioGen": {
     "kind": "cmake",
-    "dependencies": [
-      "iiFileProvider"
-    ]
+    "dependencies": []
   },
   "iiCalendar": {
     "kind": "cmake",
-    "dependencies": [
-      "iiFileProvider"
-    ]
+    "dependencies": []
   },
   "iiCameraIntegration": {
     "kind": "cmake",
-    "dependencies": [
-      "iiFileProvider",
-      "iiGraphicAdjust"
-    ]
+    "dependencies": []
   },
   "iiColorManager": {
     "kind": "cmake",
@@ -34,17 +27,11 @@
   },
   "iiCSMIDI": {
     "kind": "cmake",
-    "dependencies": [
-      "iiFileProvider",
-      "iiJson",
-      "iiSDKCore"
-    ]
+    "dependencies": []
   },
   "iiDecision": {
     "kind": "cmake",
-    "dependencies": [
-      "iiGPU"
-    ]
+    "dependencies": []
   },
   "iiDeviceMultimedia": {
     "kind": "cmake",
@@ -52,27 +39,22 @@
   },
   "iiFileProvider": {
     "kind": "cmake",
-    "dependencies": [
-      "iiSDKCore"
-    ]
+    "dependencies": []
   },
   "iiGeneralDocument": {
     "kind": "cmake",
     "dependencies": [
-      "iiFileProvider"
+      "iiFileProvider",
+      "iiXml"
     ]
   },
   "iiGPU": {
     "kind": "cmake",
-    "dependencies": [
-      "iiSDKCore"
-    ]
+    "dependencies": []
   },
   "iiGraphicAdjust": {
     "kind": "cmake",
-    "dependencies": [
-      "iiFileProvider"
-    ]
+    "dependencies": []
   },
   "iiGUI": {
     "kind": "cmake",
@@ -83,9 +65,7 @@
   },
   "iiJson": {
     "kind": "cmake",
-    "dependencies": [
-      "iiSDKCore"
-    ]
+    "dependencies": []
   },
   "iiLicenseManager": {
     "kind": "cmake",
@@ -126,9 +106,7 @@
   },
   "iiPaintEngine": {
     "kind": "cmake",
-    "dependencies": [
-      "iiFileProvider"
-    ]
+    "dependencies": []
   },
   "iiPhotoLibrary": {
     "kind": "cmake",
@@ -159,7 +137,7 @@
       "iiSDKCore"
     ]
   },
-  "iiSocialPublish": {
+  "iiSocialIntegration": {
     "kind": "cmake",
     "dependencies": []
   },
@@ -193,10 +171,7 @@
   },
   "iiVoiceOver": {
     "kind": "cmake",
-    "dependencies": [
-      "iiFileProvider",
-      "iiSDKCore"
-    ]
+    "dependencies": []
   },
   "iiWebServer": {
     "kind": "cmake",
@@ -211,9 +186,7 @@
   },
   "iiXml": {
     "kind": "cmake",
-    "dependencies": [
-      "iiFileProvider"
-    ]
+    "dependencies": []
   },
   "LVRS": {
     "kind": "cmake",

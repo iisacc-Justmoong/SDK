@@ -103,16 +103,21 @@ class WindowsVerificationTests(unittest.TestCase):
     def test_every_buildable_sdk_is_registered_and_native_ui_is_ordered(self):
         sdk = path.parents[1]
         projects = json.loads((path.parent/'projects.json').read_text(encoding='utf-8'))
-        discovered = {directory.name for directory in sdk.iterdir() if directory.is_dir()
+        discovered = {directory.name for directory in sdk.iterdir() if directory.is_dir() and not directory.is_symlink()
                       and any((directory/marker).is_file() for marker in ('CMakeLists.txt', 'package.json'))}
         self.assertEqual(set(projects), discovered)
         order = verification.dependency_order(projects)
         for dependency, consumer in [('iiSDKCore', 'LVUI'), ('LVUI', 'iiGUI'),
-                                     ('iiGUI', 'LVRS'), ('iiVisualCodec', 'iiSharedCanvas'),
-                                     ('iiSDKCore', 'iiGPU'), ('iiGPU', 'iiDecision')]:
+                                     ('iiGUI', 'LVRS'), ('iiVisualCodec', 'iiSharedCanvas')]:
             with self.subTest(dependency=dependency, consumer=consumer):
                 self.assertIn(dependency, projects[consumer]['dependencies'])
                 self.assertLess(order.index(dependency), order.index(consumer))
+        for module in ('iiGPU', 'iiDecision', 'iiGraphicAdjust', 'iiAudioGen', 'iiFileProvider', 'iiXml'):
+            with self.subTest(independent=module):
+                self.assertEqual(projects[module]['dependencies'], [])
+        definitions = verification.composition_definitions(sdk, Path('/profile'))
+        self.assertEqual(set(definitions['decision-gpu']['requires']), {'iiDecision', 'iiGPU'})
+        self.assertEqual(set(definitions['provider-coreio']['requires']), {'iiFileProvider', 'iiSDKCore'})
 
     def test_native_gpu_skips_do_not_hide_vulkan_execution_failure(self):
         allowed=verification.OPTIONAL_SKIPS['iiGPU']

@@ -2,6 +2,14 @@
 
 필요한 실행 입력과 정적 리소스는 프로젝트의 `resources/`에 둔다. `build/`는 생성된 빌드·시험·설치 검증 산출물용이며, 별도의 필수 입력 저장소로 사용하지 않는다.
 
+## SDK 간 독립성
+
+SDK 모듈은 다른 SDK 모듈을 찾거나 링크하거나 그 공개 타입에 의존하지 않는다.
+앱이 각 SDK를 별도로 소비하고 인터페이스·콜백으로 결합한다. 파일 생성의
+책임은 iiFileProvider에 남기고, 다른 SDK가 직접 의존하지 않도록 앱이 공급하는
+저장 인터페이스로 연결한다. CTest·GNUInstallDirs 같은 일반 CMake 기능은 허용한다.
+전환 중인 실제 참조와 점검의 한계는 [SDKIndependence.md](docs/SDKIndependence.md)를 따른다.
+
 ## 폐기한 추론 런타임
 
 ONNX와 ONNX Runtime은 전량 폐기한 기술이다. 제품과 SDK의 빌드, 모델 실행,

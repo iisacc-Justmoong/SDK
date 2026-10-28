@@ -11,8 +11,6 @@ set(iiGPU_Runtime_FOUND @IIGPU_BUILD_RUNTIME@)
 set(iiGPU_WebGPU_FOUND @IIGPU_HAS_WEBGPU@)
 set(iiGPU_EXAMPLE_DIR "${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_DATADIR@/iiGPU/example/Acceleration")
 if("Runtime" IN_LIST iiGPU_FIND_COMPONENTS AND iiGPU_Runtime_FOUND)
-    find_dependency(iiSDKCore 0.20 CONFIG COMPONENTS Runtime
-        HINTS "$ENV{HOME}/.local/SDK/iiSDKCore" "$ENV{USERPROFILE}/.local/SDK/iiSDKCore")
     include("${CMAKE_CURRENT_LIST_DIR}/iiGPURuntimeTargets.cmake")
 endif()
 if("WebGPU" IN_LIST iiGPU_FIND_COMPONENTS AND iiGPU_WebGPU_FOUND)

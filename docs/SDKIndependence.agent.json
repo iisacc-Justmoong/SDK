@@ -1,0 +1,681 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:2aab3265f49e4bba41249eee00c28c316a4b24ae3a5e849eb36d8d1fb080bf74",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "docs/SDKIndependence.md",
+    "sha256": "3e6d4ff834ac899fac28c157fa981031811f4ab66cd43b09c98d07ac33b419af",
+    "bytes": 12012,
+    "line_count": 159,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "SDK 간 독립성과 조합",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# SDK 간 독립성과 조합\n",
+      "level": 1,
+      "title": "SDK 간 독립성과 조합"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "heading",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "## 목표와 현재 상태\n",
+      "level": 2,
+      "title": "목표와 현재 상태"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 4,
+      "end_line": 4,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 5,
+      "end_line": 9,
+      "raw": "iiSDK의 각 모듈은 다른 SDK의 공개 헤더, 타입, 라이브러리, CMake 패키지나\n설치 순서를 요구하지 않아야 한다. 모듈마다 자기 계약과 수명을 소유하며,\n애플리케이션이 필요한 모듈들을 각각 찾고 연결해 인터페이스·콜백·값을\n변환한다. 일반 CMake 기능과 운영체제·표준 라이브러리·허용된 외부 의존성은\n이 규칙의 SDK 간 연결에 해당하지 않는다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 10,
+      "end_line": 10,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 11,
+      "end_line": 18,
+      "raw": "전환은 진행 중이다. iiGPU 완료 관측은 호출자 스케줄러를 받고 iiGraphicAdjust\n처리는 호출자의 이미지 데이터를 받는다. iiAudioGen 라이브러리는 PCM을 반환하며\nWAV 생성 도구는 독립 소비자로 iiFileProvider를 조합한다. iiDecision의 GPU\n증거 백엔드는 앱에서 iiGPU와 조합한다. iiXml의 경로 읽기는 호출자가\n제공하는 함수로 전환했고, 별도 소비자가 iiFileProvider를 조합한다. 기존 iiGeneralDocument\n등에는 아직 직접 참조가 남아 있다. 전체 SDK의 전환을 완료했다는 의미는\n아니다. 이미 배포된 Core 특정 완료 관측 ABI를 사용하던 앱은 iiGPU와 애플리케이션을\n다시 빌드하고 Core도 앱에서 직접 링크해야 한다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 19,
+      "end_line": 19,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 20,
+      "end_line": 24,
+      "raw": "iiVoiceOver는 독립 오류 타입과 파일 I/O 없는 WAV 바이트 인코딩을 제공하며,\n파일 게시와 CLI는 별도 소비자에서 파일 제공자·Core를 조합한다. 기존\n`saveWave(path)`와 Core 오류 타입 사용자는 새 어댑터 또는 바이트 API로 이전하고\n다시 빌드해야 한다. 멀티모달 에이전트의 WAV 경로는 바이트를 파일 제공자로 직접\n게시하도록 조정했지만 에이전트 자체의 다른 SDK 직접 의존성은 아직 남아 있다.\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 25,
+      "end_line": 25,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "paragraph",
+      "start_line": 26,
+      "end_line": 28,
+      "raw": "iiCalendar의 계정 연동과 파일 저장은 각각 별도 소비자가 계정 SDK 또는 파일\n제공자를 조합한다. 파일 기반 `Store(path)`와 계정 파일 저장 멤버는 제거됐으므로\n앱은 새 소비자 어댑터 또는 자체 파일 연결을 사용하도록 변경하고 다시 빌드해야 한다.\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 29,
+      "end_line": 29,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 30,
+      "end_line": 33,
+      "raw": "iiCameraIntegration의 사진 처리는 독립된 `example/ImageProcessing` 소비자가\n카메라와 이미지 SDK를 조합한다. 녹화는 `RecordingFilePort`를 받으며,\n`example/Media`가 파일 제공자의 임시 저장과 덮어쓰기 없는 게시를 연결한다.\n기존 녹화 호출자는 파일 포트를 전달하도록 수정하고 다시 빌드해야 한다.\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 34,
+      "end_line": 34,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 35,
+      "end_line": 38,
+      "raw": "iiCSMIDI는 저작자 검증과 파일 저장을 자신의 인터페이스로 받는다. 별도의\n`example/FileProvider` 소비자가 기존 iiFileProvider·iiJson 기능을 조합하고,\n`example/CoreAsync`는 비동기 Runtime을 조합한다. 기존 MIDI 파일·저작자\n호출자는 새 포트를 제공하고 다시 빌드해야 한다.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 39,
+      "end_line": 39,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "paragraph",
+      "start_line": 40,
+      "end_line": 43,
+      "raw": "iiPaintEngine의 비트맵 인코딩은 바이트를 반환하고 `BitmapFileIO`를 통해 앱이\n파일 읽기·게시를 제공한다. 별도 `Example/FileProvider`가 파일 제공자의 원자적\n게시와 프리뷰를 조합한다. 기존 비트맵 파일·페인팅 세션 호출자는 포트를 주입하고\n다시 빌드해야 한다.\n"
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 44,
+      "end_line": 44,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "paragraph",
+      "start_line": 45,
+      "end_line": 48,
+      "raw": "iiNetwork의 Core 기반 로드 밸런서는 별도 `example/LoadBalancer` 소비자로\n옮겨졌다. 해당 코드는 `iiNetworkLoadBalancer` 패키지와 `iiNetwork::LoadBalancer`\n타깃을 명시적으로 사용한다. 이 조치만으로 iiNetwork 전체가 독립된 것은 아니며,\n네트워크 본체의 나머지 Core·iiJson 참조는 이후에 제거해야 한다.\n"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 49,
+      "end_line": 49,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "paragraph",
+      "start_line": 50,
+      "end_line": 53,
+      "raw": "iiActorObject의 FBX 이미지 코덱 조합을 독립 `example/VisualCodec` 소비자로\n준비하고 설치 소비자까지 확인했다. 기존 actor 소스를 사용하는 다른 빌드가\n진행 중이므로 원래 모듈의 선택형 연결은 아직 유지한다. iiVisualCodec과 iiJson\n참조가 남아 있어 iiActorObject의 독립화가 완료됐다는 뜻은 아니다.\n"
+    },
+    {
+      "id": "b000022",
+      "kind": "blank",
+      "start_line": 54,
+      "end_line": 54,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "paragraph",
+      "start_line": 55,
+      "end_line": 61,
+      "raw": "iiSDKBuilder의 계획은 SDK 간 `depends` 선언을 거부하고 SDK 구성에 Core 경로를\n자동 주입하지 않는다. SDK별 설치 prefix와 CMake 캐시를 분리하고 앱 구성에 선택\nSDK들의 prefix를 전달한다. 이는 빌드 계획의 일부 경계 변경이며 빌더 라이브러리\n자체의 Core·파일 제공자 직접 의존성은 아직 제거하지 않았다. 한 SDK가 실패해도\n같은 키트의 다른 SDK 빌드는 계속하고 앱은 차단한다. 자식 CMake 구성·빌드·설치\n명령에 상속되는 CMake·컴파일러·pkg-config·동적 로더 검색 경로는 비우고, 필요한 외부 경로는 키트가\n명시할 수 있다. 플랫폼 기본 경로나 명시적 경로에 대한 별도 검증은 여전히 필요하다.\n"
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 62,
+      "end_line": 62,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
+      "kind": "paragraph",
+      "start_line": 63,
+      "end_line": 67,
+      "raw": "iiJson은 Core의 값 별칭을 자체 값 타입으로 교체하여 다른 SDK 없이 동작한다.\n기존 Core 값을 넘기던 앱은 `example/CoreValue`의 별도 어댑터 등으로 명시적으로\n변환하고 관련 모듈과 애플리케이션을 다시 빌드해야 한다. iiNetwork 등 기존\n소비자의 Core 값 동일성에 대한 의존성은 아직 이전이 필요하므로 이전 설치본을\n일괄 교체하기 전 소비자별 빌드와 계약을 확인해야 한다.\n"
+    },
+    {
+      "id": "b000026",
+      "kind": "blank",
+      "start_line": 68,
+      "end_line": 68,
+      "raw": "\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "heading",
+      "start_line": 69,
+      "end_line": 69,
+      "raw": "## 파일과 기존 기능\n",
+      "level": 2,
+      "title": "파일과 기존 기능"
+    },
+    {
+      "id": "b000028",
+      "kind": "blank",
+      "start_line": 70,
+      "end_line": 70,
+      "raw": "\n"
+    },
+    {
+      "id": "b000029",
+      "kind": "paragraph",
+      "start_line": 71,
+      "end_line": 80,
+      "raw": "파일 생성·저장·메타데이터·프리뷰의 책임은 iiFileProvider에 남는다. 다른 SDK는\n입출력을 직접 구현하거나 제공자 기능을 중복하지 않고 자기 입출력 계약을\n제시한다. 앱이 필요할 때 그 계약을 iiFileProvider에 연결하고 오류, 수명,\n취소, 원자적 저장의 의미를 전달한다. 처리만 하는 SDK는 이미지나 바이트를\n입력으로 받고 파일을 생성하지 않는다. 조합 예제와 앱의 CMake가 여러 SDK를\n각각 찾는 것은 허용하지만 모듈 자체의 CMake 또는 공개 API에 연결을 숨기지 않는다.\niiFileProvider의 Core I/O 브리지는 별도의 `iiFileProvider/example/CoreIO`\n소비자 프로젝트이며, 호출자가 독립된 Core와 파일 제공자를 조합한다.\niiGPU의 Dawn 다운로드 계약에는 저장 어댑터를 주입하고, 독립 Workspace 유틸리티\n`tools/fetch_gpu_dawn.py`가 iiFileProvider를 공급한다.\n"
+    },
+    {
+      "id": "b000030",
+      "kind": "blank",
+      "start_line": 81,
+      "end_line": 81,
+      "raw": "\n"
+    },
+    {
+      "id": "b000031",
+      "kind": "paragraph",
+      "start_line": 82,
+      "end_line": 84,
+      "raw": "전환 시 기능을 단순 제거하지 않는다. 이전 API나 ABI가 바뀌면 소비자에서의\n이전 방법과 재빌드 필요성을 문서화하고, 단독 빌드뿐 아니라 조합된 소비자의\n계약을 확인한다. 기존 변경과 설치본·작동 중인 사용자 데이터는 보존한다.\n"
+    },
+    {
+      "id": "b000032",
+      "kind": "blank",
+      "start_line": 85,
+      "end_line": 85,
+      "raw": "\n"
+    },
+    {
+      "id": "b000033",
+      "kind": "heading",
+      "start_line": 86,
+      "end_line": 86,
+      "raw": "## 반복 점검\n",
+      "level": 2,
+      "title": "반복 점검"
+    },
+    {
+      "id": "b000034",
+      "kind": "blank",
+      "start_line": 87,
+      "end_line": 87,
+      "raw": "\n"
+    },
+    {
+      "id": "b000035",
+      "kind": "paragraph",
+      "start_line": 88,
+      "end_line": 98,
+      "raw": "2026-10-28 카메라 파일 포트 이전 전 전체 정적 목록은 SDK 디렉터리 45개 중 24개에서 다른 SDK를\n참조하는 후보를 찾았고, Windows 프로젝트 목록에서는 23개가 SDK 의존성을\n선언했다. 검사하지 못한 파일은 0개였다. 이 숫자는 설정·전처리·실행 결과를\n평가하지 않는 어휘 검사 시점의 결과이므로 현재 체크아웃에서 명령을 다시 실행해\n갱신해야 한다. iiGPU, iiGraphicAdjust, iiAudioGen, iiDecision, iiFileProvider,\niiXml, iiCalendar, iiVoiceOver 8개를 별도로 선택한 엄격 검사에는 다른 SDK 참조\n후보와 Windows 목록 의존성이 없었다. 이후 iiCameraIntegration과 iiCSMIDI를\n이전했으며 각각 같은 엄격 검사에서 참조 후보와 Windows 목록 의존성이 없음을\n확인한다. 이어 iiJson과 iiPaintEngine까지 포함한 12개 모듈의 선택 검사에서도\n참조 후보·Windows 목록 의존성과 검사 누락이 없었다. 이 결과는 전체 SDK가 아닌\n해당 모듈의 정적 검사이다.\n"
+    },
+    {
+      "id": "b000036",
+      "kind": "blank",
+      "start_line": 99,
+      "end_line": 99,
+      "raw": "\n"
+    },
+    {
+      "id": "b000037",
+      "kind": "paragraph",
+      "start_line": 100,
+      "end_line": 105,
+      "raw": "같은 날 남은 모듈 중 네 개를 선택해 다시 검사했을 때 iiGeneralDocument에는\niiFileProvider·iiXml, iiNetwork에는 iiJson·iiSDKCore, iiSDKBuilder에는\niiFileProvider·iiSDKCore, iiSharedCanvas에는 iiFileProvider·iiJson·iiPaintEngine·\niiSDKCore 참조 후보가 남았다. 네 모듈 모두 Windows 프로젝트 목록에도 의존성이\n남았으며, 검사하지 못한 파일은 없었다. 이는 선택된 파일들의 어휘 검사 시점이고\n동시에 수정 중인 저장소 전체의 원자적 스냅샷은 아니다.\n"
+    },
+    {
+      "id": "b000038",
+      "kind": "blank",
+      "start_line": 106,
+      "end_line": 106,
+      "raw": "\n"
+    },
+    {
+      "id": "b000039",
+      "kind": "paragraph",
+      "start_line": 107,
+      "end_line": 109,
+      "raw": "이후 15개 모듈을 별도로 선택한 검사에서는 다음 참조 후보가 남았다. 검사 시점의\n목록이며 선택 기능을 포함한다. Windows 목록에는 이 중 14개 모듈의 의존성이\n남아 있었다. 이 수치는 전체 SDK의 완료 수치가 아니다.\n"
+    },
+    {
+      "id": "b000040",
+      "kind": "blank",
+      "start_line": 110,
+      "end_line": 110,
+      "raw": "\n"
+    },
+    {
+      "id": "b000041",
+      "kind": "table",
+      "start_line": 111,
+      "end_line": 127,
+      "raw": "| 모듈 | 다른 SDK 참조 후보 |\n| --- | --- |\n| LVRS | LVUI, iiFileProvider, iiGUI, iiJson, iiNetwork, iiSDKCore, iiVisualCodec |\n| LVUI | iiColorManager, iiGUI, iiSDKCore |\n| iiAccountManager | LVRS, iiJson, iiNetwork |\n| iiActorObject | iiJson, iiVisualCodec |\n| iiGUI | LVUI, iiColorManager, iiSDKCore |\n| iiGlobalSearch | iiFileProvider, iiJson, iiNetwork, iiSDKCore, iiSocietyContainer |\n| iiLicenseManager | iiAccountManager, iiFileProvider, iiNetwork |\n| iiLocalLLM | iiFileProvider |\n| iiMultimodalAgent | iiAudioGen, iiDecision, iiFileProvider, iiLocalDiffusion, iiLocalLLM, iiVoiceOver |\n| iiPhotoLibrary | LVRS, iiFileProvider, iiSocietyContainer, iiSocietyHelper |\n| iiSocietyContainer | iiFileProvider |\n| iiSocietyHelper | iiAccountManager, iiFileProvider, iiLocalDiffusion, iiSDKCore, iiSharedCanvas, iiSocietyContainer, iiWebServer |\n| iiUpdateManager | iiAccountManager, iiFileProvider, iiNetwork, iiSDKCore |\n| iiVirtualizer | iiAccountManager, iiFileProvider, iiJson, iiNetwork, iiSDKCore |\n| iiWebServer | iiFileProvider, iiNetwork, iiSDKCore |\n",
+      "columns": [
+        "모듈",
+        "다른 SDK 참조 후보"
+      ],
+      "rows": [
+        [
+          "LVRS",
+          "LVUI, iiFileProvider, iiGUI, iiJson, iiNetwork, iiSDKCore, iiVisualCodec"
+        ],
+        [
+          "LVUI",
+          "iiColorManager, iiGUI, iiSDKCore"
+        ],
+        [
+          "iiAccountManager",
+          "LVRS, iiJson, iiNetwork"
+        ],
+        [
+          "iiActorObject",
+          "iiJson, iiVisualCodec"
+        ],
+        [
+          "iiGUI",
+          "LVUI, iiColorManager, iiSDKCore"
+        ],
+        [
+          "iiGlobalSearch",
+          "iiFileProvider, iiJson, iiNetwork, iiSDKCore, iiSocietyContainer"
+        ],
+        [
+          "iiLicenseManager",
+          "iiAccountManager, iiFileProvider, iiNetwork"
+        ],
+        [
+          "iiLocalLLM",
+          "iiFileProvider"
+        ],
+        [
+          "iiMultimodalAgent",
+          "iiAudioGen, iiDecision, iiFileProvider, iiLocalDiffusion, iiLocalLLM, iiVoiceOver"
+        ],
+        [
+          "iiPhotoLibrary",
+          "LVRS, iiFileProvider, iiSocietyContainer, iiSocietyHelper"
+        ],
+        [
+          "iiSocietyContainer",
+          "iiFileProvider"
+        ],
+        [
+          "iiSocietyHelper",
+          "iiAccountManager, iiFileProvider, iiLocalDiffusion, iiSDKCore, iiSharedCanvas, iiSocietyContainer, iiWebServer"
+        ],
+        [
+          "iiUpdateManager",
+          "iiAccountManager, iiFileProvider, iiNetwork, iiSDKCore"
+        ],
+        [
+          "iiVirtualizer",
+          "iiAccountManager, iiFileProvider, iiJson, iiNetwork, iiSDKCore"
+        ],
+        [
+          "iiWebServer",
+          "iiFileProvider, iiNetwork, iiSDKCore"
+        ]
+      ]
+    },
+    {
+      "id": "b000042",
+      "kind": "blank",
+      "start_line": 128,
+      "end_line": 128,
+      "raw": "\n"
+    },
+    {
+      "id": "b000043",
+      "kind": "fenced_code",
+      "start_line": 129,
+      "end_line": 137,
+      "raw": "```sh\npython3 -B tools/audit_sdk_independence.py\npython3 -B tools/audit_sdk_independence.py --json\npython3 -B tools/audit_sdk_independence.py --strict\npython3 -B tools/audit_sdk_independence.py --module iiGPU --module iiGraphicAdjust --strict\npython3 -B tools/audit_sdk_independence.py --module iiAudioGen --strict\npython3 -B -m unittest tests/test_sdk_independence_audit.py\npython3 -B -m unittest tests/test_gpu_dawn_consumer.py\n```\n",
+      "language": "sh",
+      "code": "python3 -B tools/audit_sdk_independence.py\npython3 -B tools/audit_sdk_independence.py --json\npython3 -B tools/audit_sdk_independence.py --strict\npython3 -B tools/audit_sdk_independence.py --module iiGPU --module iiGraphicAdjust --strict\npython3 -B tools/audit_sdk_independence.py --module iiAudioGen --strict\npython3 -B -m unittest tests/test_sdk_independence_audit.py\npython3 -B -m unittest tests/test_gpu_dawn_consumer.py\n",
+      "closed": true
+    },
+    {
+      "id": "b000044",
+      "kind": "blank",
+      "start_line": 138,
+      "end_line": 138,
+      "raw": "\n"
+    },
+    {
+      "id": "b000045",
+      "kind": "paragraph",
+      "start_line": 139,
+      "end_line": 153,
+      "raw": "이 도구는 각 SDK의 CMake 선언, C/C++ 헤더 참조, Python import, 설치 순서와\nWindows 목록을 읽어 직접 참조 후보를 출력한다. 실행 중인 파일을 수정하지 않는다.\n선택 기능도 포함하며 독립 소비자 예제, 테스트, 벤더와 빌드 디렉터리는 제외한다.\n예제 디렉터리는 최상위 CMake가 그 디렉터리나 소스를 직접 참조하는 경우 검사한다.\n별도 체크아웃이 최상위 `project()`에서 기존 SDK와 같은 패키지 이름을 선언하면\n해당 패키지의 자기 참조로 취급한다. `iiSocialPublish`는 `iiSocialIntegration`의\n기존 이름과 소스 호환 별칭이며 별도의 SDK 검사 대상이 아니다.\n빌드에 포함된 예제 아래의 별도 소비자나 `tools/` 프로젝트는 명시된 소비자\n표시와 상위 CMake의 빌드 참조 부재를 함께 확인한 경우에만 모듈 자체의\n의존성 검사에서 제외한다. 설치용 복사는 빌드 연결로 간주하지 않는다.\n`--strict`는 참조나 검사하지 못한 파일이 있으면 실패하므로 전환 중에는 실패가\n정상이다. `--module`을 반복해 특정 모듈만 검사할 수 있으며 알 수 없는 이름은\n오류로 처리한다. 이는 어휘 기반 목록이지 의존성이 실제로 활성화되었음을 증명하지 않으며,\nCMake 변수 확장과 포함된 CMake 파일을 통한 간접 예제 연결, 생성 소스, 바이너리\n심벌과 런타임 연결은 별도로 조사해야 한다.\n"
+    },
+    {
+      "id": "b000046",
+      "kind": "blank",
+      "start_line": 154,
+      "end_line": 154,
+      "raw": "\n"
+    },
+    {
+      "id": "b000047",
+      "kind": "paragraph",
+      "start_line": 155,
+      "end_line": 159,
+      "raw": "각 변경은 모듈의 공개 헤더와 내보낸 패키지, 다른 SDK가 없는 빌드, 자동 계약\n테스트, 별도로 구성한 조합 소비자를 확인한다. 실제 애플리케이션 실행은 별도\n요청이 있을 때만 수행하며 빌드·단위 검사와 구분해 기록한다.\nWindows 전체 검증은 독립 SDK 검사 후 해당 소비자 조합과 기존에 옮겨진 검사\n이름을 확인하고, 누락되거나 실패한 조합이 있으면 전체 통과로 기록하지 않는다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "SDK 간 독립성과 조합",
+      "anchor": "sdk-간-독립성과-조합",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000003",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "목표와 현재 상태",
+      "anchor": "목표와-현재-상태",
+      "start_line": 3
+    },
+    {
+      "block_id": "b000027",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "파일과 기존 기능",
+      "anchor": "파일과-기존-기능",
+      "start_line": 69
+    },
+    {
+      "block_id": "b000033",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "반복 점검",
+      "anchor": "반복-점검",
+      "start_line": 86
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000005",
+        "line": 9,
+        "text": "이 규칙의 SDK 간 연결에 해당하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000007",
+        "line": 18,
+        "text": "다시 빌드하고 Core도 앱에서 직접 링크해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000009",
+        "line": 23,
+        "text": "다시 빌드해야 한다. 멀티모달 에이전트의 WAV 경로는 바이트를 파일 제공자로 직접",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000011",
+        "line": 28,
+        "text": "앱은 새 소비자 어댑터 또는 자체 파일 연결을 사용하도록 변경하고 다시 빌드해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000013",
+        "line": 33,
+        "text": "기존 녹화 호출자는 파일 포트를 전달하도록 수정하고 다시 빌드해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000015",
+        "line": 38,
+        "text": "호출자는 새 포트를 제공하고 다시 빌드해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000017",
+        "line": 43,
+        "text": "다시 빌드해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000019",
+        "line": 48,
+        "text": "네트워크 본체의 나머지 Core·iiJson 참조는 이후에 제거해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000023",
+        "line": 56,
+        "text": "자동 주입하지 않는다. SDK별 설치 prefix와 CMake 캐시를 분리하고 앱 구성에 선택",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000025",
+        "line": 65,
+        "text": "변환하고 관련 모듈과 애플리케이션을 다시 빌드해야 한다. iiNetwork 등 기존",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000025",
+        "line": 67,
+        "text": "일괄 교체하기 전 소비자별 빌드와 계약을 확인해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000029",
+        "line": 75,
+        "text": "입력으로 받고 파일을 생성하지 않는다. 조합 예제와 앱의 CMake가 여러 SDK를",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000031",
+        "line": 82,
+        "text": "전환 시 기능을 단순 제거하지 않는다. 이전 API나 ABI가 바뀌면 소비자에서의",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000035",
+        "line": 92,
+        "text": "갱신해야 한다. iiGPU, iiGraphicAdjust, iiAudioGen, iiDecision, iiFileProvider,",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000045",
+        "line": 140,
+        "text": "Windows 목록을 읽어 직접 참조 후보를 출력한다. 실행 중인 파일을 수정하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000045",
+        "line": 148,
+        "text": "의존성 검사에서 제외한다. 설치용 복사는 빌드 연결로 간주하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000045",
+        "line": 153,
+        "text": "심벌과 런타임 연결은 별도로 조사해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000047",
+        "line": 159,
+        "text": "이름을 확인하고, 누락되거나 실패한 조합이 있으면 전체 통과로 기록하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [
+      {
+        "block_id": "b000043",
+        "language": "sh",
+        "code": "python3 -B tools/audit_sdk_independence.py\npython3 -B tools/audit_sdk_independence.py --json\npython3 -B tools/audit_sdk_independence.py --strict\npython3 -B tools/audit_sdk_independence.py --module iiGPU --module iiGraphicAdjust --strict\npython3 -B tools/audit_sdk_independence.py --module iiAudioGen --strict\npython3 -B -m unittest tests/test_sdk_independence_audit.py\npython3 -B -m unittest tests/test_gpu_dawn_consumer.py\n"
+      }
+    ],
+    "links": [],
+    "tables": [
+      {
+        "block_id": "b000041",
+        "columns": [
+          "모듈",
+          "다른 SDK 참조 후보"
+        ],
+        "rows": [
+          [
+            "LVRS",
+            "LVUI, iiFileProvider, iiGUI, iiJson, iiNetwork, iiSDKCore, iiVisualCodec"
+          ],
+          [
+            "LVUI",
+            "iiColorManager, iiGUI, iiSDKCore"
+          ],
+          [
+            "iiAccountManager",
+            "LVRS, iiJson, iiNetwork"
+          ],
+          [
+            "iiActorObject",
+            "iiJson, iiVisualCodec"
+          ],
+          [
+            "iiGUI",
+            "LVUI, iiColorManager, iiSDKCore"
+          ],
+          [
+            "iiGlobalSearch",
+            "iiFileProvider, iiJson, iiNetwork, iiSDKCore, iiSocietyContainer"
+          ],
+          [
+            "iiLicenseManager",
+            "iiAccountManager, iiFileProvider, iiNetwork"
+          ],
+          [
+            "iiLocalLLM",
+            "iiFileProvider"
+          ],
+          [
+            "iiMultimodalAgent",
+            "iiAudioGen, iiDecision, iiFileProvider, iiLocalDiffusion, iiLocalLLM, iiVoiceOver"
+          ],
+          [
+            "iiPhotoLibrary",
+            "LVRS, iiFileProvider, iiSocietyContainer, iiSocietyHelper"
+          ],
+          [
+            "iiSocietyContainer",
+            "iiFileProvider"
+          ],
+          [
+            "iiSocietyHelper",
+            "iiAccountManager, iiFileProvider, iiLocalDiffusion, iiSDKCore, iiSharedCanvas, iiSocietyContainer, iiWebServer"
+          ],
+          [
+            "iiUpdateManager",
+            "iiAccountManager, iiFileProvider, iiNetwork, iiSDKCore"
+          ],
+          [
+            "iiVirtualizer",
+            "iiAccountManager, iiFileProvider, iiJson, iiNetwork, iiSDKCore"
+          ],
+          [
+            "iiWebServer",
+            "iiFileProvider, iiNetwork, iiSDKCore"
+          ]
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

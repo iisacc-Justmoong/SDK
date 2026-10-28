@@ -4,20 +4,12 @@ import argparse
 import base64
 import hashlib
 import json
-import os
-import sys
 from pathlib import Path, PurePosixPath
 import platform
 import tarfile
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
-# File publication is owned by iiFileProvider, not this dependency downloader.
-for candidate in (ROOT.parent / "iiFileProvider/python", Path(os.environ.get("IIFILEPROVIDER_PREFIX", Path.home() / ".local/SDK/iiFileProvider")) / "share/iiFileProvider/python"):
-    if (candidate / "ii_file_provider/__init__.py").is_file():
-        sys.path.insert(0, str(candidate))
-        break
-import ii_file_provider as provider
 
 
 def digest(data):
@@ -38,18 +30,18 @@ def default_destination(key):
     return ROOT / "resources/dawn" / key
 
 
-def put_verified(path, data):
+def put_verified(path, data, *, storage):
     if path.exists():
         if path.read_bytes() != data:
             raise ValueError("Existing dependency file differs; preserving it: " + str(path))
         return
-    provider.mkdir(path.parent, parents=True, exist_ok=True)
-    with provider.staged_path(path, overwrite=False) as temporary:
-        with provider.open(temporary, "wb") as stream:
+    storage.mkdir(path.parent, parents=True, exist_ok=True)
+    with storage.staged_path(path, overwrite=False) as temporary:
+        with storage.open(temporary, "wb") as stream:
             stream.write(data)
 
 
-def extract(archive, destination):
+def extract(archive, destination, *, storage):
     """Strip one archive root; preserve only the relocatable C/C++ distribution."""
     hashes = {}
     with tarfile.open(archive) as source:
@@ -74,14 +66,14 @@ def extract(archive, destination):
                 continue
             data = source.extractfile(member).read()
             relative = PurePosixPath(*parts).as_posix()
-            put_verified(destination.joinpath(*parts), data)
+            put_verified(destination.joinpath(*parts), data, storage=storage)
             hashes[relative] = digest(data)
     if "include/webgpu/webgpu.h" not in hashes or "lib/cmake/Dawn/DawnConfig.cmake" not in hashes:
         raise ValueError("Archive is not a complete relocatable Dawn distribution")
     return hashes
 
 
-def checked_download(url, sha256, destination=None, encoded=False):
+def checked_download(url, sha256, destination=None, encoded=False, *, storage):
     if destination and destination.is_file():
         data = destination.read_bytes()
     else:
@@ -92,7 +84,7 @@ def checked_download(url, sha256, destination=None, encoded=False):
     if digest(data) != sha256:
         raise ValueError("SHA-256 mismatch: " + url)
     if destination:
-        put_verified(destination, data)
+        put_verified(destination, data, storage=storage)
     return data
 
 
@@ -103,13 +95,13 @@ def verify(destination, record):
             raise ValueError("Dependency verification failed: " + str(path))
 
 
-def main():
+def main(storage, argv=None):
     lock_bytes = (ROOT / "tools/dawn.lock.json").read_bytes()
     lock = json.loads(lock_bytes)
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--platform", choices=tuple(lock["assets"]))
     parser.add_argument("--destination", type=Path)
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     key = args.platform or host_key()
     if key not in lock["assets"]:
         parser.error("No pinned binary for " + key + "; provide a target-native Dawn source build")
@@ -127,17 +119,17 @@ def main():
             print("Verified Dawn " + lock["release"] + " for " + key + ": " + str(destination))
             return
     archive = ROOT / "resources/dawn-cache" / ("dawn-" + key + ".tar.gz")
-    checked_download(asset["url"], asset["sha256"], archive)
-    hashes = extract(archive, destination)
+    checked_download(asset["url"], asset["sha256"], archive, storage=storage)
+    hashes = extract(archive, destination, storage=storage)
     for license in lock["licenses"]:
         path = destination / "licenses" / license["name"]
-        data = checked_download(license["url"], license["sha256"], path, license["base64"])
+        data = checked_download(license["url"], license["sha256"], path, license["base64"], storage=storage)
         hashes[path.relative_to(destination).as_posix()] = digest(data)
     record = {"release": lock["release"], "revision": lock["revision"], "platform": key,
               "archive_sha256": asset["sha256"], "lock_sha256": digest(lock_bytes), "files": hashes}
-    provider.write_text(marker, json.dumps(record, indent=2, sort_keys=True) + "\n")
+    storage.write_text(marker, json.dumps(record, indent=2, sort_keys=True) + "\n")
     print("Verified Dawn " + lock["release"] + " for " + key + ": " + str(destination))
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit("Supply a storage adapter from an application; see SDK/tools/fetch_gpu_dawn.py")

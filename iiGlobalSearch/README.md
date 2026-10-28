@@ -1,5 +1,9 @@
 # iiGlobalSearch
 
+File snapshot indexing is provided by `iiFileProvider::Catalog` through
+`FileSearchIndex`; iiGlobalSearch owns Society traversal, access validation,
+asynchronous lifecycle and result revalidation. Web search remains independent.
+
 iiGlobalSearch builds a searchable, in-memory snapshot of iiFileProvider
 classification and presentation information in one `.societycontainer`
 directory package. A reusable iiSDKCore worker indexes asynchronously; callers

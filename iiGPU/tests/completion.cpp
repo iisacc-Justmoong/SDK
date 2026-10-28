@@ -1,4 +1,5 @@
 #include <iiGPU/Completion.h>
+#include <iiSDKCore/Runtime/EventLoop.h>
 #include "../example/Acceleration/Kernel.h"
 #include <array>
 #include <iostream>
