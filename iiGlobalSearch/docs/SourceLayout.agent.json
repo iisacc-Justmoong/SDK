@@ -1,0 +1,107 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:73dc2618a64d27a39748fe2157d736b9540b03cf7eab4649837012886a541425",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiGlobalSearch",
+    "name": "iiGlobalSearch",
+    "root": "SDK/iiGlobalSearch",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "docs/SourceLayout.md",
+    "sha256": "46db95440eb6d0280e976f7fa248394184b17b08722853b215f88cf0fb9949ae",
+    "bytes": 839,
+    "line_count": 7,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "소스 구조",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# 소스 구조\n",
+      "level": 1,
+      "title": "소스 구조"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "`src/Answers/`는 공통 검색 답변, `src/Local/`은 선택한 Society 컨테이너 검색, `src/Web/`은 웹 검색과 전송, `src/CLI/`는 명령행 진입점을 소유한다. 구현과 관련 헤더를 함께 두며 구성 요소 간 의존은 기존 공개 인터페이스를 따른다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 4,
+      "end_line": 4,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 5,
+      "end_line": 5,
+      "raw": "빌드 중 생성한 연결 헤더와 설치된 원본 헤더는 기존 `<Answer.h>`, `<GlobalSearch.h>`, `<WebSearch.h>` 경로를 유지한다. `iiGlobalSearch.source_layout`은 각 책임의 소스 위치를 검사한다. 실제 인터넷·브라우저·사용자 컨테이너의 동작 여부는 구조 검사와 별도로 검증한다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "설치된 독립 소비자의 `iiGlobalSearch.installed_api`는 세 공개 헤더, 답변 값과 거부되는 파일 URL을 확인하며 외부 네트워크를 사용하지 않는다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "소스 구조",
+      "anchor": "소스-구조",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000007",
+        "line": 7,
+        "text": "설치된 독립 소비자의 `iiGlobalSearch.installed_api`는 세 공개 헤더, 답변 값과 거부되는 파일 URL을 확인하며 외부 네트워크를 사용하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

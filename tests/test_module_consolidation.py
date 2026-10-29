@@ -19,7 +19,7 @@ class ModuleConsolidationTests(unittest.TestCase):
 
     def test_active_components_are_owned_by_their_modules(self):
         required = {
-            "iiGPU": ("src/iiWebGPU/WebGPU.cpp", "cmake/iiWebGPUConfig.cmake.in"),
+            "iiGPU": ("src/WebGPUComponent/WebGPU.cpp", "cmake/iiWebGPUConfig.cmake.in"),
             "iiXml": ("src/Html/iiHtmlBlock.cpp", "cmake/iiHtmlBlockConfig.cmake.in"),
             "iiPaintEngine": ("src/iiBrushTools/Gesture.cpp", "cmake/iiBrushToolsConfig.cmake.in"),
         }

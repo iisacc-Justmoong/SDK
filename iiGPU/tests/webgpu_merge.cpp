@@ -1,5 +1,10 @@
 #include <iiGPU/GPU.h>
+#include <iiWebGPU/Arena.h>
 #include <iiWebGPU/Memory.h>
+#include <iiWebGPU/Native.h>
+#include <iiWebGPU/Result.h>
+#include <iiWebGPU/Texture.h>
+#include <iiWebGPU/WebGPU.h>
 #include <cstdint>
 
 int main() {

@@ -10,8 +10,8 @@
   },
   "source": {
     "path": "AGENT.md",
-    "sha256": "bb8a753a84c721a6618bf58f427db416d919d07c1d557fdd8bf7e9413551d8b6",
-    "bytes": 3204,
+    "sha256": "3cc7ad0e36b9cfbdd86d647af70e90aabbab970b7702952dfeccd0fbc00332e7",
+    "bytes": 3232,
     "line_count": 31,
     "encoding": "utf-8",
     "language": "ko"
@@ -43,11 +43,11 @@
       "kind": "list",
       "start_line": 3,
       "end_line": 13,
-      "raw": "- C++23의 공개 API를 사용한다. 헤더와 구현은 src/iiGPU/에 함께 둔다.\n- iiGPU는 GPU 장치·버퍼·컴퓨트 파이프라인·명령·동기화를 소유한다. 위젯, 윈도, 모델, 확률 계산은 상위 모듈이 소유한다.\n- WebGPU는 선택적 iiGPU::WebGPU 구성요소이며, 기존 iiWebGPU 공개 이름은 호환 대상으로 유지한다. Dawn은 resources/dawn 또는 명시된 대상별 패키지에서 가져온다.\n- iiGPU의 모든 구성요소는 다른 SDK 모듈을 참조하지 않는다. 선택적 iiGPU::Runtime은 호출자가 제공한 스케줄러로 완료를 관측한다. 애플리케이션이 Core EventLoop 등과 조합하고 필요한 라이브러리를 직접 링크한다.\n- Dawn 준비 코드는 저장 계약을 인자로 받는다. Workspace 소비자 유틸리티가 iiFileProvider를 공급하며 리소스를 생성한다.\n- 공개 API에는 Qt 및 Metal·Vulkan의 헤더나 타입을 노출하지 않는다. 네이티브 접근 콜백은 빌린 핸들의 수명과 동기화를 호출자에게 명시한다.\n- CPU·소프트웨어 GPU를 하드웨어 실행으로 표시하지 않는다. 미지원 기능, 장치 손실, 예산 초과는 오류로 돌려준다.\n- 실제 GPU 제출 이후의 취소나 선점을 보장하지 않는다. 마지막 제출 핸들의 파괴는 GPU 자원 안전성을 위해 완료를 기다린다.\n- 빌드와 검증 산출물은 build/ 안에 둔다. 사용자 앱의 창을 테스트 도중 반복 실행하지 않는다.\n- 소스 변경 시 tests/와 docs/를 함께 갱신하고 빌드·테스트한다. README.md는 영어, docs/는 한국어로 작성한다.\n- docs/agent-index.json과 Markdown에서 파생한 JSON을 함께 유지한다.\n",
+      "raw": "- C++23의 공개 API를 사용한다. 헤더와 구현은 src/ 및 책임별 하위 디렉터리에 함께 둔다.\n- iiGPU는 GPU 장치·버퍼·컴퓨트 파이프라인·명령·동기화를 소유한다. 위젯, 윈도, 모델, 확률 계산은 상위 모듈이 소유한다.\n- WebGPU는 선택적 iiGPU::WebGPU 구성요소이며, 기존 iiWebGPU 공개 이름은 호환 대상으로 유지한다. Dawn은 resources/dawn 또는 명시된 대상별 패키지에서 가져온다.\n- iiGPU의 모든 구성요소는 다른 SDK 모듈을 참조하지 않는다. 선택적 iiGPU::Runtime은 호출자가 제공한 스케줄러로 완료를 관측한다. 애플리케이션이 Core EventLoop 등과 조합하고 필요한 라이브러리를 직접 링크한다.\n- Dawn 준비 코드는 저장 계약을 인자로 받는다. Workspace 소비자 유틸리티가 iiFileProvider를 공급하며 리소스를 생성한다.\n- 공개 API에는 Qt 및 Metal·Vulkan의 헤더나 타입을 노출하지 않는다. 네이티브 접근 콜백은 빌린 핸들의 수명과 동기화를 호출자에게 명시한다.\n- CPU·소프트웨어 GPU를 하드웨어 실행으로 표시하지 않는다. 미지원 기능, 장치 손실, 예산 초과는 오류로 돌려준다.\n- 실제 GPU 제출 이후의 취소나 선점을 보장하지 않는다. 마지막 제출 핸들의 파괴는 GPU 자원 안전성을 위해 완료를 기다린다.\n- 빌드와 검증 산출물은 build/ 안에 둔다. 사용자 앱의 창을 테스트 도중 반복 실행하지 않는다.\n- 소스 변경 시 tests/와 docs/를 함께 갱신하고 빌드·테스트한다. README.md는 영어, docs/는 한국어로 작성한다.\n- docs/agent-index.json과 Markdown에서 파생한 JSON을 함께 유지한다.\n",
       "items": [
         {
           "marker": "-",
-          "text": "C++23의 공개 API를 사용한다. 헤더와 구현은 src/iiGPU/에 함께 둔다.",
+          "text": "C++23의 공개 API를 사용한다. 헤더와 구현은 src/ 및 책임별 하위 디렉터리에 함께 둔다.",
           "checked": null
         },
         {

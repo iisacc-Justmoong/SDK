@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/README.md",
-    "sha256": "0be732d6319cdc1c542773ce960a6341a86f723aa44d7ce4b86d470b44748eed",
-    "bytes": 746,
-    "line_count": 16,
+    "sha256": "721ad06e1ce34c32e8804c8725ec44ee26d1e8f16f1d558ab9bdb5a188a994d0",
+    "bytes": 826,
+    "line_count": 17,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -79,8 +79,8 @@
       "id": "b000008",
       "kind": "table",
       "start_line": 8,
-      "end_line": 15,
-      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/Answers.md`](Answers.md) | [JSON](Answers.agent.json) |\n| [`docs/Indexing.md`](Indexing.md) | [JSON](Indexing.agent.json) |\n| [`docs/WebSearch.md`](WebSearch.md) | [JSON](WebSearch.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n",
+      "end_line": 16,
+      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/Answers.md`](Answers.md) | [JSON](Answers.agent.json) |\n| [`docs/Indexing.md`](Indexing.md) | [JSON](Indexing.agent.json) |\n| [`docs/SourceLayout.md`](SourceLayout.md) | [JSON](SourceLayout.agent.json) |\n| [`docs/WebSearch.md`](WebSearch.md) | [JSON](WebSearch.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n",
       "columns": [
         "Document",
         "Agent JSON"
@@ -103,6 +103,10 @@
           "[JSON](Indexing.agent.json)"
         ],
         [
+          "[`docs/SourceLayout.md`](SourceLayout.md)",
+          "[JSON](SourceLayout.agent.json)"
+        ],
+        [
           "[`docs/WebSearch.md`](WebSearch.md)",
           "[JSON](WebSearch.agent.json)"
         ],
@@ -115,8 +119,8 @@
     {
       "id": "b000009",
       "kind": "html",
-      "start_line": 16,
-      "end_line": 16,
+      "start_line": 17,
+      "end_line": 17,
       "raw": "<!-- workspace-docs:document-map:end -->\n"
     }
   ],
@@ -200,31 +204,45 @@
       },
       {
         "block_id": "b000008",
+        "label": "`docs/SourceLayout.md`",
+        "target": "SourceLayout.md",
+        "kind": "relative",
+        "line": 14
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "SourceLayout.agent.json",
+        "kind": "relative",
+        "line": 14
+      },
+      {
+        "block_id": "b000008",
         "label": "`docs/WebSearch.md`",
         "target": "WebSearch.md",
         "kind": "relative",
-        "line": 14
+        "line": 15
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "WebSearch.agent.json",
         "kind": "relative",
-        "line": 14
+        "line": 15
       },
       {
         "block_id": "b000008",
         "label": "`docs/documentation-structure.md`",
         "target": "documentation-structure.md",
         "kind": "relative",
-        "line": 15
+        "line": 16
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "documentation-structure.agent.json",
         "kind": "relative",
-        "line": 15
+        "line": 16
       }
     ],
     "tables": [
@@ -250,6 +268,10 @@
           [
             "[`docs/Indexing.md`](Indexing.md)",
             "[JSON](Indexing.agent.json)"
+          ],
+          [
+            "[`docs/SourceLayout.md`](SourceLayout.md)",
+            "[JSON](SourceLayout.agent.json)"
           ],
           [
             "[`docs/WebSearch.md`](WebSearch.md)",

@@ -15,11 +15,11 @@ class AccountManagerNameTests(unittest.TestCase):
         self.assertTrue(module.is_dir(), str(module))
         self.assertFalse((SDK / RETIRED).exists())
         for relative in (
-            NAME + ".h",
-            "src/" + NAME + "/AccountManager.h",
-            "src/" + NAME + "/Export.h",
-            "Native/src/" + NAME + "/NativeAccount.h",
-            "Native/src/" + NAME + "/BrowserSession.h",
+            "src/Accounts/" + NAME + ".h",
+            "src/Accounts/AccountManager.h",
+            "src/Accounts/Export.h",
+            "Native/src/Account/NativeAccount.h",
+            "Native/src/Session/BrowserSession.h",
             "cmake/" + NAME + "Config.cmake.in",
             "Native/cmake/" + NAME + "NativeConfig.cmake.in",
         ):
@@ -40,7 +40,7 @@ class AccountManagerNameTests(unittest.TestCase):
 
     def test_export_macro_and_package_templates_use_the_canonical_name(self):
         module = SDK / NAME
-        export = (module / "src" / NAME / "Export.h").read_text()
+        export = (module / "src" / "Accounts" / "Export.h").read_text()
         self.assertIn("IIACCOUNTMANAGER_EXPORT", export)
         self.assertIn("IIACCOUNTMANAGER_BUILD", export)
         for relative in ("CMakeLists.txt", "Native/CMakeLists.txt"):
@@ -54,10 +54,10 @@ class AccountManagerNameTests(unittest.TestCase):
         workspace = SDK.parent
         paths = (
             "SDK/iiCalendar/tests/iisacc_bridge.cpp",
-            "SDK/iiLicenseManager/src/iiLicenseManager/LicenseClient.h",
+            "SDK/iiLicenseManager/src/Client/LicenseClient.h",
             "SDK/iiLicenseManager/Native/cmake/iiLicenseManagerNativeConfig.cmake.in",
-            "SDK/iiUpdateManager/Native/src/iiUpdateManager/NativeUpdateManager.cpp",
-            "SDK/iiSocietyHelper/src/iiSocietyHelper/AccountSession.h",
+            "SDK/iiUpdateManager/Native/src/Updates/NativeUpdateManager.cpp",
+            "SDK/iiSocietyHelper/src/Account/AccountSession.h",
             "SDK/iiSocietyHelper/cmake/iiSocietyHelperConfig.cmake.in",
             "SDK/iiVirtualizer/cmake/iiVirtualizerConfig.cmake.in",
             "Product/Society/App/Society/Account/AccountController.h",

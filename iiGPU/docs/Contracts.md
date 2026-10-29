@@ -2,6 +2,13 @@
 
 ## 책임과 의존성
 
+공통 GPU API와 구현은 `src/`, 플랫폼 백엔드는 `src/Backends/`, 완료 관측은
+`src/Runtime/`, WebGPU 구성요소는 `src/WebGPUComponent/`에 둔다. 헤더는 구현 옆에
+유지하며 기존 `iiGPU/`와 `iiWebGPU/` 공개 include 경로는 빌드와 설치에서
+동일하다.
+설치 소비자에 `WITH_RUNTIME=ON` 또는 `WITH_WEBGPU_MEMORY=ON`을 지정하면
+실제 GPU 제출 없이 완료 관측과 WebGPU 헤더·메모리 계약을 확인할 수 있다.
+
 iiGPU는 장치·메모리·컴퓨트 명령·동기화의 독립 모듈이다. 공개 네임스페이스는
 `ii::gpu`이며 C++23과 표준 자료형을 사용한다. iiGUI·iiDecision·Qt·윈도 시스템에
 의존하지 않는다. `iiGPU::iiGPU`와 선택적 `iiGPU::Runtime` 모두 다른 SDK를

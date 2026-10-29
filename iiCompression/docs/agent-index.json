@@ -14,7 +14,7 @@
       "document_id": "urn:iisacc:document:c9e1854e5c289ab25ab4e5cf462c5a6611562d28b80d9868c4bc4b88e8424495",
       "source": "AGENT.md",
       "agent_json": "docs/entrypoints/AGENT.agent.json",
-      "source_sha256": "29e5729762757b55fd2066491f1253653cb1475a228029314148612a0a390d17",
+      "source_sha256": "1828212d2f831b8f13d7d316fba4ec5322c049c5682f5fdb3c990bb04adac9c3",
       "role": "instructions"
     },
     {
@@ -28,14 +28,14 @@
       "document_id": "urn:iisacc:document:0d755806880c6596dbdfd5046224df39bea98933f60e277bc60318d3f76eae78",
       "source": "README.md",
       "agent_json": "docs/entrypoints/README.agent.json",
-      "source_sha256": "187a2c708a8c2e1c519f8a9242163e4a476979383e6c0f9f12beef15c55ee36a",
+      "source_sha256": "54580b3721126b46209e79b26ebb3170c5a3c256d7c2e1d142d1c08a84df9bc1",
       "role": "overview"
     },
     {
       "document_id": "urn:iisacc:document:cf8d39b153edb32d4ae2607eee080992ff67f73e2fa2ac6cdc8eca81cf480ade",
       "source": "docs/Gzip.md",
       "agent_json": "docs/Gzip.agent.json",
-      "source_sha256": "b3c2dd36ffbb05f9af0b3b647b1905210c0860e5149617c9766f632ac644b16d",
+      "source_sha256": "61c792f439c10501861657764ba6daa8c7705d90b610884d5aeac33194ea29ce",
       "role": "guide"
     },
     {

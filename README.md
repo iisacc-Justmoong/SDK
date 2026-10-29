@@ -22,7 +22,9 @@ GPU evidence adapter with iiGPU independently. See
 compression and single-member decompression without Qt or other SDK
 dependencies. Applications can compose it with their format and file modules.
 
-Public headers live beside their implementations in each module's source tree.
+Public headers live beside their implementations under each module's `src/`,
+organized by responsibility without repeating the project name. Existing modules
+are being migrated; their installed include names remain stable.
 
 SDK modules are being migrated to independently built packages. Applications
 compose them through caller-owned interfaces and link each selected module

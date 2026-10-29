@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/Gzip.md",
-    "sha256": "b3c2dd36ffbb05f9af0b3b647b1905210c0860e5149617c9766f632ac644b16d",
-    "bytes": 1209,
-    "line_count": 15,
+    "sha256": "61c792f439c10501861657764ba6daa8c7705d90b610884d5aeac33194ea29ce",
+    "bytes": 1498,
+    "line_count": 19,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -42,21 +42,35 @@
       "id": "b000003",
       "kind": "paragraph",
       "start_line": 3,
-      "end_line": 11,
-      "raw": "`<iiCompression/Gzip.h>`의 `gzip_compress`와 `gzip_decompress`는 바이트를\n받아 완성된 바이트 또는 오류를 반환한다. 파일과 다른 iiSDK는 호출자가 소유한다.\n`Limits`는 압축 또는 입력 바이트와 생성되는 출력 바이트를 각각 제한한다.\n디코더는 체크섬을 확인하고 완전한 gzip 멤버 한 개만 허용한다. 잘림, 손상,\n뒤따르는 바이트와 이어 붙인 멤버는 거부하며 일부 출력은 반환하지 않는다.\n한 번의 입력은 zlib의 `uInt`가 표현할 수 있는 바이트 수를 넘을 수 없다.\n압축된 출력의 한도에는 gzip 헤더와 트레일러가 포함된다.\nzlib와 임시 블록, 벡터 용량 및 할당자의 오버헤드는 논리적 출력 한도에 포함되지\n않으므로 이 한도는 프로세스 전체 메모리 상한이 아니다.\n"
+      "end_line": 5,
+      "raw": "gzip 인터페이스와 구현은 `src/Gzip.h`와 `src/Gzip.cpp`에 함께 둔다.\n빌드에서는 CMake가 공개 이름공간을 위한 전달 헤더를 생성하며, 설치 시에는\n실제 헤더를 `iiCompression/Gzip.h`로 제공한다. 소비자의 include 경로는 동일하다.\n"
     },
     {
       "id": "b000004",
       "kind": "blank",
-      "start_line": 12,
-      "end_line": 12,
+      "start_line": 6,
+      "end_line": 6,
       "raw": "\n"
     },
     {
       "id": "b000005",
       "kind": "paragraph",
-      "start_line": 13,
+      "start_line": 7,
       "end_line": 15,
+      "raw": "`<iiCompression/Gzip.h>`의 `gzip_compress`와 `gzip_decompress`는 바이트를\n받아 완성된 바이트 또는 오류를 반환한다. 파일과 다른 iiSDK는 호출자가 소유한다.\n`Limits`는 압축 또는 입력 바이트와 생성되는 출력 바이트를 각각 제한한다.\n디코더는 체크섬을 확인하고 완전한 gzip 멤버 한 개만 허용한다. 잘림, 손상,\n뒤따르는 바이트와 이어 붙인 멤버는 거부하며 일부 출력은 반환하지 않는다.\n한 번의 입력은 zlib의 `uInt`가 표현할 수 있는 바이트 수를 넘을 수 없다.\n압축된 출력의 한도에는 gzip 헤더와 트레일러가 포함된다.\nzlib와 임시 블록, 벡터 용량 및 할당자의 오버헤드는 논리적 출력 한도에 포함되지\n않으므로 이 한도는 프로세스 전체 메모리 상한이 아니다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 16,
+      "end_line": 16,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 17,
+      "end_line": 19,
       "raw": "테스트는 독립적으로 생성된 gzip 데이터, 빈 값, 왕복, 체크섬, 잘림, 이어 붙인\n멤버와 입출력 한도를 검사한다. Python을 사용할 수 있으면 표준 gzip 구현으로\n인코딩 결과도 별도 확인한다. 플랫폼별 실행 결과는 해당 환경에서 별도로 확인한다.\n"
     }
   ],
@@ -73,8 +87,8 @@
   "indexes": {
     "directive_candidates": [
       {
-        "block_id": "b000003",
-        "line": 7,
+        "block_id": "b000005",
+        "line": 11,
         "text": "뒤따르는 바이트와 이어 붙인 멤버는 거부하며 일부 출력은 반환하지 않는다.",
         "basis": "lexical_match",
         "context": "paragraph"

@@ -1,5 +1,9 @@
 # 메모리 gzip 계약
 
+gzip 인터페이스와 구현은 `src/Gzip.h`와 `src/Gzip.cpp`에 함께 둔다.
+빌드에서는 CMake가 공개 이름공간을 위한 전달 헤더를 생성하며, 설치 시에는
+실제 헤더를 `iiCompression/Gzip.h`로 제공한다. 소비자의 include 경로는 동일하다.
+
 `<iiCompression/Gzip.h>`의 `gzip_compress`와 `gzip_decompress`는 바이트를
 받아 완성된 바이트 또는 오류를 반환한다. 파일과 다른 iiSDK는 호출자가 소유한다.
 `Limits`는 압축 또는 입력 바이트와 생성되는 출력 바이트를 각각 제한한다.

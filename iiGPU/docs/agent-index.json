@@ -14,21 +14,21 @@
       "document_id": "urn:iisacc:document:15dc1fd75ef8a4dc9df8b91ba25ae8327a8b57a306a545eea1cb081cd1da05e1",
       "source": "AGENT.md",
       "agent_json": "docs/entrypoints/AGENT.agent.json",
-      "source_sha256": "bb8a753a84c721a6618bf58f427db416d919d07c1d557fdd8bf7e9413551d8b6",
+      "source_sha256": "3cc7ad0e36b9cfbdd86d647af70e90aabbab970b7702952dfeccd0fbc00332e7",
       "role": "instructions"
     },
     {
       "document_id": "urn:iisacc:document:043106b2ae142cf05818726e839d9f961d32bd06b81bddf6dd56951e2e7b444c",
       "source": "README.md",
       "agent_json": "docs/entrypoints/README.agent.json",
-      "source_sha256": "f911d4949d8fa714b014d65c9b5ab99bb95907a0352d0c0db9ac0a0ce22c0b92",
+      "source_sha256": "24ad35c7e71ef1566f1529276b6a2b715a7b83dee184ab8b0625d04aa53a60e4",
       "role": "overview"
     },
     {
       "document_id": "urn:iisacc:document:c348ccadfae56def69ba4d6dd4c5a4f3344b1a74bb5a52bbb2e9373eefb70f21",
       "source": "docs/Contracts.md",
       "agent_json": "docs/Contracts.agent.json",
-      "source_sha256": "33e1a4a7839809a6b071a3361208604b68c83b79fe8746fd1e7992d7f53125b1",
+      "source_sha256": "da18c6c7b91bc1b0942c7cae99a3fc36315fb94ff43e4524eca52cecf079377e",
       "role": "reference"
     },
     {

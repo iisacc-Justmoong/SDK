@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "README.md",
-    "sha256": "e4aaf04971ae355ec0457656c6f067e0b316e9de96f8be3a8077d5f55d5cd70e",
-    "bytes": 4388,
-    "line_count": 73,
+    "sha256": "786b4d3bdd626e84716f8fab9dcfb078ce6bc9d991e54b5a57fbf278eaac66ef",
+    "bytes": 4579,
+    "line_count": 75,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -155,32 +155,46 @@
     },
     {
       "id": "b000019",
-      "kind": "html",
+      "kind": "paragraph",
       "start_line": 66,
       "end_line": 66,
-      "raw": "<!-- workspace-docs:readme:start -->\n"
+      "raw": "Sources and adjacent headers are grouped under `src/Answers`, `src/Local`, `src/Web`, and `src/CLI`; installed public include paths remain stable. See [source layout](docs/SourceLayout.md).\n"
     },
     {
       "id": "b000020",
-      "kind": "heading",
+      "kind": "blank",
       "start_line": 67,
       "end_line": 67,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "html",
+      "start_line": 68,
+      "end_line": 68,
+      "raw": "<!-- workspace-docs:readme:start -->\n"
+    },
+    {
+      "id": "b000022",
+      "kind": "heading",
+      "start_line": 69,
+      "end_line": 69,
       "raw": "## Documentation entry points\n",
       "level": 2,
       "title": "Documentation entry points"
     },
     {
-      "id": "b000021",
+      "id": "b000023",
       "kind": "blank",
-      "start_line": 68,
-      "end_line": 68,
+      "start_line": 70,
+      "end_line": 70,
       "raw": "\n"
     },
     {
-      "id": "b000022",
+      "id": "b000024",
       "kind": "list",
-      "start_line": 69,
-      "end_line": 72,
+      "start_line": 71,
+      "end_line": 74,
       "raw": "- Human overview: this English `README.md`.\n- Agent instructions: [AGENT.md](AGENT.md).\n- Human documentation: [documentation index](docs/README.md).\n- Structured agent documentation: [agent index](docs/agent-index.json).\n",
       "items": [
         {
@@ -206,10 +220,10 @@
       ]
     },
     {
-      "id": "b000023",
+      "id": "b000025",
       "kind": "html",
-      "start_line": 73,
-      "end_line": 73,
+      "start_line": 75,
+      "end_line": 75,
       "raw": "<!-- workspace-docs:readme:end -->\n"
     }
   ],
@@ -223,12 +237,12 @@
       "start_line": 1
     },
     {
-      "block_id": "b000020",
+      "block_id": "b000022",
       "parent_id": "b000001",
       "level": 2,
       "title": "Documentation entry points",
       "anchor": "documentation-entry-points",
-      "start_line": 67
+      "start_line": 69
     }
   ],
   "indexes": {
@@ -299,25 +313,32 @@
         "line": 61
       },
       {
-        "block_id": "b000022",
+        "block_id": "b000019",
+        "label": "source layout",
+        "target": "docs/SourceLayout.md",
+        "kind": "relative",
+        "line": 66
+      },
+      {
+        "block_id": "b000024",
         "label": "AGENT.md",
         "target": "AGENT.md",
         "kind": "relative",
-        "line": 70
+        "line": 72
       },
       {
-        "block_id": "b000022",
+        "block_id": "b000024",
         "label": "documentation index",
         "target": "docs/README.md",
         "kind": "relative",
-        "line": 71
+        "line": 73
       },
       {
-        "block_id": "b000022",
+        "block_id": "b000024",
         "label": "agent index",
         "target": "docs/agent-index.json",
         "kind": "relative",
-        "line": 72
+        "line": 74
       }
     ],
     "tables": []

@@ -16,6 +16,8 @@ public header `<iiCompression/Gzip.h>`. Installation to a local prefix is an
 explicit step; a stage inside `build/` does not update that prefix. A fresh
 configuration defaults to `~/.local` when `HOME` is available and accepts an
 explicit `CMAKE_INSTALL_PREFIX`, including when invoked through `install.sh`.
+The gzip interface and implementation live together directly under `src/`;
+CMake generates a build-only forwarding header to preserve the public include.
 
 <!-- workspace-docs:readme:start -->
 ## Documentation entry points

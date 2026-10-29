@@ -3,138 +3,412 @@
     {
       "module": "LVUI",
       "publicHeaders": [
-        "src/LVUI/Document.h"
-      ]
+        "src/Compiler/Document.h",
+        "src/Compiler/Compiler.h",
+        "src/Language/Language.h",
+        "src/Style/StyleTokens.h",
+        "src/Runtime/NativeBindings.h",
+        "src/Color/ColorSelectionSurface.h"
+      ],
+      "sourceRootDeduplicated": true
     },
     {
       "module": "iiActorObject",
+      "sourceRootDeduplicated": true,
       "publicHeaders": [
-        "src/iiActorObject/Actor.h",
-        "src/iiActorObject/ActorComponent.h",
-        "src/iiActorObject/SceneComponent.h",
-        "src/iiActorObject/Transform.h",
-        "src/iiActorObject/Usd.h"
+        "src/Runtime/Actor.h",
+        "src/Runtime/ActorComponent.h",
+        "src/Runtime/SceneComponent.h",
+        "src/Core/Transform.h",
+        "src/Interchange/Usd.h"
+      ]
+    },
+    {
+      "module": "iiCompression",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/Gzip.h"
+      ]
+    },
+    {
+      "module": "iiAudioGen",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/iiAudioGen.h",
+        "src/Backends/Diffusers.h"
+      ]
+    },
+    {
+      "module": "iiCameraIntegration",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/Camera.h",
+        "src/Devices/Devices.h",
+        "src/Features/Features.h",
+        "src/Media/Media.h",
+        "src/Platform/NativeCamera.h"
+      ]
+    },
+    {
+      "module": "iiDecision",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/Decision/ExactDecisionMaker.h",
+        "src/Evaluation/Evaluation.h",
+        "src/RAG/RagDecisionGate.h",
+        "src/Laya/LayaEvidenceScorer.h",
+        "src/Acceleration/Acceleration.h"
+      ]
+    },
+    {
+      "module": "iiGPU",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/GPU.h",
+        "src/Runtime/Completion.h",
+        "src/WebGPUComponent/WebGPU.h"
+      ]
+    },
+    {
+      "module": "iiSocietyContainer",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/Gui/DashboardFiles.h",
+        "src/Gui/PreviewCache.h",
+        "src/Gui/SocietyApplication.h"
       ]
     },
     {
       "module": "iiCalendar",
       "publicHeaders": [
-        "src/iiCalendar/Accounts.h",
-        "src/iiCalendar/Calendar.h",
-        "src/iiCalendar/Date.h",
-        "src/iiCalendar/Event.h",
-        "src/iiCalendar/ExternalCalendar.h",
-        "src/iiCalendar/IisaccAccount.h",
-        "src/iiCalendar/Store.h",
-        "src/iiCalendar/Time.h",
-        "src/iiCalendar/TimeZone.h",
-        "src/iiCalendar/View.h",
-        "src/iiCalendar/iiCalendar.h"
-      ]
+        "src/Integration/Accounts.h",
+        "src/Chronology/Calendar.h",
+        "src/Chronology/Date.h",
+        "src/Events/Event.h",
+        "src/Integration/ExternalCalendar.h",
+        "src/Integration/IisaccAccount.h",
+        "src/Storage/Store.h",
+        "src/Chronology/Time.h",
+        "src/Chronology/TimeZone.h",
+        "src/Presentation/View.h",
+        "src/Integration/iiCalendar.h"
+      ],
+      "sourceRootDeduplicated": true
     },
     {
       "module": "iiColorManager",
+      "sourceRootDeduplicated": true,
       "publicHeaders": [
-        "src/iiColorManager/ColorManager.h"
+        "src/ColorManager.h"
       ]
     },
     {
       "module": "iiGUI",
       "publicHeaders": [
-        "src/iiGUI/Graphics.h",
-        "src/iiGUI/Host.h",
-        "src/iiGUI/LVUI.h",
-        "src/iiGUI/iiGUI.h"
-      ]
+        "src/Core/Application.h",
+        "src/Graphics/Graphics.h",
+        "src/Platform/Host.h",
+        "src/Presentation/Appearance.h",
+        "src/Text/Text.h",
+        "src/Widgets/NativeView.h"
+      ],
+      "sourceRootDeduplicated": true
     },
     {
       "module": "iiJson",
+      "sourceRootDeduplicated": true,
       "publicHeaders": [
-        "src/iiJson/Json.h"
+        "src/Json.h"
       ]
     },
     {
       "module": "iiLicenseManager",
       "publicHeaders": [
-        "Native/src/iiLicenseManager/NativeLicenseClient.h",
-        "src/iiLicenseManager/Export.h",
-        "src/iiLicenseManager/LicenseClient.h"
-      ]
+        "Native/src/NativeLicenseClient.h",
+        "src/Client/Export.h",
+        "src/Client/LicenseClient.h",
+        "src/Client/iiLicenseManager.h"
+      ],
+      "sourceRootDeduplicated": true
     },
     {
       "module": "iiNetwork",
       "publicHeaders": [
-        "src/iiNetwork/Address.h",
-        "src/iiNetwork/Application.h",
-        "src/iiNetwork/ByteStream.h",
-        "src/iiNetwork/Error.h",
-        "src/iiNetwork/Headers.h",
-        "src/iiNetwork/Http.h",
-        "src/iiNetwork/Layers.h",
-        "src/iiNetwork/Local.h",
-        "src/iiNetwork/Network.h",
-        "src/iiNetwork/Peer.h",
-        "src/iiNetwork/Presentation.h",
-        "src/iiNetwork/Relay.h",
-        "src/iiNetwork/Security.h",
-        "src/iiNetwork/Server.h",
-        "src/iiNetwork/Session.h",
-        "src/iiNetwork/Stack.h",
-        "src/iiNetwork/Tls.h",
-        "src/iiNetwork/Transport.h",
-        "src/iiNetwork/Wire.h"
-      ]
+        "src/Application/Realtime.h",
+        "src/Session/WebSocket.h",
+        "src/Transport/Address.h",
+        "src/Application/Application.h",
+        "src/Transport/ByteStream.h",
+        "src/Core/Error.h",
+        "src/Presentation/Headers.h",
+        "src/Presentation/Http.h",
+        "src/Core/Layers.h",
+        "src/Transport/Local.h",
+        "src/Core/Network.h",
+        "src/Application/Peer.h",
+        "src/Presentation/Presentation.h",
+        "src/Application/Relay.h",
+        "src/Security/Security.h",
+        "src/Application/Server.h",
+        "src/Session/Session.h",
+        "src/Application/Stack.h",
+        "src/Security/Tls.h",
+        "src/Transport/Transport.h",
+        "src/Presentation/Wire.h"
+      ],
+      "sourceRootDeduplicated": true
     },
     {
       "module": "iiPhotoLibrary",
+      "sourceRootDeduplicated": true,
       "publicHeaders": [
-        "src/iiPhotoLibrary/Album.h",
-        "src/iiPhotoLibrary/GooglePhotosAlbumSource.h",
-        "src/iiPhotoLibrary/PhotoController.h",
-        "src/iiPhotoLibrary/PhotoLibrary.h",
-        "src/iiPhotoLibrary/PhotoLibraryAlbumSource.h",
-        "src/iiPhotoLibrary/PhotoStore.h",
-        "src/iiPhotoLibrary/iiPhotoLibrary.h"
+        "src/Albums/Album.h",
+        "src/Albums/GooglePhotosAlbumSource.h",
+        "src/Library/PhotoController.h",
+        "src/Library/PhotoLibrary.h",
+        "src/Library/PhotoLibraryAlbumSource.h",
+        "src/Library/PhotoStore.h",
+        "src/Library/iiPhotoLibrary.h"
       ]
     },
     {
       "module": "iiSDKBuilder",
+      "sourceRootDeduplicated": true,
       "publicHeaders": [
-        "src/iiSDKBuilder/Builder.h",
-        "src/iiSDKBuilder/Resources.h",
-        "src/iiSDKBuilder/iiSDKBuilder.h"
+        "src/Build/Builder.h",
+        "src/Resources/Resources.h",
+        "src/Build/iiSDKBuilder.h"
       ]
     },
     {
       "module": "iiSocialIntegration",
       "publicHeaders": [
-        "src/iiSocialIntegration/Publishing.h",
-        "src/iiSocialIntegration/Review.h",
-        "src/iiSocialIntegration/Migration.h",
-        "src/iiSocialIntegration/UrlImport.h"
-      ]
+        "src/Publishing/Publishing.h",
+        "src/Review/Review.h",
+        "src/Migration/Migration.h",
+        "src/Import/UrlImport.h"
+      ],
+      "sourceRootDeduplicated": true
     },
     {
       "module": "iiUpdateManager",
       "publicHeaders": [
-        "Native/src/iiUpdateManager/NativeUpdateManager.h",
-        "src/iiUpdateManager/Export.h",
-        "src/iiUpdateManager/UpdateCheckResult.h",
-        "src/iiUpdateManager/UpdateCredentialProvider.h",
-        "src/iiUpdateManager/UpdateManager.h",
-        "src/iiUpdateManager/UpdatePlatformAdapter.h"
-      ]
+        "Native/src/Updates/NativeUpdateManager.h",
+        "Native/src/Installer/NativeInstaller.h",
+        "src/Updates/Export.h",
+        "src/Updates/UpdateCheckResult.h",
+        "src/Updates/UpdateCredentialProvider.h",
+        "src/Updates/UpdateManager.h",
+        "src/Platform/UpdatePlatformAdapter.h",
+        "src/Updates/iiUpdateManager.h",
+        "src/Updates/library.h"
+      ],
+      "sourceRootDeduplicated": true
     },
     {
       "module": "iiAccountManager",
       "publicHeaders": [
-        "Native/src/iiAccountManager/NativeAccount.h"
-      ]
+        "Native/src/Account/NativeAccount.h",
+        "Native/src/Session/BrowserSession.h",
+        "src/Licensing/LicenseManager.h",
+        "src/Quick/AccountViews.h",
+        "src/Accounts/AuthorDetails.h",
+        "src/Accounts/Account.h",
+        "src/Accounts/AccountManager.h",
+        "src/Sessions/SessionStore.h",
+        "src/Accounts/GraphQL.h",
+        "src/Accounts/Export.h",
+        "src/LegacyLicensing/LicenseManager.h"
+      ],
+      "sourceRootDeduplicated": true
     },
     {
       "module": "iiFileProvider",
       "publicHeaders": [
-        "Compatibility/src/iiFileProviderCompatibility.h"
+        "src/API/iiFileProvider.h",
+        "src/Files/File.h",
+        "src/Identity/Authorship.h",
+        "src/Catalog/FileCatalog.h",
+        "src/Catalog/FileSearchIndex.h",
+        "src/Objects/ObjectStore.h",
+        "src/Temporary/TemporaryLease.h",
+        "Native/src/Core/iiFileProviderNative.h",
+        "Native/src/Filesystem/iiFileProviderNativeDevice.h",
+        "Native/src/Presentation/iiFileProviderPresentation.h"
+      ],
+      "sourceRootDeduplicated": true
+    },
+    {
+      "module": "iiWebServer",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/Http/HttpServer.h",
+        "src/Http/HttpExport.h",
+        "src/Transport/NetworkTypes.h",
+        "src/Transport/NetworkTransport.h",
+        "src/Compatibility/iiWebServer.h",
+        "src/Peers/WebServer.h",
+        "src/Peers/PairingLink.h",
+        "src/Peers/LanPeer.h",
+        "src/Transfer/Transfer.h",
+        "src/Storage/StorageBridge.h",
+        "src/Compatibility/iiWebServerExport.h"
+      ]
+    },
+    {
+      "module": "iiGraphicAdjust",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/Core/Objects.h",
+        "src/Core/Operation.h",
+        "src/Development/CorrectionExtensions.h",
+        "src/Core/iiGraphicAdjust.h",
+        "src/Core/Image.h",
+        "src/Raw/RawProcessing.h",
+        "src/Development/PhotoOperations.h",
+        "src/Masks/LocalCorrections.h",
+        "src/Filters/SampleFilters.h",
+        "src/Development/Adjustments.h",
+        "src/Development/Effects.h",
+        "src/Development/Blend.h",
+        "src/Development/Mapping.h",
+        "src/Development/Hdr.h",
+        "src/Development/Tone.h",
+        "src/Development/Color.h",
+        "src/Development/DevelopTone.h",
+        "src/Development/DevelopColor.h",
+        "src/Development/DevelopEffects.h",
+        "src/Development/Optics.h",
+        "src/Masks/Masks.h",
+        "src/Development/Develop.h",
+        "src/Filters/BlurFilters.h",
+        "src/Filters/DistortionFilters.h",
+        "src/Filters/UtilityFilters.h",
+        "src/Filters/GalleryFilters.h",
+        "src/Filters/LightcraftFilters.h",
+        "src/Filters/LensFilter.h",
+        "src/Filters/PixelFilters.h",
+        "src/Filters/RenderFilters.h",
+        "src/Filters/MeshFilters.h",
+        "src/Raw/CameraRawFilter.h",
+        "src/Filters/RetouchFilters.h",
+        "src/Filters/DiagnosticFilters.h"
+      ]
+    },
+    {
+      "module": "iiXml",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "Native/src/Xml.h",
+        "Native/src/Markup/TagParser.h",
+        "Native/src/Markup/BlockRangeTracker.h",
+        "Native/src/Markup/Diagnostics.h"
+      ]
+    },
+    {
+      "module": "iiVirtualizer",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/Core/Types.h",
+        "src/Runtime/Runtime.h",
+        "src/Runtime/Qemu.h",
+        "src/Protocol/GuestProtocol.h",
+        "src/Files/Files.h",
+        "src/Processes/Processes.h",
+        "src/Gateway/Gateway.h",
+        "src/Gateway/GatewayAgent.h",
+        "src/Gateway/VmClient.h"
+      ]
+    },
+    {
+      "module": "iiVisualCodec",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/Image/ImageCodec.h",
+        "src/Spatial/Spatial.h",
+        "src/Video/VideoCodec.h",
+        "src/USD/UsdCodec.h",
+        "src/Vision/Vision.h",
+        "src/Vision/OpenCV.h",
+        "src/Vision/OpenCVBridge.h",
+        "src/Geometry/Geometry.h",
+        "src/Asset3D/Asset3D.h",
+        "src/CAD/CadCodec.h",
+        "src/USD/UsdGeometry.h"
+      ]
+    },
+    {
+      "module": "iiSocietyHelper",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/Account/AccountSession.h",
+        "src/Client/Client.h",
+        "src/Discovery/AutomaticPairing.h",
+        "src/Discovery/DeviceInfo.h",
+        "src/Discovery/DiscoveryService.h",
+        "src/Discovery/NearbyDevices.h",
+        "src/Storage/GroupSessionStore.h",
+        "src/Storage/PairingCredentials.h",
+        "src/Storage/StateCrypto.h",
+        "src/Media/FileDownload.h",
+        "src/Media/MediaExport.h",
+        "src/Sync/Replica.h",
+        "src/Monitoring/Monitor.h",
+        "src/Generation/Remote.h",
+        "src/Core/iiSocietyHelper.h",
+        "src/Delivery/DeliveryStore.h"
+      ]
+    },
+    {
+      "module": "iiMultimodalAgent",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/Agent/Runtime/Engine.h",
+        "src/Agent/Memory/Rag.h",
+        "src/Agent/Permissions/DecisionGate.h",
+        "src/Agent/Tools/MultimodalTools.h",
+        "src/MCP/Client.h"
+      ]
+    },
+    {
+      "module": "LVRS",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/Styling/Theme.h",
+        "src/Controls/Widgets.h",
+        "src/Hierarchy/HierarchyModel.h",
+        "src/Lists/List.h",
+        "src/Tables/Table.h",
+        "src/Navigation/PageRouter.h",
+        "src/Models/ViewModel.h",
+        "src/Media/SvgManager.h",
+        "src/Monitoring/RenderMonitor.h",
+        "src/Text/CodeEditor.h"
+      ]
+    },
+    {
+      "module": "iiGlobalSearch",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/Answers/Answer.h",
+        "src/Local/GlobalSearch.h",
+        "src/Web/WebSearch.h"
+      ]
+    },
+    {
+      "module": "iiLocalLLM",
+      "sourceRootDeduplicated": true,
+      "publicHeaders": [
+        "src/core/iiLocalLLM.h",
+        "src/core/Types.h",
+        "src/core/Parameters.h",
+        "src/hardware/Hardware.h",
+        "src/hardware/Memory.h",
+        "src/models/ModelCatalog.h",
+        "src/service/Service.h",
+        "src/service/HttpApiServer.h",
+        "src/runtimes/Runtime.h",
+        "src/media/MediaContent.h"
       ]
     }
   ]

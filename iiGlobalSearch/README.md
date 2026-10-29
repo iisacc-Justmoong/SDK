@@ -63,6 +63,8 @@ see [the indexing contract](docs/Indexing.md) and [the example](example/search.c
 explicitly start a refresh; this library does not start a service or change an
 already running application.
 
+Sources and adjacent headers are grouped under `src/Answers`, `src/Local`, `src/Web`, and `src/CLI`; installed public include paths remain stable. See [source layout](docs/SourceLayout.md).
+
 <!-- workspace-docs:readme:start -->
 ## Documentation entry points
 

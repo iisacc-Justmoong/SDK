@@ -7,6 +7,9 @@ Metal serves Apple platforms; Vulkan serves native desktop and Android targets.
 The optional `iiGPU::Runtime` component observes completion through a
 caller-supplied scheduler. An application can supply an iiSDKCore EventLoop or
 another compatible loop without making iiGPU depend on either implementation.
+The base API lives under `src/`, with platform backends in `src/Backends/`,
+completion observation in `src/Runtime/`, and WebGPU in `src/WebGPUComponent/`. Existing
+`<iiGPU/...>` and `<iiWebGPU/...>` public include names remain unchanged.
 
 WebGPU device negotiation, resources, WGSL and standard WebGPU C access are
 integrated as the optional `iiGPU::WebGPU` component. The existing

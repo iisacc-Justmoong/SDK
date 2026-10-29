@@ -11,7 +11,7 @@ class ModuleBoundaries(unittest.TestCase):
     def test_agent_is_an_independent_package(self):
         agent = SDK / "iiMultimodalAgent"
         self.assertTrue((agent / "CMakeLists.txt").is_file())
-        self.assertTrue((agent / "src/iiMultimodalAgent/agent/Engine.cpp").is_file())
+        self.assertTrue((agent / "src/Agent/Runtime/Engine.cpp").is_file())
         self.assertTrue((agent / "cmake/iiMultimodalAgentConfig.cmake.in").is_file())
         self.assertTrue((agent / "tests/consumer/CMakeLists.txt").is_file())
 
@@ -30,7 +30,7 @@ class ModuleBoundaries(unittest.TestCase):
         text = (agent / "CMakeLists.txt").read_text(encoding="utf-8")
         self.assertIn("iiLocalLLM::iiLocalLLM", text)
         self.assertIn("iiDecision::iiDecision", text)
-        gate = (agent / "src/iiMultimodalAgent/agent/DecisionGate.cpp").read_text(encoding="utf-8")
+        gate = (agent / "src/Agent/Permissions/DecisionGate.cpp").read_text(encoding="utf-8")
         self.assertIn("iiDecision::ExactDecisionMaker", gate)
         self.assertNotIn("iiMultimodalAgent", (SDK / "iiDecision/CMakeLists.txt").read_text(encoding="utf-8"))
 
