@@ -1,0 +1,315 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:54e6dfd882ac0ec3f5738ba1393b74d1d52f794cb50e757b31cc63e1e00eed19",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiCompression",
+    "name": "iiCompression",
+    "root": "SDK/iiCompression",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "docs/README.md",
+    "sha256": "826b8ba31fc5fad98a9cccbf6bfe38fa61637346a63add2c08b57fdfa31bd63d",
+    "bytes": 948,
+    "line_count": 19,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "문서 안내",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# 문서 안내\n",
+      "level": 1,
+      "title": "문서 안내"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "[gzip 계약](Gzip.md)은 입력과 출력 한도, 오류, 단일 gzip 멤버 정책을 설명한다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 4,
+      "end_line": 4,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "html",
+      "start_line": 5,
+      "end_line": 5,
+      "raw": "<!-- workspace-docs:document-map:start -->\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "heading",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "## Human and agent document map\n",
+      "level": 2,
+      "title": "Human and agent document map"
+    },
+    {
+      "id": "b000007",
+      "kind": "blank",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "paragraph",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "Markdown is the maintained human source. Agent JSON is a structured, source-traceable projection.\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "blank",
+      "start_line": 9,
+      "end_line": 9,
+      "raw": "\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "table",
+      "start_line": 10,
+      "end_line": 18,
+      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`NOTICE.md`](../NOTICE.md) | [JSON](entrypoints/NOTICE.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/Gzip.md`](Gzip.md) | [JSON](Gzip.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n| [`example/README.md`](../example/README.md) | [JSON](mirrors/example/README.agent.json) |\n| [`resources/README.md`](../resources/README.md) | [JSON](mirrors/resources/README.agent.json) |\n",
+      "columns": [
+        "Document",
+        "Agent JSON"
+      ],
+      "rows": [
+        [
+          "[`AGENT.md`](../AGENT.md)",
+          "[JSON](entrypoints/AGENT.agent.json)"
+        ],
+        [
+          "[`NOTICE.md`](../NOTICE.md)",
+          "[JSON](entrypoints/NOTICE.agent.json)"
+        ],
+        [
+          "[`README.md`](../README.md)",
+          "[JSON](entrypoints/README.agent.json)"
+        ],
+        [
+          "[`docs/Gzip.md`](Gzip.md)",
+          "[JSON](Gzip.agent.json)"
+        ],
+        [
+          "[`docs/documentation-structure.md`](documentation-structure.md)",
+          "[JSON](documentation-structure.agent.json)"
+        ],
+        [
+          "[`example/README.md`](../example/README.md)",
+          "[JSON](mirrors/example/README.agent.json)"
+        ],
+        [
+          "[`resources/README.md`](../resources/README.md)",
+          "[JSON](mirrors/resources/README.agent.json)"
+        ]
+      ]
+    },
+    {
+      "id": "b000011",
+      "kind": "html",
+      "start_line": 19,
+      "end_line": 19,
+      "raw": "<!-- workspace-docs:document-map:end -->\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "문서 안내",
+      "anchor": "문서-안내",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000006",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Human and agent document map",
+      "anchor": "human-and-agent-document-map",
+      "start_line": 6
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000003",
+        "label": "gzip 계약",
+        "target": "Gzip.md",
+        "kind": "relative",
+        "line": 3
+      },
+      {
+        "block_id": "b000010",
+        "label": "`AGENT.md`",
+        "target": "../AGENT.md",
+        "kind": "relative",
+        "line": 12
+      },
+      {
+        "block_id": "b000010",
+        "label": "JSON",
+        "target": "entrypoints/AGENT.agent.json",
+        "kind": "relative",
+        "line": 12
+      },
+      {
+        "block_id": "b000010",
+        "label": "`NOTICE.md`",
+        "target": "../NOTICE.md",
+        "kind": "relative",
+        "line": 13
+      },
+      {
+        "block_id": "b000010",
+        "label": "JSON",
+        "target": "entrypoints/NOTICE.agent.json",
+        "kind": "relative",
+        "line": 13
+      },
+      {
+        "block_id": "b000010",
+        "label": "`README.md`",
+        "target": "../README.md",
+        "kind": "relative",
+        "line": 14
+      },
+      {
+        "block_id": "b000010",
+        "label": "JSON",
+        "target": "entrypoints/README.agent.json",
+        "kind": "relative",
+        "line": 14
+      },
+      {
+        "block_id": "b000010",
+        "label": "`docs/Gzip.md`",
+        "target": "Gzip.md",
+        "kind": "relative",
+        "line": 15
+      },
+      {
+        "block_id": "b000010",
+        "label": "JSON",
+        "target": "Gzip.agent.json",
+        "kind": "relative",
+        "line": 15
+      },
+      {
+        "block_id": "b000010",
+        "label": "`docs/documentation-structure.md`",
+        "target": "documentation-structure.md",
+        "kind": "relative",
+        "line": 16
+      },
+      {
+        "block_id": "b000010",
+        "label": "JSON",
+        "target": "documentation-structure.agent.json",
+        "kind": "relative",
+        "line": 16
+      },
+      {
+        "block_id": "b000010",
+        "label": "`example/README.md`",
+        "target": "../example/README.md",
+        "kind": "relative",
+        "line": 17
+      },
+      {
+        "block_id": "b000010",
+        "label": "JSON",
+        "target": "mirrors/example/README.agent.json",
+        "kind": "relative",
+        "line": 17
+      },
+      {
+        "block_id": "b000010",
+        "label": "`resources/README.md`",
+        "target": "../resources/README.md",
+        "kind": "relative",
+        "line": 18
+      },
+      {
+        "block_id": "b000010",
+        "label": "JSON",
+        "target": "mirrors/resources/README.agent.json",
+        "kind": "relative",
+        "line": 18
+      }
+    ],
+    "tables": [
+      {
+        "block_id": "b000010",
+        "columns": [
+          "Document",
+          "Agent JSON"
+        ],
+        "rows": [
+          [
+            "[`AGENT.md`](../AGENT.md)",
+            "[JSON](entrypoints/AGENT.agent.json)"
+          ],
+          [
+            "[`NOTICE.md`](../NOTICE.md)",
+            "[JSON](entrypoints/NOTICE.agent.json)"
+          ],
+          [
+            "[`README.md`](../README.md)",
+            "[JSON](entrypoints/README.agent.json)"
+          ],
+          [
+            "[`docs/Gzip.md`](Gzip.md)",
+            "[JSON](Gzip.agent.json)"
+          ],
+          [
+            "[`docs/documentation-structure.md`](documentation-structure.md)",
+            "[JSON](documentation-structure.agent.json)"
+          ],
+          [
+            "[`example/README.md`](../example/README.md)",
+            "[JSON](mirrors/example/README.agent.json)"
+          ],
+          [
+            "[`resources/README.md`](../resources/README.md)",
+            "[JSON](mirrors/resources/README.agent.json)"
+          ]
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

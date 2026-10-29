@@ -1,0 +1,46 @@
+cmake_minimum_required(VERSION 3.24)
+project(iiCompression VERSION 0.1.0 LANGUAGES CXX)
+
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND DEFINED ENV{HOME} AND NOT "$ENV{HOME}" STREQUAL "")
+    set(CMAKE_INSTALL_PREFIX "$ENV{HOME}/.local" CACHE PATH "Installation prefix" FORCE)
+endif()
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+include(CTest)
+find_package(ZLIB REQUIRED)
+
+add_library(iiCompression STATIC src/iiCompression/Gzip.cpp)
+add_library(iiCompression::iiCompression ALIAS iiCompression)
+target_compile_features(iiCompression PUBLIC cxx_std_23)
+target_include_directories(iiCompression PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+target_link_libraries(iiCompression PUBLIC ZLIB::ZLIB)
+set_target_properties(iiCompression PROPERTIES CXX_EXTENSIONS OFF POSITION_INDEPENDENT_CODE ON)
+
+if(BUILD_TESTING)
+    add_executable(iiCompressionGzipTest tests/gzip.cpp)
+    target_link_libraries(iiCompressionGzipTest PRIVATE iiCompression::iiCompression)
+    add_test(NAME iiCompression.Gzip COMMAND iiCompressionGzipTest)
+    find_package(Python3 COMPONENTS Interpreter QUIET)
+    if(Python3_Interpreter_FOUND)
+        add_executable(iiCompressionInteropFixture tests/gzip_interop.cpp)
+        target_link_libraries(iiCompressionInteropFixture PRIVATE iiCompression::iiCompression)
+        add_test(NAME iiCompression.GzipInterop COMMAND "${Python3_EXECUTABLE}" -B
+            "${CMAKE_CURRENT_SOURCE_DIR}/tests/gzip_interop.py" "$<TARGET_FILE:iiCompressionInteropFixture>")
+    endif()
+endif()
+
+set(_package_dir "${CMAKE_INSTALL_LIBDIR}/cmake/iiCompression")
+configure_package_config_file(cmake/iiCompressionConfig.cmake.in
+    "${CMAKE_CURRENT_BINARY_DIR}/iiCompressionConfig.cmake"
+    INSTALL_DESTINATION "${_package_dir}")
+write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/iiCompressionConfigVersion.cmake"
+    VERSION ${PROJECT_VERSION} COMPATIBILITY SameMinorVersion)
+install(TARGETS iiCompression EXPORT iiCompressionTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(FILES src/iiCompression/Gzip.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/iiCompression)
+install(EXPORT iiCompressionTargets NAMESPACE iiCompression:: DESTINATION "${_package_dir}")
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/iiCompressionConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/iiCompressionConfigVersion.cmake" DESTINATION "${_package_dir}")
+install(FILES README.md LICENSE NOTICE.md DESTINATION ${CMAKE_INSTALL_DATADIR}/iiCompression)
+install(DIRECTORY docs/ DESTINATION ${CMAKE_INSTALL_DATADIR}/iiCompression/docs)

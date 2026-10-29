@@ -8,6 +8,7 @@
 !/benchmarks/
 !/iiGPU/
 !/iiGlobalSearch/
+!/iiCompression/
 build/
 .DS_Store
 __pycache__/

@@ -1,0 +1,218 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:0d755806880c6596dbdfd5046224df39bea98933f60e277bc60318d3f76eae78",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiCompression",
+    "name": "iiCompression",
+    "root": "SDK/iiCompression",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "README.md",
+    "sha256": "187a2c708a8c2e1c519f8a9242163e4a476979383e6c0f9f12beef15c55ee36a",
+    "bytes": 1136,
+    "line_count": 27,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "iiCompression",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# iiCompression\n",
+      "level": 1,
+      "title": "iiCompression"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 6,
+      "raw": "iiCompression provides bounded, in-memory gzip operations for C++23\napplications. It has no Qt or other iiSDK dependency; its implementation uses\nzlib. Applications can compose it with independent format and storage SDKs.\nSee [the gzip contract](docs/Gzip.md) and [dependency notice](NOTICE.md).\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "fenced_code",
+      "start_line": 8,
+      "end_line": 12,
+      "raw": "```sh\ncmake -S . -B build -DBUILD_TESTING=ON\ncmake --build build\nctest --test-dir build --output-on-failure\n```\n",
+      "language": "sh",
+      "code": "cmake -S . -B build -DBUILD_TESTING=ON\ncmake --build build\nctest --test-dir build --output-on-failure\n",
+      "closed": true
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 13,
+      "end_line": 13,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 14,
+      "end_line": 18,
+      "raw": "The installed CMake package exports `iiCompression::iiCompression` and the\npublic header `<iiCompression/Gzip.h>`. Installation to a local prefix is an\nexplicit step; a stage inside `build/` does not update that prefix. A fresh\nconfiguration defaults to `~/.local` when `HOME` is available and accepts an\nexplicit `CMAKE_INSTALL_PREFIX`, including when invoked through `install.sh`.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 19,
+      "end_line": 19,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "html",
+      "start_line": 20,
+      "end_line": 20,
+      "raw": "<!-- workspace-docs:readme:start -->\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "heading",
+      "start_line": 21,
+      "end_line": 21,
+      "raw": "## Documentation entry points\n",
+      "level": 2,
+      "title": "Documentation entry points"
+    },
+    {
+      "id": "b000011",
+      "kind": "blank",
+      "start_line": 22,
+      "end_line": 22,
+      "raw": "\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "list",
+      "start_line": 23,
+      "end_line": 26,
+      "raw": "- Human overview: this English `README.md`.\n- Agent instructions: [AGENT.md](AGENT.md).\n- Human documentation: [documentation index](docs/README.md).\n- Structured agent documentation: [agent index](docs/agent-index.json).\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "Human overview: this English `README.md`.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Agent instructions: [AGENT.md](AGENT.md).",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Human documentation: [documentation index](docs/README.md).",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Structured agent documentation: [agent index](docs/agent-index.json).",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000013",
+      "kind": "html",
+      "start_line": 27,
+      "end_line": 27,
+      "raw": "<!-- workspace-docs:readme:end -->\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "iiCompression",
+      "anchor": "iicompression",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000010",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Documentation entry points",
+      "anchor": "documentation-entry-points",
+      "start_line": 21
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [
+      {
+        "block_id": "b000005",
+        "language": "sh",
+        "code": "cmake -S . -B build -DBUILD_TESTING=ON\ncmake --build build\nctest --test-dir build --output-on-failure\n"
+      }
+    ],
+    "links": [
+      {
+        "block_id": "b000003",
+        "label": "the gzip contract",
+        "target": "docs/Gzip.md",
+        "kind": "relative",
+        "line": 6
+      },
+      {
+        "block_id": "b000003",
+        "label": "dependency notice",
+        "target": "NOTICE.md",
+        "kind": "relative",
+        "line": 6
+      },
+      {
+        "block_id": "b000012",
+        "label": "AGENT.md",
+        "target": "AGENT.md",
+        "kind": "relative",
+        "line": 24
+      },
+      {
+        "block_id": "b000012",
+        "label": "documentation index",
+        "target": "docs/README.md",
+        "kind": "relative",
+        "line": 25
+      },
+      {
+        "block_id": "b000012",
+        "label": "agent index",
+        "target": "docs/agent-index.json",
+        "kind": "relative",
+        "line": 26
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

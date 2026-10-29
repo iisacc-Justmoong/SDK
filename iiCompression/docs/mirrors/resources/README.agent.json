@@ -1,0 +1,71 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:354b57e89a77c1b0a7130627df3e5a8d3aba5f371c5bfc65ef5ae61e8ba2fbea",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiCompression",
+    "name": "iiCompression",
+    "root": "SDK/iiCompression",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "resources/README.md",
+    "sha256": "5426dc4b9d977b3b5162243f8cde1aab85508d8ddedfb95edc18e23001c91c0c",
+    "bytes": 97,
+    "line_count": 3,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "Test resources",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Test resources\n",
+      "level": 1,
+      "title": "Test resources"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "The gzip tests use small, synthetic byte arrays and require no external files.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Test resources",
+      "anchor": "test-resources",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

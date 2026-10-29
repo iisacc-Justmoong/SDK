@@ -18,6 +18,10 @@ may compose it with iiSDKCore's EventLoop. Applications compose iiDecision's
 GPU evidence adapter with iiGPU independently. See
 [the GPU ownership boundary](docs/GPU.md).
 
+[`iiCompression`](iiCompression/README.md) provides bounded in-memory gzip
+compression and single-member decompression without Qt or other SDK
+dependencies. Applications can compose it with their format and file modules.
+
 Public headers live beside their implementations in each module's source tree.
 
 SDK modules are being migrated to independently built packages. Applications
@@ -190,6 +194,7 @@ weights retain their respective licenses.
 - [`SDK/iiCalendar`](iiCalendar/README.md)
 - [`SDK/iiCameraIntegration`](iiCameraIntegration/README.md)
 - [`SDK/iiColorManager`](iiColorManager/README.md)
+- [`SDK/iiCompression`](iiCompression/README.md)
 - [`SDK/iiComputerHistory`](iiComputerHistory/README.md)
 - [`SDK/iiComputerUse`](iiComputerUse/README.md)
 - [`SDK/iiDecision`](iiDecision/README.md)

@@ -1,0 +1,88 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:a9d0aa85c41f2623067ca487fdd68f47d65728d9c201fb6a6ea50dfdf6ad9060",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiCompression",
+    "name": "iiCompression",
+    "root": "SDK/iiCompression",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "example/README.md",
+    "sha256": "64b95865aa07c64dd36a4dffcde0860547c588a2086dda339883366c98a18ba9",
+    "bytes": 408,
+    "line_count": 15,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "iiCompression example",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# iiCompression example\n",
+      "level": 1,
+      "title": "iiCompression example"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "fenced_code",
+      "start_line": 3,
+      "end_line": 13,
+      "raw": "```cpp\n#include <iiCompression/Gzip.h>\n\nii::compression::Limits limits;\nlimits.input_bytes = 1024 * 1024;\nlimits.output_bytes = 8 * 1024 * 1024;\nauto decoded = ii::compression::gzip_decompress(compressedBytes, limits);\nif (!decoded) {\n    // Report decoded.error(); no partial output is available.\n}\n```\n",
+      "language": "cpp",
+      "code": "#include <iiCompression/Gzip.h>\n\nii::compression::Limits limits;\nlimits.input_bytes = 1024 * 1024;\nlimits.output_bytes = 8 * 1024 * 1024;\nauto decoded = ii::compression::gzip_decompress(compressedBytes, limits);\nif (!decoded) {\n    // Report decoded.error(); no partial output is available.\n}\n",
+      "closed": true
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 14,
+      "end_line": 14,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 15,
+      "end_line": 15,
+      "raw": "Applications own the input buffer, file I/O, and composition with other SDKs.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "iiCompression example",
+      "anchor": "iicompression-example",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

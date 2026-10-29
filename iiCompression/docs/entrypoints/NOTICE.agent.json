@@ -1,0 +1,71 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:c3a14b2ffdde30c191b38c6b008cace389b2412fc733250b7f98ec7a6168e21e",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiCompression",
+    "name": "iiCompression",
+    "root": "SDK/iiCompression",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "NOTICE.md",
+    "sha256": "ec31188739cbb7125d6b839cc75cf21d11d64b9d386732ad2f8992c3d9685a3e",
+    "bytes": 162,
+    "line_count": 4,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "Dependency notice",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Dependency notice\n",
+      "level": 1,
+      "title": "Dependency notice"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 4,
+      "raw": "iiCompression links against a separately provided zlib under the zlib license.\nThis source project does not include zlib source or binaries.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Dependency notice",
+      "anchor": "dependency-notice",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}
