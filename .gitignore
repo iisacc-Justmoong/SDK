@@ -10,6 +10,7 @@
 !/iiGlobalSearch/
 !/iiCompression/
 build/
+/.state/
 .DS_Store
 __pycache__/
 **/.iisacc-temporary.lock

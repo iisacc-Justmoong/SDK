@@ -46,14 +46,17 @@ validation uses an externally installed MoltenVK. Set `Vulkan_INCLUDE_DIR` and
 `Vulkan_LIBRARY` if discovery requires explicit paths. No vendor SDK is fetched
 or bundled automatically. `IIGPU_BUILD_RUNTIME=OFF` removes the optional
 completion observer.
-`install.sh` runs the same build/test/install sequence.
+`install.sh` builds and tests the module. Tests are enabled by default; use
+`-DBUILD_TESTING=OFF` for a library-only build. Examples are opt-in via
+`-DIIGPU_BUILD_EXAMPLES=ON`. Use a fresh `build/` when returning to the
+default configuration.
 
 To build the optional WebGPU component, prepare the locked host distribution
 first, then configure it explicitly:
 
 ```sh
 python3 -B ../tools/fetch_gpu_dawn.py
-cmake -S . -B build -DIIGPU_WEBGPU=ON
+cmake -S . -B build -DIIGPU_WEBGPU=ON -DBUILD_TESTING=ON
 cmake --build build --parallel 4
 ctest --test-dir build --output-on-failure
 ```
@@ -86,7 +89,8 @@ The old Core-specific binary interface has changed: rebuild applications that
 used it and link Core explicitly at the application boundary.
 
 The [acceleration example](example/Acceleration/main.cpp) uploads 257 integers,
-dispatches a shader, waits for completion and checks every output. Run
+dispatches a shader, waits for completion and checks every output. Configure
+with `-DIIGPU_BUILD_EXAMPLES=ON` to build it. Run
 `build/iiGPUAcceleration metal` or `build/iiGPUAcceleration vulkan`. It requires
 a physical GPU by default and does not silently run a CPU implementation.
 

@@ -6,3 +6,6 @@
 **/*.iisacc.json
 .DS_Store
 __pycache__/
+
+/resources/vulkan/
+/resources/.recovery/

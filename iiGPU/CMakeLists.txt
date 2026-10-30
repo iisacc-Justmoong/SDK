@@ -5,7 +5,7 @@ include(CMakePackageConfigHelpers)
 include(CTest)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 option(IIGPU_BUILD_RUNTIME "Build the scheduler-independent completion observer" ON)
-option(IIGPU_BUILD_EXAMPLES "Build the GPU acceleration example" ON)
+option(IIGPU_BUILD_EXAMPLES "Build the GPU acceleration example" OFF)
 option(IIGPU_SANITIZE "Enable address and undefined behavior sanitizers" OFF)
 set(IIGPU_WEBGPU AUTO CACHE STRING "WebGPU component: AUTO, ON, OFF")
 set(IIGPU_METAL AUTO CACHE STRING "Metal: AUTO, ON, OFF")
@@ -168,6 +168,9 @@ install(FILES README.md AGENT.md DESTINATION ${CMAKE_INSTALL_DATADIR}/iiGPU)
 install(DIRECTORY docs example DESTINATION ${CMAKE_INSTALL_DATADIR}/iiGPU PATTERN build EXCLUDE
     PATTERN "*.iisacc.json" EXCLUDE PATTERN ".*.iisacc-preview" EXCLUDE PATTERN ".iisacc-temporary.lock" EXCLUDE)
 if(BUILD_TESTING)
+    add_test(NAME iiGPU.production_defaults COMMAND "${CMAKE_COMMAND}"
+        "-DSOURCE_ROOT=${CMAKE_CURRENT_SOURCE_DIR}" "-DBINARY_ROOT=${CMAKE_CURRENT_BINARY_DIR}"
+        -P "${CMAKE_CURRENT_SOURCE_DIR}/tests/production_defaults.cmake")
     add_test(NAME iiGPU.source_layout COMMAND "${CMAKE_COMMAND}"
         "-DSOURCE_ROOT=${CMAKE_CURRENT_SOURCE_DIR}" -P "${CMAKE_CURRENT_SOURCE_DIR}/tests/source_layout.cmake")
     find_package(Python3 REQUIRED COMPONENTS Interpreter)

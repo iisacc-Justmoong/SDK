@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "README.md",
-    "sha256": "24ad35c7e71ef1566f1529276b6a2b715a7b83dee184ab8b0625d04aa53a60e4",
-    "bytes": 5274,
-    "line_count": 106,
+    "sha256": "15f3394520b5f800b5e295a46be21a72334a2b819ff25d0fa976eda3f462c103",
+    "bytes": 5536,
+    "line_count": 110,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -117,66 +117,66 @@
       "id": "b000013",
       "kind": "paragraph",
       "start_line": 42,
-      "end_line": 49,
-      "raw": "`IIGPU_METAL` and `IIGPU_VULKAN` accept `AUTO`, `ON` or `OFF`. `ON` fails if the\nSDK is unavailable; a backend disabled at build time returns `unsupported` at\nruntime. Vulkan needs the platform's native loader and driver; Apple Vulkan\nvalidation uses an externally installed MoltenVK. Set `Vulkan_INCLUDE_DIR` and\n`Vulkan_LIBRARY` if discovery requires explicit paths. No vendor SDK is fetched\nor bundled automatically. `IIGPU_BUILD_RUNTIME=OFF` removes the optional\ncompletion observer.\n`install.sh` runs the same build/test/install sequence.\n"
+      "end_line": 52,
+      "raw": "`IIGPU_METAL` and `IIGPU_VULKAN` accept `AUTO`, `ON` or `OFF`. `ON` fails if the\nSDK is unavailable; a backend disabled at build time returns `unsupported` at\nruntime. Vulkan needs the platform's native loader and driver; Apple Vulkan\nvalidation uses an externally installed MoltenVK. Set `Vulkan_INCLUDE_DIR` and\n`Vulkan_LIBRARY` if discovery requires explicit paths. No vendor SDK is fetched\nor bundled automatically. `IIGPU_BUILD_RUNTIME=OFF` removes the optional\ncompletion observer.\n`install.sh` builds and tests the module. Tests are enabled by default; use\n`-DBUILD_TESTING=OFF` for a library-only build. Examples are opt-in via\n`-DIIGPU_BUILD_EXAMPLES=ON`. Use a fresh `build/` when returning to the\ndefault configuration.\n"
     },
     {
       "id": "b000014",
-      "kind": "blank",
-      "start_line": 50,
-      "end_line": 50,
-      "raw": "\n"
-    },
-    {
-      "id": "b000015",
-      "kind": "paragraph",
-      "start_line": 51,
-      "end_line": 52,
-      "raw": "To build the optional WebGPU component, prepare the locked host distribution\nfirst, then configure it explicitly:\n"
-    },
-    {
-      "id": "b000016",
       "kind": "blank",
       "start_line": 53,
       "end_line": 53,
       "raw": "\n"
     },
     {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 54,
+      "end_line": 55,
+      "raw": "To build the optional WebGPU component, prepare the locked host distribution\nfirst, then configure it explicitly:\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 56,
+      "end_line": 56,
+      "raw": "\n"
+    },
+    {
       "id": "b000017",
       "kind": "fenced_code",
-      "start_line": 54,
-      "end_line": 59,
-      "raw": "```sh\npython3 -B ../tools/fetch_gpu_dawn.py\ncmake -S . -B build -DIIGPU_WEBGPU=ON\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\n```\n",
+      "start_line": 57,
+      "end_line": 62,
+      "raw": "```sh\npython3 -B ../tools/fetch_gpu_dawn.py\ncmake -S . -B build -DIIGPU_WEBGPU=ON -DBUILD_TESTING=ON\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\n```\n",
       "language": "sh",
-      "code": "python3 -B ../tools/fetch_gpu_dawn.py\ncmake -S . -B build -DIIGPU_WEBGPU=ON\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\n",
+      "code": "python3 -B ../tools/fetch_gpu_dawn.py\ncmake -S . -B build -DIIGPU_WEBGPU=ON -DBUILD_TESTING=ON\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\n",
       "closed": true
     },
     {
       "id": "b000018",
       "kind": "blank",
-      "start_line": 60,
-      "end_line": 60,
+      "start_line": 63,
+      "end_line": 63,
       "raw": "\n"
     },
     {
       "id": "b000019",
       "kind": "paragraph",
-      "start_line": 61,
-      "end_line": 64,
+      "start_line": 64,
+      "end_line": 67,
       "raw": "For cross compilation, `--platform windows-x64` or another key in the lock file\nfetches the target's distribution into its own directory. Supply a matching\ntarget toolchain. Unsupported target architectures and universal binaries\nrequire an explicitly prepared `IIGPU_DAWN_ROOT`.\n"
     },
     {
       "id": "b000020",
       "kind": "blank",
-      "start_line": 65,
-      "end_line": 65,
+      "start_line": 68,
+      "end_line": 68,
       "raw": "\n"
     },
     {
       "id": "b000021",
       "kind": "heading",
-      "start_line": 66,
-      "end_line": 66,
+      "start_line": 69,
+      "end_line": 69,
       "raw": "## Consume the installed package\n",
       "level": 2,
       "title": "Consume the installed package"
@@ -184,15 +184,15 @@
     {
       "id": "b000022",
       "kind": "blank",
-      "start_line": 67,
-      "end_line": 67,
+      "start_line": 70,
+      "end_line": 70,
       "raw": "\n"
     },
     {
       "id": "b000023",
       "kind": "fenced_code",
-      "start_line": 68,
-      "end_line": 80,
+      "start_line": 71,
+      "end_line": 83,
       "raw": "```cmake\nfind_package(iiGPU 0.1 CONFIG REQUIRED)\ntarget_link_libraries(MyCompute PRIVATE iiGPU::iiGPU)\n# Request only when scheduled completion observation is needed:\nfind_package(iiGPU 0.1 CONFIG REQUIRED COMPONENTS Runtime)\ntarget_link_libraries(MyApp PRIVATE iiGPU::Runtime)\n# If the application uses Core, it finds and links it independently:\nfind_package(iiSDKCore 0.20 CONFIG REQUIRED COMPONENTS Runtime)\ntarget_link_libraries(MyApp PRIVATE iiSDKCore::Runtime)\n# Request WebGPU only when used; the compatibility iiWebGPU package also works.\nfind_package(iiGPU 0.1 CONFIG REQUIRED COMPONENTS WebGPU)\ntarget_link_libraries(MyWebGPUApp PRIVATE iiGPU::WebGPU)\n```\n",
       "language": "cmake",
       "code": "find_package(iiGPU 0.1 CONFIG REQUIRED)\ntarget_link_libraries(MyCompute PRIVATE iiGPU::iiGPU)\n# Request only when scheduled completion observation is needed:\nfind_package(iiGPU 0.1 CONFIG REQUIRED COMPONENTS Runtime)\ntarget_link_libraries(MyApp PRIVATE iiGPU::Runtime)\n# If the application uses Core, it finds and links it independently:\nfind_package(iiSDKCore 0.20 CONFIG REQUIRED COMPONENTS Runtime)\ntarget_link_libraries(MyApp PRIVATE iiSDKCore::Runtime)\n# Request WebGPU only when used; the compatibility iiWebGPU package also works.\nfind_package(iiGPU 0.1 CONFIG REQUIRED COMPONENTS WebGPU)\ntarget_link_libraries(MyWebGPUApp PRIVATE iiGPU::WebGPU)\n",
@@ -201,78 +201,78 @@
     {
       "id": "b000024",
       "kind": "blank",
-      "start_line": 81,
-      "end_line": 81,
+      "start_line": 84,
+      "end_line": 84,
       "raw": "\n"
     },
     {
       "id": "b000025",
       "kind": "paragraph",
-      "start_line": 82,
-      "end_line": 86,
+      "start_line": 85,
+      "end_line": 89,
       "raw": "`CompletionWatch::create(loop, submission, callback)` also accepts a compatible\ncaller-owned loop directly, or an application can supply `CompletionScheduler`\ncallbacks. Cancellation stops observing; it does not cancel submitted GPU work.\nThe old Core-specific binary interface has changed: rebuild applications that\nused it and link Core explicitly at the application boundary.\n"
     },
     {
       "id": "b000026",
       "kind": "blank",
-      "start_line": 87,
-      "end_line": 87,
+      "start_line": 90,
+      "end_line": 90,
       "raw": "\n"
     },
     {
       "id": "b000027",
       "kind": "paragraph",
-      "start_line": 88,
-      "end_line": 91,
-      "raw": "The [acceleration example](example/Acceleration/main.cpp) uploads 257 integers,\ndispatches a shader, waits for completion and checks every output. Run\n`build/iiGPUAcceleration metal` or `build/iiGPUAcceleration vulkan`. It requires\na physical GPU by default and does not silently run a CPU implementation.\n"
+      "start_line": 91,
+      "end_line": 95,
+      "raw": "The [acceleration example](example/Acceleration/main.cpp) uploads 257 integers,\ndispatches a shader, waits for completion and checks every output. Configure\nwith `-DIIGPU_BUILD_EXAMPLES=ON` to build it. Run\n`build/iiGPUAcceleration metal` or `build/iiGPUAcceleration vulkan`. It requires\na physical GPU by default and does not silently run a CPU implementation.\n"
     },
     {
       "id": "b000028",
-      "kind": "blank",
-      "start_line": 92,
-      "end_line": 92,
-      "raw": "\n"
-    },
-    {
-      "id": "b000029",
-      "kind": "paragraph",
-      "start_line": 93,
-      "end_line": 95,
-      "raw": "See the Korean [API and lifetime contract](docs/Contracts.md),\n[platform and verification record](docs/Verification.md), and\n[agent document index](docs/agent-index.json).\n"
-    },
-    {
-      "id": "b000030",
       "kind": "blank",
       "start_line": 96,
       "end_line": 96,
       "raw": "\n"
     },
     {
-      "id": "b000031",
+      "id": "b000029",
       "kind": "paragraph",
       "start_line": 97,
-      "end_line": 97,
+      "end_line": 99,
+      "raw": "See the Korean [API and lifetime contract](docs/Contracts.md),\n[platform and verification record](docs/Verification.md), and\n[agent document index](docs/agent-index.json).\n"
+    },
+    {
+      "id": "b000030",
+      "kind": "blank",
+      "start_line": 100,
+      "end_line": 100,
+      "raw": "\n"
+    },
+    {
+      "id": "b000031",
+      "kind": "paragraph",
+      "start_line": 101,
+      "end_line": 101,
       "raw": "WebGPU source, migration and verification: [contract](docs/WebGPUContract.md), [verification](docs/WebGPUVerification.md).\n"
     },
     {
       "id": "b000032",
       "kind": "blank",
-      "start_line": 98,
-      "end_line": 98,
+      "start_line": 102,
+      "end_line": 102,
       "raw": "\n"
     },
     {
       "id": "b000033",
       "kind": "html",
-      "start_line": 99,
-      "end_line": 99,
+      "start_line": 103,
+      "end_line": 103,
       "raw": "<!-- workspace-docs:readme:start -->\n"
     },
     {
       "id": "b000034",
       "kind": "heading",
-      "start_line": 100,
-      "end_line": 100,
+      "start_line": 104,
+      "end_line": 104,
       "raw": "## Documentation entry points\n",
       "level": 2,
       "title": "Documentation entry points"
@@ -280,15 +280,15 @@
     {
       "id": "b000035",
       "kind": "blank",
-      "start_line": 101,
-      "end_line": 101,
+      "start_line": 105,
+      "end_line": 105,
       "raw": "\n"
     },
     {
       "id": "b000036",
       "kind": "list",
-      "start_line": 102,
-      "end_line": 105,
+      "start_line": 106,
+      "end_line": 109,
       "raw": "- Human overview: this English `README.md`.\n- Agent instructions: [AGENT.md](AGENT.md).\n- Human documentation: [documentation index](docs/README.md).\n- Structured agent documentation: [agent index](docs/agent-index.json).\n",
       "items": [
         {
@@ -316,8 +316,8 @@
     {
       "id": "b000037",
       "kind": "html",
-      "start_line": 106,
-      "end_line": 106,
+      "start_line": 110,
+      "end_line": 110,
       "raw": "<!-- workspace-docs:readme:end -->\n"
     }
   ],
@@ -344,7 +344,7 @@
       "level": 2,
       "title": "Consume the installed package",
       "anchor": "consume-the-installed-package",
-      "start_line": 66
+      "start_line": 69
     },
     {
       "block_id": "b000034",
@@ -352,7 +352,7 @@
       "level": 2,
       "title": "Documentation entry points",
       "anchor": "documentation-entry-points",
-      "start_line": 100
+      "start_line": 104
     }
   ],
   "indexes": {
@@ -366,7 +366,7 @@
       {
         "block_id": "b000017",
         "language": "sh",
-        "code": "python3 -B ../tools/fetch_gpu_dawn.py\ncmake -S . -B build -DIIGPU_WEBGPU=ON\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\n"
+        "code": "python3 -B ../tools/fetch_gpu_dawn.py\ncmake -S . -B build -DIIGPU_WEBGPU=ON -DBUILD_TESTING=ON\ncmake --build build --parallel 4\nctest --test-dir build --output-on-failure\n"
       }
     ],
     "links": [
@@ -375,63 +375,63 @@
         "label": "acceleration example",
         "target": "example/Acceleration/main.cpp",
         "kind": "relative",
-        "line": 88
+        "line": 91
       },
       {
         "block_id": "b000029",
         "label": "API and lifetime contract",
         "target": "docs/Contracts.md",
         "kind": "relative",
-        "line": 93
+        "line": 97
       },
       {
         "block_id": "b000029",
         "label": "platform and verification record",
         "target": "docs/Verification.md",
         "kind": "relative",
-        "line": 94
+        "line": 98
       },
       {
         "block_id": "b000029",
         "label": "agent document index",
         "target": "docs/agent-index.json",
         "kind": "relative",
-        "line": 95
+        "line": 99
       },
       {
         "block_id": "b000031",
         "label": "contract",
         "target": "docs/WebGPUContract.md",
         "kind": "relative",
-        "line": 97
+        "line": 101
       },
       {
         "block_id": "b000031",
         "label": "verification",
         "target": "docs/WebGPUVerification.md",
         "kind": "relative",
-        "line": 97
+        "line": 101
       },
       {
         "block_id": "b000036",
         "label": "AGENT.md",
         "target": "AGENT.md",
         "kind": "relative",
-        "line": 103
+        "line": 107
       },
       {
         "block_id": "b000036",
         "label": "documentation index",
         "target": "docs/README.md",
         "kind": "relative",
-        "line": 104
+        "line": 108
       },
       {
         "block_id": "b000036",
         "label": "agent index",
         "target": "docs/agent-index.json",
         "kind": "relative",
-        "line": 105
+        "line": 109
       }
     ],
     "tables": []

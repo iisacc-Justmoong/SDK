@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "README.md",
-    "sha256": "54580b3721126b46209e79b26ebb3170c5a3c256d7c2e1d142d1c08a84df9bc1",
-    "bytes": 1290,
-    "line_count": 29,
+    "sha256": "5a7453ba9468b29e9544be435f7fb83783d35259c4c96a95a57f3215b433a7f3",
+    "bytes": 1391,
+    "line_count": 32,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -57,9 +57,9 @@
       "kind": "fenced_code",
       "start_line": 8,
       "end_line": 12,
-      "raw": "```sh\ncmake -S . -B build -DBUILD_TESTING=ON\ncmake --build build\nctest --test-dir build --output-on-failure\n```\n",
+      "raw": "```sh\ncmake -S . -B build\ncmake --build build\nctest --test-dir build --output-on-failure\n```\n",
       "language": "sh",
-      "code": "cmake -S . -B build -DBUILD_TESTING=ON\ncmake --build build\nctest --test-dir build --output-on-failure\n",
+      "code": "cmake -S . -B build\ncmake --build build\nctest --test-dir build --output-on-failure\n",
       "closed": true
     },
     {
@@ -73,44 +73,58 @@
       "id": "b000007",
       "kind": "paragraph",
       "start_line": 14,
-      "end_line": 20,
-      "raw": "The installed CMake package exports `iiCompression::iiCompression` and the\npublic header `<iiCompression/Gzip.h>`. Installation to a local prefix is an\nexplicit step; a stage inside `build/` does not update that prefix. A fresh\nconfiguration defaults to `~/.local` when `HOME` is available and accepts an\nexplicit `CMAKE_INSTALL_PREFIX`, including when invoked through `install.sh`.\nThe gzip interface and implementation live together directly under `src/`;\nCMake generates a build-only forwarding header to preserve the public include.\n"
+      "end_line": 15,
+      "raw": "The default build includes the library and its tests. To build only the library,\nconfigure with `-DBUILD_TESTING=OFF`.\n"
     },
     {
       "id": "b000008",
       "kind": "blank",
-      "start_line": 21,
-      "end_line": 21,
+      "start_line": 16,
+      "end_line": 16,
       "raw": "\n"
     },
     {
       "id": "b000009",
-      "kind": "html",
-      "start_line": 22,
-      "end_line": 22,
-      "raw": "<!-- workspace-docs:readme:start -->\n"
+      "kind": "paragraph",
+      "start_line": 17,
+      "end_line": 23,
+      "raw": "The installed CMake package exports `iiCompression::iiCompression` and the\npublic header `<iiCompression/Gzip.h>`. Installation to a local prefix is an\nexplicit step; a stage inside `build/` does not update that prefix. A fresh\nconfiguration defaults to `~/.local` when `HOME` is available and accepts an\nexplicit `CMAKE_INSTALL_PREFIX`, including when invoked through `install.sh`.\nThe gzip interface and implementation live together directly under `src/`;\nCMake generates a build-only forwarding header to preserve the public include.\n"
     },
     {
       "id": "b000010",
-      "kind": "heading",
-      "start_line": 23,
-      "end_line": 23,
-      "raw": "## Documentation entry points\n",
-      "level": 2,
-      "title": "Documentation entry points"
-    },
-    {
-      "id": "b000011",
       "kind": "blank",
       "start_line": 24,
       "end_line": 24,
       "raw": "\n"
     },
     {
-      "id": "b000012",
-      "kind": "list",
+      "id": "b000011",
+      "kind": "html",
       "start_line": 25,
-      "end_line": 28,
+      "end_line": 25,
+      "raw": "<!-- workspace-docs:readme:start -->\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "heading",
+      "start_line": 26,
+      "end_line": 26,
+      "raw": "## Documentation entry points\n",
+      "level": 2,
+      "title": "Documentation entry points"
+    },
+    {
+      "id": "b000013",
+      "kind": "blank",
+      "start_line": 27,
+      "end_line": 27,
+      "raw": "\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "list",
+      "start_line": 28,
+      "end_line": 31,
       "raw": "- Human overview: this English `README.md`.\n- Agent instructions: [AGENT.md](AGENT.md).\n- Human documentation: [documentation index](docs/README.md).\n- Structured agent documentation: [agent index](docs/agent-index.json).\n",
       "items": [
         {
@@ -136,10 +150,10 @@
       ]
     },
     {
-      "id": "b000013",
+      "id": "b000015",
       "kind": "html",
-      "start_line": 29,
-      "end_line": 29,
+      "start_line": 32,
+      "end_line": 32,
       "raw": "<!-- workspace-docs:readme:end -->\n"
     }
   ],
@@ -153,12 +167,12 @@
       "start_line": 1
     },
     {
-      "block_id": "b000010",
+      "block_id": "b000012",
       "parent_id": "b000001",
       "level": 2,
       "title": "Documentation entry points",
       "anchor": "documentation-entry-points",
-      "start_line": 23
+      "start_line": 26
     }
   ],
   "indexes": {
@@ -167,7 +181,7 @@
       {
         "block_id": "b000005",
         "language": "sh",
-        "code": "cmake -S . -B build -DBUILD_TESTING=ON\ncmake --build build\nctest --test-dir build --output-on-failure\n"
+        "code": "cmake -S . -B build\ncmake --build build\nctest --test-dir build --output-on-failure\n"
       }
     ],
     "links": [
@@ -186,25 +200,25 @@
         "line": 6
       },
       {
-        "block_id": "b000012",
+        "block_id": "b000014",
         "label": "AGENT.md",
         "target": "AGENT.md",
         "kind": "relative",
-        "line": 26
+        "line": 29
       },
       {
-        "block_id": "b000012",
+        "block_id": "b000014",
         "label": "documentation index",
         "target": "docs/README.md",
         "kind": "relative",
-        "line": 27
+        "line": 30
       },
       {
-        "block_id": "b000012",
+        "block_id": "b000014",
         "label": "agent index",
         "target": "docs/agent-index.json",
         "kind": "relative",
-        "line": 28
+        "line": 31
       }
     ],
     "tables": []

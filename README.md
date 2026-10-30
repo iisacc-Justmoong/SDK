@@ -113,7 +113,7 @@ Iterate through the SDK in this directory with `./install.sh --qt-prefix /Volume
 
 Automatically discover `install.sh` or `CMakeLists.txt` in the directory immediately below. Empty directories, hidden directories, and build outputs are not installation targets. CMake's `project`, `find_package`, `find_dependency`, and namespace targets read local dependencies and perform topological sorting. Dependencies calculated as variables or projects without CMake can declare additional dependency directories for each project one per line in `install-dependencies.txt`. Unknown declarations and circular dependencies are treated as errors before installation.
 
-If `install.sh` already exists, execute its install·package·verify rules. If not, process in the order: CMake configuration → build → CTest → install. The installer may skip tests; in such cases, run the full host test. If the installer has already run the full test, do not run it again. Also update the existing `platforms/<host>` install path with the same build, while keeping other ABI installers. Preserve the existing build's feature options, and update the CMake path of discovered dependencies to the new installer. Consumers of a failed SDK are not executed, but independent SDKs continue to install. If any step fails or is blocked, the exit code is not 0. Caches pointing to IDE inside Ninja/Make are restored to the same build tool in the current PATH. Generators and existing feature options are not changed, and if no alternative tool is available, the failure is recorded. Failure recovery using already-verified dependencies runs at `--only SDK --no-dependencies`. This option processes only the selected project, and the actual availability of installed dependencies is verified by CMake configuration and the project's tests. The dependency order between selected SDK is preserved.
+If `install.sh` already exists, execute its install·package·verify rules, except that LVRS uses the CMake route to preserve other builds and platforms. Otherwise, process in the order: CMake configuration → build → CTest → install. The installer may skip tests; in such cases, run the full host test. If the installer has already run the full test, do not run it again. Existing `platforms/<host>` profiles are preserved by default: use `--refresh-host-prefix` only after checking their backend and ABI. Preserve the existing build's feature options, and update the CMake path of discovered dependencies to the new installer. Consumers of a failed SDK are not executed, but independent SDKs continue to install. If any step fails or is blocked, the exit code is not 0. Caches pointing to IDE inside Ninja/Make are restored to the same build tool in the current PATH. Generators and existing feature options are not changed, and if no alternative tool is available, the failure is recorded. Failure recovery using already-verified dependencies runs at `--only SDK --no-dependencies`. This option processes only the selected project, and the actual availability of installed dependencies is verified by CMake configuration and the project's tests. The dependency order between selected SDK is preserved.
 
 ```sh
 ./install.sh --dry-run
@@ -126,7 +126,21 @@ python3 -B -m unittest discover -s tests -p 'test_install_all.py' -v
 
 If using the existing multi-platform installer during host reinstallation, set environment variables such as `*_INSTALL_PLATFORMS=macos` for the SDK. Other ABIs must be built separately using the platform's toolchain, and host verification success does not imply mobile or Wasm verification.
 
-Logs and execution results for each run are saved to `build/install-all/<run timestamp>/report.json`. Status per SDK, execution logs, install manifests, and file existence checks are recorded separately. Tests verify virtual SDK addition, dependency order, failure propagation, empty paths, and actual CMake installation, and temporary files are placed under `build/`. App and user model and storage data are not deleted.
+Each run writes one status report under `.state/install-all/<run timestamp>/`, outside build output. Failed project logs are kept there; successful project logs are removed by default, or retained with `--keep-logs`. The report records install manifests and file existence checks. Tests verify virtual SDK addition, dependency order, failure propagation, empty paths, and actual CMake installation. App and user model and storage data are not deleted.
+
+For a host refresh without starting CTest executables or custom native installers,
+use `./install.sh --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos`.
+This uses CMake for each native project, including LVRS, disables CMake's
+test targets and recognized example, benchmark and demo options, and records
+`tests: not_run`; it is build and installation evidence only. Non-CMake
+installers cannot be controlled by this switch and are reported as failures;
+run them separately after reviewing their behavior. A manifest proves that its
+listed files exist, not that every consumer is ABI-compatible. The installed
+tree may be partially changed if an install fails; keep a backup before an
+in-place refresh. The report is saved before each operation with `pending` and
+`running` states, so interrupted runs can be identified and retried. Discovery
+is a static approximation of remaining legacy dependencies, not proof that SDKs
+are independent. See [Installation operations](docs/Installation.md).
 
 ## 2026-10-19 patch release
 

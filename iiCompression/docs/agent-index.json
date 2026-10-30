@@ -28,14 +28,14 @@
       "document_id": "urn:iisacc:document:0d755806880c6596dbdfd5046224df39bea98933f60e277bc60318d3f76eae78",
       "source": "README.md",
       "agent_json": "docs/entrypoints/README.agent.json",
-      "source_sha256": "54580b3721126b46209e79b26ebb3170c5a3c256d7c2e1d142d1c08a84df9bc1",
+      "source_sha256": "5a7453ba9468b29e9544be435f7fb83783d35259c4c96a95a57f3215b433a7f3",
       "role": "overview"
     },
     {
       "document_id": "urn:iisacc:document:cf8d39b153edb32d4ae2607eee080992ff67f73e2fa2ac6cdc8eca81cf480ade",
       "source": "docs/Gzip.md",
       "agent_json": "docs/Gzip.agent.json",
-      "source_sha256": "61c792f439c10501861657764ba6daa8c7705d90b610884d5aeac33194ea29ce",
+      "source_sha256": "2bbac032464687f2c9ebde5a903a3339fbe8e43ed9aecbaab0193eb18f90d55b",
       "role": "guide"
     },
     {

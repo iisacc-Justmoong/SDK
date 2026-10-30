@@ -111,3 +111,19 @@ arm64의 Metal 정적 라이브러리가 교차 빌드되었다. Core 완료 어
 
 추가한 retirement 검사는 성공·실패 제출 핸들 128개를 보관한 상태에서도
 네이티브 작업 자원과 장치 추적 항목이 0개로 반환되는지 검사한다.
+
+## 기본 빌드 대상
+
+새 `build/` 구성과 `install.sh`는 모듈과 테스트를 빌드한다. 예제는
+`-DIIGPU_BUILD_EXAMPLES=ON`으로 별도 활성화하고, 라이브러리만 필요한
+경우 `-DBUILD_TESTING=OFF`를 지정한다. 기존 검증 기록의 경로는 당시의
+이력이며 현재 산출물 보관 위치를 보장하지 않는다.
+
+검증에 사용한 로컬 MoltenVK 입력은 `resources/vulkan/macos-isolated/`에
+보관한다. 명시적으로 사용할 때 `Vulkan_INCLUDE_DIR`과 `Vulkan_LIBRARY`를
+각각 이 디렉터리의 `include/`와 `lib/libMoltenVK.dylib`로 지정한다.
+기존 검증 스크립트와 요약은 `resources/.recovery/verification-20261030/`에
+보존했으며 과거 빌드 경로를 참조하므로 그대로 재실행할 수는 없다.
+
+현재 설치 소비자 검사는 임시 빌드를 검증 후 삭제하고 별도 JSON 로그를
+`build/`에 남기지 않는다. 실패 원인은 테스트 출력에서 확인한다.

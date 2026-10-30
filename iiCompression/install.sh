@@ -3,5 +3,5 @@ set -eu
 cd "$(dirname "$0")"
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON "$@"
 cmake --build build
-ctest --test-dir build --output-on-failure --no-tests=error
+ctest --test-dir build --output-on-failure
 cmake --install build

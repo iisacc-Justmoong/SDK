@@ -6,10 +6,13 @@ zlib. Applications can compose it with independent format and storage SDKs.
 See [the gzip contract](docs/Gzip.md) and [dependency notice](NOTICE.md).
 
 ```sh
-cmake -S . -B build -DBUILD_TESTING=ON
+cmake -S . -B build
 cmake --build build
 ctest --test-dir build --output-on-failure
 ```
+
+The default build includes the library and its tests. To build only the library,
+configure with `-DBUILD_TESTING=OFF`.
 
 The installed CMake package exports `iiCompression::iiCompression` and the
 public header `<iiCompression/Gzip.h>`. Installation to a local prefix is an

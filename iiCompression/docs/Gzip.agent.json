@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/Gzip.md",
-    "sha256": "61c792f439c10501861657764ba6daa8c7705d90b610884d5aeac33194ea29ce",
-    "bytes": 1498,
-    "line_count": 19,
+    "sha256": "2bbac032464687f2c9ebde5a903a3339fbe8e43ed9aecbaab0193eb18f90d55b",
+    "bytes": 1762,
+    "line_count": 25,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -72,6 +72,36 @@
       "start_line": 17,
       "end_line": 19,
       "raw": "테스트는 독립적으로 생성된 gzip 데이터, 빈 값, 왕복, 체크섬, 잘림, 이어 붙인\n멤버와 입출력 한도를 검사한다. Python을 사용할 수 있으면 표준 gzip 구현으로\n인코딩 결과도 별도 확인한다. 플랫폼별 실행 결과는 해당 환경에서 별도로 확인한다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 20,
+      "end_line": 20,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "heading",
+      "start_line": 21,
+      "end_line": 21,
+      "raw": "# 빌드 대상\n",
+      "level": 1,
+      "title": "빌드 대상"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 22,
+      "end_line": 22,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "paragraph",
+      "start_line": 23,
+      "end_line": 25,
+      "raw": "새 구성의 기본 빌드는 라이브러리와 단위·상호운용성 테스트를 생성한다.\n라이브러리만 필요한 경우 `BUILD_TESTING=OFF`를 지정한다.\n`install.sh`는 기본적으로 테스트를 빌드하고 실행한다.\n"
     }
   ],
   "outline": [
@@ -82,6 +112,14 @@
       "title": "메모리 gzip 계약",
       "anchor": "메모리-gzip-계약",
       "start_line": 1
+    },
+    {
+      "block_id": "b000009",
+      "parent_id": null,
+      "level": 1,
+      "title": "빌드 대상",
+      "anchor": "빌드-대상",
+      "start_line": 21
     }
   ],
   "indexes": {

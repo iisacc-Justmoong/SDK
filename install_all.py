@@ -84,6 +84,50 @@ def run(command, directory, environment, log):
                    stderr=subprocess.STDOUT, check=True)
 
 
+def provider_operation(operation, path, content=""):
+    """Use a short-lived provider process, including while its SDK is updated."""
+    provider_python = Path(__file__).resolve().parent / "iiFileProvider" / "python"
+    if not provider_python.is_dir():
+        raise ValueError("iiFileProvider Python sources are required to create installer output")
+    worker = '''import sys
+import ii_file_provider as fp
+operation, path = sys.argv[1:3]
+if operation == "mkdir":
+    fp.mkdir(path, parents=True, exist_ok=True)
+elif operation == "create":
+    with fp.open(path, "x", encoding="utf-8"):
+        pass
+elif operation == "write":
+    fp.write_text(path, sys.stdin.read(), encoding="utf-8")
+else:
+    raise ValueError("unknown provider operation")
+'''
+    environment = os.environ.copy()
+    environment["PYTHONPATH"] = str(provider_python) + (os.pathsep + environment["PYTHONPATH"] if environment.get("PYTHONPATH") else "")
+    result = subprocess.run([sys.executable, "-B", "-c", worker, operation, str(path)],
+                            input=content, text=True, capture_output=True, env=environment)
+    if result.returncode:
+        raise ValueError(f"iiFileProvider {operation} failed for {path}: {result.stderr.strip()}")
+
+
+def save_report(logs, report):
+    # The provider stages and publishes the complete replacement atomically.
+    provider_operation("write", logs / "report.json", json.dumps(report, indent=2) + "\n")
+
+
+def check_manifest(build, name, expected_prefix):
+    manifest = build / "install_manifest.txt"
+    if not manifest.is_file():
+        raise ValueError(f"{name}: missing install manifest {manifest}")
+    files = [Path(line) for line in manifest.read_text(encoding="utf-8").splitlines() if line]
+    missing = [str(path) for path in files if not path.exists()]
+    if not files or missing:
+        raise ValueError(f"{name}: installed files missing: {missing}")
+    if not any(path.is_relative_to(expected_prefix) for path in files):
+        raise ValueError(f"{name}: manifest contains no files under requested prefix {expected_prefix}")
+    return len(files)
+
+
 def installer_bash(environment):
     """Select a host Bash; Windows' System32 shim starts WSL instead."""
     explicit = environment.get("BASH_BINARY")
@@ -110,9 +154,23 @@ def install_project(name, project, projects, args, environment, log, definitions
     prefix = args.prefix_root / name
     environment = environment.copy()
     environment["INSTALL_PREFIX"] = str(prefix)
-    config = [f"-DCMAKE_BUILD_TYPE={args.configuration}", "-DBUILD_TESTING=ON",
+    config = [f"-DCMAKE_BUILD_TYPE={args.configuration}", f"-DBUILD_TESTING={'OFF' if args.no_tests else 'ON'}",
               f"-DCMAKE_INSTALL_PREFIX={prefix}",
               f"-DCMAKE_PREFIX_PATH={environment['CMAKE_PREFIX_PATH']}"]
+    # Product builds retain tests by default; only declared example, demo and
+    # benchmark switches are disabled. The explicit no-tests mode also disables
+    # declared test switches. Later user definitions can override these defaults.
+    declared = re.findall(r"\boption\s*\(\s*([A-Za-z_]\w*)", project["text"], re.I)
+    for option in sorted(set(declared)):
+        match = re.fullmatch(r"(?:[A-Z0-9]+_)*(?:BUILD|INSTALL)_(?:[A-Z0-9]+_)*(TESTS?|EXAMPLES?|BENCHMARKS?|DEMOS?)", option.upper())
+        if match and (args.no_tests or not match.group(1).startswith("TEST")):
+            config.append(f"-D{option}=OFF")
+    # Package variants such as iiFileProviderNative_DIR can otherwise retain
+    # a stale build-tree path even after the primary package is refreshed.
+    # Also remove retired or renamed ii/LV package cache entries.
+    config.extend(["-Uii*_DIR", "-ULVRS*_DIR", "-ULVUI*_DIR"])
+    for peer in sorted(set(projects) | {entry["package"] for entry in projects.values()}):
+        config.append(f"-U{peer}*_DIR")
     if args.qt_prefix:
         config.append(f"-DQt6_DIR={args.qt_prefix}/lib/cmake/Qt6")
     cache_file = build / "CMakeCache.txt"
@@ -132,12 +190,16 @@ def install_project(name, project, projects, args, environment, log, definitions
         config.append(f"-D{package}_DIR={args.prefix_root}/{dependency}/lib/cmake/{package}")
     config.extend(definitions)
     native = (directory / "CMakeLists.txt").is_file()
+    if args.no_tests and not native:
+        raise ValueError(f"{name}: --no-tests cannot control a non-CMake installer")
     if native:
         # Refresh dependency cache entries even when an existing installer later
         # reconfigures: old build-tree package paths must not win over installation.
         run(["cmake", "-S", str(directory), "-B", str(build), *config], directory, environment, log)
     installer = directory / "install.sh"
-    if installer.is_file() and name not in args.cmake:
+    # The LVRS multi-platform CLI may remove build and other platform outputs.
+    use_installer = installer.is_file() and name != "LVRS" and name not in args.cmake and not args.no_tests
+    if use_installer:
         bash = installer_bash(environment)
         if not bash:
             raise ValueError(f"{name}: bash is required to run install.sh")
@@ -147,35 +209,36 @@ def install_project(name, project, projects, args, environment, log, definitions
             raise ValueError(f"{name}: CMake fallback requires CMakeLists.txt")
         run(["cmake", "--build", str(build), "--config", args.configuration,
              "--parallel", str(args.jobs)], directory, environment, log)
-        run(["ctest", "--test-dir", str(build), "-C", args.configuration,
-             "--output-on-failure", "--no-tests=error"], directory, environment, log)
+        if not args.no_tests:
+            run(["ctest", "--test-dir", str(build), "-C", args.configuration,
+                 "--output-on-failure", "--no-tests=error"], directory, environment, log)
         run(["cmake", "--install", str(build), "--config", args.configuration,
              "--prefix", str(prefix)], directory, environment, log)
     if native:
         # Installers sometimes omit tests (or filter them). Always verify the
         # current complete host suite after the installation, against fresh SDKs.
         installer_text = installer.read_text(encoding="utf-8") if installer.is_file() else ""
-        if (installer.is_file() and name not in args.cmake
+        if (use_installer and not args.no_tests
                 and ("ctest" not in installer_text or re.search(r"\bctest[^\n]*\s-E\s", installer_text))):
             run(["cmake", "--build", str(build), "--config", args.configuration,
                  "--parallel", str(args.jobs)], directory, environment, log)
             run(["ctest", "--test-dir", str(build), "-C", args.configuration,
                  "--output-on-failure", "--no-tests=error"], directory, environment, log)
+        primary_count = check_manifest(build, name, prefix)
         host = {"Darwin": "macos", "Linux": "linux", "Windows": "windows"}.get(platform.system())
         host_prefix = prefix / "platforms" / (host or "unknown")
-        if host and host_prefix.is_dir():
+        if args.refresh_host_prefix and host and host_prefix.is_dir():
             # Some consumers deliberately resolve platforms/<host>. Refresh that
             # existing layout too without deleting any other installed ABI.
             run(["cmake", "--install", str(build), "--config", args.configuration,
                  "--prefix", str(host_prefix)], directory, environment, log)
-        manifest = build / "install_manifest.txt"
-        if manifest.is_file():
-            files = [Path(line) for line in manifest.read_text(encoding="utf-8").splitlines() if line]
-            missing = [str(path) for path in files if not path.exists()]
-            if not files or missing:
-                raise ValueError(f"{name}: installed files missing: {missing}")
-            return {"manifest": str(manifest), "installed_file_count": len(files)}
-    return {}
+            host_count = check_manifest(build, name, host_prefix)
+        else:
+            host_count = None
+        return {"manifest": str(build / "install_manifest.txt"),
+                "primary_installed_file_count": primary_count, "host_installed_file_count": host_count,
+                "tests": "not_run" if args.no_tests else "installer_or_ctest"}
+    return {"tests": "installer_managed"}
 
 
 def main(argv=None):
@@ -197,6 +260,12 @@ def main(argv=None):
     parser.add_argument("--no-dependencies", action="store_true",
                         help="With --only, reuse installed prerequisites instead of reinstalling them")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--no-tests", action="store_true",
+                        help="Build and install CMake projects without executing tests or custom installers")
+    parser.add_argument("--refresh-host-prefix", action="store_true",
+                        help="Also overwrite an existing platforms/<host> prefix after verifying its ABI and backend")
+    parser.add_argument("--keep-logs", action="store_true",
+                        help="Keep successful project logs in addition to failure logs")
     args = parser.parse_args(argv)
     if args.jobs < 1 or args.test_jobs < 1:
         parser.error("--jobs and --test-jobs must be positive")
@@ -231,8 +300,10 @@ def main(argv=None):
         print("No installer/CMake project: " + ", ".join(skipped), flush=True)
     if args.dry_run:
         return 0
-    logs = args.root / "build" / "install-all" / datetime.datetime.now().strftime("%Y%m%d-%H%M%S-%f")
-    logs.mkdir(parents=True)
+    logs = args.root / ".state" / "install-all" / datetime.datetime.now().strftime("%Y%m%d-%H%M%S-%f")
+    provider_operation("mkdir", logs)
+    report["projects"] = {name: {"status": "pending"} for name in order}
+    save_report(logs, report)
     environment = os.environ.copy()
     for variable in ("DYLD_LIBRARY_PATH", "DYLD_FRAMEWORK_PATH", "DYLD_FALLBACK_LIBRARY_PATH",
                      "QML_IMPORT_PATH", "QML2_IMPORT_PATH", "QT_QML_IMPORT_PATH", "CPATH",
@@ -254,20 +325,31 @@ def main(argv=None):
         else:
             print(f"Installing {name}…", flush=True)
             logfile = logs / f"{name}.log"
+            report["projects"][name] = {"status": "running", "log": str(logfile)}
+            save_report(logs, report)
             try:
-                with logfile.open("w") as log:
+                provider_operation("create", logfile)
+                # No O_CREAT: only the provider is allowed to create the file.
+                with os.fdopen(os.open(logfile, os.O_WRONLY | os.O_APPEND), "a", encoding="utf-8") as log:
                     details = install_project(name, projects[name], projects, args, environment,
                                               log, definitions[name], installer_args[name])
-                result = {"status": "installed", "log": str(logfile), **details}
+                result = {"status": "installed", **details}
+                if args.keep_logs:
+                    result["log"] = str(logfile)
+                else:
+                    logfile.unlink()
             except (subprocess.CalledProcessError, OSError, ValueError) as error:
                 result = {"status": "failed", "error": str(error), "log": str(logfile)}
-                print(logfile.read_text(encoding="utf-8", errors="replace")[-3000:], flush=True)
+                if logfile.is_file():
+                    print(logfile.read_text(encoding="utf-8", errors="replace")[-3000:], flush=True)
+                else:
+                    print(str(error), flush=True)
         report["projects"][name] = result
         print(f"{name}: {result['status']}", flush=True)
-        (logs / "report.json").write_text(json.dumps(report, indent=2) + "\n")
+        save_report(logs, report)
     report["finished_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
     report["success"] = all(result["status"] == "installed" for result in report["projects"].values())
-    (logs / "report.json").write_text(json.dumps(report, indent=2) + "\n")
+    save_report(logs, report)
     print(f"Report: {logs / 'report.json'}", flush=True)
     return 0 if report["success"] else 1
 

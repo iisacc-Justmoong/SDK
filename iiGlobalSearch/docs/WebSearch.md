@@ -31,7 +31,7 @@ using namespace std::chrono_literals;
 
 iiGlobalSearch::WebConfiguration config;
 config.defaultSeeds = {"https://example.com/"};
-config.scratchDirectory = "/absolute/workspace/build/web-rendering";
+config.scratchDirectory = "/absolute/workspace/resources/web-rendering";
 iiGlobalSearch::WebSearch search(config);
 iiGlobalSearch::WebRequest request;
 request.query = "example domain";

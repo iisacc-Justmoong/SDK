@@ -4,6 +4,8 @@ project(iiGlobalSearch VERSION 0.1.0 LANGUAGES CXX)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CTest)
+option(IIGLOBALSEARCH_BUILD_EXAMPLES "Build examples" OFF)
+option(IIGLOBALSEARCH_BUILD_BENCHMARKS "Build benchmarks" OFF)
 include(cmake/SourceHeaders.cmake)
 find_package(iiSDKCore 0.18 CONFIG REQUIRED COMPONENTS Runtime Values)
 find_package(iiJson CONFIG REQUIRED)
@@ -44,13 +46,27 @@ target_include_directories(iiGlobalSearchWeb PUBLIC
 target_link_libraries(iiGlobalSearchWeb PUBLIC iiGlobalSearchAnswer PRIVATE iiSDKCore::Runtime iiJson::iiJson iiFileProvider::Native
     iiNetwork::iiNetwork LibXml2::LibXml2 CURL::libcurl)
 
-add_library(iiGlobalSearchExample OBJECT example/search.cpp)
-target_link_libraries(iiGlobalSearchExample PRIVATE iiGlobalSearch)
+if(IIGLOBALSEARCH_BUILD_EXAMPLES)
+    add_library(iiGlobalSearchExample OBJECT example/search.cpp)
+    target_link_libraries(iiGlobalSearchExample PRIVATE iiGlobalSearch)
+endif()
 
 add_executable(ii-global-search src/CLI/main.cpp)
 target_link_libraries(ii-global-search PRIVATE iiGlobalSearch iiGlobalSearchWeb iiJson::iiJson)
 
+if(IIGLOBALSEARCH_BUILD_BENCHMARKS)
+    add_executable(iiGlobalSearchBenchmark tests/benchmark.cpp)
+    target_link_libraries(iiGlobalSearchBenchmark PRIVATE iiGlobalSearch iiFileProvider::Catalog)
+endif()
+
 if(BUILD_TESTING)
+    if(CMAKE_GENERATOR MATCHES "Ninja|Makefiles")
+        add_test(NAME iiGlobalSearch.build_targets COMMAND ${CMAKE_COMMAND}
+            -DBUILD_DIR=${CMAKE_BINARY_DIR}
+            -DEXAMPLES=$<IF:$<BOOL:${IIGLOBALSEARCH_BUILD_EXAMPLES}>,ON,OFF>
+            -DBENCHMARKS=$<IF:$<BOOL:${IIGLOBALSEARCH_BUILD_BENCHMARKS}>,ON,OFF>
+            -P ${CMAKE_CURRENT_SOURCE_DIR}/tests/build_targets.cmake)
+    endif()
     add_test(NAME iiGlobalSearch.source_layout COMMAND ${CMAKE_COMMAND} -DSOURCE_ROOT=${CMAKE_CURRENT_SOURCE_DIR} -P ${CMAKE_CURRENT_SOURCE_DIR}/tests/source_layout.cmake)
     add_executable(iiGlobalSearchAnswerTests tests/Answer.cpp)
     target_link_libraries(iiGlobalSearchAnswerTests PRIVATE iiGlobalSearchAnswer)
@@ -59,8 +75,6 @@ if(BUILD_TESTING)
     add_executable(iiGlobalSearchTests tests/GlobalSearch.cpp)
     target_link_libraries(iiGlobalSearchTests PRIVATE iiGlobalSearch
         iiFileProvider::Catalog iiFileProvider::Native)
-    add_executable(iiGlobalSearchBenchmark tests/benchmark.cpp)
-    target_link_libraries(iiGlobalSearchBenchmark PRIVATE iiGlobalSearch iiFileProvider::Catalog)
     add_test(NAME iiGlobalSearch.index COMMAND iiGlobalSearchTests ${CMAKE_CURRENT_SOURCE_DIR}/resources)
     add_executable(iiGlobalSearchWebTests tests/WebSearchUnit.cpp)
     target_link_libraries(iiGlobalSearchWebTests PRIVATE iiGlobalSearchWeb iiNetwork::iiNetwork)
@@ -68,7 +82,7 @@ if(BUILD_TESTING)
     set_tests_properties(iiGlobalSearch.web PROPERTIES TIMEOUT 30)
     add_executable(iiGlobalSearchWebIntegrationTests tests/WebSearch.cpp)
     target_link_libraries(iiGlobalSearchWebIntegrationTests PRIVATE iiGlobalSearchWeb iiNetwork::iiNetwork)
-    add_test(NAME iiGlobalSearch.web.integration COMMAND iiGlobalSearchWebIntegrationTests ${CMAKE_CURRENT_BINARY_DIR} $<TARGET_FILE:ii-global-search>)
+    add_test(NAME iiGlobalSearch.web.integration COMMAND iiGlobalSearchWebIntegrationTests ${CMAKE_CURRENT_SOURCE_DIR}/resources $<TARGET_FILE:ii-global-search>)
     set_tests_properties(iiGlobalSearch.web.integration PROPERTIES DISABLED TRUE TIMEOUT 120)
     add_test(NAME iiGlobalSearch.cli COMMAND ${CMAKE_COMMAND}
         -DCLI=$<TARGET_FILE:ii-global-search> -DRESOURCE_ROOT=${CMAKE_CURRENT_SOURCE_DIR}/resources

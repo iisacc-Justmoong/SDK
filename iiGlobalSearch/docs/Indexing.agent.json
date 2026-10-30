@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/Indexing.md",
-    "sha256": "b695de235248a35898e08fbd8fb1773a8eceb4e498f0cd999b5ac88936ac8a7d",
-    "bytes": 6681,
-    "line_count": 44,
+    "sha256": "02ea6bf4306f70b91e2fc3e29c6a3e5a434dcf683f39d910fd4ea96acbe4877f",
+    "bytes": 6973,
+    "line_count": 46,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -234,7 +234,7 @@
       "kind": "paragraph",
       "start_line": 40,
       "end_line": 40,
-      "raw": "`build/iiGlobalSearchBenchmark <절대-build-경로>`는 발행 대기 분류 300개의 합성 카탈로그를 만들고 첫 부분 결과와 전체 완료까지의 시간을 별도로 출력한다. 생성 시간은 측정에 포함하지 않는다. 파일 시스템 캐시가 데워진 합성 조건이며 실제 컨테이너의 지연이나 성능 보장을 의미하지 않는다.\n"
+      "raw": "`-DIIGLOBALSEARCH_BUILD_BENCHMARKS=ON`으로 선택한 뒤 `build/iiGlobalSearchBenchmark <절대-resources-경로>`는 발행 대기 분류 300개의 합성 카탈로그를 만들고 첫 부분 결과와 전체 완료까지의 시간을 별도로 출력한다. 생성 시간은 측정에 포함하지 않는다. 파일 시스템 캐시가 데워진 합성 조건이며 실제 컨테이너의 지연이나 성능 보장을 의미하지 않는다.\n"
     },
     {
       "id": "b000030",
@@ -265,6 +265,20 @@
       "start_line": 44,
       "end_line": 44,
       "raw": "파일별 메타데이터 병합과 메모리 FTS 색인은 `iiFileProvider::FileSearchIndex`가 소유한다. Society 디렉터리의 안전한 탐색, 진행·취소, 스냅샷 교체와 결과 경로 재검사는 iiGlobalSearch에 남는다. 제공자는 Society나 검색 모듈을 참조하지 않는다. 웹 검색은 이 파일 색인에 의존하지 않는다. 영구 `FileCatalog` 검색은 별도의 수명과 필터 계약을 유지한다.\n"
+    },
+    {
+      "id": "b000034",
+      "kind": "blank",
+      "start_line": 45,
+      "end_line": 45,
+      "raw": "\n"
+    },
+    {
+      "id": "b000035",
+      "kind": "paragraph",
+      "start_line": 46,
+      "end_line": 46,
+      "raw": "기본 빌드는 예제와 벤치마크를 제외한다. 예제는 `-DIIGLOBALSEARCH_BUILD_EXAMPLES=ON`으로 별도 선택한다. 벤치마크의 합성 데이터는 `resources/` 아래 지정한 작업 경로에 생성한다.\n"
     }
   ],
   "outline": [
@@ -349,7 +363,7 @@
       {
         "block_id": "b000029",
         "line": 40,
-        "text": "`build/iiGlobalSearchBenchmark <절대-build-경로>`는 발행 대기 분류 300개의 합성 카탈로그를 만들고 첫 부분 결과와 전체 완료까지의 시간을 별도로 출력한다. 생성 시간은 측정에 포함하지 않는다. 파일 시스템 캐시가 데워진 합성 조건이며 실제 컨테이너의 지연이나 성능 보장을 의미하지 않는다.",
+        "text": "`-DIIGLOBALSEARCH_BUILD_BENCHMARKS=ON`으로 선택한 뒤 `build/iiGlobalSearchBenchmark <절대-resources-경로>`는 발행 대기 분류 300개의 합성 카탈로그를 만들고 첫 부분 결과와 전체 완료까지의 시간을 별도로 출력한다. 생성 시간은 측정에 포함하지 않는다. 파일 시스템 캐시가 데워진 합성 조건이며 실제 컨테이너의 지연이나 성능 보장을 의미하지 않는다.",
         "basis": "lexical_match",
         "context": "paragraph"
       },

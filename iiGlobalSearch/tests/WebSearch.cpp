@@ -77,7 +77,7 @@ public:
 };
 
 int main(int argc, char** argv) try {
-    check(argc == 3, "build path and CLI required");
+    check(argc == 3, "resources path and CLI required");
     Fixture fixture;
     const auto scratch = fs::absolute(argv[1]) / "web-rendering";
     const bool scratchCreated = fs::create_directories(scratch);

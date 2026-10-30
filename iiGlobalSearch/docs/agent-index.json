@@ -35,7 +35,7 @@
       "document_id": "urn:iisacc:document:a503b1c5ea6a935d1dafa834e86bc01cda552ae408343d1a3447da1b5380588b",
       "source": "docs/Indexing.md",
       "agent_json": "docs/Indexing.agent.json",
-      "source_sha256": "b695de235248a35898e08fbd8fb1773a8eceb4e498f0cd999b5ac88936ac8a7d",
+      "source_sha256": "02ea6bf4306f70b91e2fc3e29c6a3e5a434dcf683f39d910fd4ea96acbe4877f",
       "role": "guide"
     },
     {
@@ -56,7 +56,7 @@
       "document_id": "urn:iisacc:document:e0e8a2c5a9a617a0e729e6ae9d9c877df7bbf9c82e3b4b87cbd94d63d0f70c9f",
       "source": "docs/WebSearch.md",
       "agent_json": "docs/WebSearch.agent.json",
-      "source_sha256": "14e2454779e5945d88f7af002a00369aaf82696abbe309667d2316e2c018ef87",
+      "source_sha256": "86a56e919a3f91e7876b1cd5b255a2853e5a962eef9677f91e79e35a0da26a3c",
       "role": "guide"
     },
     {

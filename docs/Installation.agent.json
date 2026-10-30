@@ -1,0 +1,277 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:fe903e3db0dd6d73d9f0219921e97cfa0b62b59e6880fd91a637f02c15a880d1",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "docs/Installation.md",
+    "sha256": "35e51e084d100631b23ef830cdbf5e083206c3d158c8d80766ad90e69276872b",
+    "bytes": 6729,
+    "line_count": 44,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "SDK host installation",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# SDK host installation\n",
+      "level": 1,
+      "title": "SDK host installation"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "Run `./install.sh --dry-run` before changing installed SDKs. The installer discovers immediate child projects with an installer or a CMake project, skips symlinks and non-project directories, and orders currently declared local dependencies. This static scan cannot detect every computed or runtime dependency and does not mean migration to independent SDKs is complete. A failed prerequisite blocks selected dependents; independent projects continue.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 4,
+      "end_line": 4,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 5,
+      "end_line": 12,
+      "raw": "The installer is an application-level consumer of iiFileProvider. Its Python\nadapter and a working native iiFileProvider library must already be available\nbefore a non-dry run; if they are missing, bootstrap iiFileProvider first using\nits own documented build and install procedure. Logs, directories and atomic\nreport publication are created through that provider. A short-lived helper\nloads the provider for each file operation, so the main installer does not\nkeep the provider library loaded while reinstalling it. Build tools still own\ntheir normal compiler-generated files.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 13,
+      "end_line": 13,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 14,
+      "end_line": 14,
+      "raw": "The default host installation uses `~/.local/SDK/<module>`. Existing custom installers may use a different documented prefix or perform additional work; `--prefix-root` cannot force those installers to honor it. Review their scripts first. Use `--cmake <module>` for a standard CMake build, full CTest, and installation. LVRS always uses the CMake route in this bulk tool because its custom multi-platform installer can remove existing build or platform output. Existing `platforms/<host>` profiles are preserved by default because they can contain a different backend or ABI. `--refresh-host-prefix` explicitly overwrites an existing host profile with the current build; use it only after verifying that the backend and ABI match.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 15,
+      "end_line": 15,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 16,
+      "end_line": 16,
+      "raw": "The ordinary CMake build enables tests and disables declared example, demo and benchmark build/install options by default; custom installers and unconditional targets need project-specific review. User `--define` options can override those defaults.\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 17,
+      "end_line": 17,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "paragraph",
+      "start_line": 18,
+      "end_line": 18,
+      "raw": "Use `--no-tests` for a production CMake build and installation without executing CTest or native custom installers. It configures `BUILD_TESTING=OFF` and disables this project's declared build/install options for tests, examples, benchmarks and demos, unless an explicit later `--define` overrides them. Other feature settings are retained. Options with unrelated names or unconditional extra targets require project-specific changes. This does not verify runtime behavior or installed consumers. Projects that only supply a custom installer fail explicitly in this mode and need a separate reviewed installation. It does not prevent CMake configuration or build tools from executing their own commands. Ordinary mode can execute project tests and installer-defined commands, including tests which open windows.\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 19,
+      "end_line": 19,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "fenced_code",
+      "start_line": 20,
+      "end_line": 26,
+      "raw": "```sh\n./install.sh --dry-run\n./install.sh --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\nCMAKE_PREFIX_PATH=\"$HOME/.local/SDK/Vulkan\" ./install.sh --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\n./install.sh --only iiJson --no-dependencies --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\npython3 -B -m unittest discover -s tests -p 'test_install_all.py' -v\n```\n",
+      "language": "sh",
+      "code": "./install.sh --dry-run\n./install.sh --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\nCMAKE_PREFIX_PATH=\"$HOME/.local/SDK/Vulkan\" ./install.sh --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\n./install.sh --only iiJson --no-dependencies --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\npython3 -B -m unittest discover -s tests -p 'test_install_all.py' -v\n",
+      "closed": true
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 27,
+      "end_line": 27,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 28,
+      "end_line": 31,
+      "raw": "`--qt-prefix` adds Qt; additional third-party prefixes such as an installed\nVulkan SDK must be supplied explicitly through `CMAKE_PREFIX_PATH` or the\nproject's own documented toolchain settings. Presence of Vulkan drivers alone\ndoes not imply that CMake can find its development package.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 32,
+      "end_line": 32,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "paragraph",
+      "start_line": 33,
+      "end_line": 33,
+      "raw": "Build and installation occur in place: back up existing package directories first and keep active applications and their data intact. A failed installation may leave a partially updated prefix; neither manifest checking nor this script is a transaction or rollback. Installing a changed public ABI may require rebuilding dependent packages and apps. Do not infer compatibility just because a file exists.\n"
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 34,
+      "end_line": 34,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "paragraph",
+      "start_line": 35,
+      "end_line": 38,
+      "raw": "The recovery copies from the 2026-10-30 SDK refresh are preserved under\n`resources/.recovery/sdk-install-20261030/`, outside the build tree. The JSON\nrecords there identify the earlier iiJson, iiGUI, LVUI and LVRS profile recovery;\nhistorical build-report paths in the summary may no longer exist after cleanup.\n"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 39,
+      "end_line": 39,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "paragraph",
+      "start_line": 40,
+      "end_line": 40,
+      "raw": "Each run stores one report under `.state/install-all/<timestamp>/`, outside build output. Failed project logs are retained there; successful project logs are removed by default, with `--keep-logs` available for deliberate retention. Entries begin as `pending`, change to `running` before the operation, then become `installed`, `failed`, or `blocked`. The report is atomically replaced after each transition, so an interrupted `running` entry is not reported as success. Inspect the log and prefix before retrying. For each CMake install, the manifest must be nonempty, every listed path must exist, and at least one path must be under the requested prefix. The primary and optional host-specific installs are checked separately; CMake replaces the manifest with the last install's list. This does not prove content or ABI compatibility, and host success says nothing about Windows, Linux, Android, iOS, WebAssembly, or another host toolchain. A non-CMake installer is responsible for its own verification. `--only` retries the selected projects and their discovered prerequisites; `--no-dependencies` intentionally reuses installed prerequisites and does not independently verify them.\n"
+    },
+    {
+      "id": "b000022",
+      "kind": "blank",
+      "start_line": 41,
+      "end_line": 41,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "paragraph",
+      "start_line": 42,
+      "end_line": 42,
+      "raw": "Before each configure, cached SDK package-directory variables and their variants are cleared so that an old build-tree package does not silently override current prefixes. This includes retired `ii*`, `LVRS*` and `LVUI*` package names. Third-party package cache entries outside those namespaces are left alone. A project-specific `--define` is applied afterwards and may deliberately select another package. These cache resets do not detect every absolute library path, runtime path, or dependency hidden outside CMake's package-directory variables.\n"
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 43,
+      "end_line": 43,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
+      "kind": "paragraph",
+      "start_line": 44,
+      "end_line": 44,
+      "raw": "An existing build may also contain compiler implicit include directories captured from an older `CPATH` or `CPLUS_INCLUDE_PATH`. Clearing the current environment alone does not remove those cached entries: CMake may then omit a required explicit SDK include even though the file exists. Inspect `build/CMakeFiles/<cmake-version>/CMakeCXXCompiler.cmake` and the failing target's generated flags when diagnosing a missing installed header. Preserve the generated file before any targeted repair or compiler re-detection, and verify the actual include flags after reconfiguration. Never assume every SDK-looking entry is accidental: a toolchain may deliberately provide one. This installer does not automatically rewrite compiler detection files.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "SDK host installation",
+      "anchor": "sdk-host-installation",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000005",
+        "line": 6,
+        "text": "adapter and a working native iiFileProvider library must already be available",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000015",
+        "line": 29,
+        "text": "Vulkan SDK must be supplied explicitly through `CMAKE_PREFIX_PATH` or the",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000017",
+        "line": 33,
+        "text": "Build and installation occur in place: back up existing package directories first and keep active applications and their data intact. A failed installation may leave a partially updated prefix; neither manifest checking nor this script is a transaction or rollback. Installing a changed public ABI may require rebuilding dependent packages and apps. Do not infer compatibility just because a file exists.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000021",
+        "line": 40,
+        "text": "Each run stores one report under `.state/install-all/<timestamp>/`, outside build output. Failed project logs are retained there; successful project logs are removed by default, with `--keep-logs` available for deliberate retention. Entries begin as `pending`, change to `running` before the operation, then become `installed`, `failed`, or `blocked`. The report is atomically replaced after each transition, so an interrupted `running` entry is not reported as success. Inspect the log and prefix before retrying. For each CMake install, the manifest must be nonempty, every listed path must exist, and at least one path must be under the requested prefix. The primary and optional host-specific installs are checked separately; CMake replaces the manifest with the last install's list. This does not prove content or ABI compatibility, and host success says nothing about Windows, Linux, Android, iOS, WebAssembly, or another host toolchain. A non-CMake installer is responsible for its own verification. `--only` retries the selected projects and their discovered prerequisites; `--no-dependencies` intentionally reuses installed prerequisites and does not independently verify them.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000023",
+        "line": 42,
+        "text": "Before each configure, cached SDK package-directory variables and their variants are cleared so that an old build-tree package does not silently override current prefixes. This includes retired `ii*`, `LVRS*` and `LVUI*` package names. Third-party package cache entries outside those namespaces are left alone. A project-specific `--define` is applied afterwards and may deliberately select another package. These cache resets do not detect every absolute library path, runtime path, or dependency hidden outside CMake's package-directory variables.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000025",
+        "line": 44,
+        "text": "An existing build may also contain compiler implicit include directories captured from an older `CPATH` or `CPLUS_INCLUDE_PATH`. Clearing the current environment alone does not remove those cached entries: CMake may then omit a required explicit SDK include even though the file exists. Inspect `build/CMakeFiles/<cmake-version>/CMakeCXXCompiler.cmake` and the failing target's generated flags when diagnosing a missing installed header. Preserve the generated file before any targeted repair or compiler re-detection, and verify the actual include flags after reconfiguration. Never assume every SDK-looking entry is accidental: a toolchain may deliberately provide one. This installer does not automatically rewrite compiler detection files.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [
+      {
+        "block_id": "b000013",
+        "language": "sh",
+        "code": "./install.sh --dry-run\n./install.sh --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\nCMAKE_PREFIX_PATH=\"$HOME/.local/SDK/Vulkan\" ./install.sh --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\n./install.sh --only iiJson --no-dependencies --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\npython3 -B -m unittest discover -s tests -p 'test_install_all.py' -v\n"
+      }
+    ],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

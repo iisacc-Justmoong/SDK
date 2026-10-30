@@ -10,8 +10,8 @@
   },
   "source": {
     "path": "docs/WebSearch.md",
-    "sha256": "14e2454779e5945d88f7af002a00369aaf82696abbe309667d2316e2c018ef87",
-    "bytes": 9108,
+    "sha256": "86a56e919a3f91e7876b1cd5b255a2853e5a962eef9677f91e79e35a0da26a3c",
+    "bytes": 9112,
     "line_count": 58,
     "encoding": "utf-8",
     "language": "ko"
@@ -217,9 +217,9 @@
       "kind": "fenced_code",
       "start_line": 27,
       "end_line": 46,
-      "raw": "```cpp\n#include <WebSearch.h>\n#include <chrono>\nusing namespace std::chrono_literals;\n\niiGlobalSearch::WebConfiguration config;\nconfig.defaultSeeds = {\"https://example.com/\"};\nconfig.scratchDirectory = \"/absolute/workspace/build/web-rendering\";\niiGlobalSearch::WebSearch search(config);\niiGlobalSearch::WebRequest request;\nrequest.query = \"example domain\";\nrequest.maxPages = 20;\nauto task = search.submit(request); // 큐가 가득 찼으면 빈 포인터\nif (task && task->waitFor(30s)) {\n    auto state = task->progress();\n    auto pages = task->results(); // 기존 호환 API\n    auto answer = task->answer(); // 메모리 내 구조화 객체\n}\n// task->cancel()은 활성 네트워크와 브라우저 작업을 종료한다.\n```\n",
+      "raw": "```cpp\n#include <WebSearch.h>\n#include <chrono>\nusing namespace std::chrono_literals;\n\niiGlobalSearch::WebConfiguration config;\nconfig.defaultSeeds = {\"https://example.com/\"};\nconfig.scratchDirectory = \"/absolute/workspace/resources/web-rendering\";\niiGlobalSearch::WebSearch search(config);\niiGlobalSearch::WebRequest request;\nrequest.query = \"example domain\";\nrequest.maxPages = 20;\nauto task = search.submit(request); // 큐가 가득 찼으면 빈 포인터\nif (task && task->waitFor(30s)) {\n    auto state = task->progress();\n    auto pages = task->results(); // 기존 호환 API\n    auto answer = task->answer(); // 메모리 내 구조화 객체\n}\n// task->cancel()은 활성 네트워크와 브라우저 작업을 종료한다.\n```\n",
       "language": "cpp",
-      "code": "#include <WebSearch.h>\n#include <chrono>\nusing namespace std::chrono_literals;\n\niiGlobalSearch::WebConfiguration config;\nconfig.defaultSeeds = {\"https://example.com/\"};\nconfig.scratchDirectory = \"/absolute/workspace/build/web-rendering\";\niiGlobalSearch::WebSearch search(config);\niiGlobalSearch::WebRequest request;\nrequest.query = \"example domain\";\nrequest.maxPages = 20;\nauto task = search.submit(request); // 큐가 가득 찼으면 빈 포인터\nif (task && task->waitFor(30s)) {\n    auto state = task->progress();\n    auto pages = task->results(); // 기존 호환 API\n    auto answer = task->answer(); // 메모리 내 구조화 객체\n}\n// task->cancel()은 활성 네트워크와 브라우저 작업을 종료한다.\n",
+      "code": "#include <WebSearch.h>\n#include <chrono>\nusing namespace std::chrono_literals;\n\niiGlobalSearch::WebConfiguration config;\nconfig.defaultSeeds = {\"https://example.com/\"};\nconfig.scratchDirectory = \"/absolute/workspace/resources/web-rendering\";\niiGlobalSearch::WebSearch search(config);\niiGlobalSearch::WebRequest request;\nrequest.query = \"example domain\";\nrequest.maxPages = 20;\nauto task = search.submit(request); // 큐가 가득 찼으면 빈 포인터\nif (task && task->waitFor(30s)) {\n    auto state = task->progress();\n    auto pages = task->results(); // 기존 호환 API\n    auto answer = task->answer(); // 메모리 내 구조화 객체\n}\n// task->cancel()은 활성 네트워크와 브라우저 작업을 종료한다.\n",
       "closed": true
     },
     {
