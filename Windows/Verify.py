@@ -245,6 +245,20 @@ def verify_npm(builder, key):
     return result
 
 
+def report_directory(requested, workspace=WORKSPACE, stamp=None):
+    workspace = Path(workspace).resolve()
+    resources = workspace/'SDK/Windows/resources'
+    state = (resources/'.state/verification').resolve()
+    if (resources.is_symlink() or not resources.resolve().is_relative_to(workspace)
+            or not state.is_relative_to(resources.resolve())):
+        raise RuntimeError('Windows resource verification state must remain inside the workspace')
+    directory = (Path(requested) if requested else state/(stamp or
+        datetime.datetime.now().strftime('%Y%m%d-%H%M%S')+'-sdk-verification')).resolve()
+    if not directory.is_relative_to(state):
+        raise RuntimeError('Reports must stay inside the Windows resource verification state')
+    return directory
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--report-dir', type=Path)
@@ -256,15 +270,13 @@ def main():
     if discovered != set(projects):
         raise RuntimeError(f'Update projects.json to match buildable SDKs: {discovered ^ set(projects)}')
     order = dependency_order(projects)
-    report_directory = (args.report_dir or WORKSPACE/'build/maintenance'/(datetime.datetime.now().strftime('%Y%m%d-%H%M%S')+'-sdk-verification')).resolve()
-    if not report_directory.is_relative_to(WORKSPACE/'build'):
-        raise RuntimeError('Reports must stay inside the workspace build/ directory')
-    report_directory.mkdir(parents=True, exist_ok=True)
-    os.environ['SDK_VERIFICATION_DIR'] = str(report_directory)
+    report_path = report_directory(args.report_dir)
+    report_path.mkdir(parents=True, exist_ok=True)
+    os.environ['SDK_VERIFICATION_DIR'] = str(report_path)
     spec = importlib.util.spec_from_file_location('sdk_builder', HERE/'BuildProject.py')
     builder = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(builder)
-    report_file = report_directory/'verification.json'
+    report_file = report_path/'verification.json'
     prior = json.loads(report_file.read_text(encoding='utf-8')) if args.resume and report_file.exists() else {}
     toolchain = hashlib.sha256()
     for path in [HERE/'BuildProject.py', HERE/'Verify.py', HERE/'projects.json', HERE/'WindowsMsvcPrefix.cmake', HERE/'Configure-WindowsNinja.py', HERE/'Enter-DevEnvironment.ps1', HERE/'windows-utf8.manifest', WORKSPACE/'Tools/vcpkg/installed/vcpkg/status']:
@@ -303,7 +315,7 @@ def main():
             result = verify_npm(builder, key)
         else:
             completed = subprocess.run([sys.executable, str(HERE/'BuildProject.py'), 'check', key], env=os.environ.copy())
-            result_file = report_directory/(key.replace('/', '__')+'-check-result.json')
+            result_file = report_path/(key.replace('/', '__')+'-check-result.json')
             result = json.loads(result_file.read_text(encoding='utf-8')) if result_file.exists() else {'status': 'failed', 'steps': []}
             if completed.returncode and result.get('status') == 'installed':
                 result['status'] = 'failed'

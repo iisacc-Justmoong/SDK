@@ -51,6 +51,15 @@ completion observer.
 `-DIIGPU_BUILD_EXAMPLES=ON`. Use a fresh `build/` when returning to the
 default configuration.
 
+WebGPU bootstrap fixtures and temporary relocated packages are kept under
+`resources/.state/` and removed after verification. Compiled consumer test
+outputs use `build/` and are also removed afterwards. To check package
+relocation without running a hardware GPU, pass `--compile-only` to
+`tests/webgpu/relocation.py` after its usual source and build arguments.
+These fixture tests use the installed iiFileProvider Python adapter; set
+`IIFILEPROVIDER_PYTHON_DIRECTORY` if it is installed elsewhere. The iiGPU
+library itself does not require that adapter.
+
 To build the optional WebGPU component, prepare the locked host distribution
 first, then configure it explicitly:
 

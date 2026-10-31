@@ -10,8 +10,8 @@
   },
   "source": {
     "path": "docs/PERFORMANCE_REVIEW.md",
-    "sha256": "a060e8fc874fba00c989365435b2383060c1be8dfa6836b850a89428755966a4",
-    "bytes": 3347,
+    "sha256": "ff82429415e7e53ba823d6f5b9c2f02fa2ae5a3196996d1790fee26a1224589e",
+    "bytes": 3358,
     "line_count": 59,
     "encoding": "utf-8",
     "language": "en"
@@ -101,9 +101,9 @@
       "kind": "fenced_code",
       "start_line": 28,
       "end_line": 32,
-      "raw": "```sh\npython -m pip install -r tools/performance-audit-requirements.txt\npython tools/performance_audit.py --sdk \"$PWD\" --output build/performance-audit\npython tests/test_performance_audit.py\n```\n",
+      "raw": "```sh\npython -m pip install -r tools/performance-audit-requirements.txt\npython tools/performance_audit.py --sdk \"$PWD\" --output resources/.state/performance-audit\npython tests/test_performance_audit.py\n```\n",
       "language": "sh",
-      "code": "python -m pip install -r tools/performance-audit-requirements.txt\npython tools/performance_audit.py --sdk \"$PWD\" --output build/performance-audit\npython tests/test_performance_audit.py\n",
+      "code": "python -m pip install -r tools/performance-audit-requirements.txt\npython tools/performance_audit.py --sdk \"$PWD\" --output resources/.state/performance-audit\npython tests/test_performance_audit.py\n",
       "closed": true
     },
     {
@@ -226,7 +226,7 @@
       {
         "block_id": "b000011",
         "language": "sh",
-        "code": "python -m pip install -r tools/performance-audit-requirements.txt\npython tools/performance_audit.py --sdk \"$PWD\" --output build/performance-audit\npython tests/test_performance_audit.py\n"
+        "code": "python -m pip install -r tools/performance-audit-requirements.txt\npython tools/performance_audit.py --sdk \"$PWD\" --output resources/.state/performance-audit\npython tests/test_performance_audit.py\n"
       }
     ],
     "links": [],

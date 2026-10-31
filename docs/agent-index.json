@@ -28,7 +28,7 @@
       "document_id": "urn:iisacc:document:3092d9e380578c64e1513873d4d532131973415c55b401335c07cc405a07fef5",
       "source": "README.md",
       "agent_json": "docs/entrypoints/README.agent.json",
-      "source_sha256": "bfbd9396a2bea001c9e9bc37a53359bbc941667515400106a04233dad4d9a612",
+      "source_sha256": "a4d037038add29ed010c3551839f1a5ce777c51dbe67162dfd2aaf9cda9db7a7",
       "role": "overview"
     },
     {
@@ -70,7 +70,7 @@
       "document_id": "urn:iisacc:document:fe903e3db0dd6d73d9f0219921e97cfa0b62b59e6880fd91a637f02c15a880d1",
       "source": "docs/Installation.md",
       "agent_json": "docs/Installation.agent.json",
-      "source_sha256": "35e51e084d100631b23ef830cdbf5e083206c3d158c8d80766ad90e69276872b",
+      "source_sha256": "9422bd67c624d0083822729bf264fd0168c2571a91a63d14a5e1d871c576ad2a",
       "role": "guide"
     },
     {
@@ -91,7 +91,7 @@
       "document_id": "urn:iisacc:document:989817baa1a7ed24dca12cbe6ef58eba1af45c571df3aa0e6152a11429933320",
       "source": "docs/PERFORMANCE_REVIEW.md",
       "agent_json": "docs/PERFORMANCE_REVIEW.agent.json",
-      "source_sha256": "a060e8fc874fba00c989365435b2383060c1be8dfa6836b850a89428755966a4",
+      "source_sha256": "ff82429415e7e53ba823d6f5b9c2f02fa2ae5a3196996d1790fee26a1224589e",
       "role": "guide"
     },
     {
@@ -133,7 +133,7 @@
       "document_id": "urn:iisacc:document:d1bd15c136a152fdc53faee505e64de7fbe9c242f2e8d4e3c752cc9f804448a6",
       "source": "docs/WorkspaceSync.md",
       "agent_json": "docs/WorkspaceSync.agent.json",
-      "source_sha256": "25f6198d49cca0a4693491fb043c9c984fb7eda9af53c1f396b4329f63942b8a",
+      "source_sha256": "88dd99006e3e76a6a5a30a7f10f06a79bf2fde2f1664e7a38be15d8dd20bf677",
       "role": "guide"
     },
     {

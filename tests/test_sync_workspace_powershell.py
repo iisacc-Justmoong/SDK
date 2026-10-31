@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
-import tempfile
+import resource_workspace
 import unittest
 
 
@@ -15,8 +15,7 @@ POWERSHELL = os.environ.get("POWERSHELL_BINARY") or shutil.which("pwsh") or shut
 @unittest.skipUnless(POWERSHELL, "PowerShell is required for the native entry-point tests")
 class PowerShellWorkspaceSyncTests(unittest.TestCase):
     def setUp(self):
-        (SDK / "build").mkdir(exist_ok=True)
-        self.temporary = tempfile.TemporaryDirectory(prefix="powershell sync ", dir=SDK / "build")
+        self.temporary = resource_workspace.temporary("powershell-sync-test-")
         self.addCleanup(self.temporary.cleanup)
         self.base = Path(self.temporary.name)
         self.source = self.base / "source"
@@ -67,7 +66,11 @@ class PowerShellWorkspaceSyncTests(unittest.TestCase):
     def run_sync(self, *, complete=True, **kwargs):
         process = self.invoke(**kwargs)
         self.assertEqual(process.returncode == 0, complete, process.stdout + process.stderr)
-        report = json.loads((self.root / "build/workspace-sync/report.json").read_text(encoding="utf-8"))
+        reports = [line.removeprefix("WORKSPACE_SYNC_REPORT=") for line in process.stdout.splitlines()
+                   if line.startswith("WORKSPACE_SYNC_REPORT=")]
+        self.assertEqual(len(reports), 1, process.stdout)
+        report = json.loads(reports[0])
+        self.assertFalse((self.root / "build/workspace-sync").exists())
         self.assertEqual(report["complete"], complete)
         return report
 

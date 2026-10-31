@@ -27,7 +27,7 @@ def discover(root):
         if not directory.is_dir() or directory.is_symlink() or directory.name.startswith("."):
             continue
         if not any((directory / marker).is_file() for marker in ("install.sh", "CMakeLists.txt")):
-            if directory.name not in ("build", "tests"):
+            if directory.name not in ("build", "resources", "tests"):
                 skipped.append(directory.name)
             continue
         text = cmake_text(directory)
@@ -300,7 +300,10 @@ def main(argv=None):
         print("No installer/CMake project: " + ", ".join(skipped), flush=True)
     if args.dry_run:
         return 0
-    logs = args.root / ".state" / "install-all" / datetime.datetime.now().strftime("%Y%m%d-%H%M%S-%f")
+    for path in (args.root / "resources", args.root / "resources/.state", args.root / "resources/.state/install-all"):
+        if path.is_symlink():
+            raise ValueError("SDK install state cannot be a symlink")
+    logs = args.root / "resources/.state/install-all" / datetime.datetime.now().strftime("%Y%m%d-%H%M%S-%f")
     provider_operation("mkdir", logs)
     report["projects"] = {name: {"status": "pending"} for name in order}
     save_report(logs, report)

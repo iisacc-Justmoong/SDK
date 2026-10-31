@@ -1,9 +1,11 @@
 """Exercise workspace synchronization with real local Git remotes."""
+import contextlib
 import importlib.util
+import io
 import json
 from pathlib import Path
 import subprocess
-import tempfile
+import resource_workspace
 import unittest
 
 
@@ -18,9 +20,7 @@ class WorkspaceSyncTests(unittest.TestCase):
         SPEC.loader.exec_module(sync)
 
     def setUp(self):
-        build = SDK / "build"
-        build.mkdir(exist_ok=True)
-        self.temporary = tempfile.TemporaryDirectory(dir=build)
+        self.temporary = resource_workspace.temporary("workspace-sync-test-")
         self.addCleanup(self.temporary.cleanup)
         self.base = Path(self.temporary.name)
         self.source = self.base / "source"
@@ -52,6 +52,16 @@ class WorkspaceSyncTests(unittest.TestCase):
 
     def run_sync(self):
         return sync.synchronize(self.root, self.manifest)
+
+    def test_report_is_machine_readable_stdout_without_build_files(self):
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            report = self.run_sync()
+        lines = [line.removeprefix('WORKSPACE_SYNC_REPORT=') for line in output.getvalue().splitlines()
+                 if line.startswith('WORKSPACE_SYNC_REPORT=')]
+        self.assertEqual(len(lines), 1)
+        self.assertEqual(json.loads(lines[0]), report)
+        self.assertFalse((self.root / 'build/workspace-sync').exists())
 
     def test_clone_preserves_space_and_structure_and_is_repeatable(self):
         first = self.run_sync()

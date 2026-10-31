@@ -6,6 +6,10 @@ Select the compiler using the absolute `cl.exe` path found in the development sh
 
 Build the active SDKs in `projects.json` in dependency order, run every registered execution check, and install into the user SDK prefix. Deprecated and Utility projects are excluded. Directories without source build definitions do not count as successful executions.
 
+The project inventory also includes the independent `iiCompression` and
+`iiProjectManager` modules. Their presence in the inventory is not evidence
+that their Windows builds or tests have been executed.
+
 `iiSocialIntegration` replaces `iiSocialPublish` as the checkout and package
 name. The legacy headers and package are source compatibility aliases of the
 same module, so Windows verifies the new checkout once.
@@ -30,11 +34,11 @@ Run from PowerShell at the Workspace root. Prepare the C++ build tools, Qt/vcpkg
 ```powershell
 . ./SDK/Windows/Enter-DevEnvironment.ps1
 $python = Join-Path (Get-Location) 'Tools/Python314/tools/python.exe'
-& $python ./SDK/Windows/Verify.py --report-dir ./build/maintenance/windows-sdk-verification
+& $python ./SDK/Windows/Verify.py --report-dir ./SDK/Windows/resources/.state/verification/windows-sdk-verification
 if ($LASTEXITCODE -ne 0) { throw '전체 SDK 검증 미완료' }
 ```
 
-After fixing a failure, add `--resume` to the same command to reuse successful records whose sources, dependencies and verification tools are unchanged. `--only <SDK 이름...>` is a partial check and does not satisfy the conditions for a complete commit and push.
+Reports, JUnit records and opt-in state captures are stored under `SDK/Windows/resources/.state/verification/`, not in a build tree. After fixing a failure, add `--resume` to the same command to reuse successful records whose sources, dependencies and verification tools are unchanged. `--only <SDK 이름...>` is a partial check and does not satisfy the conditions for a complete commit and push.
 
 The batch run records consumers of a failed SDK as `dependency-failed` and continues checking independent SDKs.
 It does not validate consumers against an older installation of a failed prerequisite. Any failure or blockage

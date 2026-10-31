@@ -13,7 +13,10 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-RUN = Path(os.environ.get('SDK_VERIFICATION_DIR', ROOT / 'build/maintenance' / (datetime.datetime.now().strftime('%Y%m%d-%H%M%S') + '-sdk-verification')))
+RUN = Path(os.environ.get('SDK_VERIFICATION_DIR', ROOT / 'SDK/Windows/resources/.state/verification' / (datetime.datetime.now().strftime('%Y%m%d-%H%M%S') + '-sdk-verification'))).resolve()
+parts = {part.casefold() for part in RUN.relative_to(ROOT).parts} if RUN.is_relative_to(ROOT) else set()
+if 'resources' not in parts or any(part == 'build' or part.startswith('cmake-build-') for part in parts):
+    raise ValueError('Verification state must stay inside workspace resources, outside build/')
 RUN.mkdir(parents=True, exist_ok=True)
 ctypes.windll.kernel32.SetErrorMode(0x8003)
 PYTHON = ROOT / 'Tools/Python314/tools/python.exe'
@@ -57,7 +60,7 @@ def environment(key, build=None, qt_lvrs=False):
         return path/'qt' if use_qt and path.name == 'LVRS' else path
     env['CMAKE_PREFIX_PATH'] = ';'.join(['C:/Qt/6.8.3/msvc2022_64', (ROOT / 'Tools/vcpkg/installed/x64-windows').as_posix()] + [selected(path).as_posix() for path in prefixes])
     if qt_lvrs:
-        env['LVRS_STATE_CAPTURE_DIR'] = str(build/'state-captures')
+        env['LVRS_STATE_CAPTURE_DIR'] = str(RUN/'state-captures'/key.replace('/', '__'))
     env['PATH'] = os.pathsep.join([str(selected(path)/'bin') for path in prefixes if path.name in required]
         + [str(build)] + sorted({str(p.parent) for p in build.rglob('*.dll')})
         + [str(selected(path)/'bin') for path in prefixes if path.name not in required and path.name != Path(key).name]

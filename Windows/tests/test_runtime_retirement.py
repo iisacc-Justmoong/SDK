@@ -3,12 +3,14 @@ import ctypes
 import importlib.util
 import os
 from pathlib import Path
-import tempfile
+import sys
 from types import SimpleNamespace
 import unittest
 from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT.parent / 'tests'))
+import resource_workspace
 
 
 def load(name, path):
@@ -20,7 +22,7 @@ def load(name, path):
 
 class RuntimeRetirementTests(unittest.TestCase):
     def setUp(self):
-        self.temporary = tempfile.TemporaryDirectory(dir=ROOT / "build")
+        self.temporary = resource_workspace.temporary("runtime-retirement-test-")
         self.addCleanup(self.temporary.cleanup)
         self.prefix = Path(self.temporary.name)
         self.environment = mock.patch.dict(os.environ, {
@@ -44,6 +46,18 @@ class RuntimeRetirementTests(unittest.TestCase):
         self.assertNotIn("onnx", environment["CMAKE_PREFIX_PATH"].casefold())
         self.assertIn("iiSDKCore", environment["CMAKE_PREFIX_PATH"])
         self.assertIn("iiSDKCore", environment["PATH"])
+
+    def test_state_captures_use_the_report_workspace(self):
+        environment = self.builder.environment("SDK/LVRS", build=self.prefix / "build", qt_lvrs=True)
+        capture = Path(environment["LVRS_STATE_CAPTURE_DIR"])
+        self.assertTrue(capture.is_relative_to(self.prefix / "logs"))
+        self.assertFalse(capture.is_relative_to(self.prefix / "build"))
+
+    def test_build_tree_cannot_be_used_as_verification_state(self):
+        with mock.patch.dict(os.environ, {"SDK_VERIFICATION_DIR": str(self.prefix / "build" / "logs")}), \
+             mock.patch.object(ctypes, "windll", SimpleNamespace(kernel32=mock.Mock()), create=True):
+            with self.assertRaisesRegex(ValueError, "outside build/"):
+                load("windows_builder_bad_report_path", ROOT / "BuildProject.py")
 
     def test_configuration_clears_legacy_options_without_enabling_them(self):
         environment = self.builder.environment("SDK/iiDecision", build=self.prefix / "build")

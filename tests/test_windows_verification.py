@@ -7,7 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
-import tempfile
+import resource_workspace
 import unittest
 from unittest.mock import patch
 
@@ -18,14 +18,32 @@ spec.loader.exec_module(verification)
 
 
 class WindowsVerificationTests(unittest.TestCase):
+    def test_reports_are_confined_to_windows_resource_state(self):
+        with resource_workspace.temporary('windows-report-layout-') as temporary:
+            root = Path(temporary)
+            state = root/'SDK/Windows/resources/.state/verification'
+            self.assertEqual(verification.report_directory(None, root, 'fixed-run'), state/'fixed-run')
+            self.assertEqual(verification.report_directory(state/'explicit', root, 'unused'), state/'explicit')
+            for outside in (root/'build/maintenance', root/'SDK/Windows/resources/other'):
+                with self.subTest(outside=outside), self.assertRaisesRegex(RuntimeError, 'resource'):
+                    verification.report_directory(outside, root, 'unused')
+
+    @unittest.skipIf(os.name == 'nt', 'Directory symlinks require Windows developer privileges')
+    def test_linked_windows_resource_root_is_rejected(self):
+        with resource_workspace.temporary('windows-report-link-') as temporary:
+            root = Path(temporary)
+            (root/'SDK/Windows').mkdir(parents=True)
+            (root/'other').mkdir()
+            (root/'SDK/Windows/resources').symlink_to(root/'other', target_is_directory=True)
+            with self.assertRaisesRegex(RuntimeError, 'resource'):
+                verification.report_directory(None, root, 'run')
+
     @unittest.skipUnless(os.name == 'nt', 'Windows SDK environment helper')
     def test_owned_foundation_dll_directory_precedes_transitive_runtime_copies(self):
         spec = importlib.util.spec_from_file_location('sdk_builder_runtime_order_test', path.parent/'BuildProject.py')
         builder = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(builder)
-        build_root = path.parents[1]/'build'
-        build_root.mkdir(exist_ok=True)
-        with tempfile.TemporaryDirectory(prefix='windows-runtime-', dir=build_root) as temporary:
+        with resource_workspace.temporary('windows-runtime-') as temporary:
             root = Path(temporary)
             core = root/'.local/SDK/iiSDKCore/bin'
             consumer = root/'.local/SDK/iiSDKBuilder/bin'
@@ -41,9 +59,7 @@ class WindowsVerificationTests(unittest.TestCase):
         spec = importlib.util.spec_from_file_location('sdk_builder_nested_runtime_test', path.parent/'BuildProject.py')
         builder = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(builder)
-        build_root = path.parents[1]/'build'
-        build_root.mkdir(exist_ok=True)
-        with tempfile.TemporaryDirectory(prefix='windows-nested-runtime-', dir=build_root) as temporary:
+        with resource_workspace.temporary('windows-nested-runtime-') as temporary:
             root = Path(temporary)
             core = root/'.local/SDK/iiSDKCore/bin'
             consumer = root/'.local/SDK/iiSDKBuilder/bin'
@@ -62,9 +78,7 @@ class WindowsVerificationTests(unittest.TestCase):
         spec = importlib.util.spec_from_file_location('sdk_builder_environment_test', path.parent/'BuildProject.py')
         builder = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(builder)
-        build_root = path.parents[1]/'build'
-        build_root.mkdir(exist_ok=True)
-        with tempfile.TemporaryDirectory(prefix='windows-path-', dir=build_root) as temporary:
+        with resource_workspace.temporary('windows-path-') as temporary:
             root = Path(temporary)
             prefix = root/'.local/SDK/example'
             (prefix/'bin').mkdir(parents=True)
@@ -84,9 +98,7 @@ class WindowsVerificationTests(unittest.TestCase):
         spec = importlib.util.spec_from_file_location('sdk_builder_relocation_test', path.parent/'BuildProject.py')
         builder = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(builder)
-        build_root = path.parents[1]/'build'
-        build_root.mkdir(exist_ok=True)
-        with tempfile.TemporaryDirectory(prefix='windows-relocation-', dir=build_root) as temporary:
+        with resource_workspace.temporary('windows-relocation-') as temporary:
             root = Path(temporary)
             build = root/'SDK/iiWebServer/build'
             build.mkdir(parents=True)
@@ -130,11 +142,10 @@ class WindowsVerificationTests(unittest.TestCase):
 
     @unittest.skipUnless(os.name == 'nt' and shutil.which('cl.exe'), 'Requires the Windows MSVC development shell')
     def test_clean_native_build_and_changed_header_relink_the_consumer(self):
-        build_root = path.parents[1]/'build'
-        build_root.mkdir(exist_ok=True)
-        with tempfile.TemporaryDirectory(prefix='windows-order-', dir=build_root) as temporary:
+        with resource_workspace.temporary('windows-order-input-') as temporary, \
+             resource_workspace.compiled(path.parent, 'windows-order-build-') as build_directory:
             source = Path(temporary)
-            build = source/'build'
+            build = Path(build_directory)
             (source/'CMakeLists.txt').write_text('cmake_minimum_required(VERSION 3.28)\nproject(OrderProbe LANGUAGES CXX)\nadd_library(value STATIC value.cpp)\ntarget_compile_features(value PUBLIC cxx_std_23)\nadd_executable(probe main.cpp)\ntarget_link_libraries(probe PRIVATE value)\n')
             (source/'value.h').write_text('inline constexpr int result = 7;\n')
             (source/'value.cpp').write_text('#include "value.h"\nint value() { return result; }\n')
@@ -248,9 +259,7 @@ class WindowsVerificationTests(unittest.TestCase):
         spec = importlib.util.spec_from_file_location('sdk_builder_qt_test', path.parent/'BuildProject.py')
         builder = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(builder)
-        build_root = path.parents[1]/'build'
-        build_root.mkdir(exist_ok=True)
-        with tempfile.TemporaryDirectory(prefix='windows-qt-', dir=build_root) as temporary:
+        with resource_workspace.temporary('windows-qt-') as temporary:
             root = Path(temporary)
             prefix = root/'.local/SDK/LVRS'
             (prefix/'bin').mkdir(parents=True)

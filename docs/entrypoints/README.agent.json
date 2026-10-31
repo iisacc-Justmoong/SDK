@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "README.md",
-    "sha256": "bfbd9396a2bea001c9e9bc37a53359bbc941667515400106a04233dad4d9a612",
-    "bytes": 17159,
-    "line_count": 248,
+    "sha256": "a4d037038add29ed010c3551839f1a5ce777c51dbe67162dfd2aaf9cda9db7a7",
+    "bytes": 17224,
+    "line_count": 249,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -382,7 +382,7 @@
       "kind": "paragraph",
       "start_line": 129,
       "end_line": 129,
-      "raw": "Each run writes one status report under `.state/install-all/<run timestamp>/`, outside build output. Failed project logs are kept there; successful project logs are removed by default, or retained with `--keep-logs`. The report records install manifests and file existence checks. Tests verify virtual SDK addition, dependency order, failure propagation, empty paths, and actual CMake installation. App and user model and storage data are not deleted.\n"
+      "raw": "Each run writes one status report under `resources/.state/install-all/<run timestamp>/`, outside build output. Failed project logs are kept there; successful project logs are removed by default, or retained with `--keep-logs`. The report records install manifests and file existence checks. Tests verify virtual SDK addition, dependency order, failure propagation, empty paths, and actual CMake installation. App and user model and storage data are not deleted.\n"
     },
     {
       "id": "b000052",
@@ -686,8 +686,8 @@
       "id": "b000089",
       "kind": "list",
       "start_line": 199,
-      "end_line": 247,
-      "raw": "- [`SDK/Flamewall`](Flamewall/README.md)\n- [`SDK/LVRS`](LVRS/README.md)\n- [`SDK/LVRS-Svelte`](LVRS-Svelte/README.md)\n- [`SDK/LVUI`](LVUI/README.md)\n- [`SDK/Silentlocked`](Silentlocked/README.md)\n- [`SDK/Windows`](Windows/README.md)\n- [`SDK/ii3DGen`](ii3DGen/README.md)\n- [`SDK/iiAccountManager`](iiAccountManager/README.md)\n- [`SDK/iiActorObject`](iiActorObject/README.md)\n- [`SDK/iiAudioGen`](iiAudioGen/README.md)\n- [`SDK/iiCSMIDI`](iiCSMIDI/README.md)\n- [`SDK/iiCalendar`](iiCalendar/README.md)\n- [`SDK/iiCameraIntegration`](iiCameraIntegration/README.md)\n- [`SDK/iiColorManager`](iiColorManager/README.md)\n- [`SDK/iiCompression`](iiCompression/README.md)\n- [`SDK/iiComputerHistory`](iiComputerHistory/README.md)\n- [`SDK/iiComputerUse`](iiComputerUse/README.md)\n- [`SDK/iiDecision`](iiDecision/README.md)\n- [`SDK/iiDeviceMultimedia`](iiDeviceMultimedia/README.md)\n- [`SDK/iiEmailClient`](iiEmailClient/README.md)\n- [`SDK/iiFileProvider`](iiFileProvider/README.md)\n- [`SDK/iiGPU`](iiGPU/README.md)\n- [`SDK/iiGUI`](iiGUI/README.md)\n- [`SDK/iiGeneralDocument`](iiGeneralDocument/README.md)\n- [`SDK/iiGlobalSearch`](iiGlobalSearch/README.md)\n- [`SDK/iiGraphicAdjust`](iiGraphicAdjust/README.md)\n- [`SDK/iiJson`](iiJson/README.md)\n- [`SDK/iiLicenseManager`](iiLicenseManager/README.md)\n- [`SDK/iiLocalDiffusion`](iiLocalDiffusion/README.md)\n- [`SDK/iiLocalLLM`](iiLocalLLM/README.md)\n- [`SDK/iiMultimodalAgent`](iiMultimodalAgent/README.md)\n- [`SDK/iiNetwork`](iiNetwork/README.md)\n- [`SDK/iiPBRMaterial`](iiPBRMaterial/README.md)\n- [`SDK/iiPaintEngine`](iiPaintEngine/README.md)\n- [`SDK/iiPhotoLibrary`](iiPhotoLibrary/README.md)\n- [`SDK/iiSDKBuilder`](iiSDKBuilder/README.md)\n- [`SDK/iiSDKCore`](iiSDKCore/README.md)\n- [`SDK/iiSharedCanvas`](iiSharedCanvas/README.md)\n- [`SDK/iiSocialIntegration`](iiSocialIntegration/README.md)\n- [`SDK/iiSocietyContainer`](iiSocietyContainer/README.md)\n- [`SDK/iiSocietyHelper`](iiSocietyHelper/README.md)\n- [`SDK/iiUpdateManager`](iiUpdateManager/README.md)\n- [`SDK/iiVirtualizer`](iiVirtualizer/README.md)\n- [`SDK/iiVisualCodec`](iiVisualCodec/README.md)\n- [`SDK/iiVoiceOver`](iiVoiceOver/README.md)\n- [`SDK/iiVolumetricSolidMesh`](iiVolumetricSolidMesh/README.md)\n- [`SDK/iiWebServer`](iiWebServer/README.md)\n- [`SDK/iiWhatsNew`](iiWhatsNew/README.md)\n- [`SDK/iiXml`](iiXml/README.md)\n",
+      "end_line": 248,
+      "raw": "- [`SDK/Flamewall`](Flamewall/README.md)\n- [`SDK/LVRS`](LVRS/README.md)\n- [`SDK/LVRS-Svelte`](LVRS-Svelte/README.md)\n- [`SDK/LVUI`](LVUI/README.md)\n- [`SDK/Silentlocked`](Silentlocked/README.md)\n- [`SDK/Windows`](Windows/README.md)\n- [`SDK/ii3DGen`](ii3DGen/README.md)\n- [`SDK/iiAccountManager`](iiAccountManager/README.md)\n- [`SDK/iiActorObject`](iiActorObject/README.md)\n- [`SDK/iiAudioGen`](iiAudioGen/README.md)\n- [`SDK/iiCSMIDI`](iiCSMIDI/README.md)\n- [`SDK/iiCalendar`](iiCalendar/README.md)\n- [`SDK/iiCameraIntegration`](iiCameraIntegration/README.md)\n- [`SDK/iiColorManager`](iiColorManager/README.md)\n- [`SDK/iiCompression`](iiCompression/README.md)\n- [`SDK/iiComputerHistory`](iiComputerHistory/README.md)\n- [`SDK/iiComputerUse`](iiComputerUse/README.md)\n- [`SDK/iiDecision`](iiDecision/README.md)\n- [`SDK/iiDeviceMultimedia`](iiDeviceMultimedia/README.md)\n- [`SDK/iiEmailClient`](iiEmailClient/README.md)\n- [`SDK/iiFileProvider`](iiFileProvider/README.md)\n- [`SDK/iiGPU`](iiGPU/README.md)\n- [`SDK/iiGUI`](iiGUI/README.md)\n- [`SDK/iiGeneralDocument`](iiGeneralDocument/README.md)\n- [`SDK/iiGlobalSearch`](iiGlobalSearch/README.md)\n- [`SDK/iiGraphicAdjust`](iiGraphicAdjust/README.md)\n- [`SDK/iiJson`](iiJson/README.md)\n- [`SDK/iiLicenseManager`](iiLicenseManager/README.md)\n- [`SDK/iiLocalDiffusion`](iiLocalDiffusion/README.md)\n- [`SDK/iiLocalLLM`](iiLocalLLM/README.md)\n- [`SDK/iiMultimodalAgent`](iiMultimodalAgent/README.md)\n- [`SDK/iiNetwork`](iiNetwork/README.md)\n- [`SDK/iiPBRMaterial`](iiPBRMaterial/README.md)\n- [`SDK/iiPaintEngine`](iiPaintEngine/README.md)\n- [`SDK/iiPhotoLibrary`](iiPhotoLibrary/README.md)\n- [`SDK/iiSDKBuilder`](iiSDKBuilder/README.md)\n- [`SDK/iiSDKCore`](iiSDKCore/README.md)\n- [`SDK/iiSharedCanvas`](iiSharedCanvas/README.md)\n- [`SDK/iiSocialIntegration`](iiSocialIntegration/README.md)\n- [`SDK/iiSocietyContainer`](iiSocietyContainer/README.md)\n- [`SDK/iiSocietyHelper`](iiSocietyHelper/README.md)\n- [`SDK/iiUpdateManager`](iiUpdateManager/README.md)\n- [`SDK/iiVirtualizer`](iiVirtualizer/README.md)\n- [`SDK/iiVisualCodec`](iiVisualCodec/README.md)\n- [`SDK/iiVoiceOver`](iiVoiceOver/README.md)\n- [`SDK/iiVolumetricSolidMesh`](iiVolumetricSolidMesh/README.md)\n- [`SDK/iiWebServer`](iiWebServer/README.md)\n- [`SDK/iiWhatsNew`](iiWhatsNew/README.md)\n- [`SDK/iiXml`](iiXml/README.md)\n- [`SDK/iiProjectManager`](iiProjectManager/README.md)\n",
       "items": [
         {
           "marker": "-",
@@ -933,14 +933,19 @@
           "marker": "-",
           "text": "[`SDK/iiXml`](iiXml/README.md)",
           "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[`SDK/iiProjectManager`](iiProjectManager/README.md)",
+          "checked": null
         }
       ]
     },
     {
       "id": "b000090",
       "kind": "html",
-      "start_line": 248,
-      "end_line": 248,
+      "start_line": 249,
+      "end_line": 249,
       "raw": "<!-- workspace-docs:readme:end -->\n"
     }
   ],
@@ -1599,6 +1604,13 @@
         "target": "iiXml/README.md",
         "kind": "relative",
         "line": 247
+      },
+      {
+        "block_id": "b000089",
+        "label": "`SDK/iiProjectManager`",
+        "target": "iiProjectManager/README.md",
+        "kind": "relative",
+        "line": 248
       }
     ],
     "tables": []

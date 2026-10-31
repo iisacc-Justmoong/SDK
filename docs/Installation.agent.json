@@ -10,8 +10,8 @@
   },
   "source": {
     "path": "docs/Installation.md",
-    "sha256": "35e51e084d100631b23ef830cdbf5e083206c3d158c8d80766ad90e69276872b",
-    "bytes": 6729,
+    "sha256": "9422bd67c624d0083822729bf264fd0168c2571a91a63d14a5e1d871c576ad2a",
+    "bytes": 6739,
     "line_count": 44,
     "encoding": "utf-8",
     "language": "en"
@@ -172,7 +172,7 @@
       "kind": "paragraph",
       "start_line": 40,
       "end_line": 40,
-      "raw": "Each run stores one report under `.state/install-all/<timestamp>/`, outside build output. Failed project logs are retained there; successful project logs are removed by default, with `--keep-logs` available for deliberate retention. Entries begin as `pending`, change to `running` before the operation, then become `installed`, `failed`, or `blocked`. The report is atomically replaced after each transition, so an interrupted `running` entry is not reported as success. Inspect the log and prefix before retrying. For each CMake install, the manifest must be nonempty, every listed path must exist, and at least one path must be under the requested prefix. The primary and optional host-specific installs are checked separately; CMake replaces the manifest with the last install's list. This does not prove content or ABI compatibility, and host success says nothing about Windows, Linux, Android, iOS, WebAssembly, or another host toolchain. A non-CMake installer is responsible for its own verification. `--only` retries the selected projects and their discovered prerequisites; `--no-dependencies` intentionally reuses installed prerequisites and does not independently verify them.\n"
+      "raw": "Each run stores one report under `resources/.state/install-all/<timestamp>/`, outside build output. Failed project logs are retained there; successful project logs are removed by default, with `--keep-logs` available for deliberate retention. Entries begin as `pending`, change to `running` before the operation, then become `installed`, `failed`, or `blocked`. The report is atomically replaced after each transition, so an interrupted `running` entry is not reported as success. Inspect the log and prefix before retrying. For each CMake install, the manifest must be nonempty, every listed path must exist, and at least one path must be under the requested prefix. The primary and optional host-specific installs are checked separately; CMake replaces the manifest with the last install's list. This does not prove content or ABI compatibility, and host success says nothing about Windows, Linux, Android, iOS, WebAssembly, or another host toolchain. A non-CMake installer is responsible for its own verification. `--only` retries the selected projects and their discovered prerequisites; `--no-dependencies` intentionally reuses installed prerequisites and does not independently verify them.\n"
     },
     {
       "id": "b000022",
@@ -239,7 +239,7 @@
       {
         "block_id": "b000021",
         "line": 40,
-        "text": "Each run stores one report under `.state/install-all/<timestamp>/`, outside build output. Failed project logs are retained there; successful project logs are removed by default, with `--keep-logs` available for deliberate retention. Entries begin as `pending`, change to `running` before the operation, then become `installed`, `failed`, or `blocked`. The report is atomically replaced after each transition, so an interrupted `running` entry is not reported as success. Inspect the log and prefix before retrying. For each CMake install, the manifest must be nonempty, every listed path must exist, and at least one path must be under the requested prefix. The primary and optional host-specific installs are checked separately; CMake replaces the manifest with the last install's list. This does not prove content or ABI compatibility, and host success says nothing about Windows, Linux, Android, iOS, WebAssembly, or another host toolchain. A non-CMake installer is responsible for its own verification. `--only` retries the selected projects and their discovered prerequisites; `--no-dependencies` intentionally reuses installed prerequisites and does not independently verify them.",
+        "text": "Each run stores one report under `resources/.state/install-all/<timestamp>/`, outside build output. Failed project logs are retained there; successful project logs are removed by default, with `--keep-logs` available for deliberate retention. Entries begin as `pending`, change to `running` before the operation, then become `installed`, `failed`, or `blocked`. The report is atomically replaced after each transition, so an interrupted `running` entry is not reported as success. Inspect the log and prefix before retrying. For each CMake install, the manifest must be nonempty, every listed path must exist, and at least one path must be under the requested prefix. The primary and optional host-specific installs are checked separately; CMake replaces the manifest with the last install's list. This does not prove content or ABI compatibility, and host success says nothing about Windows, Linux, Android, iOS, WebAssembly, or another host toolchain. A non-CMake installer is responsible for its own verification. `--only` retries the selected projects and their discovered prerequisites; `--no-dependencies` intentionally reuses installed prerequisites and does not independently verify them.",
         "basis": "lexical_match",
         "context": "paragraph"
       },

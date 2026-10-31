@@ -27,7 +27,7 @@ under `build/performance-20261020/tools/`.
 
 ```sh
 python -m pip install -r tools/performance-audit-requirements.txt
-python tools/performance_audit.py --sdk "$PWD" --output build/performance-audit
+python tools/performance_audit.py --sdk "$PWD" --output resources/.state/performance-audit
 python tests/test_performance_audit.py
 ```
 

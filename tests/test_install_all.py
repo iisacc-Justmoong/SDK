@@ -1,11 +1,11 @@
-"""Execution contracts for the SDK installer, with temporary SDKs under build/."""
+"""Execution contracts for the SDK installer with resource-owned fixtures."""
 import importlib.util
 import json
 import os
 import re
 from pathlib import Path
 import subprocess
-import tempfile
+import resource_workspace
 import unittest
 from unittest.mock import patch
 
@@ -47,8 +47,7 @@ class InstallAllTest(unittest.TestCase):
         self.assertIn("Unicode", installer.discover(self.root)[0])
 
     def setUp(self):
-        (ROOT / "build").mkdir(exist_ok=True)
-        self.temp = tempfile.TemporaryDirectory(prefix="installer test ", dir=ROOT / "build")
+        self.temp = resource_workspace.temporary("installer-test-")
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
 
@@ -67,7 +66,7 @@ class InstallAllTest(unittest.TestCase):
         (self.root / "Empty Placeholder").mkdir()
         (self.root / ".private").mkdir()
         self.assertEqual(installer.main(["--root", str(self.root)]), 0)
-        report_path = next((self.root / ".state/install-all").glob("*/report.json"))
+        report_path = next((self.root / "resources/.state/install-all").glob("*/report.json"))
         report = json.loads(report_path.read_text())
         self.assertFalse((report_path.parent / "New Library.log").exists())
         self.assertNotIn("log", report["projects"]["New Library"])
@@ -83,6 +82,22 @@ class InstallAllTest(unittest.TestCase):
         self.assertEqual(installer.main(["--root", str(self.root)]), 1)
         self.assertFalse((self.root / "B/installed.txt").exists())
         self.assertTrue((self.root / "C/installed.txt").exists())
+
+    def test_install_state_rejects_a_resource_symlink(self):
+        self.project("A")
+        other = self.root / "other-state"
+        other.mkdir()
+        resources = self.root / "resources"
+        if os.name == "nt":
+            resources.mkdir()
+            with patch.object(Path, "is_symlink", autospec=True, side_effect=lambda path: path == resources):
+                with self.assertRaisesRegex(ValueError, "cannot be a symlink"):
+                    installer.main(["--root", str(self.root)])
+        else:
+            resources.symlink_to(other, target_is_directory=True)
+            with self.assertRaisesRegex(ValueError, "cannot be a symlink"):
+                installer.main(["--root", str(self.root)])
+        self.assertEqual(list(other.iterdir()), [])
 
     def test_cycle_fails_before_installation(self):
         self.project("A", ["B"])
@@ -145,7 +160,7 @@ install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt" DESTINATION share)
 ''')
         prefix = self.root / ".installation"
         self.assertEqual(installer.main(["--root", str(self.root), "--prefix-root", str(prefix), "--no-tests"]), 0)
-        report = json.loads(next((self.root / ".state/install-all").glob("*/report.json")).read_text())
+        report = json.loads(next((self.root / "resources/.state/install-all").glob("*/report.json")).read_text())
         self.assertEqual(report["projects"]["Native"]["tests"], "not_run")
         self.assertTrue((prefix / "Native/share/CMakeLists.txt").exists())
         self.assertFalse((path / "build/test-built").exists())
@@ -174,7 +189,7 @@ install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt" DESTINATION share)
     def test_running_status_is_persisted_before_installer(self):
         self.project("Native")
         def check_report(*args):
-            report = json.loads(next((self.root / ".state/install-all").glob("*/report.json")).read_text())
+            report = json.loads(next((self.root / "resources/.state/install-all").glob("*/report.json")).read_text())
             self.assertEqual(report["projects"]["Native"]["status"], "running")
             return {}
         with patch.object(installer, "install_project", side_effect=check_report):
@@ -198,7 +213,7 @@ install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt" DESTINATION share)
             return original(operation, path, content)
         with patch.object(installer, "provider_operation", side_effect=fail_create):
             self.assertEqual(installer.main(["--root", str(self.root)]), 1)
-        report = json.loads(next((self.root / ".state/install-all").glob("*/report.json")).read_text())
+        report = json.loads(next((self.root / "resources/.state/install-all").glob("*/report.json")).read_text())
         self.assertEqual(report["projects"]["Native"]["status"], "failed")
         self.assertIn("provider unavailable", report["projects"]["Native"]["error"])
 

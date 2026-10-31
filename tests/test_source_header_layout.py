@@ -2,7 +2,7 @@
 import json
 import os
 from pathlib import Path
-import tempfile
+import resource_workspace
 import unittest
 
 
@@ -42,15 +42,22 @@ def sdk_source_modules(root):
 
 
 class SourceHeaderLayoutTests(unittest.TestCase):
+    def test_fixture_directory_is_in_resources_and_removed(self):
+        with resource_workspace.temporary("header-layout-owned-") as directory:
+            path = Path(directory)
+            self.assertTrue(path.is_relative_to(SDK / "resources/.state/test-workspaces"))
+            self.assertTrue(path.is_dir())
+        self.assertFalse(path.exists())
+
     def test_resource_dependency_headers_are_not_authored_include_trees(self):
-        with tempfile.TemporaryDirectory(dir=SDK / "build") as directory:
+        with resource_workspace.temporary("header-layout-test-") as directory:
             module = Path(directory)
             (module / "src/include").mkdir(parents=True)
             (module / "resources/dependency/include").mkdir(parents=True)
             self.assertEqual(separated_trees(module), ["src/include"])
 
     def test_repeated_directory_check_allows_extensionless_header(self):
-        with tempfile.TemporaryDirectory(dir=SDK / "build") as directory:
+        with resource_workspace.temporary("header-layout-test-") as directory:
             module = Path(directory) / "example"
             (module / "src").mkdir(parents=True)
             (module / "src/example").write_text("#pragma once\n")
@@ -59,7 +66,7 @@ class SourceHeaderLayoutTests(unittest.TestCase):
             self.assertEqual(repeated_source_directories(module), [module / "Native/src/example"])
 
     def test_source_module_discovery_includes_non_cmake_modules(self):
-        with tempfile.TemporaryDirectory(dir=SDK / "build") as directory:
+        with resource_workspace.temporary("header-layout-test-") as directory:
             root = Path(directory)
             (root / "OtherSDK/src/OtherSDK").mkdir(parents=True)
             (root / "build/src/build").mkdir(parents=True)

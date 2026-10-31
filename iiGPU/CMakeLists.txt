@@ -174,6 +174,7 @@ if(BUILD_TESTING)
     add_test(NAME iiGPU.source_layout COMMAND "${CMAKE_COMMAND}"
         "-DSOURCE_ROOT=${CMAKE_CURRENT_SOURCE_DIR}" -P "${CMAKE_CURRENT_SOURCE_DIR}/tests/source_layout.cmake")
     find_package(Python3 REQUIRED COMPONENTS Interpreter)
+    add_test(NAME iiGPU.build_layout COMMAND ${Python3_EXECUTABLE} -B ${CMAKE_CURRENT_SOURCE_DIR}/tests/webgpu/build_layout.py)
     if(IIGPU_HAS_WEBGPU)
         add_executable(iiGPUWebGPUMergeTests tests/webgpu_merge.cpp)
         target_link_libraries(iiGPUWebGPUMergeTests PRIVATE iiGPU::iiGPU iiGPU::WebGPU)

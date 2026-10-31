@@ -126,7 +126,7 @@ python3 -B -m unittest discover -s tests -p 'test_install_all.py' -v
 
 If using the existing multi-platform installer during host reinstallation, set environment variables such as `*_INSTALL_PLATFORMS=macos` for the SDK. Other ABIs must be built separately using the platform's toolchain, and host verification success does not imply mobile or Wasm verification.
 
-Each run writes one status report under `.state/install-all/<run timestamp>/`, outside build output. Failed project logs are kept there; successful project logs are removed by default, or retained with `--keep-logs`. The report records install manifests and file existence checks. Tests verify virtual SDK addition, dependency order, failure propagation, empty paths, and actual CMake installation. App and user model and storage data are not deleted.
+Each run writes one status report under `resources/.state/install-all/<run timestamp>/`, outside build output. Failed project logs are kept there; successful project logs are removed by default, or retained with `--keep-logs`. The report records install manifests and file existence checks. Tests verify virtual SDK addition, dependency order, failure propagation, empty paths, and actual CMake installation. App and user model and storage data are not deleted.
 
 For a host refresh without starting CTest executables or custom native installers,
 use `./install.sh --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos`.
@@ -245,4 +245,5 @@ weights retain their respective licenses.
 - [`SDK/iiWebServer`](iiWebServer/README.md)
 - [`SDK/iiWhatsNew`](iiWhatsNew/README.md)
 - [`SDK/iiXml`](iiXml/README.md)
+- [`SDK/iiProjectManager`](iiProjectManager/README.md)
 <!-- workspace-docs:readme:end -->

@@ -242,15 +242,10 @@ try {
     $report.verified = @($report.repositories | Where-Object { $_.verified }).Count
     $report.total = $rows.Count
     $report.complete = ($report.verified -eq $report.total -and $report.directoryErrors.Count -eq 0)
-    $output = Join-Path (Join-Path $WorkspaceRoot 'build') 'workspace-sync'
-    Assert-NoReparsePoint $output
-    $null = [System.IO.Directory]::CreateDirectory($output)
-    $reportPath = Join-Path $output 'report.json'
-    Assert-NoReparsePoint $reportPath
-    $json = $report | ConvertTo-Json -Depth 8
-    [System.IO.File]::WriteAllText($reportPath, $json + "`n", (New-Object System.Text.UTF8Encoding($false)))
-    Write-Host "Verified $($report.verified)/$($report.total); report: $reportPath"
-    if (!$report.complete) { throw "Workspace synchronization is incomplete. Review $reportPath" }
+    $json = $report | ConvertTo-Json -Depth 8 -Compress
+    Write-Host "Verified $($report.verified)/$($report.total)"
+    Write-Output ("WORKSPACE_SYNC_REPORT=" + $json)
+    if (!$report.complete) { throw 'Workspace synchronization is incomplete. Review the report above.' }
 } finally {
     $ErrorActionPreference = $previousErrorPreference
     $env:GIT_TERMINAL_PROMPT = $previousGitPrompt

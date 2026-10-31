@@ -41,7 +41,8 @@ SDK를 갱신하고 PowerShell 도구를 실행한다. 실제 도구 실행 전�
 루트 SDK와 Product 저장소를 먼저 처리하고 각 독립 저장소를 그 아래에 둔다.
 매니페스트에 기록된 빈 프로젝트 디렉터리도 생성한다.
 
-동기화 결과는 `~/Workspace/build/workspace-sync/report.json`에 저장한다.
+동기화 결과는 `WORKSPACE_SYNC_REPORT=`로 시작하는 한 줄 JSON으로 표준 출력에
+제공하며 빌드 디렉터리에 보고서 파일을 만들지 않는다.
 각 저장소를 처리하기 전에 `SYNC`, 성공 시 `VERIFIED`, 실패 시 Git 오류와
 함께 `FAILED`를 표시한다. 보고서의 `complete: true`와 `verified`·`total` 값이 현재 매니페스트의
 저장소 수와 모두 일치하는 것이 전체 동기화 성공 조건이다. iiMultimodalAgent,
@@ -80,3 +81,10 @@ python -B -m unittest discover -s tests -p 'test_sync_workspace_powershell.py' -
 PowerShell 도구의 경로 및 보고서 옵션은 `-WorkspaceRoot`, `-Manifest`,
 `-AuditOnly`이다. macOS의 PowerShell 7 테스트 결과는 실제 윈도우의
 Windows PowerShell 5.1 실행이나 GitHub 인증·클론 완료를 증명하지 않는다.
+# Test workspaces
+
+SDK workspace, installation, header-layout, and Windows verification tests
+place disposable input repositories and fixtures under
+`SDK/resources/.state/test-workspaces/`. A test that actually compiles uses
+the tested project's `build/` for its compiled outputs. Owned temporary
+directories are removed when the tests finish, including on failure.

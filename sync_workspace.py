@@ -185,10 +185,8 @@ def synchronize(root, manifest_path, audit_only=False):
     report["verified"] = sum(row["verified"] for row in report["repositories"])
     report["total"] = len(rows)
     report["complete"] = report["verified"] == report["total"] and not report["directoryErrors"]
-    output = root / "build/workspace-sync"
-    output.mkdir(parents=True, exist_ok=True)
-    (output / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Verified {report['verified']}/{report['total']}; report: {output / 'report.json'}", flush=True)
+    print(f"Verified {report['verified']}/{report['total']}", flush=True)
+    print("WORKSPACE_SYNC_REPORT=" + json.dumps(report, ensure_ascii=False, separators=(',', ':')), flush=True)
     return report
 
 

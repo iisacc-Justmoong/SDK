@@ -25,6 +25,10 @@
     "kind": "cmake",
     "dependencies": []
   },
+  "iiCompression": {
+    "kind": "cmake",
+    "dependencies": []
+  },
   "iiCSMIDI": {
     "kind": "cmake",
     "dependencies": []
@@ -116,6 +120,10 @@
       "iiSocietyContainer",
       "iiSocietyHelper"
     ]
+  },
+  "iiProjectManager": {
+    "kind": "cmake",
+    "dependencies": []
   },
   "iiSDKBuilder": {
     "kind": "cmake",

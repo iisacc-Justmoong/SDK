@@ -11,6 +11,7 @@
 !/iiCompression/
 build/
 /.state/
+/resources/.state/
 .DS_Store
 __pycache__/
 **/.iisacc-temporary.lock

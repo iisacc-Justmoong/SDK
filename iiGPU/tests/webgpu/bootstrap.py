@@ -4,9 +4,9 @@ import io
 import json
 from pathlib import Path
 import tarfile
-import tempfile
 import unittest
 from unittest import mock
+import resource_workspace
 
 ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location("fetch_dawn", ROOT / "tools/fetch_dawn.py")
@@ -16,8 +16,7 @@ spec.loader.exec_module(fetch)
 
 class BootstrapTests(unittest.TestCase):
     def setUp(self):
-        (ROOT / "build").mkdir(exist_ok=True)
-        self.temp = tempfile.TemporaryDirectory(dir=ROOT / "build")
+        self.temp = resource_workspace.temporary(ROOT, "webgpu-bootstrap-")
         self.root = Path(self.temp.name)
         self.storage = mock.MagicMock()
 
