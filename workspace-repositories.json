@@ -435,6 +435,11 @@
       "path": "SDK/iiGlobalSearch",
       "repositoryPath": "SDK",
       "sourcePath": "iiGlobalSearch"
+    },
+    {
+      "path": "SDK/iiJob",
+      "repositoryPath": "SDK",
+      "sourcePath": "iiJob"
     }
   ]
 }

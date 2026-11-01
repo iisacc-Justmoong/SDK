@@ -1,0 +1,319 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:1dc1aee1c03de7aa43b371005e80b014c4a7013aaf11aee35d982c416617b754",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiJob",
+    "name": "iiJob",
+    "root": "SDK/iiJob",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "docs/Jobs.md",
+    "sha256": "61619f855615a24f291fbe408e3b2f3a30cf4c096c73524469149b259e43a865",
+    "bytes": 5121,
+    "line_count": 66,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "영속 Job과 항목별 결과",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# 영속 Job과 항목별 결과\n",
+      "level": 1,
+      "title": "영속 Job과 항목별 결과"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 5,
+      "raw": "iiJob은 C++23과 SQLite만 사용하는 독립적인 저장·상태 계약이다. 다른 SDK나 Qt를\n링크하지 않는다. 실행기, 사용자 인증·인가, 실제 파일 전송과 UI는 호스트가\n소유한다. Job ID는 작업의 정체성이며 자원 ID·파일 경로·내용 해시와 다르다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "heading",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "## 저장소와 생성 경계\n",
+      "level": 2,
+      "title": "저장소와 생성 경계"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 9,
+      "end_line": 15,
+      "raw": "호스트는 iiFileProvider 등 자체 파일 소유자를 통해 빈 일반 파일을 먼저 만든 후\n절대 정규 경로를 `Store`에 전달한다. 라이브러리는 DB 파일을 새로 만들지 않는다.\n링크·리디렉션된 DB와 이미 존재하는 외부/미지원 DB는 거절한다. SQLite의 WAL·SHM과\n저널은 DB 엔진의 내부 파일이다. 호스트는 DB와 sidecar를 함께 보존해야 하며 열린\nDB를 임의로 복사·삭제하지 않는다. 각 변경은 SQLite 트랜잭션과 `synchronous=FULL`\n조건으로 저장된다. 이는 외부 서비스의 부작용과 하나의 트랜잭션을 제공하거나\n모든 파일 시스템에서 전원 손실 내구성을 보장한다는 뜻은 아니다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 16,
+      "end_line": 16,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 17,
+      "end_line": 22,
+      "raw": "Job에는 요청자, 종류, 대상 자원과 기준 판본, 대상·실행 노드, 단계, 처리량,\n전체량, 취소 가능 여부와 재시도 횟수가 있다. 항목에는 작업 내 ID·표시 이름·\n원본 참조·대상 자원·기준 판본과 현재 결과가 있으며, 시도마다 실행 노드·결과·\n체크포인트·오류·산출물을 별도로 보관한다. 문자열은 제한된 UTF-8이며 인증\n토큰·비밀번호 또는 원본 payload를 넣는 저장소가 아니다. 목록 조회는 한 번에 최대\n1,024건이다. 각 Job은 1–250,000개 항목을 포함한다.\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 23,
+      "end_line": 23,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "heading",
+      "start_line": 24,
+      "end_line": 24,
+      "raw": "## 상태와 처리\n",
+      "level": 2,
+      "title": "상태와 처리"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 25,
+      "end_line": 25,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 26,
+      "end_line": 31,
+      "raw": "새 Job은 대기 상태다. 호스트는 노드나 권한 대기 이유를 기록할 수 있고, 실행\n노드와 단계가 준비되면 `begin()`한다. `claim()`은 대기 항목 하나를 원자적으로\n선점해 무작위 토큰을 반환한다. 같은 항목을 두 작업자가 동시에 선점할 수 없다.\n토큰을 가진 작업자만 해당 시도에 `checkpoint()`, `succeed()`, `fail()`, `skip()`\n또는 `cancelItem()`을 기록할 수 있다. `finish()`는 처리되지 않은 항목이 있으면\n실패하며, 성공과 실패가 함께 있으면 일부 완료로 구분한다.\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 32,
+      "end_line": 32,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 33,
+      "end_line": 36,
+      "raw": "`requestCancel()`은 취소 요청과 아직 시작하지 않은 항목의 취소를 기록한다.\n실행 중 항목의 중단은 호스트의 협력적 취소와 실제 결과 기록에 달려 있다. 이미\n완료된 항목을 취소로 덮어쓰지 않는다. 단위와 전체량이 알려진 진행 정보는\n`progress()`로 갱신하며 전체량을 모르면 비워 둔다.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 37,
+      "end_line": 37,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "paragraph",
+      "start_line": 38,
+      "end_line": 42,
+      "raw": "항목을 순차적으로 처리하는 실행기는 `cancelAndFinish()`로 현재 시도의 실제 결과,\n아직 시작하지 않은 항목의 취소, 작업의 취소 완료를 한 트랜잭션에서 기록할 수\n있다. 게시되었으나 등록을 마치지 못한 항목은 실패·재시도 가능으로 남길 수 있다.\n다른 실행 중 항목이 있거나 선점 토큰이 틀리면 전체 변경을 롤백한다. 병렬 실행기는\n개별 작업자가 멈춘 것을 확인할 때까지 기존 취소 요청·항목 완료 계약을 사용한다.\n"
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 43,
+      "end_line": 43,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "paragraph",
+      "start_line": 44,
+      "end_line": 47,
+      "raw": "`retryFailed()`는 재시도 가능한 **실패** 항목만 대기 상태로 돌리고 이전 시도와\n성공 항목을 보존한다. 재시도 Job은 다시 `begin()`해야 한다. 새 `claim()`은 이전\n체크포인트를 별도로 반환하지만 호스트가 대상·판본·부작용을 검증하기 전에는 이를\n안전한 재개 지점으로 간주하지 않는다. 항목 ID는 재시도 때 바뀌지 않는다.\n"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 48,
+      "end_line": 48,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "heading",
+      "start_line": 49,
+      "end_line": 49,
+      "raw": "## 프로세스 중단과 결과 확인\n",
+      "level": 2,
+      "title": "프로세스 중단과 결과 확인"
+    },
+    {
+      "id": "b000022",
+      "kind": "blank",
+      "start_line": 50,
+      "end_line": 50,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "paragraph",
+      "start_line": 51,
+      "end_line": 58,
+      "raw": "호스트는 Job 실행 동안 프로세스 간 배타 lease를 보유해야 한다. 이전 작업자가\n종료된 것을 확인하고 같은 lease를 확보한 경우에만 `recoverInterrupted()`를 호출한다.\n이 함수는 실행 중이던 항목을 실패가 아닌 **결과 미확인**으로 남기고 기존 토큰을\n무효화한다. 아직 시작하지 않은 항목은 `resumePending()`으로 재개할 수 있지만,\n결과 미확인 항목은 자동 재시도하지 않는다. 호스트는 외부 결과를 검증한 뒤\n`resolveUnknown()`으로 성공 또는 확인된 실패를 기록한다. 성공 여부를 확인할 수\n없다면 결과 미확인 상태를 유지한다. 이전 작업자가 살아 있을 수 있는데 복구를\n호출하면 실제 부작용의 중복을 막을 수 없다.\n"
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 59,
+      "end_line": 59,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
+      "kind": "paragraph",
+      "start_line": 60,
+      "end_line": 62,
+      "raw": "Job·항목·시도 기록은 DB를 닫고 다른 프로세스가 열어도 유지된다. 이 모듈은\n네트워크에서 실패한 외부 요청의 중복 방지 키, 원격 작업 인계, OS 백그라운드 실행,\n접근 권한 검증 또는 사용자 인터페이스를 자동으로 제공하지 않는다.\n"
+    },
+    {
+      "id": "b000026",
+      "kind": "blank",
+      "start_line": 63,
+      "end_line": 63,
+      "raw": "\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "paragraph",
+      "start_line": 64,
+      "end_line": 66,
+      "raw": "`iiJob.persistence`는 별도 프로세스에서 1,000개 중 963개 성공·37개 실패를 저장하고\n실패만 재시도한다. 중단된 시도와 체크포인트, 결과 미확인, 취소, 동시 선점 및\n기존 파일 보호도 검사한다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "영속 Job과 항목별 결과",
+      "anchor": "영속-job과-항목별-결과",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000005",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "저장소와 생성 경계",
+      "anchor": "저장소와-생성-경계",
+      "start_line": 7
+    },
+    {
+      "block_id": "b000011",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "상태와 처리",
+      "anchor": "상태와-처리",
+      "start_line": 24
+    },
+    {
+      "block_id": "b000021",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "프로세스 중단과 결과 확인",
+      "anchor": "프로세스-중단과-결과-확인",
+      "start_line": 49
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000003",
+        "line": 4,
+        "text": "링크하지 않는다. 실행기, 사용자 인증·인가, 실제 파일 전송과 UI는 호스트가",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000007",
+        "line": 13,
+        "text": "DB를 임의로 복사·삭제하지 않는다. 각 변경은 SQLite 트랜잭션과 `synchronous=FULL`",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000019",
+        "line": 45,
+        "text": "성공 항목을 보존한다. 재시도 Job은 다시 `begin()`해야 한다. 새 `claim()`은 이전",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000019",
+        "line": 47,
+        "text": "안전한 재개 지점으로 간주하지 않는다. 항목 ID는 재시도 때 바뀌지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000023",
+        "line": 51,
+        "text": "호스트는 Job 실행 동안 프로세스 간 배타 lease를 보유해야 한다. 이전 작업자가",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000023",
+        "line": 55,
+        "text": "결과 미확인 항목은 자동 재시도하지 않는다. 호스트는 외부 결과를 검증한 뒤",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000025",
+        "line": 62,
+        "text": "접근 권한 검증 또는 사용자 인터페이스를 자동으로 제공하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

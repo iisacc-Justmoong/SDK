@@ -22,6 +22,10 @@ GPU evidence adapter with iiGPU independently. See
 compression and single-member decompression without Qt or other SDK
 dependencies. Applications can compose it with their format and file modules.
 
+[`iiJob`](iiJob/README.md) provides Qt-free C++23 durable jobs, item results,
+checkpoints and failed-item retries. Applications supply file creation,
+execution ownership and recovery leases independently.
+
 Public headers live beside their implementations under each module's `src/`,
 organized by responsibility without repeating the project name. Existing modules
 are being migrated; their installed include names remain stable.
@@ -222,6 +226,7 @@ weights retain their respective licenses.
 - [`SDK/iiGeneralDocument`](iiGeneralDocument/README.md)
 - [`SDK/iiGlobalSearch`](iiGlobalSearch/README.md)
 - [`SDK/iiGraphicAdjust`](iiGraphicAdjust/README.md)
+- [`SDK/iiJob`](iiJob/README.md)
 - [`SDK/iiJson`](iiJson/README.md)
 - [`SDK/iiLicenseManager`](iiLicenseManager/README.md)
 - [`SDK/iiLocalDiffusion`](iiLocalDiffusion/README.md)

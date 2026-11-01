@@ -11,6 +11,12 @@ can query partial results, observe progress, cancel, and explicitly refresh.
 Provider catalogs and portable companions are read through their public APIs.
 User payloads and provider indexes are never modified by this SDK.
 
+`ObjectSession` stores provider-derived identifiers, types, classification and
+presentation metadata in memory and supports combined text and structured
+filters. Create one directly for application-supplied values or call
+`Index::openSession()` after indexing completes. Call `destroy()` explicitly
+when finished; the destructor is a fallback. See [object sessions](docs/ObjectSessions.md).
+
 The separate web search API starts each queued task with a new crawl frontier,
 visits live HTTP(S) pages through iiNetwork, follows links subject to robots
 rules and ranks the resulting page content in memory. It does not query a
@@ -37,7 +43,9 @@ library require iiSDKCore 0.18 or later. The web component requires iiNetwork
 0.5 or later, iiJson, iiFileProviderNative, libxml2,
 libcurl and OpenSSL 3 or later. JavaScript rendering additionally needs a
 compatible Chromium executable. Set `OPENSSL_ROOT_DIR` when CMake cannot locate
-OpenSSL. Local search retains its iiSocietyContainer and SQLite/FTS5 dependencies.
+OpenSSL. Local search retains its iiSocietyContainer and SQLite/FTS5 dependencies
+and requires an iiFileProviderCatalog package advertising paged FileSearchIndex
+and package support.
 
 The index is scoped to visible, non-redirected files under the selected package.
 It includes catalog entries (including unpublished metadata), independently

@@ -8,6 +8,7 @@
 !/benchmarks/
 !/iiGPU/
 !/iiGlobalSearch/
+!/iiJob/
 !/iiCompression/
 build/
 /.state/

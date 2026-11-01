@@ -1,0 +1,4 @@
+/build/
+/resources/test-workspaces/
+.DS_Store
+*.iisacc-preview

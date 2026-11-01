@@ -1,0 +1,98 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:633367910d8d68503996181e52bd70a977ae8a50dd92b41084f975fa9e840679",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiJob",
+    "name": "iiJob",
+    "root": "SDK/iiJob",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "docs/README.md",
+    "sha256": "48d4432a02ab06ee6ff96b20634404e7065bc950378a9dc555248c0aaf9d0033",
+    "bytes": 209,
+    "line_count": 4,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "iiJob documentation",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# iiJob documentation\n",
+      "level": 1,
+      "title": "iiJob documentation"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "list",
+      "start_line": 3,
+      "end_line": 4,
+      "raw": "- [Job storage, lifecycle and recovery](Jobs.md) — application integration and guarantees.\n- [Structured agent document](Jobs.agent.json) — lossless projection of the same contract.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "[Job storage, lifecycle and recovery](Jobs.md) — application integration and guarantees.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[Structured agent document](Jobs.agent.json) — lossless projection of the same contract.",
+          "checked": null
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "iiJob documentation",
+      "anchor": "iijob-documentation",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000003",
+        "label": "Job storage, lifecycle and recovery",
+        "target": "Jobs.md",
+        "kind": "relative",
+        "line": 3
+      },
+      {
+        "block_id": "b000003",
+        "label": "Structured agent document",
+        "target": "Jobs.agent.json",
+        "kind": "relative",
+        "line": 4
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

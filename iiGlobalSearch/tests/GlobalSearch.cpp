@@ -61,8 +61,10 @@ int main(int argc, char** argv) try {
     write(root / "Files" / "portrait.png", "fixture-image");
     for (const auto& name : {"clip.mp4", "sound.wav", "drawing.svg", "sheet.csv", "model.glb"}) write(root / "Files" / name, "payload");
     FileCatalog catalog(root / "Files");
+    const auto collection = catalog.createCollection("Campaigns");
     FileMetadata classified; classified.title = "서울 Portrait"; classified.description = "Summer campaign";
     classified.keywords = {"approved"}; classified.fields = {{"client", "Aurora"}};
+    classified.rating = 4; classified.color = ColorLabel::Blue; classified.collections = {collection.key};
     auto first = catalog.registerFile("catalog.txt", classified);
     check(first.metadataWritten, "catalog fixture classification missing");
     FileMetadata imageMeta; imageMeta.title = "Asset Image";
@@ -73,6 +75,21 @@ int main(int argc, char** argv) try {
     }
     FileMetadata pending; pending.title = "Unpublished Nebula"; pending.keywords = {"draft"};
     const auto pendingRows = catalog.registerFiles({{"pending.txt", pending}});
+    fs::create_directories(root / "Files" / "Project.iiproject" / "assets");
+    write(root / "Files" / "Project.iiproject" / "manifest.json", "{\"revision\":1}");
+    write(root / "Files" / "Project.iiproject" / "assets" / "nested.txt", "private package data");
+    {
+        FileCatalog nested(root / "Files" / "Project.iiproject" / "assets");
+        FileMetadata nestedMeta; nestedMeta.title="PackageInnerHidden";
+        (void)nested.registerFile("nested.txt",nestedMeta);
+    }
+    FileMetadata packageMeta; packageMeta.title="Project Package"; packageMeta.keywords={"project"};
+    const auto package=catalog.registerPackage("Project.iiproject",packageMeta);
+    fs::create_directories(root / "Root.iiproject");
+    write(root / "Root.iiproject" / "manifest.json", "{\"revision\":1}");
+    FileCatalog rootCatalog(root);
+    FileMetadata rootPackageMeta; rootPackageMeta.title="Root Package";
+    const auto rootPackage=rootCatalog.registerPackage("Root.iiproject",rootPackageMeta);
     check(!fs::exists(root / "Files" / "pending.txt.iisacc.json"), "pending must have no companion");
     write(root / "Files" / "서울문서.txt", "unicode filename");
     FileMetadata unicodeName; unicodeName.title = "No city in this title";
@@ -90,6 +107,13 @@ int main(int argc, char** argv) try {
     check(exported.registerFile("portable.txt", portable).metadataWritten, "portable fixture failed");
     fs::copy_file(base / "export" / "portable.txt", root / "Models" / "portable.txt");
     fs::copy_file(base / "export" / "portable.txt.iisacc.json", root / "Models" / "portable.txt.iisacc.json");
+    fs::create_directories(base / "export" / "Portable.iiproject" / "assets");
+    write(base / "export" / "Portable.iiproject" / "manifest.json", "{\"revision\":1}");
+    write(base / "export" / "Portable.iiproject" / "assets" / "content.txt", "content");
+    FileMetadata portableProjectMeta; portableProjectMeta.title="Portable project";
+    const auto portableProject=exported.registerPackage("Portable.iiproject",portableProjectMeta);
+    fs::copy(base / "export" / "Portable.iiproject",root / "Models" / "Portable.iiproject",fs::copy_options::recursive);
+    fs::copy_file(base / "export" / "Portable.iiproject.iisacc.json",root / "Models" / "Portable.iiproject.iisacc.json");
     write(root / "Models" / "presentation.txt", "presentation only");
     auto presentation = native::Presentation::prepare(root / "Models" / "presentation.txt");
     check(!presentation.details.name.empty(), "presentation fixture failed");
@@ -133,10 +157,51 @@ int main(int argc, char** argv) try {
     }
     check(index.progress().state == State::indexing, "worker did not run asynchronously");
     check(!provider.search().empty(), "partial results unavailable during indexing");
+    bool prematureSession = false;
+    try { (void)index.openSession(); } catch (const std::logic_error&) { prematureSession = true; }
+    check(prematureSession, "a mutable indexing snapshot was exposed as a completed session");
     check(!index.start(), "concurrent start accepted");
     { std::lock_guard lock(mutex); release = true; } changed.notify_all();
     check(index.waitFor(30s), "index timed out");
     check(index.progress().state == State::completed, "index failed");
+    auto session = index.openSession();
+    ObjectFilter filtered;
+    filtered.text = "aurora approved"; filtered.types = {ObjectType::document};
+    filtered.providerId = first.file.key; filtered.minimumRating = 4; filtered.colorLabels = {"blue"};
+    filtered.contentVersion=first.file.contentVersion; filtered.revision=first.file.revision;
+    filtered.allKeywords = {"approved"}; filtered.collections = {collection.key}; filtered.fields = {{"client", "Aurora"}};
+    const auto objects = session->search(filtered);
+    check(objects.size()==1 && objects.front().id=="Files/catalog.txt" && objects.front().providerId==first.file.key &&
+          objects.front().revision==first.file.revision && objects.front().contentVersion==first.file.contentVersion &&
+          objects.front().modifiedAtNs==first.file.modifiedAtNs && objects.front().metadata.description=="Summer campaign" && objects.front().metadata.rating==4 &&
+          objects.front().metadata.additional.find("keywords") && objects.front().classification.find("fileKey"),
+          "session lost provider classification, identity or filtering");
+    const auto presented = session->find("Models/presentation.txt");
+    check(presented && presented->presentation && presented->presentation->name==presentation.details.name &&
+          presented->presentation->sourceVersion==presentation.sourceVersion &&
+          presented->presentation->properties==presentation.details.properties,
+          "session did not retain provider presentation details");
+    ObjectFilter pendingFilter; pendingFilter.metadataPending=true; pendingFilter.providerId=pendingRows.front().key;
+    const auto pendingObjects=session->search(pendingFilter);
+    check(pendingObjects.size()==1 && pendingObjects.front().id=="Files/pending.txt" && pendingObjects.front().metadataPending,
+          "pending provider classification was not available in the session");
+    ObjectFilter packageFilter; packageFilter.types={ObjectType::package}; packageFilter.providerId=package.file.key;
+    const auto packages=session->search(packageFilter);
+    check(packages.size()==1 && packages.front().id=="Files/Project.iiproject" &&
+          packages.front().contentVersion==package.file.contentVersion && packages.front().revision==package.file.revision,
+          "provider package type or identity was not preserved");
+    const auto portablePackage=session->find("Models/Portable.iiproject");
+    check(portablePackage && portablePackage->type==ObjectType::package &&
+          portablePackage->providerId==portableProject.file.key && portablePackage->revision==portableProject.file.revision,
+          "portable package classification was not retained");
+    const auto rootPackageObject=session->find("Root.iiproject");
+    check(rootPackageObject && rootPackageObject->type==ObjectType::package &&
+          rootPackageObject->providerId==rootPackage.file.key, "root catalog package was not retained");
+    check(contains(index.search("Project Package"),"Files/Project.iiproject"), "legacy search omitted provider package");
+    check(session->search(ObjectFilter{.text="PackageInnerHidden"}).empty(), "package internals were indexed as independent files");
+    bool readOnly = false;
+    try { session->store(FileObject{}); } catch (const std::logic_error&) { readOnly = true; }
+    check(readOnly, "container snapshot accepted a write");
     check(contains(index.search("서울 por"), "Files/catalog.txt"), "Unicode prefix catalog search failed");
     check(contains(index.search("aurora approved"), "Files/catalog.txt"), "catalog metadata search failed");
     check(!index.search("서울문").empty(), "normalized Korean catalog filename search failed");
@@ -195,7 +260,24 @@ int main(int argc, char** argv) try {
           catalog.pendingMetadata() == pendingBefore, "indexing changed a source or provider journal");
     check(index.search("\" OR *").empty(), "query syntax was not treated as text");
 
+    auto changedMetadata = classified; changedMetadata.title = "Updated after session";
+    const auto updated = catalog.updateMetadata(first.file.key, first.file.revision, changedMetadata);
+    check(updated.metadataWritten, "fixture metadata update failed");
+    check(index.start() && index.waitFor(30s) && index.progress().state == State::completed, "session refresh failed");
+    auto newSession = index.openSession();
+    const auto oldObject = session->find("Files/catalog.txt"), newObject = newSession->find("Files/catalog.txt");
+    check(oldObject && newObject && oldObject->title == "서울 Portrait" && newObject->title == "Updated after session",
+          "refresh changed an existing session snapshot");
+    newSession->destroy();
+    check(newSession->destroyed(), "new session was not destroyed explicitly");
+
     fs::remove(root / "Files" / "catalog.txt");
+    check(!session->find("Files/catalog.txt"), "session exposed a deleted file");
+    fs::remove(root / "Files" / "Project.iiproject" / "manifest.json");
+    check(!session->find("Files/Project.iiproject"), "session exposed a stale package");
+    fs::remove(root / "Models" / "Portable.iiproject" / "manifest.json");
+    check(!session->find("Models/Portable.iiproject"), "session exposed an invalid portable package");
+    session->destroy();
     check(!contains(index.search("서울"), "Files/catalog.txt"), "stale deleted result exposed");
     const auto refreshBefore = std::chrono::steady_clock::now();
     check(index.start(), "refresh rejected");
@@ -206,6 +288,9 @@ int main(int argc, char** argv) try {
     Index invalid(base / "outside");
     check(invalid.start() && invalid.waitFor(10s), "invalid root job did not finish");
     check(invalid.progress().state == State::failed, "ordinary directory accepted");
+    bool failedSession = false;
+    try { (void)invalid.openSession(); } catch (const std::logic_error&) { failedSession = true; }
+    check(failedSession, "failed index exposed a session");
     fs::create_directory_symlink(root, base / "Linked.societycontainer", ec);
     Index redirected(base / "Linked.societycontainer");
     check(redirected.start() && redirected.waitFor(10s) && redirected.progress().state == State::failed,
@@ -225,6 +310,15 @@ int main(int argc, char** argv) try {
     { std::lock_guard lock(cancelMutex); cancelRelease = true; } cancelChanged.notify_all();
     check(cancelling.waitFor(10s) && cancelling.progress().state == State::cancelled, "cancellation did not terminate the run");
     check(cancelling.start() && cancelling.waitFor(30s) && cancelling.progress().state == State::completed, "restart after cancellation failed");
+    std::unique_ptr<ObjectSession> retained;
+    {
+        Index temporary(root);
+        check(temporary.start() && temporary.waitFor(30s) && temporary.progress().state==State::completed,
+              "temporary provider snapshot failed");
+        retained=temporary.openSession();
+    }
+    check(retained->find("Models/portable.txt").has_value(), "session did not survive its source index");
+    retained->destroy();
     std::cout << "iiGlobalSearch index tests passed\n";
     return 0;
 } catch (const std::exception& e) { std::cerr << e.what() << '\n'; return 1; }

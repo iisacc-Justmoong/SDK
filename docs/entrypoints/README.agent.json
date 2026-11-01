@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "README.md",
-    "sha256": "a4d037038add29ed010c3551839f1a5ce777c51dbe67162dfd2aaf9cda9db7a7",
-    "bytes": 17224,
-    "line_count": 249,
+    "sha256": "742435e84f5c172f9322b71689daa02d16e33b1f864ea064cac5eb7f145b98ca",
+    "bytes": 17463,
+    "line_count": 254,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -113,7 +113,7 @@
       "kind": "paragraph",
       "start_line": 25,
       "end_line": 27,
-      "raw": "Public headers live beside their implementations under each module's `src/`,\norganized by responsibility without repeating the project name. Existing modules\nare being migrated; their installed include names remain stable.\n"
+      "raw": "[`iiJob`](iiJob/README.md) provides Qt-free C++23 durable jobs, item results,\ncheckpoints and failed-item retries. Applications supply file creation,\nexecution ownership and recovery leases independently.\n"
     },
     {
       "id": "b000014",
@@ -126,421 +126,418 @@
       "id": "b000015",
       "kind": "paragraph",
       "start_line": 29,
-      "end_line": 35,
-      "raw": "SDK modules are being migrated to independently built packages. Applications\ncompose them through caller-owned interfaces and link each selected module\ndirectly; the transition and remaining dependency audit are documented in\n[SDK independence](docs/SDKIndependence.md).\nSeparate authored `include/` trees are prohibited; public include names and\ninstalled package layouts remain compatible. See [the source layout contract](docs/HeaderLayout.md)\nand run `python3 -B tests/test_source_header_layout.py` from this directory.\n"
+      "end_line": 31,
+      "raw": "Public headers live beside their implementations under each module's `src/`,\norganized by responsibility without repeating the project name. Existing modules\nare being migrated; their installed include names remain stable.\n"
     },
     {
       "id": "b000016",
       "kind": "blank",
-      "start_line": 36,
-      "end_line": 36,
+      "start_line": 32,
+      "end_line": 32,
       "raw": "\n"
     },
     {
       "id": "b000017",
       "kind": "paragraph",
-      "start_line": 37,
-      "end_line": 37,
-      "raw": "Follow [Windows SDK verification](Windows/README.md) for dependency-ordered Windows builds, complete execution checks and installation. Each SDK README links to that project's Windows build and execution instructions.\n"
+      "start_line": 33,
+      "end_line": 39,
+      "raw": "SDK modules are being migrated to independently built packages. Applications\ncompose them through caller-owned interfaces and link each selected module\ndirectly; the transition and remaining dependency audit are documented in\n[SDK independence](docs/SDKIndependence.md).\nSeparate authored `include/` trees are prohibited; public include names and\ninstalled package layouts remain compatible. See [the source layout contract](docs/HeaderLayout.md)\nand run `python3 -B tests/test_source_header_layout.py` from this directory.\n"
     },
     {
       "id": "b000018",
       "kind": "blank",
-      "start_line": 38,
-      "end_line": 38,
+      "start_line": 40,
+      "end_line": 40,
       "raw": "\n"
     },
     {
       "id": "b000019",
       "kind": "paragraph",
-      "start_line": 39,
-      "end_line": 44,
-      "raw": "[`iiFileProvider`](iiFileProvider/README.md) 0.6.0 owns common file creation,\nopening, staging and provision. Its Qt-free native Catalog adds file-owned\nmetadata, keywords, ratings, colors, collections, saved filters and indexed\nsearch without reading full payloads. Products and format SDKs must delegate\nfinal file I/O to provider APIs; codecs retain format semantics. See\n[the ownership contract](iiFileProvider/docs/FILE_OWNERSHIP.md).\n"
+      "start_line": 41,
+      "end_line": 41,
+      "raw": "Follow [Windows SDK verification](Windows/README.md) for dependency-ordered Windows builds, complete execution checks and installation. Each SDK README links to that project's Windows build and execution instructions.\n"
     },
     {
       "id": "b000020",
       "kind": "blank",
-      "start_line": 45,
-      "end_line": 45,
+      "start_line": 42,
+      "end_line": 42,
       "raw": "\n"
     },
     {
       "id": "b000021",
       "kind": "paragraph",
-      "start_line": 46,
-      "end_line": 50,
-      "raw": "[`iiDeviceMultimedia`](iiDeviceMultimedia/README.md) owns native USB/HID, BLE GATT,\nfloat32 PCM and MIDI UMP device I/O extracted from iiSDKCore. Version 0.2 is an\nindependent peer of Core with no dependency in either direction. Applications\nexplicitly compose Core scheduling/frame/byte I/O with device `poll()` calls. See\n[independence and migration](iiDeviceMultimedia/docs/independence.md).\n"
+      "start_line": 43,
+      "end_line": 48,
+      "raw": "[`iiFileProvider`](iiFileProvider/README.md) 0.6.0 owns common file creation,\nopening, staging and provision. Its Qt-free native Catalog adds file-owned\nmetadata, keywords, ratings, colors, collections, saved filters and indexed\nsearch without reading full payloads. Products and format SDKs must delegate\nfinal file I/O to provider APIs; codecs retain format semantics. See\n[the ownership contract](iiFileProvider/docs/FILE_OWNERSHIP.md).\n"
     },
     {
       "id": "b000022",
       "kind": "blank",
-      "start_line": 51,
-      "end_line": 51,
+      "start_line": 49,
+      "end_line": 49,
       "raw": "\n"
     },
     {
       "id": "b000023",
       "kind": "paragraph",
-      "start_line": 52,
-      "end_line": 60,
-      "raw": "[`iiSDKBuilder`](iiSDKBuilder/README.md) is the Qt-free C++23 host build module\nfor a single CMake application and its declared iiSDK dependencies. It uses\niiSDKCore for platform detection, dependency ordering, parallel kit execution,\nand atomic reports, and requests Windows, macOS, Linux, Android, iOS, and WASM\nin one matrix. Each kit builds and installs its own SDK packages before building\nthe application; unavailable/failed targets remain explicit in the final report.\nThe five OS targets require native PE, ELF, or Mach-O machine-code images;\nWebAssembly is a separately labeled web-engine target. Post-link inspection\nrejects script launchers, CLR-managed PE, and wrong CPU/deployment platforms.\n"
+      "start_line": 50,
+      "end_line": 54,
+      "raw": "[`iiDeviceMultimedia`](iiDeviceMultimedia/README.md) owns native USB/HID, BLE GATT,\nfloat32 PCM and MIDI UMP device I/O extracted from iiSDKCore. Version 0.2 is an\nindependent peer of Core with no dependency in either direction. Applications\nexplicitly compose Core scheduling/frame/byte I/O with device `poll()` calls. See\n[independence and migration](iiDeviceMultimedia/docs/independence.md).\n"
     },
     {
       "id": "b000024",
       "kind": "blank",
-      "start_line": 61,
-      "end_line": 61,
+      "start_line": 55,
+      "end_line": 55,
       "raw": "\n"
     },
     {
       "id": "b000025",
       "kind": "paragraph",
-      "start_line": 62,
-      "end_line": 67,
-      "raw": "[`iiSocietyHelper`](iiSocietyHelper/README.md) 0.10.0 is the single Society\nintegration SDK for accounts, client access, local IPC, native storage/canvas,\nremote generation, monitoring and device synchronization. Core uses\n`iiSocietyHelper::iiSocietyHelper`; native monitoring uses\n`iiSocietyHelper::Monitoring`; desktop inference uses\n`iiSocietyHelper::GenerationHost`. See [the consolidation guide](iiSocietyHelper/docs/Consolidation.md).\n"
+      "start_line": 56,
+      "end_line": 64,
+      "raw": "[`iiSDKBuilder`](iiSDKBuilder/README.md) is the Qt-free C++23 host build module\nfor a single CMake application and its declared iiSDK dependencies. It uses\niiSDKCore for platform detection, dependency ordering, parallel kit execution,\nand atomic reports, and requests Windows, macOS, Linux, Android, iOS, and WASM\nin one matrix. Each kit builds and installs its own SDK packages before building\nthe application; unavailable/failed targets remain explicit in the final report.\nThe five OS targets require native PE, ELF, or Mach-O machine-code images;\nWebAssembly is a separately labeled web-engine target. Post-link inspection\nrejects script launchers, CLR-managed PE, and wrong CPU/deployment platforms.\n"
     },
     {
       "id": "b000026",
       "kind": "blank",
-      "start_line": 68,
-      "end_line": 68,
+      "start_line": 65,
+      "end_line": 65,
       "raw": "\n"
     },
     {
       "id": "b000027",
       "kind": "paragraph",
-      "start_line": 69,
-      "end_line": 72,
-      "raw": "[`iiColorManager`](iiColorManager/README.md) provides nine color-picker modes,\nnative sRGB/HSB/generic-CMYK/D50-Lab conversion, web-safe selection and shared\npicker state. It is a Qt-free leaf package; Dreamscapes uses its installed CMake\ntarget through a small GUI adapter and LVRS controls.\n"
+      "start_line": 66,
+      "end_line": 71,
+      "raw": "[`iiSocietyHelper`](iiSocietyHelper/README.md) 0.10.0 is the single Society\nintegration SDK for accounts, client access, local IPC, native storage/canvas,\nremote generation, monitoring and device synchronization. Core uses\n`iiSocietyHelper::iiSocietyHelper`; native monitoring uses\n`iiSocietyHelper::Monitoring`; desktop inference uses\n`iiSocietyHelper::GenerationHost`. See [the consolidation guide](iiSocietyHelper/docs/Consolidation.md).\n"
     },
     {
       "id": "b000028",
       "kind": "blank",
-      "start_line": 73,
-      "end_line": 73,
+      "start_line": 72,
+      "end_line": 72,
       "raw": "\n"
     },
     {
       "id": "b000029",
       "kind": "paragraph",
-      "start_line": 74,
-      "end_line": 80,
-      "raw": "[`iiGPU::WebGPU`](iiGPU/README.md) is the optional Qt-free C++23 WebGPU component.\nIt owns adapter/device negotiation, logical allocation budgets, aligned buffer\nsuballocation, resource lifetime, WGSL pipelines, command submission, mapping and\ncompletion. The standard native C API remains available for surfaces, rendering,\nindirect commands and queries. The pinned Dawn backend executes on native GPU\nAPIs; Core and inference SDKs remain independent. See [its execution and memory\ncontract](iiGPU/docs/WebGPUContract.md) and [platform verification](iiGPU/docs/WebGPUVerification.md).\n"
+      "start_line": 73,
+      "end_line": 76,
+      "raw": "[`iiColorManager`](iiColorManager/README.md) provides nine color-picker modes,\nnative sRGB/HSB/generic-CMYK/D50-Lab conversion, web-safe selection and shared\npicker state. It is a Qt-free leaf package; Dreamscapes uses its installed CMake\ntarget through a small GUI adapter and LVRS controls.\n"
     },
     {
       "id": "b000030",
       "kind": "blank",
-      "start_line": 81,
-      "end_line": 81,
+      "start_line": 77,
+      "end_line": 77,
       "raw": "\n"
     },
     {
       "id": "b000031",
       "kind": "paragraph",
-      "start_line": 82,
-      "end_line": 90,
-      "raw": "[`iiSocialIntegration`](iiSocialIntegration/README.md) provides Qt-free C++23 publishing\nobjects for X, Facebook Pages, Instagram Professional, Threads, Pinterest,\nTumblr, Mastodon, LinkedIn and YouTube, with explicit unsupported Pixiv/ArtStation\npublishing capabilities. It streams media through libcurl, handles provider processing,\nand reports ambiguous publication without automatic retries. It also converts\nsupplied external posts into Society draft objects, and discovers and streams\nselected media from web-page URLs. Dreamscapes owns\nthe separate asynchronous product adapter. The batch installer discovers the\nmodule's CMake package automatically.\n"
+      "start_line": 78,
+      "end_line": 84,
+      "raw": "[`iiGPU::WebGPU`](iiGPU/README.md) is the optional Qt-free C++23 WebGPU component.\nIt owns adapter/device negotiation, logical allocation budgets, aligned buffer\nsuballocation, resource lifetime, WGSL pipelines, command submission, mapping and\ncompletion. The standard native C API remains available for surfaces, rendering,\nindirect commands and queries. The pinned Dawn backend executes on native GPU\nAPIs; Core and inference SDKs remain independent. See [its execution and memory\ncontract](iiGPU/docs/WebGPUContract.md) and [platform verification](iiGPU/docs/WebGPUVerification.md).\n"
     },
     {
       "id": "b000032",
       "kind": "blank",
-      "start_line": 91,
-      "end_line": 91,
+      "start_line": 85,
+      "end_line": 85,
       "raw": "\n"
     },
     {
       "id": "b000033",
       "kind": "paragraph",
-      "start_line": 92,
-      "end_line": 99,
-      "raw": "Local photo correction is split between the existing native C++23 packages:\n`iiPaintEngine` owns brush input and editable float pixel masks;\n`iiGraphicAdjust` owns tone, color, detail, grain, and masked correction\ncomposition. Neither module depends on the other. The\n[LocalPhotoBrush consumer](tests/LocalPhotoBrush/README.md) composes their public\ninstalled APIs, verifies preview/commit/cancel and pixel undo/redo, and writes\nsynthetic source/mask/correction PNGs. Its builds and verification records belong\nunder `build/local-photo-processing`. These two packages require no Qt prefix.\n"
+      "start_line": 86,
+      "end_line": 94,
+      "raw": "[`iiSocialIntegration`](iiSocialIntegration/README.md) provides Qt-free C++23 publishing\nobjects for X, Facebook Pages, Instagram Professional, Threads, Pinterest,\nTumblr, Mastodon, LinkedIn and YouTube, with explicit unsupported Pixiv/ArtStation\npublishing capabilities. It streams media through libcurl, handles provider processing,\nand reports ambiguous publication without automatic retries. It also converts\nsupplied external posts into Society draft objects, and discovers and streams\nselected media from web-page URLs. Dreamscapes owns\nthe separate asynchronous product adapter. The batch installer discovers the\nmodule's CMake package automatically.\n"
     },
     {
       "id": "b000034",
       "kind": "blank",
-      "start_line": 100,
-      "end_line": 100,
+      "start_line": 95,
+      "end_line": 95,
       "raw": "\n"
     },
     {
       "id": "b000035",
       "kind": "paragraph",
-      "start_line": 101,
-      "end_line": 107,
-      "raw": "[`iiPaintEngine::BrushTools`](iiPaintEngine/README.md) is the C++23 brush authoring layer above\niiPaintEngine. It defines 22 controls and their tool availability, whole-gesture\nsize taper, bounded post correction, generated bristle tips and final pixel tiles.\nThe lower engine and canvas document keep their streaming/pixel contracts. It is\nan optional component in the iiPaintEngine repository; the legacy iiBrushTools\npackage name remains available as a compatibility alias.\nSee [the authoring boundary and delivery contract](docs/BRUSH_AUTHORING.md).\n"
+      "start_line": 96,
+      "end_line": 103,
+      "raw": "Local photo correction is split between the existing native C++23 packages:\n`iiPaintEngine` owns brush input and editable float pixel masks;\n`iiGraphicAdjust` owns tone, color, detail, grain, and masked correction\ncomposition. Neither module depends on the other. The\n[LocalPhotoBrush consumer](tests/LocalPhotoBrush/README.md) composes their public\ninstalled APIs, verifies preview/commit/cancel and pixel undo/redo, and writes\nsynthetic source/mask/correction PNGs. Its builds and verification records belong\nunder `build/local-photo-processing`. These two packages require no Qt prefix.\n"
     },
     {
       "id": "b000036",
       "kind": "blank",
-      "start_line": 108,
-      "end_line": 108,
+      "start_line": 104,
+      "end_line": 104,
       "raw": "\n"
     },
     {
       "id": "b000037",
       "kind": "paragraph",
-      "start_line": 109,
-      "end_line": 110,
-      "raw": "The [module consolidation guide](docs/ModuleConsolidation.md) records component\nownership, compatibility aliases, remaining overlap and validation boundaries.\n"
+      "start_line": 105,
+      "end_line": 111,
+      "raw": "[`iiPaintEngine::BrushTools`](iiPaintEngine/README.md) is the C++23 brush authoring layer above\niiPaintEngine. It defines 22 controls and their tool availability, whole-gesture\nsize taper, bounded post correction, generated bristle tips and final pixel tiles.\nThe lower engine and canvas document keep their streaming/pixel contracts. It is\nan optional component in the iiPaintEngine repository; the legacy iiBrushTools\npackage name remains available as a compatibility alias.\nSee [the authoring boundary and delivery contract](docs/BRUSH_AUTHORING.md).\n"
     },
     {
       "id": "b000038",
       "kind": "blank",
-      "start_line": 111,
-      "end_line": 111,
+      "start_line": 112,
+      "end_line": 112,
       "raw": "\n"
     },
     {
       "id": "b000039",
       "kind": "paragraph",
-      "start_line": 112,
-      "end_line": 112,
-      "raw": "Iterate through the SDK in this directory with `./install.sh --qt-prefix /Volumes/Storage/Qt/6.8.3/macos` to update the host installation. Python 3 standard libraries and existing SDK installer, CMake /CTest are reused, and SDK name or installation order arrays are not embedded in code.\n"
+      "start_line": 113,
+      "end_line": 114,
+      "raw": "The [module consolidation guide](docs/ModuleConsolidation.md) records component\nownership, compatibility aliases, remaining overlap and validation boundaries.\n"
     },
     {
       "id": "b000040",
-      "kind": "blank",
-      "start_line": 113,
-      "end_line": 113,
-      "raw": "\n"
-    },
-    {
-      "id": "b000041",
-      "kind": "paragraph",
-      "start_line": 114,
-      "end_line": 114,
-      "raw": "Automatically discover `install.sh` or `CMakeLists.txt` in the directory immediately below. Empty directories, hidden directories, and build outputs are not installation targets. CMake's `project`, `find_package`, `find_dependency`, and namespace targets read local dependencies and perform topological sorting. Dependencies calculated as variables or projects without CMake can declare additional dependency directories for each project one per line in `install-dependencies.txt`. Unknown declarations and circular dependencies are treated as errors before installation.\n"
-    },
-    {
-      "id": "b000042",
       "kind": "blank",
       "start_line": 115,
       "end_line": 115,
       "raw": "\n"
     },
     {
-      "id": "b000043",
+      "id": "b000041",
       "kind": "paragraph",
       "start_line": 116,
       "end_line": 116,
-      "raw": "If `install.sh` already exists, execute its install·package·verify rules, except that LVRS uses the CMake route to preserve other builds and platforms. Otherwise, process in the order: CMake configuration → build → CTest → install. The installer may skip tests; in such cases, run the full host test. If the installer has already run the full test, do not run it again. Existing `platforms/<host>` profiles are preserved by default: use `--refresh-host-prefix` only after checking their backend and ABI. Preserve the existing build's feature options, and update the CMake path of discovered dependencies to the new installer. Consumers of a failed SDK are not executed, but independent SDKs continue to install. If any step fails or is blocked, the exit code is not 0. Caches pointing to IDE inside Ninja/Make are restored to the same build tool in the current PATH. Generators and existing feature options are not changed, and if no alternative tool is available, the failure is recorded. Failure recovery using already-verified dependencies runs at `--only SDK --no-dependencies`. This option processes only the selected project, and the actual availability of installed dependencies is verified by CMake configuration and the project's tests. The dependency order between selected SDK is preserved.\n"
+      "raw": "Iterate through the SDK in this directory with `./install.sh --qt-prefix /Volumes/Storage/Qt/6.8.3/macos` to update the host installation. Python 3 standard libraries and existing SDK installer, CMake /CTest are reused, and SDK name or installation order arrays are not embedded in code.\n"
     },
     {
-      "id": "b000044",
+      "id": "b000042",
       "kind": "blank",
       "start_line": 117,
       "end_line": 117,
       "raw": "\n"
     },
     {
-      "id": "b000045",
-      "kind": "fenced_code",
+      "id": "b000043",
+      "kind": "paragraph",
       "start_line": 118,
-      "end_line": 123,
+      "end_line": 118,
+      "raw": "Automatically discover `install.sh` or `CMakeLists.txt` in the directory immediately below. Empty directories, hidden directories, and build outputs are not installation targets. CMake's `project`, `find_package`, `find_dependency`, and namespace targets read local dependencies and perform topological sorting. Dependencies calculated as variables or projects without CMake can declare additional dependency directories for each project one per line in `install-dependencies.txt`. Unknown declarations and circular dependencies are treated as errors before installation.\n"
+    },
+    {
+      "id": "b000044",
+      "kind": "blank",
+      "start_line": 119,
+      "end_line": 119,
+      "raw": "\n"
+    },
+    {
+      "id": "b000045",
+      "kind": "paragraph",
+      "start_line": 120,
+      "end_line": 120,
+      "raw": "If `install.sh` already exists, execute its install·package·verify rules, except that LVRS uses the CMake route to preserve other builds and platforms. Otherwise, process in the order: CMake configuration → build → CTest → install. The installer may skip tests; in such cases, run the full host test. If the installer has already run the full test, do not run it again. Existing `platforms/<host>` profiles are preserved by default: use `--refresh-host-prefix` only after checking their backend and ABI. Preserve the existing build's feature options, and update the CMake path of discovered dependencies to the new installer. Consumers of a failed SDK are not executed, but independent SDKs continue to install. If any step fails or is blocked, the exit code is not 0. Caches pointing to IDE inside Ninja/Make are restored to the same build tool in the current PATH. Generators and existing feature options are not changed, and if no alternative tool is available, the failure is recorded. Failure recovery using already-verified dependencies runs at `--only SDK --no-dependencies`. This option processes only the selected project, and the actual availability of installed dependencies is verified by CMake configuration and the project's tests. The dependency order between selected SDK is preserved.\n"
+    },
+    {
+      "id": "b000046",
+      "kind": "blank",
+      "start_line": 121,
+      "end_line": 121,
+      "raw": "\n"
+    },
+    {
+      "id": "b000047",
+      "kind": "fenced_code",
+      "start_line": 122,
+      "end_line": 127,
       "raw": "```sh\n./install.sh --dry-run\n./install.sh --jobs 2 --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\n./install.sh --only iiSocietyHelper --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\npython3 -B -m unittest discover -s tests -p 'test_install_all.py' -v\n```\n",
       "language": "sh",
       "code": "./install.sh --dry-run\n./install.sh --jobs 2 --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\n./install.sh --only iiSocietyHelper --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\npython3 -B -m unittest discover -s tests -p 'test_install_all.py' -v\n",
       "closed": true
     },
     {
-      "id": "b000046",
-      "kind": "blank",
-      "start_line": 124,
-      "end_line": 124,
-      "raw": "\n"
-    },
-    {
-      "id": "b000047",
-      "kind": "paragraph",
-      "start_line": 125,
-      "end_line": 125,
-      "raw": "`--cmake SDK` applies the standard CMake procedure instead of the existing installer for a specific SDK. Build concurrency is set to `--jobs` (default 2), and CTest concurrency is set to `--test-jobs` (default 1). Tests run serially by default to avoid resource contention with GUI·local network tests. Individual installers specifying their own `ctest --parallel` take precedence. For example, LVRS's existing CLI removes all platform installers and `build/`, so `--cmake LVRS` is used for host updates that preserve existing platform and task outputs. Additional CMake arguments are specified as `--define SDK=-DKEY=VALUE`, and installer arguments are specified as `--installer-arg SDK=ARGUMENT`. The default install path is `~/.local/SDK/<directory name>`. The existing installer preserves its prefix environment variable and platform selection policy, so it follows the SDK's documentation. `--prefix-root` applies to CMake direct install and dependency paths and does not override the existing installer's dedicated settings.\n"
-    },
-    {
       "id": "b000048",
-      "kind": "blank",
-      "start_line": 126,
-      "end_line": 126,
-      "raw": "\n"
-    },
-    {
-      "id": "b000049",
-      "kind": "paragraph",
-      "start_line": 127,
-      "end_line": 127,
-      "raw": "If using the existing multi-platform installer during host reinstallation, set environment variables such as `*_INSTALL_PLATFORMS=macos` for the SDK. Other ABIs must be built separately using the platform's toolchain, and host verification success does not imply mobile or Wasm verification.\n"
-    },
-    {
-      "id": "b000050",
       "kind": "blank",
       "start_line": 128,
       "end_line": 128,
       "raw": "\n"
     },
     {
-      "id": "b000051",
+      "id": "b000049",
       "kind": "paragraph",
       "start_line": 129,
       "end_line": 129,
-      "raw": "Each run writes one status report under `resources/.state/install-all/<run timestamp>/`, outside build output. Failed project logs are kept there; successful project logs are removed by default, or retained with `--keep-logs`. The report records install manifests and file existence checks. Tests verify virtual SDK addition, dependency order, failure propagation, empty paths, and actual CMake installation. App and user model and storage data are not deleted.\n"
+      "raw": "`--cmake SDK` applies the standard CMake procedure instead of the existing installer for a specific SDK. Build concurrency is set to `--jobs` (default 2), and CTest concurrency is set to `--test-jobs` (default 1). Tests run serially by default to avoid resource contention with GUI·local network tests. Individual installers specifying their own `ctest --parallel` take precedence. For example, LVRS's existing CLI removes all platform installers and `build/`, so `--cmake LVRS` is used for host updates that preserve existing platform and task outputs. Additional CMake arguments are specified as `--define SDK=-DKEY=VALUE`, and installer arguments are specified as `--installer-arg SDK=ARGUMENT`. The default install path is `~/.local/SDK/<directory name>`. The existing installer preserves its prefix environment variable and platform selection policy, so it follows the SDK's documentation. `--prefix-root` applies to CMake direct install and dependency paths and does not override the existing installer's dedicated settings.\n"
     },
     {
-      "id": "b000052",
+      "id": "b000050",
       "kind": "blank",
       "start_line": 130,
       "end_line": 130,
       "raw": "\n"
     },
     {
-      "id": "b000053",
+      "id": "b000051",
       "kind": "paragraph",
       "start_line": 131,
-      "end_line": 143,
-      "raw": "For a host refresh without starting CTest executables or custom native installers,\nuse `./install.sh --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos`.\nThis uses CMake for each native project, including LVRS, disables CMake's\ntest targets and recognized example, benchmark and demo options, and records\n`tests: not_run`; it is build and installation evidence only. Non-CMake\ninstallers cannot be controlled by this switch and are reported as failures;\nrun them separately after reviewing their behavior. A manifest proves that its\nlisted files exist, not that every consumer is ABI-compatible. The installed\ntree may be partially changed if an install fails; keep a backup before an\nin-place refresh. The report is saved before each operation with `pending` and\n`running` states, so interrupted runs can be identified and retried. Discovery\nis a static approximation of remaining legacy dependencies, not proof that SDKs\nare independent. See [Installation operations](docs/Installation.md).\n"
+      "end_line": 131,
+      "raw": "If using the existing multi-platform installer during host reinstallation, set environment variables such as `*_INSTALL_PLATFORMS=macos` for the SDK. Other ABIs must be built separately using the platform's toolchain, and host verification success does not imply mobile or Wasm verification.\n"
+    },
+    {
+      "id": "b000052",
+      "kind": "blank",
+      "start_line": 132,
+      "end_line": 132,
+      "raw": "\n"
+    },
+    {
+      "id": "b000053",
+      "kind": "paragraph",
+      "start_line": 133,
+      "end_line": 133,
+      "raw": "Each run writes one status report under `resources/.state/install-all/<run timestamp>/`, outside build output. Failed project logs are kept there; successful project logs are removed by default, or retained with `--keep-logs`. The report records install manifests and file existence checks. Tests verify virtual SDK addition, dependency order, failure propagation, empty paths, and actual CMake installation. App and user model and storage data are not deleted.\n"
     },
     {
       "id": "b000054",
       "kind": "blank",
-      "start_line": 144,
-      "end_line": 144,
+      "start_line": 134,
+      "end_line": 134,
       "raw": "\n"
     },
     {
       "id": "b000055",
+      "kind": "paragraph",
+      "start_line": 135,
+      "end_line": 147,
+      "raw": "For a host refresh without starting CTest executables or custom native installers,\nuse `./install.sh --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos`.\nThis uses CMake for each native project, including LVRS, disables CMake's\ntest targets and recognized example, benchmark and demo options, and records\n`tests: not_run`; it is build and installation evidence only. Non-CMake\ninstallers cannot be controlled by this switch and are reported as failures;\nrun them separately after reviewing their behavior. A manifest proves that its\nlisted files exist, not that every consumer is ABI-compatible. The installed\ntree may be partially changed if an install fails; keep a backup before an\nin-place refresh. The report is saved before each operation with `pending` and\n`running` states, so interrupted runs can be identified and retried. Discovery\nis a static approximation of remaining legacy dependencies, not proof that SDKs\nare independent. See [Installation operations](docs/Installation.md).\n"
+    },
+    {
+      "id": "b000056",
+      "kind": "blank",
+      "start_line": 148,
+      "end_line": 148,
+      "raw": "\n"
+    },
+    {
+      "id": "b000057",
       "kind": "heading",
-      "start_line": 145,
-      "end_line": 145,
+      "start_line": 149,
+      "end_line": 149,
       "raw": "## 2026-10-19 patch release\n",
       "level": 2,
       "title": "2026-10-19 patch release"
     },
     {
-      "id": "b000056",
-      "kind": "blank",
-      "start_line": 146,
-      "end_line": 146,
-      "raw": "\n"
-    },
-    {
-      "id": "b000057",
-      "kind": "paragraph",
-      "start_line": 147,
-      "end_line": 150,
-      "raw": "The [SDK patch release](PatchRelease-20261019.md) increments all 35 installable\npackages except LVRS by one patch. LVRS-Svelte is included as an independent\npackage. The release records host builds, tests, reinstalls and remote commits\nseparately; LVRS installer recovery is tracked as a subsequent operation.\n"
-    },
-    {
       "id": "b000058",
       "kind": "blank",
-      "start_line": 151,
-      "end_line": 151,
+      "start_line": 150,
+      "end_line": 150,
       "raw": "\n"
     },
     {
       "id": "b000059",
-      "kind": "html",
-      "start_line": 152,
-      "end_line": 152,
-      "raw": "<a id=\"2026-10-20-windows-sdk-검증\"></a>\n"
+      "kind": "paragraph",
+      "start_line": 151,
+      "end_line": 154,
+      "raw": "The [SDK patch release](PatchRelease-20261019.md) increments all 35 installable\npackages except LVRS by one patch. LVRS-Svelte is included as an independent\npackage. The release records host builds, tests, reinstalls and remote commits\nseparately; LVRS installer recovery is tracked as a subsequent operation.\n"
     },
     {
       "id": "b000060",
+      "kind": "blank",
+      "start_line": 155,
+      "end_line": 155,
+      "raw": "\n"
+    },
+    {
+      "id": "b000061",
+      "kind": "html",
+      "start_line": 156,
+      "end_line": 156,
+      "raw": "<a id=\"2026-10-20-windows-sdk-검증\"></a>\n"
+    },
+    {
+      "id": "b000062",
       "kind": "heading",
-      "start_line": 153,
-      "end_line": 153,
+      "start_line": 157,
+      "end_line": 157,
       "raw": "## Windows SDK verification, 2026-10-20\n",
       "level": 2,
       "title": "Windows SDK verification, 2026-10-20"
     },
     {
-      "id": "b000061",
-      "kind": "blank",
-      "start_line": 154,
-      "end_line": 154,
-      "raw": "\n"
-    },
-    {
-      "id": "b000062",
-      "kind": "paragraph",
-      "start_line": 155,
-      "end_line": 155,
-      "raw": "[The complete Windows verification record](Windows/Verification-20261020.md) records Windows Release builds, execution, installation and remote commit verification for 36 active SDKs. It includes project-specific Windows instructions and shared verification tools. Deprecated and Utility projects and directories without source are excluded from the success count.\n"
-    },
-    {
       "id": "b000063",
-      "kind": "blank",
-      "start_line": 156,
-      "end_line": 156,
-      "raw": "\n"
-    },
-    {
-      "id": "b000064",
-      "kind": "heading",
-      "start_line": 157,
-      "end_line": 157,
-      "raw": "## Multimodal agent ownership\n",
-      "level": 2,
-      "title": "Multimodal agent ownership"
-    },
-    {
-      "id": "b000065",
       "kind": "blank",
       "start_line": 158,
       "end_line": 158,
       "raw": "\n"
     },
     {
-      "id": "b000066",
+      "id": "b000064",
       "kind": "paragraph",
       "start_line": 159,
-      "end_line": 165,
-      "raw": "[iiMultimodalAgent](iiMultimodalAgent/README.md) owns the extracted agent/MCP harness\nand iiDecision integration, with image, audio and speech adapters for iiLocalDiffusion,\niiAudioGen and iiVoiceOver. iiLocalLLM 0.56 provides inference without an agent or\niiDecision dependency. The installer discovers the module and orders its six SDK\ndependencies automatically. Windows build metadata includes the same dependency edges.\nThe independent repository is registered in `workspace-repositories.json`, alongside\n`iiNetwork` and `LVUI`, so Git-based workspace synchronization includes their sources.\n"
+      "end_line": 159,
+      "raw": "[The complete Windows verification record](Windows/Verification-20261020.md) records Windows Release builds, execution, installation and remote commit verification for 36 active SDKs. It includes project-specific Windows instructions and shared verification tools. Deprecated and Utility projects and directories without source are excluded from the success count.\n"
+    },
+    {
+      "id": "b000065",
+      "kind": "blank",
+      "start_line": 160,
+      "end_line": 160,
+      "raw": "\n"
+    },
+    {
+      "id": "b000066",
+      "kind": "heading",
+      "start_line": 161,
+      "end_line": 161,
+      "raw": "## Multimodal agent ownership\n",
+      "level": 2,
+      "title": "Multimodal agent ownership"
     },
     {
       "id": "b000067",
       "kind": "blank",
-      "start_line": 166,
-      "end_line": 166,
+      "start_line": 162,
+      "end_line": 162,
       "raw": "\n"
     },
     {
       "id": "b000068",
+      "kind": "paragraph",
+      "start_line": 163,
+      "end_line": 169,
+      "raw": "[iiMultimodalAgent](iiMultimodalAgent/README.md) owns the extracted agent/MCP harness\nand iiDecision integration, with image, audio and speech adapters for iiLocalDiffusion,\niiAudioGen and iiVoiceOver. iiLocalLLM 0.56 provides inference without an agent or\niiDecision dependency. The installer discovers the module and orders its six SDK\ndependencies automatically. Windows build metadata includes the same dependency edges.\nThe independent repository is registered in `workspace-repositories.json`, alongside\n`iiNetwork` and `LVUI`, so Git-based workspace synchronization includes their sources.\n"
+    },
+    {
+      "id": "b000069",
+      "kind": "blank",
+      "start_line": 170,
+      "end_line": 170,
+      "raw": "\n"
+    },
+    {
+      "id": "b000070",
       "kind": "heading",
-      "start_line": 167,
-      "end_line": 167,
+      "start_line": 171,
+      "end_line": 171,
       "raw": "## Source publication coverage\n",
       "level": 2,
       "title": "Source publication coverage"
     },
     {
-      "id": "b000069",
-      "kind": "blank",
-      "start_line": 168,
-      "end_line": 168,
-      "raw": "\n"
-    },
-    {
-      "id": "b000070",
-      "kind": "paragraph",
-      "start_line": 169,
-      "end_line": 172,
-      "raw": "The clone manifest includes every implemented SDK module. Empty project placeholders\nremain directories. Shared performance inventory tools, review documents and C++23\nbenchmark sources are tracked in this repository; generated `build/` trees and Python\nbytecode remain excluded. Verify module registration and source/output exclusions with:\n"
-    },
-    {
       "id": "b000071",
       "kind": "blank",
-      "start_line": 173,
-      "end_line": 173,
+      "start_line": 172,
+      "end_line": 172,
       "raw": "\n"
     },
     {
       "id": "b000072",
-      "kind": "fenced_code",
-      "start_line": 174,
+      "kind": "paragraph",
+      "start_line": 173,
       "end_line": 176,
-      "raw": "```sh\npython3 -B -m unittest discover -s tests -p 'test_sdk_publication.py' -v\n```\n",
-      "language": "sh",
-      "code": "python3 -B -m unittest discover -s tests -p 'test_sdk_publication.py' -v\n",
-      "closed": true
+      "raw": "The clone manifest includes every implemented SDK module. Empty project placeholders\nremain directories. Shared performance inventory tools, review documents and C++23\nbenchmark sources are tracked in this repository; generated `build/` trees and Python\nbytecode remain excluded. Verify module registration and source/output exclusions with:\n"
     },
     {
       "id": "b000073",
@@ -551,54 +548,57 @@
     },
     {
       "id": "b000074",
-      "kind": "paragraph",
+      "kind": "fenced_code",
       "start_line": 178,
-      "end_line": 179,
-      "raw": "Helper consumer checks accept package requirements at 0.10.0 or newer, including\ncompatible patch releases, while rejecting retired package names and targets.\n"
+      "end_line": 180,
+      "raw": "```sh\npython3 -B -m unittest discover -s tests -p 'test_sdk_publication.py' -v\n```\n",
+      "language": "sh",
+      "code": "python3 -B -m unittest discover -s tests -p 'test_sdk_publication.py' -v\n",
+      "closed": true
     },
     {
       "id": "b000075",
       "kind": "blank",
-      "start_line": 180,
-      "end_line": 180,
+      "start_line": 181,
+      "end_line": 181,
       "raw": "\n"
     },
     {
       "id": "b000076",
-      "kind": "heading",
-      "start_line": 181,
-      "end_line": 181,
-      "raw": "## License\n",
-      "level": 2,
-      "title": "License"
+      "kind": "paragraph",
+      "start_line": 182,
+      "end_line": 183,
+      "raw": "Helper consumer checks accept package requirements at 0.10.0 or newer, including\ncompatible patch releases, while rejecting retired package names and targets.\n"
     },
     {
       "id": "b000077",
-      "kind": "blank",
-      "start_line": 182,
-      "end_line": 182,
-      "raw": "\n"
-    },
-    {
-      "id": "b000078",
-      "kind": "paragraph",
-      "start_line": 183,
-      "end_line": 183,
-      "raw": "SPDX-License-Identifier: MIT\n"
-    },
-    {
-      "id": "b000079",
       "kind": "blank",
       "start_line": 184,
       "end_line": 184,
       "raw": "\n"
     },
     {
+      "id": "b000078",
+      "kind": "heading",
+      "start_line": 185,
+      "end_line": 185,
+      "raw": "## License\n",
+      "level": 2,
+      "title": "License"
+    },
+    {
+      "id": "b000079",
+      "kind": "blank",
+      "start_line": 186,
+      "end_line": 186,
+      "raw": "\n"
+    },
+    {
       "id": "b000080",
       "kind": "paragraph",
-      "start_line": 185,
+      "start_line": 187,
       "end_line": 187,
-      "raw": "The original code and documentation in this repository are licensed under the\n[MIT License](LICENSE). Third-party code, libraries, fonts, tools, and model\nweights retain their respective licenses.\n"
+      "raw": "SPDX-License-Identifier: MIT\n"
     },
     {
       "id": "b000081",
@@ -609,32 +609,46 @@
     },
     {
       "id": "b000082",
-      "kind": "html",
+      "kind": "paragraph",
       "start_line": 189,
-      "end_line": 189,
-      "raw": "<!-- workspace-docs:readme:start -->\n"
+      "end_line": 191,
+      "raw": "The original code and documentation in this repository are licensed under the\n[MIT License](LICENSE). Third-party code, libraries, fonts, tools, and model\nweights retain their respective licenses.\n"
     },
     {
       "id": "b000083",
+      "kind": "blank",
+      "start_line": 192,
+      "end_line": 192,
+      "raw": "\n"
+    },
+    {
+      "id": "b000084",
+      "kind": "html",
+      "start_line": 193,
+      "end_line": 193,
+      "raw": "<!-- workspace-docs:readme:start -->\n"
+    },
+    {
+      "id": "b000085",
       "kind": "heading",
-      "start_line": 190,
-      "end_line": 190,
+      "start_line": 194,
+      "end_line": 194,
       "raw": "## Documentation entry points\n",
       "level": 2,
       "title": "Documentation entry points"
     },
     {
-      "id": "b000084",
+      "id": "b000086",
       "kind": "blank",
-      "start_line": 191,
-      "end_line": 191,
+      "start_line": 195,
+      "end_line": 195,
       "raw": "\n"
     },
     {
-      "id": "b000085",
+      "id": "b000087",
       "kind": "list",
-      "start_line": 192,
-      "end_line": 195,
+      "start_line": 196,
+      "end_line": 199,
       "raw": "- Human overview: this English `README.md`.\n- Agent instructions: [AGENT.md](AGENT.md).\n- Human documentation: [documentation index](docs/README.md).\n- Structured agent documentation: [agent index](docs/agent-index.json).\n",
       "items": [
         {
@@ -660,34 +674,34 @@
       ]
     },
     {
-      "id": "b000086",
+      "id": "b000088",
       "kind": "blank",
-      "start_line": 196,
-      "end_line": 196,
+      "start_line": 200,
+      "end_line": 200,
       "raw": "\n"
     },
     {
-      "id": "b000087",
+      "id": "b000089",
       "kind": "heading",
-      "start_line": 197,
-      "end_line": 197,
+      "start_line": 201,
+      "end_line": 201,
       "raw": "### Child projects\n",
       "level": 3,
       "title": "Child projects"
     },
     {
-      "id": "b000088",
+      "id": "b000090",
       "kind": "blank",
-      "start_line": 198,
-      "end_line": 198,
+      "start_line": 202,
+      "end_line": 202,
       "raw": "\n"
     },
     {
-      "id": "b000089",
+      "id": "b000091",
       "kind": "list",
-      "start_line": 199,
-      "end_line": 248,
-      "raw": "- [`SDK/Flamewall`](Flamewall/README.md)\n- [`SDK/LVRS`](LVRS/README.md)\n- [`SDK/LVRS-Svelte`](LVRS-Svelte/README.md)\n- [`SDK/LVUI`](LVUI/README.md)\n- [`SDK/Silentlocked`](Silentlocked/README.md)\n- [`SDK/Windows`](Windows/README.md)\n- [`SDK/ii3DGen`](ii3DGen/README.md)\n- [`SDK/iiAccountManager`](iiAccountManager/README.md)\n- [`SDK/iiActorObject`](iiActorObject/README.md)\n- [`SDK/iiAudioGen`](iiAudioGen/README.md)\n- [`SDK/iiCSMIDI`](iiCSMIDI/README.md)\n- [`SDK/iiCalendar`](iiCalendar/README.md)\n- [`SDK/iiCameraIntegration`](iiCameraIntegration/README.md)\n- [`SDK/iiColorManager`](iiColorManager/README.md)\n- [`SDK/iiCompression`](iiCompression/README.md)\n- [`SDK/iiComputerHistory`](iiComputerHistory/README.md)\n- [`SDK/iiComputerUse`](iiComputerUse/README.md)\n- [`SDK/iiDecision`](iiDecision/README.md)\n- [`SDK/iiDeviceMultimedia`](iiDeviceMultimedia/README.md)\n- [`SDK/iiEmailClient`](iiEmailClient/README.md)\n- [`SDK/iiFileProvider`](iiFileProvider/README.md)\n- [`SDK/iiGPU`](iiGPU/README.md)\n- [`SDK/iiGUI`](iiGUI/README.md)\n- [`SDK/iiGeneralDocument`](iiGeneralDocument/README.md)\n- [`SDK/iiGlobalSearch`](iiGlobalSearch/README.md)\n- [`SDK/iiGraphicAdjust`](iiGraphicAdjust/README.md)\n- [`SDK/iiJson`](iiJson/README.md)\n- [`SDK/iiLicenseManager`](iiLicenseManager/README.md)\n- [`SDK/iiLocalDiffusion`](iiLocalDiffusion/README.md)\n- [`SDK/iiLocalLLM`](iiLocalLLM/README.md)\n- [`SDK/iiMultimodalAgent`](iiMultimodalAgent/README.md)\n- [`SDK/iiNetwork`](iiNetwork/README.md)\n- [`SDK/iiPBRMaterial`](iiPBRMaterial/README.md)\n- [`SDK/iiPaintEngine`](iiPaintEngine/README.md)\n- [`SDK/iiPhotoLibrary`](iiPhotoLibrary/README.md)\n- [`SDK/iiSDKBuilder`](iiSDKBuilder/README.md)\n- [`SDK/iiSDKCore`](iiSDKCore/README.md)\n- [`SDK/iiSharedCanvas`](iiSharedCanvas/README.md)\n- [`SDK/iiSocialIntegration`](iiSocialIntegration/README.md)\n- [`SDK/iiSocietyContainer`](iiSocietyContainer/README.md)\n- [`SDK/iiSocietyHelper`](iiSocietyHelper/README.md)\n- [`SDK/iiUpdateManager`](iiUpdateManager/README.md)\n- [`SDK/iiVirtualizer`](iiVirtualizer/README.md)\n- [`SDK/iiVisualCodec`](iiVisualCodec/README.md)\n- [`SDK/iiVoiceOver`](iiVoiceOver/README.md)\n- [`SDK/iiVolumetricSolidMesh`](iiVolumetricSolidMesh/README.md)\n- [`SDK/iiWebServer`](iiWebServer/README.md)\n- [`SDK/iiWhatsNew`](iiWhatsNew/README.md)\n- [`SDK/iiXml`](iiXml/README.md)\n- [`SDK/iiProjectManager`](iiProjectManager/README.md)\n",
+      "start_line": 203,
+      "end_line": 253,
+      "raw": "- [`SDK/Flamewall`](Flamewall/README.md)\n- [`SDK/LVRS`](LVRS/README.md)\n- [`SDK/LVRS-Svelte`](LVRS-Svelte/README.md)\n- [`SDK/LVUI`](LVUI/README.md)\n- [`SDK/Silentlocked`](Silentlocked/README.md)\n- [`SDK/Windows`](Windows/README.md)\n- [`SDK/ii3DGen`](ii3DGen/README.md)\n- [`SDK/iiAccountManager`](iiAccountManager/README.md)\n- [`SDK/iiActorObject`](iiActorObject/README.md)\n- [`SDK/iiAudioGen`](iiAudioGen/README.md)\n- [`SDK/iiCSMIDI`](iiCSMIDI/README.md)\n- [`SDK/iiCalendar`](iiCalendar/README.md)\n- [`SDK/iiCameraIntegration`](iiCameraIntegration/README.md)\n- [`SDK/iiColorManager`](iiColorManager/README.md)\n- [`SDK/iiCompression`](iiCompression/README.md)\n- [`SDK/iiComputerHistory`](iiComputerHistory/README.md)\n- [`SDK/iiComputerUse`](iiComputerUse/README.md)\n- [`SDK/iiDecision`](iiDecision/README.md)\n- [`SDK/iiDeviceMultimedia`](iiDeviceMultimedia/README.md)\n- [`SDK/iiEmailClient`](iiEmailClient/README.md)\n- [`SDK/iiFileProvider`](iiFileProvider/README.md)\n- [`SDK/iiGPU`](iiGPU/README.md)\n- [`SDK/iiGUI`](iiGUI/README.md)\n- [`SDK/iiGeneralDocument`](iiGeneralDocument/README.md)\n- [`SDK/iiGlobalSearch`](iiGlobalSearch/README.md)\n- [`SDK/iiGraphicAdjust`](iiGraphicAdjust/README.md)\n- [`SDK/iiJob`](iiJob/README.md)\n- [`SDK/iiJson`](iiJson/README.md)\n- [`SDK/iiLicenseManager`](iiLicenseManager/README.md)\n- [`SDK/iiLocalDiffusion`](iiLocalDiffusion/README.md)\n- [`SDK/iiLocalLLM`](iiLocalLLM/README.md)\n- [`SDK/iiMultimodalAgent`](iiMultimodalAgent/README.md)\n- [`SDK/iiNetwork`](iiNetwork/README.md)\n- [`SDK/iiPBRMaterial`](iiPBRMaterial/README.md)\n- [`SDK/iiPaintEngine`](iiPaintEngine/README.md)\n- [`SDK/iiPhotoLibrary`](iiPhotoLibrary/README.md)\n- [`SDK/iiSDKBuilder`](iiSDKBuilder/README.md)\n- [`SDK/iiSDKCore`](iiSDKCore/README.md)\n- [`SDK/iiSharedCanvas`](iiSharedCanvas/README.md)\n- [`SDK/iiSocialIntegration`](iiSocialIntegration/README.md)\n- [`SDK/iiSocietyContainer`](iiSocietyContainer/README.md)\n- [`SDK/iiSocietyHelper`](iiSocietyHelper/README.md)\n- [`SDK/iiUpdateManager`](iiUpdateManager/README.md)\n- [`SDK/iiVirtualizer`](iiVirtualizer/README.md)\n- [`SDK/iiVisualCodec`](iiVisualCodec/README.md)\n- [`SDK/iiVoiceOver`](iiVoiceOver/README.md)\n- [`SDK/iiVolumetricSolidMesh`](iiVolumetricSolidMesh/README.md)\n- [`SDK/iiWebServer`](iiWebServer/README.md)\n- [`SDK/iiWhatsNew`](iiWhatsNew/README.md)\n- [`SDK/iiXml`](iiXml/README.md)\n- [`SDK/iiProjectManager`](iiProjectManager/README.md)\n",
       "items": [
         {
           "marker": "-",
@@ -821,6 +835,11 @@
         },
         {
           "marker": "-",
+          "text": "[`SDK/iiJob`](iiJob/README.md)",
+          "checked": null
+        },
+        {
+          "marker": "-",
           "text": "[`SDK/iiJson`](iiJson/README.md)",
           "checked": null
         },
@@ -942,10 +961,10 @@
       ]
     },
     {
-      "id": "b000090",
+      "id": "b000092",
       "kind": "html",
-      "start_line": 249,
-      "end_line": 249,
+      "start_line": 254,
+      "end_line": 254,
       "raw": "<!-- workspace-docs:readme:end -->\n"
     }
   ],
@@ -959,60 +978,60 @@
       "start_line": 3
     },
     {
-      "block_id": "b000055",
+      "block_id": "b000057",
       "parent_id": "b000003",
       "level": 2,
       "title": "2026-10-19 patch release",
       "anchor": "2026-10-19-patch-release",
-      "start_line": 145
+      "start_line": 149
     },
     {
-      "block_id": "b000060",
+      "block_id": "b000062",
       "parent_id": "b000003",
       "level": 2,
       "title": "Windows SDK verification, 2026-10-20",
       "anchor": "windows-sdk-verification-2026-10-20",
-      "start_line": 153
+      "start_line": 157
     },
     {
-      "block_id": "b000064",
+      "block_id": "b000066",
       "parent_id": "b000003",
       "level": 2,
       "title": "Multimodal agent ownership",
       "anchor": "multimodal-agent-ownership",
-      "start_line": 157
+      "start_line": 161
     },
     {
-      "block_id": "b000068",
+      "block_id": "b000070",
       "parent_id": "b000003",
       "level": 2,
       "title": "Source publication coverage",
       "anchor": "source-publication-coverage",
-      "start_line": 167
+      "start_line": 171
     },
     {
-      "block_id": "b000076",
+      "block_id": "b000078",
       "parent_id": "b000003",
       "level": 2,
       "title": "License",
       "anchor": "license",
-      "start_line": 181
+      "start_line": 185
     },
     {
-      "block_id": "b000083",
+      "block_id": "b000085",
       "parent_id": "b000003",
       "level": 2,
       "title": "Documentation entry points",
       "anchor": "documentation-entry-points",
-      "start_line": 190
+      "start_line": 194
     },
     {
-      "block_id": "b000087",
-      "parent_id": "b000083",
+      "block_id": "b000089",
+      "parent_id": "b000085",
       "level": 3,
       "title": "Child projects",
       "anchor": "child-projects",
-      "start_line": 197
+      "start_line": 201
     }
   ],
   "indexes": {
@@ -1025,22 +1044,22 @@
         "context": "paragraph"
       },
       {
-        "block_id": "b000019",
-        "line": 42,
+        "block_id": "b000021",
+        "line": 46,
         "text": "search without reading full payloads. Products and format SDKs must delegate",
         "basis": "lexical_match",
         "context": "paragraph"
       },
       {
-        "block_id": "b000043",
-        "line": 116,
+        "block_id": "b000045",
+        "line": 120,
         "text": "If `install.sh` already exists, execute its install·package·verify rules, except that LVRS uses the CMake route to preserve other builds and platforms. Otherwise, process in the order: CMake configuration → build → CTest → install. The installer may skip tests; in such cases, run the full host test. If the installer has already run the full test, do not run it again. Existing `platforms/<host>` profiles are preserved by default: use `--refresh-host-prefix` only after checking their backend and ABI. Preserve the existing build's feature options, and update the CMake path of discovered dependencies to the new installer. Consumers of a failed SDK are not executed, but independent SDKs continue to install. If any step fails or is blocked, the exit code is not 0. Caches pointing to IDE inside Ninja/Make are restored to the same build tool in the current PATH. Generators and existing feature options are not changed, and if no alternative tool is available, the failure is recorded. Failure recovery using already-verified dependencies runs at `--only SDK --no-dependencies`. This option processes only the selected project, and the actual availability of installed dependencies is verified by CMake configuration and the project's tests. The dependency order between selected SDK is preserved.",
         "basis": "lexical_match",
         "context": "paragraph"
       },
       {
-        "block_id": "b000049",
-        "line": 127,
+        "block_id": "b000051",
+        "line": 131,
         "text": "If using the existing multi-platform installer during host reinstallation, set environment variables such as `*_INSTALL_PLATFORMS=macos` for the SDK. Other ABIs must be built separately using the platform's toolchain, and host verification success does not imply mobile or Wasm verification.",
         "basis": "lexical_match",
         "context": "paragraph"
@@ -1048,12 +1067,12 @@
     ],
     "commands": [
       {
-        "block_id": "b000045",
+        "block_id": "b000047",
         "language": "sh",
         "code": "./install.sh --dry-run\n./install.sh --jobs 2 --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\n./install.sh --only iiSocietyHelper --qt-prefix /Volumes/Storage/Qt/6.8.3/macos\npython3 -B -m unittest discover -s tests -p 'test_install_all.py' -v\n"
       },
       {
-        "block_id": "b000072",
+        "block_id": "b000074",
         "language": "sh",
         "code": "python3 -B -m unittest discover -s tests -p 'test_sdk_publication.py' -v\n"
       }
@@ -1081,536 +1100,550 @@
         "line": 21
       },
       {
-        "block_id": "b000015",
-        "label": "SDK independence",
-        "target": "docs/SDKIndependence.md",
+        "block_id": "b000013",
+        "label": "`iiJob`",
+        "target": "iiJob/README.md",
         "kind": "relative",
-        "line": 32
-      },
-      {
-        "block_id": "b000015",
-        "label": "the source layout contract",
-        "target": "docs/HeaderLayout.md",
-        "kind": "relative",
-        "line": 34
+        "line": 25
       },
       {
         "block_id": "b000017",
+        "label": "SDK independence",
+        "target": "docs/SDKIndependence.md",
+        "kind": "relative",
+        "line": 36
+      },
+      {
+        "block_id": "b000017",
+        "label": "the source layout contract",
+        "target": "docs/HeaderLayout.md",
+        "kind": "relative",
+        "line": 38
+      },
+      {
+        "block_id": "b000019",
         "label": "Windows SDK verification",
         "target": "Windows/README.md",
         "kind": "relative",
-        "line": 37
+        "line": 41
       },
       {
-        "block_id": "b000019",
+        "block_id": "b000021",
         "label": "`iiFileProvider`",
         "target": "iiFileProvider/README.md",
         "kind": "relative",
-        "line": 39
+        "line": 43
       },
       {
-        "block_id": "b000019",
+        "block_id": "b000021",
         "label": "the ownership contract",
         "target": "iiFileProvider/docs/FILE_OWNERSHIP.md",
         "kind": "relative",
-        "line": 44
+        "line": 48
       },
       {
-        "block_id": "b000021",
+        "block_id": "b000023",
         "label": "`iiDeviceMultimedia`",
         "target": "iiDeviceMultimedia/README.md",
-        "kind": "relative",
-        "line": 46
-      },
-      {
-        "block_id": "b000021",
-        "label": "independence and migration",
-        "target": "iiDeviceMultimedia/docs/independence.md",
         "kind": "relative",
         "line": 50
       },
       {
         "block_id": "b000023",
+        "label": "independence and migration",
+        "target": "iiDeviceMultimedia/docs/independence.md",
+        "kind": "relative",
+        "line": 54
+      },
+      {
+        "block_id": "b000025",
         "label": "`iiSDKBuilder`",
         "target": "iiSDKBuilder/README.md",
         "kind": "relative",
-        "line": 52
-      },
-      {
-        "block_id": "b000025",
-        "label": "`iiSocietyHelper`",
-        "target": "iiSocietyHelper/README.md",
-        "kind": "relative",
-        "line": 62
-      },
-      {
-        "block_id": "b000025",
-        "label": "the consolidation guide",
-        "target": "iiSocietyHelper/docs/Consolidation.md",
-        "kind": "relative",
-        "line": 67
+        "line": 56
       },
       {
         "block_id": "b000027",
+        "label": "`iiSocietyHelper`",
+        "target": "iiSocietyHelper/README.md",
+        "kind": "relative",
+        "line": 66
+      },
+      {
+        "block_id": "b000027",
+        "label": "the consolidation guide",
+        "target": "iiSocietyHelper/docs/Consolidation.md",
+        "kind": "relative",
+        "line": 71
+      },
+      {
+        "block_id": "b000029",
         "label": "`iiColorManager`",
         "target": "iiColorManager/README.md",
         "kind": "relative",
-        "line": 69
-      },
-      {
-        "block_id": "b000029",
-        "label": "`iiGPU::WebGPU`",
-        "target": "iiGPU/README.md",
-        "kind": "relative",
-        "line": 74
-      },
-      {
-        "block_id": "b000029",
-        "label": "platform verification",
-        "target": "iiGPU/docs/WebGPUVerification.md",
-        "kind": "relative",
-        "line": 80
+        "line": 73
       },
       {
         "block_id": "b000031",
-        "label": "`iiSocialIntegration`",
-        "target": "iiSocialIntegration/README.md",
+        "label": "`iiGPU::WebGPU`",
+        "target": "iiGPU/README.md",
         "kind": "relative",
-        "line": 82
+        "line": 78
+      },
+      {
+        "block_id": "b000031",
+        "label": "platform verification",
+        "target": "iiGPU/docs/WebGPUVerification.md",
+        "kind": "relative",
+        "line": 84
       },
       {
         "block_id": "b000033",
+        "label": "`iiSocialIntegration`",
+        "target": "iiSocialIntegration/README.md",
+        "kind": "relative",
+        "line": 86
+      },
+      {
+        "block_id": "b000035",
         "label": "LocalPhotoBrush consumer",
         "target": "tests/LocalPhotoBrush/README.md",
         "kind": "relative",
-        "line": 96
-      },
-      {
-        "block_id": "b000035",
-        "label": "`iiPaintEngine::BrushTools`",
-        "target": "iiPaintEngine/README.md",
-        "kind": "relative",
-        "line": 101
-      },
-      {
-        "block_id": "b000035",
-        "label": "the authoring boundary and delivery contract",
-        "target": "docs/BRUSH_AUTHORING.md",
-        "kind": "relative",
-        "line": 107
+        "line": 100
       },
       {
         "block_id": "b000037",
+        "label": "`iiPaintEngine::BrushTools`",
+        "target": "iiPaintEngine/README.md",
+        "kind": "relative",
+        "line": 105
+      },
+      {
+        "block_id": "b000037",
+        "label": "the authoring boundary and delivery contract",
+        "target": "docs/BRUSH_AUTHORING.md",
+        "kind": "relative",
+        "line": 111
+      },
+      {
+        "block_id": "b000039",
         "label": "module consolidation guide",
         "target": "docs/ModuleConsolidation.md",
         "kind": "relative",
-        "line": 109
+        "line": 113
       },
       {
-        "block_id": "b000053",
+        "block_id": "b000055",
         "label": "Installation operations",
         "target": "docs/Installation.md",
-        "kind": "relative",
-        "line": 143
-      },
-      {
-        "block_id": "b000057",
-        "label": "SDK patch release",
-        "target": "PatchRelease-20261019.md",
         "kind": "relative",
         "line": 147
       },
       {
-        "block_id": "b000062",
-        "label": "The complete Windows verification record",
-        "target": "Windows/Verification-20261020.md",
+        "block_id": "b000059",
+        "label": "SDK patch release",
+        "target": "PatchRelease-20261019.md",
         "kind": "relative",
-        "line": 155
+        "line": 151
       },
       {
-        "block_id": "b000066",
-        "label": "iiMultimodalAgent",
-        "target": "iiMultimodalAgent/README.md",
+        "block_id": "b000064",
+        "label": "The complete Windows verification record",
+        "target": "Windows/Verification-20261020.md",
         "kind": "relative",
         "line": 159
       },
       {
-        "block_id": "b000080",
+        "block_id": "b000068",
+        "label": "iiMultimodalAgent",
+        "target": "iiMultimodalAgent/README.md",
+        "kind": "relative",
+        "line": 163
+      },
+      {
+        "block_id": "b000082",
         "label": "MIT License",
         "target": "LICENSE",
         "kind": "relative",
-        "line": 186
+        "line": 190
       },
       {
-        "block_id": "b000085",
+        "block_id": "b000087",
         "label": "AGENT.md",
         "target": "AGENT.md",
         "kind": "relative",
-        "line": 193
+        "line": 197
       },
       {
-        "block_id": "b000085",
+        "block_id": "b000087",
         "label": "documentation index",
         "target": "docs/README.md",
         "kind": "relative",
-        "line": 194
+        "line": 198
       },
       {
-        "block_id": "b000085",
+        "block_id": "b000087",
         "label": "agent index",
         "target": "docs/agent-index.json",
-        "kind": "relative",
-        "line": 195
-      },
-      {
-        "block_id": "b000089",
-        "label": "`SDK/Flamewall`",
-        "target": "Flamewall/README.md",
         "kind": "relative",
         "line": 199
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/LVRS`",
-        "target": "LVRS/README.md",
-        "kind": "relative",
-        "line": 200
-      },
-      {
-        "block_id": "b000089",
-        "label": "`SDK/LVRS-Svelte`",
-        "target": "LVRS-Svelte/README.md",
-        "kind": "relative",
-        "line": 201
-      },
-      {
-        "block_id": "b000089",
-        "label": "`SDK/LVUI`",
-        "target": "LVUI/README.md",
-        "kind": "relative",
-        "line": 202
-      },
-      {
-        "block_id": "b000089",
-        "label": "`SDK/Silentlocked`",
-        "target": "Silentlocked/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/Flamewall`",
+        "target": "Flamewall/README.md",
         "kind": "relative",
         "line": 203
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/Windows`",
-        "target": "Windows/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/LVRS`",
+        "target": "LVRS/README.md",
         "kind": "relative",
         "line": 204
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/ii3DGen`",
-        "target": "ii3DGen/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/LVRS-Svelte`",
+        "target": "LVRS-Svelte/README.md",
         "kind": "relative",
         "line": 205
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiAccountManager`",
-        "target": "iiAccountManager/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/LVUI`",
+        "target": "LVUI/README.md",
         "kind": "relative",
         "line": 206
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiActorObject`",
-        "target": "iiActorObject/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/Silentlocked`",
+        "target": "Silentlocked/README.md",
         "kind": "relative",
         "line": 207
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiAudioGen`",
-        "target": "iiAudioGen/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/Windows`",
+        "target": "Windows/README.md",
         "kind": "relative",
         "line": 208
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiCSMIDI`",
-        "target": "iiCSMIDI/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/ii3DGen`",
+        "target": "ii3DGen/README.md",
         "kind": "relative",
         "line": 209
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiCalendar`",
-        "target": "iiCalendar/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiAccountManager`",
+        "target": "iiAccountManager/README.md",
         "kind": "relative",
         "line": 210
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiCameraIntegration`",
-        "target": "iiCameraIntegration/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiActorObject`",
+        "target": "iiActorObject/README.md",
         "kind": "relative",
         "line": 211
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiColorManager`",
-        "target": "iiColorManager/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiAudioGen`",
+        "target": "iiAudioGen/README.md",
         "kind": "relative",
         "line": 212
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiCompression`",
-        "target": "iiCompression/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiCSMIDI`",
+        "target": "iiCSMIDI/README.md",
         "kind": "relative",
         "line": 213
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiComputerHistory`",
-        "target": "iiComputerHistory/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiCalendar`",
+        "target": "iiCalendar/README.md",
         "kind": "relative",
         "line": 214
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiComputerUse`",
-        "target": "iiComputerUse/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiCameraIntegration`",
+        "target": "iiCameraIntegration/README.md",
         "kind": "relative",
         "line": 215
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiDecision`",
-        "target": "iiDecision/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiColorManager`",
+        "target": "iiColorManager/README.md",
         "kind": "relative",
         "line": 216
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiDeviceMultimedia`",
-        "target": "iiDeviceMultimedia/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiCompression`",
+        "target": "iiCompression/README.md",
         "kind": "relative",
         "line": 217
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiEmailClient`",
-        "target": "iiEmailClient/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiComputerHistory`",
+        "target": "iiComputerHistory/README.md",
         "kind": "relative",
         "line": 218
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiFileProvider`",
-        "target": "iiFileProvider/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiComputerUse`",
+        "target": "iiComputerUse/README.md",
         "kind": "relative",
         "line": 219
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiGPU`",
-        "target": "iiGPU/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiDecision`",
+        "target": "iiDecision/README.md",
         "kind": "relative",
         "line": 220
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiGUI`",
-        "target": "iiGUI/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiDeviceMultimedia`",
+        "target": "iiDeviceMultimedia/README.md",
         "kind": "relative",
         "line": 221
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiGeneralDocument`",
-        "target": "iiGeneralDocument/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiEmailClient`",
+        "target": "iiEmailClient/README.md",
         "kind": "relative",
         "line": 222
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiGlobalSearch`",
-        "target": "iiGlobalSearch/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiFileProvider`",
+        "target": "iiFileProvider/README.md",
         "kind": "relative",
         "line": 223
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiGraphicAdjust`",
-        "target": "iiGraphicAdjust/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiGPU`",
+        "target": "iiGPU/README.md",
         "kind": "relative",
         "line": 224
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiJson`",
-        "target": "iiJson/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiGUI`",
+        "target": "iiGUI/README.md",
         "kind": "relative",
         "line": 225
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiLicenseManager`",
-        "target": "iiLicenseManager/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiGeneralDocument`",
+        "target": "iiGeneralDocument/README.md",
         "kind": "relative",
         "line": 226
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiLocalDiffusion`",
-        "target": "iiLocalDiffusion/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiGlobalSearch`",
+        "target": "iiGlobalSearch/README.md",
         "kind": "relative",
         "line": 227
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiLocalLLM`",
-        "target": "iiLocalLLM/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiGraphicAdjust`",
+        "target": "iiGraphicAdjust/README.md",
         "kind": "relative",
         "line": 228
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiMultimodalAgent`",
-        "target": "iiMultimodalAgent/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiJob`",
+        "target": "iiJob/README.md",
         "kind": "relative",
         "line": 229
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiNetwork`",
-        "target": "iiNetwork/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiJson`",
+        "target": "iiJson/README.md",
         "kind": "relative",
         "line": 230
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiPBRMaterial`",
-        "target": "iiPBRMaterial/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiLicenseManager`",
+        "target": "iiLicenseManager/README.md",
         "kind": "relative",
         "line": 231
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiPaintEngine`",
-        "target": "iiPaintEngine/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiLocalDiffusion`",
+        "target": "iiLocalDiffusion/README.md",
         "kind": "relative",
         "line": 232
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiPhotoLibrary`",
-        "target": "iiPhotoLibrary/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiLocalLLM`",
+        "target": "iiLocalLLM/README.md",
         "kind": "relative",
         "line": 233
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiSDKBuilder`",
-        "target": "iiSDKBuilder/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiMultimodalAgent`",
+        "target": "iiMultimodalAgent/README.md",
         "kind": "relative",
         "line": 234
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiSDKCore`",
-        "target": "iiSDKCore/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiNetwork`",
+        "target": "iiNetwork/README.md",
         "kind": "relative",
         "line": 235
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiSharedCanvas`",
-        "target": "iiSharedCanvas/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiPBRMaterial`",
+        "target": "iiPBRMaterial/README.md",
         "kind": "relative",
         "line": 236
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiSocialIntegration`",
-        "target": "iiSocialIntegration/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiPaintEngine`",
+        "target": "iiPaintEngine/README.md",
         "kind": "relative",
         "line": 237
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiSocietyContainer`",
-        "target": "iiSocietyContainer/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiPhotoLibrary`",
+        "target": "iiPhotoLibrary/README.md",
         "kind": "relative",
         "line": 238
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiSocietyHelper`",
-        "target": "iiSocietyHelper/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiSDKBuilder`",
+        "target": "iiSDKBuilder/README.md",
         "kind": "relative",
         "line": 239
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiUpdateManager`",
-        "target": "iiUpdateManager/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiSDKCore`",
+        "target": "iiSDKCore/README.md",
         "kind": "relative",
         "line": 240
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiVirtualizer`",
-        "target": "iiVirtualizer/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiSharedCanvas`",
+        "target": "iiSharedCanvas/README.md",
         "kind": "relative",
         "line": 241
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiVisualCodec`",
-        "target": "iiVisualCodec/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiSocialIntegration`",
+        "target": "iiSocialIntegration/README.md",
         "kind": "relative",
         "line": 242
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiVoiceOver`",
-        "target": "iiVoiceOver/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiSocietyContainer`",
+        "target": "iiSocietyContainer/README.md",
         "kind": "relative",
         "line": 243
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiVolumetricSolidMesh`",
-        "target": "iiVolumetricSolidMesh/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiSocietyHelper`",
+        "target": "iiSocietyHelper/README.md",
         "kind": "relative",
         "line": 244
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiWebServer`",
-        "target": "iiWebServer/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiUpdateManager`",
+        "target": "iiUpdateManager/README.md",
         "kind": "relative",
         "line": 245
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiWhatsNew`",
-        "target": "iiWhatsNew/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiVirtualizer`",
+        "target": "iiVirtualizer/README.md",
         "kind": "relative",
         "line": 246
       },
       {
-        "block_id": "b000089",
-        "label": "`SDK/iiXml`",
-        "target": "iiXml/README.md",
+        "block_id": "b000091",
+        "label": "`SDK/iiVisualCodec`",
+        "target": "iiVisualCodec/README.md",
         "kind": "relative",
         "line": 247
       },
       {
-        "block_id": "b000089",
+        "block_id": "b000091",
+        "label": "`SDK/iiVoiceOver`",
+        "target": "iiVoiceOver/README.md",
+        "kind": "relative",
+        "line": 248
+      },
+      {
+        "block_id": "b000091",
+        "label": "`SDK/iiVolumetricSolidMesh`",
+        "target": "iiVolumetricSolidMesh/README.md",
+        "kind": "relative",
+        "line": 249
+      },
+      {
+        "block_id": "b000091",
+        "label": "`SDK/iiWebServer`",
+        "target": "iiWebServer/README.md",
+        "kind": "relative",
+        "line": 250
+      },
+      {
+        "block_id": "b000091",
+        "label": "`SDK/iiWhatsNew`",
+        "target": "iiWhatsNew/README.md",
+        "kind": "relative",
+        "line": 251
+      },
+      {
+        "block_id": "b000091",
+        "label": "`SDK/iiXml`",
+        "target": "iiXml/README.md",
+        "kind": "relative",
+        "line": 252
+      },
+      {
+        "block_id": "b000091",
         "label": "`SDK/iiProjectManager`",
         "target": "iiProjectManager/README.md",
         "kind": "relative",
-        "line": 248
+        "line": 253
       }
     ],
     "tables": []

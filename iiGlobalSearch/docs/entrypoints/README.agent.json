@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "README.md",
-    "sha256": "786b4d3bdd626e84716f8fab9dcfb078ce6bc9d991e54b5a57fbf278eaac66ef",
-    "bytes": 4579,
-    "line_count": 75,
+    "sha256": "ddb5eb398d47fc72f372085bc09ce09cb7f6c19081fc2eeabc3a5cac7fd5079c",
+    "bytes": 5071,
+    "line_count": 83,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -70,50 +70,50 @@
       "id": "b000007",
       "kind": "paragraph",
       "start_line": 14,
-      "end_line": 21,
-      "raw": "The separate web search API starts each queued task with a new crawl frontier,\nvisits live HTTP(S) pages through iiNetwork, follows links subject to robots\nrules and ranks the resulting page content in memory. It does not query a\nthird-party search database or build a persistent search index. It returns\nmetadata, structured data, links and a flat DOM. An isolated Chromium session\nrenders JavaScript by default; an application can provide another renderer.\nCoverage is bounded by the selected seeds and crawl limits, and is not the\nwhole web or Google's ranking. See [web search](docs/WebSearch.md).\n"
+      "end_line": 18,
+      "raw": "`ObjectSession` stores provider-derived identifiers, types, classification and\npresentation metadata in memory and supports combined text and structured\nfilters. Create one directly for application-supplied values or call\n`Index::openSession()` after indexing completes. Call `destroy()` explicitly\nwhen finished; the destructor is a fallback. See [object sessions](docs/ObjectSessions.md).\n"
     },
     {
       "id": "b000008",
       "kind": "blank",
-      "start_line": 22,
-      "end_line": 22,
+      "start_line": 19,
+      "end_line": 19,
       "raw": "\n"
     },
     {
       "id": "b000009",
       "kind": "paragraph",
-      "start_line": 23,
-      "end_line": 31,
-      "raw": "Local `searchAnswer()` and web `WebTask::answer()` return recursive, structured\nin-memory objects containing the data actually found. Values support integers,\nfloats, strings, heterogeneous lists, images, video, audio, numeric vectors and\nvector graphics, spreadsheets, graphs and scenes. Remote and local media use\nreferences until explicitly loaded into memory by the bounded asynchronous\n`MediaLoader`. HTML tables and inline SVG can already be present in the page;\nexternal spreadsheet and scene documents are references, not decoded models.\nExisting vector-returning methods remain available at source level; C++ consumers\nmust rebuild for the changed public ABI. See [structured answers](docs/Answers.md).\n"
+      "start_line": 20,
+      "end_line": 27,
+      "raw": "The separate web search API starts each queued task with a new crawl frontier,\nvisits live HTTP(S) pages through iiNetwork, follows links subject to robots\nrules and ranks the resulting page content in memory. It does not query a\nthird-party search database or build a persistent search index. It returns\nmetadata, structured data, links and a flat DOM. An isolated Chromium session\nrenders JavaScript by default; an application can provide another renderer.\nCoverage is bounded by the selected seeds and crawl limits, and is not the\nwhole web or Google's ranking. See [web search](docs/WebSearch.md).\n"
     },
     {
       "id": "b000010",
       "kind": "blank",
-      "start_line": 32,
-      "end_line": 32,
+      "start_line": 28,
+      "end_line": 28,
       "raw": "\n"
     },
     {
       "id": "b000011",
       "kind": "paragraph",
-      "start_line": 33,
-      "end_line": 40,
-      "raw": "The local and web APIs are separate CMake components. Local search uses\n`iiGlobalSearch::iiGlobalSearch`; request the `Web` component and link\n`iiGlobalSearch::Web` for network search. Both components and the common answer\nlibrary require iiSDKCore 0.18 or later. The web component requires iiNetwork\n0.5 or later, iiJson, iiFileProviderNative, libxml2,\nlibcurl and OpenSSL 3 or later. JavaScript rendering additionally needs a\ncompatible Chromium executable. Set `OPENSSL_ROOT_DIR` when CMake cannot locate\nOpenSSL. Local search retains its iiSocietyContainer and SQLite/FTS5 dependencies.\n"
+      "start_line": 29,
+      "end_line": 37,
+      "raw": "Local `searchAnswer()` and web `WebTask::answer()` return recursive, structured\nin-memory objects containing the data actually found. Values support integers,\nfloats, strings, heterogeneous lists, images, video, audio, numeric vectors and\nvector graphics, spreadsheets, graphs and scenes. Remote and local media use\nreferences until explicitly loaded into memory by the bounded asynchronous\n`MediaLoader`. HTML tables and inline SVG can already be present in the page;\nexternal spreadsheet and scene documents are references, not decoded models.\nExisting vector-returning methods remain available at source level; C++ consumers\nmust rebuild for the changed public ABI. See [structured answers](docs/Answers.md).\n"
     },
     {
       "id": "b000012",
       "kind": "blank",
-      "start_line": 41,
-      "end_line": 41,
+      "start_line": 38,
+      "end_line": 38,
       "raw": "\n"
     },
     {
       "id": "b000013",
       "kind": "paragraph",
-      "start_line": 42,
+      "start_line": 39,
       "end_line": 48,
-      "raw": "The index is scoped to visible, non-redirected files under the selected package.\nIt includes catalog entries (including unpublished metadata), independently\ntransported classification companions, and valid presentation companions. It\ndoes not index arbitrary files without provider information. Presentation\nverification reads a bounded sample of the source; classification alone does\nnot read its payload. Hidden directories and provider control files are skipped.\nResults are a snapshot and should be refreshed after changes.\n"
+      "raw": "The local and web APIs are separate CMake components. Local search uses\n`iiGlobalSearch::iiGlobalSearch`; request the `Web` component and link\n`iiGlobalSearch::Web` for network search. Both components and the common answer\nlibrary require iiSDKCore 0.18 or later. The web component requires iiNetwork\n0.5 or later, iiJson, iiFileProviderNative, libxml2,\nlibcurl and OpenSSL 3 or later. JavaScript rendering additionally needs a\ncompatible Chromium executable. Set `OPENSSL_ROOT_DIR` when CMake cannot locate\nOpenSSL. Local search retains its iiSocietyContainer and SQLite/FTS5 dependencies\nand requires an iiFileProviderCatalog package advertising paged FileSearchIndex\nand package support.\n"
     },
     {
       "id": "b000014",
@@ -124,77 +124,91 @@
     },
     {
       "id": "b000015",
-      "kind": "fenced_code",
+      "kind": "paragraph",
       "start_line": 50,
+      "end_line": 56,
+      "raw": "The index is scoped to visible, non-redirected files under the selected package.\nIt includes catalog entries (including unpublished metadata), independently\ntransported classification companions, and valid presentation companions. It\ndoes not index arbitrary files without provider information. Presentation\nverification reads a bounded sample of the source; classification alone does\nnot read its payload. Hidden directories and provider control files are skipped.\nResults are a snapshot and should be refreshed after changes.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 57,
       "end_line": 57,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "fenced_code",
+      "start_line": 58,
+      "end_line": 65,
       "raw": "```sh\ncmake -S . -B build -DCMAKE_BUILD_TYPE=Release \\\n  -DCMAKE_PREFIX_PATH=\"$HOME/.local/SDK/iiSDKCore;$HOME/.local/SDK/iiJson;$HOME/.local/SDK/iiFileProvider;$HOME/.local/SDK/iiSocietyContainer;$HOME/.local/SDK/iiNetwork\"\ncmake --build build --parallel\nctest --test-dir build --output-on-failure\nbuild/ii-global-search index /absolute/Library.societycontainer \"campaign portrait\" --limit 50\nbuild/ii-global-search web \"creative tools\" --seed https://example.com/ --max-pages 10 --depth 2\n```\n",
       "language": "sh",
       "code": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \\\n  -DCMAKE_PREFIX_PATH=\"$HOME/.local/SDK/iiSDKCore;$HOME/.local/SDK/iiJson;$HOME/.local/SDK/iiFileProvider;$HOME/.local/SDK/iiSocietyContainer;$HOME/.local/SDK/iiNetwork\"\ncmake --build build --parallel\nctest --test-dir build --output-on-failure\nbuild/ii-global-search index /absolute/Library.societycontainer \"campaign portrait\" --limit 50\nbuild/ii-global-search web \"creative tools\" --seed https://example.com/ --max-pages 10 --depth 2\n",
       "closed": true
     },
     {
-      "id": "b000016",
-      "kind": "blank",
-      "start_line": 58,
-      "end_line": 58,
-      "raw": "\n"
-    },
-    {
-      "id": "b000017",
-      "kind": "paragraph",
-      "start_line": 59,
-      "end_line": 64,
-      "raw": "The CLI emits JSON and waits for the background indexing job. Applications can\nlink `iiGlobalSearch::iiGlobalSearch` and use `iiGlobalSearch::Index` without Qt;\nsee [the indexing contract](docs/Indexing.md) and [the example](example/search.cpp).\n`./install.sh` stages the package to `build/install` by default. A consumer must\nexplicitly start a refresh; this library does not start a service or change an\nalready running application.\n"
-    },
-    {
       "id": "b000018",
       "kind": "blank",
-      "start_line": 65,
-      "end_line": 65,
+      "start_line": 66,
+      "end_line": 66,
       "raw": "\n"
     },
     {
       "id": "b000019",
       "kind": "paragraph",
-      "start_line": 66,
-      "end_line": 66,
-      "raw": "Sources and adjacent headers are grouped under `src/Answers`, `src/Local`, `src/Web`, and `src/CLI`; installed public include paths remain stable. See [source layout](docs/SourceLayout.md).\n"
+      "start_line": 67,
+      "end_line": 72,
+      "raw": "The CLI emits JSON and waits for the background indexing job. Applications can\nlink `iiGlobalSearch::iiGlobalSearch` and use `iiGlobalSearch::Index` without Qt;\nsee [the indexing contract](docs/Indexing.md) and [the example](example/search.cpp).\n`./install.sh` stages the package to `build/install` by default. A consumer must\nexplicitly start a refresh; this library does not start a service or change an\nalready running application.\n"
     },
     {
       "id": "b000020",
       "kind": "blank",
-      "start_line": 67,
-      "end_line": 67,
+      "start_line": 73,
+      "end_line": 73,
       "raw": "\n"
     },
     {
       "id": "b000021",
-      "kind": "html",
-      "start_line": 68,
-      "end_line": 68,
-      "raw": "<!-- workspace-docs:readme:start -->\n"
+      "kind": "paragraph",
+      "start_line": 74,
+      "end_line": 74,
+      "raw": "Sources and adjacent headers are grouped under `src/Answers`, `src/Local`, `src/Web`, and `src/CLI`; installed public include paths remain stable. See [source layout](docs/SourceLayout.md).\n"
     },
     {
       "id": "b000022",
+      "kind": "blank",
+      "start_line": 75,
+      "end_line": 75,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "html",
+      "start_line": 76,
+      "end_line": 76,
+      "raw": "<!-- workspace-docs:readme:start -->\n"
+    },
+    {
+      "id": "b000024",
       "kind": "heading",
-      "start_line": 69,
-      "end_line": 69,
+      "start_line": 77,
+      "end_line": 77,
       "raw": "## Documentation entry points\n",
       "level": 2,
       "title": "Documentation entry points"
     },
     {
-      "id": "b000023",
+      "id": "b000025",
       "kind": "blank",
-      "start_line": 70,
-      "end_line": 70,
+      "start_line": 78,
+      "end_line": 78,
       "raw": "\n"
     },
     {
-      "id": "b000024",
+      "id": "b000026",
       "kind": "list",
-      "start_line": 71,
-      "end_line": 74,
+      "start_line": 79,
+      "end_line": 82,
       "raw": "- Human overview: this English `README.md`.\n- Agent instructions: [AGENT.md](AGENT.md).\n- Human documentation: [documentation index](docs/README.md).\n- Structured agent documentation: [agent index](docs/agent-index.json).\n",
       "items": [
         {
@@ -220,10 +234,10 @@
       ]
     },
     {
-      "id": "b000025",
+      "id": "b000027",
       "kind": "html",
-      "start_line": 75,
-      "end_line": 75,
+      "start_line": 83,
+      "end_line": 83,
       "raw": "<!-- workspace-docs:readme:end -->\n"
     }
   ],
@@ -237,12 +251,12 @@
       "start_line": 1
     },
     {
-      "block_id": "b000022",
+      "block_id": "b000024",
       "parent_id": "b000001",
       "level": 2,
       "title": "Documentation entry points",
       "anchor": "documentation-entry-points",
-      "start_line": 69
+      "start_line": 77
     }
   ],
   "indexes": {
@@ -255,22 +269,22 @@
         "context": "paragraph"
       },
       {
-        "block_id": "b000009",
-        "line": 31,
+        "block_id": "b000011",
+        "line": 37,
         "text": "must rebuild for the changed public ABI. See [structured answers](docs/Answers.md).",
         "basis": "lexical_match",
         "context": "paragraph"
       },
       {
-        "block_id": "b000013",
-        "line": 48,
+        "block_id": "b000015",
+        "line": 56,
         "text": "Results are a snapshot and should be refreshed after changes.",
         "basis": "lexical_match",
         "context": "paragraph"
       },
       {
-        "block_id": "b000017",
-        "line": 62,
+        "block_id": "b000019",
+        "line": 70,
         "text": "`./install.sh` stages the package to `build/install` by default. A consumer must",
         "basis": "lexical_match",
         "context": "paragraph"
@@ -278,7 +292,7 @@
     ],
     "commands": [
       {
-        "block_id": "b000015",
+        "block_id": "b000017",
         "language": "sh",
         "code": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \\\n  -DCMAKE_PREFIX_PATH=\"$HOME/.local/SDK/iiSDKCore;$HOME/.local/SDK/iiJson;$HOME/.local/SDK/iiFileProvider;$HOME/.local/SDK/iiSocietyContainer;$HOME/.local/SDK/iiNetwork\"\ncmake --build build --parallel\nctest --test-dir build --output-on-failure\nbuild/ii-global-search index /absolute/Library.societycontainer \"campaign portrait\" --limit 50\nbuild/ii-global-search web \"creative tools\" --seed https://example.com/ --max-pages 10 --depth 2\n"
       }
@@ -286,59 +300,66 @@
     "links": [
       {
         "block_id": "b000007",
-        "label": "web search",
-        "target": "docs/WebSearch.md",
+        "label": "object sessions",
+        "target": "docs/ObjectSessions.md",
         "kind": "relative",
-        "line": 21
+        "line": 18
       },
       {
         "block_id": "b000009",
+        "label": "web search",
+        "target": "docs/WebSearch.md",
+        "kind": "relative",
+        "line": 27
+      },
+      {
+        "block_id": "b000011",
         "label": "structured answers",
         "target": "docs/Answers.md",
         "kind": "relative",
-        "line": 31
-      },
-      {
-        "block_id": "b000017",
-        "label": "the indexing contract",
-        "target": "docs/Indexing.md",
-        "kind": "relative",
-        "line": 61
-      },
-      {
-        "block_id": "b000017",
-        "label": "the example",
-        "target": "example/search.cpp",
-        "kind": "relative",
-        "line": 61
+        "line": 37
       },
       {
         "block_id": "b000019",
+        "label": "the indexing contract",
+        "target": "docs/Indexing.md",
+        "kind": "relative",
+        "line": 69
+      },
+      {
+        "block_id": "b000019",
+        "label": "the example",
+        "target": "example/search.cpp",
+        "kind": "relative",
+        "line": 69
+      },
+      {
+        "block_id": "b000021",
         "label": "source layout",
         "target": "docs/SourceLayout.md",
         "kind": "relative",
-        "line": 66
+        "line": 74
       },
       {
-        "block_id": "b000024",
+        "block_id": "b000026",
         "label": "AGENT.md",
         "target": "AGENT.md",
         "kind": "relative",
-        "line": 72
+        "line": 80
       },
       {
-        "block_id": "b000024",
+        "block_id": "b000026",
         "label": "documentation index",
         "target": "docs/README.md",
         "kind": "relative",
-        "line": 73
+        "line": 81
       },
       {
-        "block_id": "b000024",
+        "block_id": "b000026",
         "label": "agent index",
         "target": "docs/agent-index.json",
         "kind": "relative",
-        "line": 74
+        "line": 82
       }
     ],
     "tables": []

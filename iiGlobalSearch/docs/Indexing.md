@@ -4,7 +4,7 @@
 
 `iiGlobalSearch::Index`는 절대 경로인 정상 디렉터리형 `.societycontainer` 하나만 받는다. iiSocietyContainer의 `DirectoryStorage::isPackageDirectory`로 확장자, 정규 경로, 리디렉션과 과거 디스크 이미지 표식을 검사한다. 이 검사는 매니페스트 전체나 권한을 인증하지 않는다. 파일 경로는 iiSocietyContainer `FileTree`로 검사하고 심볼릭 링크·Windows 리파스 포인트를 따라가지 않는다. 숨김 파일·디렉터리와 iiFileProvider 제어 파일은 제외한다. 그 밖의 컨테이너 내 모든 보이는 디렉터리가 대상이며 Deleted를 임의로 제외하지 않는다.
 
-각 디렉터리에 기존 iiFileProvider 카탈로그가 있으면 읽기 전용으로 페이지 단위 조회한다. 카탈로그에만 존재하는 발행 대기 분류도 검색할 수 있다. 등록되지 않은 파일의 `.iisacc.json`은 `FileCatalog::classificationDocument`로 검사한다. 둘 다 있는 경우 해당 스냅샷에서는 카탈로그 분류가 우선한다. `.<파일명>.iisacc-preview`가 있는 파일은 `Presentation::load`가 유효한 표시 정보를 검증한 경우 색인한다. 표시 정보의 이름·MIME·확장자·속성만 검색하며 프리뷰 바이트는 검색 색인에 넣지 않는다. 제공자의 현재 `Presentation::load`는 동반 프리뷰가 없는 확장 속성만으로 결과를 반환하지 않는다.
+각 디렉터리에 기존 iiFileProvider 카탈로그가 있으면 읽기 전용으로 페이지 단위 조회한다. 카탈로그에만 존재하는 발행 대기 분류도 검색할 수 있다. 등록되지 않은 파일의 `.iisacc.json`은 `FileCatalog::classificationDocument`로 검사한다. 둘 다 있는 경우 해당 스냅샷에서는 카탈로그 분류가 우선한다. 카탈로그에 등록됐거나 유효한 분류 동반 파일이 있는 `.iiproject` 디렉터리는 패키지 한 개로 색인하고 내부로 내려가지 않는다. `.<파일명>.iisacc-preview`가 있는 파일은 `Presentation::load`가 유효한 표시 정보를 검증한 경우 색인한다. 표시 정보의 이름·MIME·확장자·속성만 검색하며 프리뷰 바이트는 검색 색인에 넣지 않는다. 제공자의 현재 `Presentation::load`는 동반 프리뷰가 없는 확장 속성만으로 결과를 반환하지 않는다.
 
 검색 대상은 이러한 카탈로그·분류·표시 정보 중 적어도 하나가 있는 파일이다. 분류 검사는 원본 payload를 읽지 않는다. 표시 정보 검증은 원본 앞·뒤의 최대 32 KiB씩과 관련 IISC WAL의 제한된 샘플, 최대 2 MiB의 프리뷰 문서를 읽을 수 있다. 원본을 디코딩·수정하거나 카탈로그를 생성하지 않는다. 기존 SQLite 카탈로그의 읽기 전용 연결은 SQLite의 통상적인 WAL/공유 메모리 조정을 사용할 수 있다.
 
@@ -30,6 +30,10 @@ auto matches = index.search("campaign portrait", 50);
 쿼리는 대소문자와 악센트를 정규화하는 SQLite `unicode61` 단어 접두사이며 공백으로 나눈 항목은 AND이다. SQL이나 FTS 연산자를 직접 실행하지 않는다. 파일 경로, 제목, 설명, 키워드, 사용자 필드 및 컬렉션, 표시 속성을 검색한다. Provider 카탈로그 경로는 정규화된 철자도 색인한다. 카탈로그가 없는 네이티브 파일명의 서로 다른 Unicode 정규화 형식이 모두 일치한다고 보장하지 않는다. 빈 검색어는 현재 결과를 나열한다. 최대 결과 수는 1,024개이며 페이지네이션은 아직 제공하지 않는다.
 
 구조화 객체가 필요한 소비자는 `searchAnswer()`를 사용한다. 원본 payload를 즉시 읽지 않는 타입 참조와 비동기 적재 방법은 [메모리 내 구조화 검색 답변](Answers.md)을 따른다.
+
+완료된 스냅샷에서 제공자 식별자·분류·표시 상세를 구조화 조건으로 검색하려면
+`openSession()`을 사용한다. 직접 전달한 제공자 값도 저장할 수 있으며 사용 후
+명시적으로 파괴해야 한다. 자세한 수명과 필터 계약은 [파일 객체 검색 세션](ObjectSessions.md)을 따른다.
 
 ## CLI와 검증
 
