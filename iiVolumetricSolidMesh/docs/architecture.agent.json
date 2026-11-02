@@ -1,0 +1,567 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:32e138957fb695e0abf7eadb3343248810e4f04cee13e87c7128623095ba1bf3",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiVolumetricSolidMesh",
+    "name": "iiVolumetricSolidMesh",
+    "root": "SDK/iiVolumetricSolidMesh",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "docs/architecture.md",
+    "sha256": "e739135e81caa0d4a5d665500bcbb7b12d589ebf22de3f40d479150f2a694c74",
+    "bytes": 10952,
+    "line_count": 141,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "체적 솔리드 메시 구조와 계약",
+    "role": "reference",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# 체적 솔리드 메시 구조와 계약\n",
+      "level": 1,
+      "title": "체적 솔리드 메시 구조와 계약"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "heading",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "## 목적과 현재 범위\n",
+      "level": 2,
+      "title": "목적과 현재 범위"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 4,
+      "end_line": 4,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 5,
+      "end_line": 10,
+      "raw": "`ii::volumetric::VolumetricSolidMesh`는 수정 가능한 CAD 원본의 한 판본을\n불변 스냅샷으로 참조한다. 앱에는 삼각형 표면 메시로 노출하고, 내부에는\n소재 영역이 지정된 사면체 메시와 각 사면체를 대표하는 질량 입자를 둔다.\nCAD 설계, 체적 이산화, 물질 샘플, 시뮬레이션 상태는 서로 다른 표현이다.\n앱은 `geometryKind()`의 `mesh` 분류와 `surfaceMesh()`의 삼각형 데이터를\n사용해 자신의 메시 객체 체계에 연결할 수 있다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 11,
+      "end_line": 11,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 12,
+      "end_line": 17,
+      "raw": "현재 기본 구현은 양의 치수를 가진 `BoxCad`와 정규 격자 셀을 각각 여섯\n사면체로 나누는 `BoxMesher`이다. B-Rep, NURBS, CSG, 일반 치수 구속이나\n임의의 곡면 솔리드에 대한 테트라화 알고리즘은 포함하지 않는다. 이들은\n앱이 `CadDesign`과 `VolumeMesher` 인터페이스를 구현해 연결한다.\n`CadDesign` 구현은 설계 원본과 ID·판본의 수명 및 불변성을 보장해야 한다.\n이 모듈은 외부 CAD 원본을 복사하거나 ID의 전역 유일성을 보장하지 않는다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 18,
+      "end_line": 18,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 19,
+      "end_line": 21,
+      "raw": "FEM과 입자 솔버는 교체 가능한 인터페이스만 제공한다. FEM/MPM 해석기,\n접촉, 절단, 파괴, 렌더러, 변형된 표면 재구성은 구현하지 않았다. 입자가\n있다는 사실만으로 강성, 탄성, 소성 또는 연속체 물성이 구현되지는 않는다.\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 22,
+      "end_line": 22,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "heading",
+      "start_line": 23,
+      "end_line": 23,
+      "raw": "## 단위와 SDK 연결\n",
+      "level": 2,
+      "title": "단위와 SDK 연결"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 24,
+      "end_line": 24,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 25,
+      "end_line": 28,
+      "raw": "좌표와 치수는 미터, 부피는 세제곱미터, 밀도는 kg/m³, 질량은 kg,\n응력·탄성률은 Pa, 시간은 초이다. `referenceMassProperties()`의 관성\n텐서는 질량중심 기준 kg·m²이다. C++ API에 다른 iiSDK 타입은 없으며,\nQt와 다른 iiSDK 모듈에 링크하지 않는다.\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 29,
+      "end_line": 29,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 30,
+      "end_line": 35,
+      "raw": "예를 들어 앱은 iiVisualCodec의 CAD 형상을 보유한 `CadDesign` 래퍼와 별도의\n체적 메시 생성기를 만들 수 있다. iiVisualCodec CAD의 밀리미터 좌표는 앱의\n어댑터가 명시적으로 미터로 변환해야 한다. 단순 표면 테셀레이션은 내부\n사면체 메시가 아니므로 체적 분할기를 따로 연결해야 한다. 객체는 파일을\n직접 읽거나 쓰지 않으며, 설계 원본과 파생 자원의 저장은 앱이 공급하는\n파일 경로와 iiFileProvider 연동을 통해 처리한다.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 36,
+      "end_line": 36,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "heading",
+      "start_line": 37,
+      "end_line": 37,
+      "raw": "## 데이터와 형상 검증\n",
+      "level": 2,
+      "title": "데이터와 형상 검증"
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 38,
+      "end_line": 38,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "paragraph",
+      "start_line": 39,
+      "end_line": 65,
+      "raw": "`Material`은 ID, 밀도와 선택적인 Young 계수·포아송비·항복 응력을 갖는다.\n`MaterialRegion`은 독립된 영역 ID를 소재 ID에 연결하며, 각 사면체는 영역\nID 하나를 참조한다. 하나의 소재를 여러 영역에서 재사용할 수 있다. 현재\n상자 분할기는 단일 영역을 만들고, 복합 소재 영역의 기하학적 분할은\n사용자가 공급하는 분할기가 책임진다. `Material`의 수치 물성은 외부\n물성 모듈에서 넘긴 불변 스냅샷이다. `sourceMaterialId`, `molecularFormula`,\n`densitySource`와 선택적 기준 온도·압력으로 적용 근거를 보존한다.\n[앱 조합 예제](../example/PbrMaterial/MaterialComposition.cpp)는 iiPBRMaterial의\n분자식·소재 ID 조회 및 소재 ID 텍스처를 영역과 질량에 연결한다. 텍스처의\n사면체 중심 샘플링은 경계가 사면체를 가르면 근사이며, 색이나 분자식만으로\n물질의 밀도를 유일하게 추론하지 않는다. 카탈로그를 변경했다면 앱은 새\n물성 스냅샷과 객체를 만들어야 한다. 앱 수준의 `applyIsomerMaterial()`은\n선택한 이성질체 후보와 명시적 소재 ID를 이 경로에 연결한다. 이 조합 결과는\n선택된 분자 구조와 갱신된 체적 솔리드, 영역 ID 및 표면 표현을 함께 보유한다.\n체적 SDK에는 분자 타입을 넣지 않으므로 앱은 구조와 솔리드의 관계를 함께\n보유·저장해야 한다. 분자식 일치는 구조와 소재 ID가 같은 물질이라는 증거가\n아니며, 앱이 소재와 측정 조건을 올바르게 지정할 책임이 있다.\n앱의 `applyOrganicMaterial()`은 유기 소재 정의와 해당 상태를 독립적으로\n연결하고, 명시된 밀도와 탄성 물성을 소재 영역에 반영한다. 결과 솔리드와\n유기 정의·상태는 앱이 함께 관리한다. 이 연결은 분자·세포 정보를 자동으로\n체적 분할하거나 생물학적 동역학을 해석하지 않는다.\n분자나 유기 소재에 사용자 정의 원자가 있으면 앱 어댑터는 해당 정의가 포함된\n분자식과 명시적 소재 레코드를 사용한다. 사용자 원자의 몰 질량을 벌크 밀도로\n변환하지 않으며, 정의의 영속화와 솔리드와의 연결은 앱이 담당한다.\n사용자 결합 및 그 에너지·거리 매개변수도 앱이 보관한 분자 그래프에 남는다.\n체적 솔리드는 분자 결합의 해리 에너지에서 탄성률이나 밀도를 자동 도출하지\n않으며, 결합력과 파단을 적용하려면 앱이 별도의 솔버를 제공해야 한다.\n"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 66,
+      "end_line": 66,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "paragraph",
+      "start_line": 67,
+      "end_line": 72,
+      "raw": "생성 시 유한한 좌표와 물성, 양의 밀도·체적, 유효한 인덱스와 영역, 중복\n사면체, 공유 면의 방향과 면당 최대 두 사면체를 검사한다. 역방향 사면체는\n정방향으로 정규화한다. 동일한 세 인덱스를 공유하는 내부 면은 제외하고,\n나머지 면은 바깥 방향 삼각형으로 내보낸다. 내부 소재 경계면은 외부 표면에\n포함되지 않는다. `surfaceMesh()`의 좌표와 삼각형 인덱스는 독립적인 메시로\n소비할 수 있으며, 표면 정점 중 사용되지 않는 체적 내부 정점이 있을 수 있다.\n"
+    },
+    {
+      "id": "b000022",
+      "kind": "blank",
+      "start_line": 73,
+      "end_line": 73,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "paragraph",
+      "start_line": 74,
+      "end_line": 78,
+      "raw": "이 검사는 전역적인 사면체 간 교차·중첩, 비공유 인덱스로 표현한 일치 면,\n누락된 체적이나 CAD 원본과의 완전한 일치를 증명하지 않는다. 외부\n`VolumeMesher`는 이 조건을 만족하는 정합 비중첩 체적을 제공해야 한다.\n이를 위반하면 총질량과 표면 결과를 신뢰할 수 없다. 기본 상자는 이 계약을\n만족하도록 구성하지만 임의의 외부 메시를 공학용으로 인증하지는 않는다.\n"
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 79,
+      "end_line": 79,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
+      "kind": "heading",
+      "start_line": 80,
+      "end_line": 80,
+      "raw": "## 입자와 질량\n",
+      "level": 2,
+      "title": "입자와 질량"
+    },
+    {
+      "id": "b000026",
+      "kind": "blank",
+      "start_line": 81,
+      "end_line": 81,
+      "raw": "\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "paragraph",
+      "start_line": 82,
+      "end_line": 88,
+      "raw": "각 입자는 기준 위치, 대표 체적, 질량, 소재 ID, 영역 ID, 원본 사면체\n인덱스를 갖는다. 각 사면체의 가장 긴 변을 재귀적으로 나누어 동일한 체적의\n하위 사면체 n개를 만들고, 각 하위 사면체의 중심에 입자를 놓는다. 분할\n시드로 같은 길이의 변을 고르는 순서를 조정할 수 있다. 각 입자의 질량은\n`density * volume`이며 `referenceCell(index)`는 그 입자의 기준 하위\n사면체 경계를 필요할 때 복원한다. 경계 전체를 입자마다 보관하지 않으며\n복원은 사면체당 입자 수에 대해 O(log n) 단계이다.\n"
+    },
+    {
+      "id": "b000028",
+      "kind": "blank",
+      "start_line": 89,
+      "end_line": 89,
+      "raw": "\n"
+    },
+    {
+      "id": "b000029",
+      "kind": "paragraph",
+      "start_line": 90,
+      "end_line": 96,
+      "raw": "정확한 산술에서는 하위 사면체 내부가 서로 겹치지 않고 부모 사면체를\n채운다. 결과를 생성할 때 각 셀과 셀 체적 합의 수치 오차가 허용 범위를\n벗어나면 오류를 반환한다. 따라서 부모 메시가 정합·비중첩이라는 전제에서\n입자 수를 바꾸어도 전체 체적과 질량, 질량중심이 부동소수점 오차 내에서\n보존된다. 이 방법은 Voronoi 셀이나 구형 입자를 만들지 않으며, 입자 간\n간격이 균일하거나 MPM에 필요한 최적 분포라고 보장하지 않는다. 각 부모\n사면체 내부의 밀도와 소재는 일정하다.\n"
+    },
+    {
+      "id": "b000030",
+      "kind": "blank",
+      "start_line": 97,
+      "end_line": 97,
+      "raw": "\n"
+    },
+    {
+      "id": "b000031",
+      "kind": "paragraph",
+      "start_line": 98,
+      "end_line": 104,
+      "raw": "`referenceMassProperties()`는 각 사면체의 균일한 밀도에 대해 2차 모멘트를\n적분해 부피, 질량, 질량중심, 질량중심 기준 관성 텐서를 계산한다. 사면체의\n무게중심에 관한 barycentric 적분 관계는 [단체 적분 공식 연구](https://research.tudelft.nl/en/publications/on-an-integration-rule-for-products-of-barycentric-coordinates-ov/)를 참고할 수 있다.\n이 값은 **체적 메시**에 대한 값이며 곡선 CAD 원본에 대한 정확한 적분을\n보장하지 않는다. `particleMassProperties()`는 입자를 점질량으로 합산한다.\n그 관성은 입자 수와 위치에 영향을 받는 근사값이므로 연속체의 정확한 관성과\n혼동하지 않는다.\n"
+    },
+    {
+      "id": "b000032",
+      "kind": "blank",
+      "start_line": 105,
+      "end_line": 105,
+      "raw": "\n"
+    },
+    {
+      "id": "b000033",
+      "kind": "heading",
+      "start_line": 106,
+      "end_line": 106,
+      "raw": "## 설계 변경과 시뮬레이션 수명\n",
+      "level": 2,
+      "title": "설계 변경과 시뮬레이션 수명"
+    },
+    {
+      "id": "b000034",
+      "kind": "blank",
+      "start_line": 107,
+      "end_line": 107,
+      "raw": "\n"
+    },
+    {
+      "id": "b000035",
+      "kind": "paragraph",
+      "start_line": 108,
+      "end_line": 118,
+      "raw": "`create()`는 새 스냅샷을 만든다. `rebuild()`는 새 CAD 판본·분할·입자 옵션을\n받아 새 스냅샷을 반환하며 기존 스냅샷과 그 상태를 덮어쓰지 않는다.\n`withMaterials(materials, regions)`는 기존 사면체와 표면, 입자 위치·대표\n체적을 유지하며 영역별 밀도에서 입자 질량과 기준 질량·질량중심·관성을\n다시 계산한 새 스냅샷을 반환한다. 분할기를 다시 호출하거나 입자를 새로\n배치하지 않는다. 기존 사면체의 모든 영역을 새 목록에 포함해야 하며, 잘못된\n물성·영역 또는 표현할 수 없는 질량은 오류다. 실패 시 원본은 그대로다.\n새 스냅샷은 새 시뮬레이션 상태를 사용해야 하며 이전 상태는 원본에 계속\n속한다. CAD를 바꾸거나 영역 경계의 기하학 자체를 변경할 때는 적절한\n분할기로 `create()` 또는 `rebuild()`를 사용한다. 설계 판본 번호의 증가와\n자원 영속화는 앱이 담당한다.\n"
+    },
+    {
+      "id": "b000036",
+      "kind": "blank",
+      "start_line": 119,
+      "end_line": 119,
+      "raw": "\n"
+    },
+    {
+      "id": "b000037",
+      "kind": "paragraph",
+      "start_line": 120,
+      "end_line": 129,
+      "raw": "`makeParticleState()`는 기준 입자에서 위치·속도·힘·현재 체적·변형 구배·\nCauchy 응력을 가진 독립 상태를 만든다. `makeNodalState()`는 기준 정점의\n별도 상태를 만든다. `advance()`는 각 솔버 인터페이스에 복사한 상태를\n넘기고, 성공하고 모든 값이 유효할 때만 원본 상태에 반영한다. 잘못된 시간,\n서로 다른 스냅샷의 상태, 솔버 오류와 예외, 비유한 값 또는 양수가 아닌\n입자 체적은 거부한다. 기존 CAD·체적 메시·입자는 변경하지 않는다.\n기존 상태를 가리키는 span은 성공한 갱신 중에도 같은 저장소를 가리킨다.\n솔버가 자기 외부에서 수행한 부작용까지 롤백하지는 않는다. 상태 하나를\n동시에 여러 스레드에서 수정하려면 호출자가 동기화해야 한다. 이 트랜잭션은\n상태 크기에 비례하는 임시 메모리를 사용한다.\n"
+    },
+    {
+      "id": "b000038",
+      "kind": "blank",
+      "start_line": 130,
+      "end_line": 130,
+      "raw": "\n"
+    },
+    {
+      "id": "b000039",
+      "kind": "heading",
+      "start_line": 131,
+      "end_line": 131,
+      "raw": "## 사용과 검증\n",
+      "level": 2,
+      "title": "사용과 검증"
+    },
+    {
+      "id": "b000040",
+      "kind": "blank",
+      "start_line": 132,
+      "end_line": 132,
+      "raw": "\n"
+    },
+    {
+      "id": "b000041",
+      "kind": "paragraph",
+      "start_line": 133,
+      "end_line": 135,
+      "raw": "[상자 API 예제](../example/box.cpp)는 0.2 × 0.1 × 0.05 m 상자를 만들고\n알루미늄 밀도를 할당한다. 기본 빌드와 검사는 루트 README를 따른다.\n예제 실행 파일 빌드는 `IIVOLUMETRIC_BUILD_EXAMPLE=ON`으로 선택한다.\n"
+    },
+    {
+      "id": "b000042",
+      "kind": "blank",
+      "start_line": 136,
+      "end_line": 136,
+      "raw": "\n"
+    },
+    {
+      "id": "b000043",
+      "kind": "paragraph",
+      "start_line": 137,
+      "end_line": 141,
+      "raw": "자동 테스트는 외부 메셔 계약, 상자 표면 방향, 체적과 해석적 관성, 다른\n소재가 접한 면, 입자 셀·위치와 해상도별 질량, 소재 변경 시 질량 재계산과\n기존 상태의 수명, 파생 스냅샷과 솔버 오류의\n원자적 반영, 유효하지 않은 형상·물성·제한을 확인한다. macOS의 빌드 및\n테스트 결과는 다른 운영체제의 빌드나 실제 FEM/MPM 해석을 증명하지 않는다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "체적 솔리드 메시 구조와 계약",
+      "anchor": "체적-솔리드-메시-구조와-계약",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000003",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "목적과 현재 범위",
+      "anchor": "목적과-현재-범위",
+      "start_line": 3
+    },
+    {
+      "block_id": "b000011",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "단위와 SDK 연결",
+      "anchor": "단위와-sdk-연결",
+      "start_line": 23
+    },
+    {
+      "block_id": "b000017",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "데이터와 형상 검증",
+      "anchor": "데이터와-형상-검증",
+      "start_line": 37
+    },
+    {
+      "block_id": "b000025",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "입자와 질량",
+      "anchor": "입자와-질량",
+      "start_line": 80
+    },
+    {
+      "block_id": "b000033",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "설계 변경과 시뮬레이션 수명",
+      "anchor": "설계-변경과-시뮬레이션-수명",
+      "start_line": 106
+    },
+    {
+      "block_id": "b000039",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "사용과 검증",
+      "anchor": "사용과-검증",
+      "start_line": 131
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000007",
+        "line": 14,
+        "text": "임의의 곡면 솔리드에 대한 테트라화 알고리즘은 포함하지 않는다. 이들은",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000007",
+        "line": 16,
+        "text": "`CadDesign` 구현은 설계 원본과 ID·판본의 수명 및 불변성을 보장해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000007",
+        "line": 17,
+        "text": "이 모듈은 외부 CAD 원본을 복사하거나 ID의 전역 유일성을 보장하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000013",
+        "line": 28,
+        "text": "Qt와 다른 iiSDK 모듈에 링크하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000015",
+        "line": 32,
+        "text": "어댑터가 명시적으로 미터로 변환해야 한다. 단순 표면 테셀레이션은 내부",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000015",
+        "line": 33,
+        "text": "사면체 메시가 아니므로 체적 분할기를 따로 연결해야 한다. 객체는 파일을",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000019",
+        "line": 49,
+        "text": "물질의 밀도를 유일하게 추론하지 않는다. 카탈로그를 변경했다면 앱은 새",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000019",
+        "line": 54,
+        "text": "보유·저장해야 한다. 분자식 일치는 구조와 소재 ID가 같은 물질이라는 증거가",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000019",
+        "line": 59,
+        "text": "체적 분할하거나 생물학적 동역학을 해석하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000019",
+        "line": 65,
+        "text": "않으며, 결합력과 파단을 적용하려면 앱이 별도의 솔버를 제공해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000023",
+        "line": 75,
+        "text": "누락된 체적이나 CAD 원본과의 완전한 일치를 증명하지 않는다. 외부",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000023",
+        "line": 76,
+        "text": "`VolumeMesher`는 이 조건을 만족하는 정합 비중첩 체적을 제공해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000029",
+        "line": 95,
+        "text": "간격이 균일하거나 MPM에 필요한 최적 분포라고 보장하지 않는다. 각 부모",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000031",
+        "line": 102,
+        "text": "보장하지 않는다. `particleMassProperties()`는 입자를 점질량으로 합산한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000031",
+        "line": 104,
+        "text": "혼동하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000035",
+        "line": 113,
+        "text": "배치하지 않는다. 기존 사면체의 모든 영역을 새 목록에 포함해야 하며, 잘못된",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000037",
+        "line": 125,
+        "text": "입자 체적은 거부한다. 기존 CAD·체적 메시·입자는 변경하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000037",
+        "line": 128,
+        "text": "동시에 여러 스레드에서 수정하려면 호출자가 동기화해야 한다. 이 트랜잭션은",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000043",
+        "line": 141,
+        "text": "테스트 결과는 다른 운영체제의 빌드나 실제 FEM/MPM 해석을 증명하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000019",
+        "label": "앱 조합 예제",
+        "target": "../example/PbrMaterial/MaterialComposition.cpp",
+        "kind": "relative",
+        "line": 46
+      },
+      {
+        "block_id": "b000031",
+        "label": "단체 적분 공식 연구",
+        "target": "https://research.tudelft.nl/en/publications/on-an-integration-rule-for-products-of-barycentric-coordinates-ov/",
+        "kind": "external",
+        "line": 100
+      },
+      {
+        "block_id": "b000041",
+        "label": "상자 API 예제",
+        "target": "../example/box.cpp",
+        "kind": "relative",
+        "line": 133
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

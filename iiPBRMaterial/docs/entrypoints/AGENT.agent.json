@@ -1,0 +1,297 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:0a302e73dd9662a33bdd033b365373b1e4425d93ebed9b3a24f5d9d70bd0ea38",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiPBRMaterial",
+    "name": "iiPBRMaterial",
+    "root": "SDK/iiPBRMaterial",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "AGENT.md",
+    "sha256": "209e258c52ca3784636698f15d57d4980a003f1de49d8644ac74cfdb90386837",
+    "bytes": 3414,
+    "line_count": 28,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "iiPBRMaterial 에이전트 지침",
+    "role": "instructions",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# iiPBRMaterial 에이전트 지침\n",
+      "level": 1,
+      "title": "iiPBRMaterial 에이전트 지침"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "list",
+      "start_line": 3,
+      "end_line": 10,
+      "raw": "- `src/PBRMaterial.h`, `src/MolecularFormula.h`, `src/Texture.h`는 서로 독립적으로 구성 가능한 물성·분자식·표면 텍스처 API이다. `docs/materials.md`의 단위와 출처를 따른다.\n- 분자식과 외형 텍스처만으로 밀도, 상, 소재 ID를 추론하지 않는다. 카탈로그의 일치 항목이 하나여도 물리적 유일성을 의미하지 않는다.\n- `Molecule`은 명시적 원자·결합 구조이고 `MolecularMap`은 2D 표시 데이터이다. 분자식만으로 결합이나 입체 구조를 추론하지 않으며, 자동 배치는 과학적 3D 좌표가 아니다.\n- 이성질체 후보 입력은 암묵적 수소를 포함한 원소별 개수만 비교한다. 동일 그래프나 다른 동위원소·전하도 허용하며 화학적 이성질체 또는 소재 정체성을 인증하지 않는다. 소재 ID는 앱이 선택한다.\n- 사용자 원자의 `{ID}`는 SDK 전용 표기이며 주기율표 기호와 다르다. 같은 ID의 충돌하는 정의를 결합하지 않으며 입자 수로 몰 질량·벌크 밀도·실재 여부를 추정하지 않는다. 저장·교환 시 ID와 불변 정의를 함께 보존한다.\n- 사용자 결합의 해리 에너지 J/mol과 조화 퍼텐셜의 결합 하나당 에너지 J를 혼동하지 않는다. 거리·강성·에너지로 파단이나 생체 물성을 자동 추론하지 않으며, 결합 정의는 분자 그래프별로 보존한다.\n- 유기 소재의 성분 분율·사용자 속성·상태는 명시적 입력이다. 개체 수나 수분 함량에서 밀도를 자동 추론하지 않고, 생체 해석과 산란 렌더링을 구현한 것으로 간주하지 않는다. 밀도 변경에는 출처와 별도 기준 조건을 사용한다.\n- 텍스처·모델 파일은 앱의 파일 제공자에서 얻는다. 다른 iiSDK 모듈은 앱 어댑터가 별도로 조합하고 이 SDK에서 직접 링크하지 않는다.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "`src/PBRMaterial.h`, `src/MolecularFormula.h`, `src/Texture.h`는 서로 독립적으로 구성 가능한 물성·분자식·표면 텍스처 API이다. `docs/materials.md`의 단위와 출처를 따른다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "분자식과 외형 텍스처만으로 밀도, 상, 소재 ID를 추론하지 않는다. 카탈로그의 일치 항목이 하나여도 물리적 유일성을 의미하지 않는다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "`Molecule`은 명시적 원자·결합 구조이고 `MolecularMap`은 2D 표시 데이터이다. 분자식만으로 결합이나 입체 구조를 추론하지 않으며, 자동 배치는 과학적 3D 좌표가 아니다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "이성질체 후보 입력은 암묵적 수소를 포함한 원소별 개수만 비교한다. 동일 그래프나 다른 동위원소·전하도 허용하며 화학적 이성질체 또는 소재 정체성을 인증하지 않는다. 소재 ID는 앱이 선택한다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "사용자 원자의 `{ID}`는 SDK 전용 표기이며 주기율표 기호와 다르다. 같은 ID의 충돌하는 정의를 결합하지 않으며 입자 수로 몰 질량·벌크 밀도·실재 여부를 추정하지 않는다. 저장·교환 시 ID와 불변 정의를 함께 보존한다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "사용자 결합의 해리 에너지 J/mol과 조화 퍼텐셜의 결합 하나당 에너지 J를 혼동하지 않는다. 거리·강성·에너지로 파단이나 생체 물성을 자동 추론하지 않으며, 결합 정의는 분자 그래프별로 보존한다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "유기 소재의 성분 분율·사용자 속성·상태는 명시적 입력이다. 개체 수나 수분 함량에서 밀도를 자동 추론하지 않고, 생체 해석과 산란 렌더링을 구현한 것으로 간주하지 않는다. 밀도 변경에는 출처와 별도 기준 조건을 사용한다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "텍스처·모델 파일은 앱의 파일 제공자에서 얻는다. 다른 iiSDK 모듈은 앱 어댑터가 별도로 조합하고 이 SDK에서 직접 링크하지 않는다.",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 11,
+      "end_line": 11,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "html",
+      "start_line": 12,
+      "end_line": 12,
+      "raw": "<!-- workspace-docs:agent:start -->\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "heading",
+      "start_line": 13,
+      "end_line": 13,
+      "raw": "## 문서 구조와 에이전트 탐색\n",
+      "level": 2,
+      "title": "문서 구조와 에이전트 탐색"
+    },
+    {
+      "id": "b000007",
+      "kind": "blank",
+      "start_line": 14,
+      "end_line": 14,
+      "raw": "\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "list",
+      "start_line": 15,
+      "end_line": 21,
+      "raw": "- 프로젝트 루트의 `README.md`는 사람용 영문 진입 문서이며 `AGENT.md`는 에이전트 진입점이다.\n- 하위 인간용 Markdown과 구조화된 agent JSON을 함께 유지한다. Markdown이 원본이며 JSON은 원문 해시와 줄 범위를 가진 파생 문서이다.\n- 먼저 [docs/agent-index.json](docs/agent-index.json)에서 관련 문서와 JSON 투영을 찾는다. 원문 SHA-256이 다르면 현재 Markdown을 읽고 투영을 갱신한다.\n- JSON의 규칙 후보는 검색용 어휘 일치 결과이다. 과거 기록·예제·실패 상태를 현재 지시나 검증 완료로 자동 해석하지 않는다.\n- 기존 프로젝트별 규칙, 동결된 증거, 라이선스, 외부 원본, 사용자 데이터와 다른 작업의 변경을 보존한다.\n- 이 문서 재편 지침은 과거 작업의 기능 구현·배포를 자동 재개하라는 요청이 아니다. 현재 사용자의 작업 범위를 우선한다.\n- 문서를 수정하면 JSON 쌍·색인을 함께 갱신하고 검증한다. 기존 소스 변경에 대한 빌드·테스트 규칙은 계속 따른다.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "프로젝트 루트의 `README.md`는 사람용 영문 진입 문서이며 `AGENT.md`는 에이전트 진입점이다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "하위 인간용 Markdown과 구조화된 agent JSON을 함께 유지한다. Markdown이 원본이며 JSON은 원문 해시와 줄 범위를 가진 파생 문서이다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "먼저 [docs/agent-index.json](docs/agent-index.json)에서 관련 문서와 JSON 투영을 찾는다. 원문 SHA-256이 다르면 현재 Markdown을 읽고 투영을 갱신한다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "JSON의 규칙 후보는 검색용 어휘 일치 결과이다. 과거 기록·예제·실패 상태를 현재 지시나 검증 완료로 자동 해석하지 않는다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "기존 프로젝트별 규칙, 동결된 증거, 라이선스, 외부 원본, 사용자 데이터와 다른 작업의 변경을 보존한다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "이 문서 재편 지침은 과거 작업의 기능 구현·배포를 자동 재개하라는 요청이 아니다. 현재 사용자의 작업 범위를 우선한다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "문서를 수정하면 JSON 쌍·색인을 함께 갱신하고 검증한다. 기존 소스 변경에 대한 빌드·테스트 규칙은 계속 따른다.",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000009",
+      "kind": "blank",
+      "start_line": 22,
+      "end_line": 22,
+      "raw": "\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "paragraph",
+      "start_line": 23,
+      "end_line": 23,
+      "raw": "Workspace에서 이 프로젝트의 문서를 갱신하는 명령은 다음과 같다.\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "blank",
+      "start_line": 24,
+      "end_line": 24,
+      "raw": "\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "fenced_code",
+      "start_line": 25,
+      "end_line": 27,
+      "raw": "```sh\npython3 ../../Engineering/WorkspaceDocumentation/App/workspace_docs.py --workspace ../.. sync --project SDK/iiPBRMaterial\n```\n",
+      "language": "sh",
+      "code": "python3 ../../Engineering/WorkspaceDocumentation/App/workspace_docs.py --workspace ../.. sync --project SDK/iiPBRMaterial\n",
+      "closed": true
+    },
+    {
+      "id": "b000013",
+      "kind": "html",
+      "start_line": 28,
+      "end_line": 28,
+      "raw": "<!-- workspace-docs:agent:end -->\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "iiPBRMaterial 에이전트 지침",
+      "anchor": "iipbrmaterial-에이전트-지침",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000006",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "문서 구조와 에이전트 탐색",
+      "anchor": "문서-구조와-에이전트-탐색",
+      "start_line": 13
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000003",
+        "line": 4,
+        "text": "- 분자식과 외형 텍스처만으로 밀도, 상, 소재 ID를 추론하지 않는다. 카탈로그의 일치 항목이 하나여도 물리적 유일성을 의미하지 않는다.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000003",
+        "line": 6,
+        "text": "- 이성질체 후보 입력은 암묵적 수소를 포함한 원소별 개수만 비교한다. 동일 그래프나 다른 동위원소·전하도 허용하며 화학적 이성질체 또는 소재 정체성을 인증하지 않는다. 소재 ID는 앱이 선택한다.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000003",
+        "line": 7,
+        "text": "- 사용자 원자의 `{ID}`는 SDK 전용 표기이며 주기율표 기호와 다르다. 같은 ID의 충돌하는 정의를 결합하지 않으며 입자 수로 몰 질량·벌크 밀도·실재 여부를 추정하지 않는다. 저장·교환 시 ID와 불변 정의를 함께 보존한다.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000003",
+        "line": 8,
+        "text": "- 사용자 결합의 해리 에너지 J/mol과 조화 퍼텐셜의 결합 하나당 에너지 J를 혼동하지 않는다. 거리·강성·에너지로 파단이나 생체 물성을 자동 추론하지 않으며, 결합 정의는 분자 그래프별로 보존한다.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000003",
+        "line": 9,
+        "text": "- 유기 소재의 성분 분율·사용자 속성·상태는 명시적 입력이다. 개체 수나 수분 함량에서 밀도를 자동 추론하지 않고, 생체 해석과 산란 렌더링을 구현한 것으로 간주하지 않는다. 밀도 변경에는 출처와 별도 기준 조건을 사용한다.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000003",
+        "line": 10,
+        "text": "- 텍스처·모델 파일은 앱의 파일 제공자에서 얻는다. 다른 iiSDK 모듈은 앱 어댑터가 별도로 조합하고 이 SDK에서 직접 링크하지 않는다.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000008",
+        "line": 18,
+        "text": "- JSON의 규칙 후보는 검색용 어휘 일치 결과이다. 과거 기록·예제·실패 상태를 현재 지시나 검증 완료로 자동 해석하지 않는다.",
+        "basis": "lexical_match",
+        "context": "list"
+      }
+    ],
+    "commands": [
+      {
+        "block_id": "b000012",
+        "language": "sh",
+        "code": "python3 ../../Engineering/WorkspaceDocumentation/App/workspace_docs.py --workspace ../.. sync --project SDK/iiPBRMaterial\n"
+      }
+    ],
+    "links": [
+      {
+        "block_id": "b000008",
+        "label": "docs/agent-index.json",
+        "target": "docs/agent-index.json",
+        "kind": "relative",
+        "line": 17
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

@@ -177,6 +177,14 @@
     "kind": "cmake",
     "dependencies": []
   },
+  "iiPBRMaterial": {
+    "kind": "cmake",
+    "dependencies": []
+  },
+  "iiVolumetricSolidMesh": {
+    "kind": "cmake",
+    "dependencies": []
+  },
   "iiVoiceOver": {
     "kind": "cmake",
     "dependencies": []

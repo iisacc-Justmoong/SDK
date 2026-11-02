@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.23)
+project(PbrMolecularConsumer LANGUAGES CXX)
+include(CTest)
+find_package(iiPBRMaterial CONFIG REQUIRED)
+add_executable(PbrMolecularConsumer Consumer.cpp)
+target_compile_features(PbrMolecularConsumer PRIVATE cxx_std_23)
+target_link_libraries(PbrMolecularConsumer PRIVATE iiPBRMaterial::iiPBRMaterial)
+add_test(NAME PbrMolecularConsumer COMMAND PbrMolecularConsumer)

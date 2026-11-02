@@ -1,0 +1,16 @@
+# Independent application test: each SDK is found and linked by the app.
+cmake_minimum_required(VERSION 3.23)
+project(PbrVolumetricApplicationIntegration LANGUAGES CXX)
+include(CTest)
+find_package(iiPBRMaterial CONFIG REQUIRED)
+find_package(iiVolumetricSolidMesh CONFIG REQUIRED)
+find_package(iiVisualCodec CONFIG REQUIRED COMPONENTS Image)
+get_filename_component(SDK_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../../.." ABSOLUTE)
+set(COMPOSE "${SDK_ROOT}/iiVolumetricSolidMesh/example/PbrMaterial")
+add_executable(PbrVolumetricIntegration Integration.cpp
+  "${COMPOSE}/MaterialComposition.cpp" "${COMPOSE}/VisualTextureDecoder.cpp")
+target_compile_features(PbrVolumetricIntegration PRIVATE cxx_std_23)
+target_include_directories(PbrVolumetricIntegration PRIVATE "${COMPOSE}")
+target_compile_definitions(PbrVolumetricIntegration PRIVATE IIPBR_PNG_FIXTURE="${SDK_ROOT}/iiPBRMaterial/resources/fixtures/material-id.png")
+target_link_libraries(PbrVolumetricIntegration PRIVATE iiPBRMaterial::iiPBRMaterial iiVolumetricSolidMesh::iiVolumetricSolidMesh iiVisualCodec::Image)
+add_test(NAME PbrVolumetricIntegration COMMAND PbrVolumetricIntegration)

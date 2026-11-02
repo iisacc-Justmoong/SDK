@@ -1,0 +1,69 @@
+{
+  "format": "iisacc.agent-document-index",
+  "schema_version": 1,
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiPBRMaterial",
+    "name": "iiPBRMaterial",
+    "root": "SDK/iiPBRMaterial",
+    "kind": "sdk"
+  },
+  "documentation_root": "docs",
+  "agent_schema": "docs/agent-document.schema.json",
+  "documents": [
+    {
+      "document_id": "urn:iisacc:document:0a302e73dd9662a33bdd033b365373b1e4425d93ebed9b3a24f5d9d70bd0ea38",
+      "source": "AGENT.md",
+      "agent_json": "docs/entrypoints/AGENT.agent.json",
+      "source_sha256": "209e258c52ca3784636698f15d57d4980a003f1de49d8644ac74cfdb90386837",
+      "role": "instructions"
+    },
+    {
+      "document_id": "urn:iisacc:document:14f34db27f3bc808a38cd2841fa43bc0593bbcdb1c92a275f15646373799d069",
+      "source": "README.md",
+      "agent_json": "docs/entrypoints/README.agent.json",
+      "source_sha256": "471cd68a4fbafe715db9d04586e9976e44cfc7989d5cc49186e2c437ac3e511c",
+      "role": "overview"
+    },
+    {
+      "document_id": "urn:iisacc:document:48d8092543899088c01f893dfe319178412300cf1dd58d20bceec39f2c050230",
+      "source": "docs/README.md",
+      "agent_json": "docs/README.agent.json",
+      "source_sha256": "71d97dc09c205fb0b3d6d8f6cf5457bb601fc9cd5dcf8c384f319a1f108efb18",
+      "role": "overview"
+    },
+    {
+      "document_id": "urn:iisacc:document:f89c999c496078cc54938dd221e7855c62ba9c96fc3e59b659a179d6f0e65496",
+      "source": "docs/documentation-structure.md",
+      "agent_json": "docs/documentation-structure.agent.json",
+      "source_sha256": "3be185d6b7aeb9b7df9fabd32e88703e92d8a275fa69dd807a99f70f90e43ed7",
+      "role": "guide"
+    },
+    {
+      "document_id": "urn:iisacc:document:aea5af89dc25468b76dc06b9aad9c104bebb504ea1518109ed58aacd54151773",
+      "source": "docs/materials.md",
+      "agent_json": "docs/materials.agent.json",
+      "source_sha256": "d20f44257e4a547cccc1094016ad23423e7184f9692c55136004cf98529cfb6e",
+      "role": "guide"
+    },
+    {
+      "document_id": "urn:iisacc:document:75129af993e21b10ee9dc65354ba2d3dce05071260b604c9a4d3b9cf76127cb5",
+      "source": "docs/molecular-map.md",
+      "agent_json": "docs/molecular-map.agent.json",
+      "source_sha256": "de70ec5b8ee8acb6ae79afc7345ead19844035592caf738560e19f9bb449cc10",
+      "role": "guide"
+    }
+  ],
+  "layout": {
+    "human_entry": "README.md",
+    "agent_entry": "AGENT.md",
+    "human_format": "markdown",
+    "agent_format": "structured_json",
+    "source_authority": "markdown"
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

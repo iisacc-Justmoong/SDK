@@ -1,0 +1,62 @@
+{
+  "format": "iisacc.agent-document-index",
+  "schema_version": 1,
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiVolumetricSolidMesh",
+    "name": "iiVolumetricSolidMesh",
+    "root": "SDK/iiVolumetricSolidMesh",
+    "kind": "sdk"
+  },
+  "documentation_root": "docs",
+  "agent_schema": "docs/agent-document.schema.json",
+  "documents": [
+    {
+      "document_id": "urn:iisacc:document:7200c1ec9f917982efb9155432d4c9fa90954a6e726f81fa422179ad34032719",
+      "source": "AGENT.md",
+      "agent_json": "docs/entrypoints/AGENT.agent.json",
+      "source_sha256": "040ae4f972f74f8bc1a4864a1383f8ae413a5fe4c7739904c4e95ad37584c6b0",
+      "role": "instructions"
+    },
+    {
+      "document_id": "urn:iisacc:document:b9fb646e4c4fe43a50bb89e6a09f1261b22b360ed59d0db166a1fa5f1875e99a",
+      "source": "README.md",
+      "agent_json": "docs/entrypoints/README.agent.json",
+      "source_sha256": "cc53fb08651308ec583c8240fe61b2b41004b0d699526fe0a1316a959b8b6356",
+      "role": "overview"
+    },
+    {
+      "document_id": "urn:iisacc:document:981d3e85241cb28c1cf472fa964e8032acf56fa12faad93ece58aec8ca26298f",
+      "source": "docs/README.md",
+      "agent_json": "docs/README.agent.json",
+      "source_sha256": "34ef424d277a9180c12a7f93f474d9c31d3b2703b4563f871d832d42effc2838",
+      "role": "overview"
+    },
+    {
+      "document_id": "urn:iisacc:document:32e138957fb695e0abf7eadb3343248810e4f04cee13e87c7128623095ba1bf3",
+      "source": "docs/architecture.md",
+      "agent_json": "docs/architecture.agent.json",
+      "source_sha256": "e739135e81caa0d4a5d665500bcbb7b12d589ebf22de3f40d479150f2a694c74",
+      "role": "reference"
+    },
+    {
+      "document_id": "urn:iisacc:document:a70bfbbaa2da5eb104ec75eba117ca81ad591ff03f1153ec17a0879d7c0c3fed",
+      "source": "docs/documentation-structure.md",
+      "agent_json": "docs/documentation-structure.agent.json",
+      "source_sha256": "a39e4b051edb544dcb69b8c033aa8de422ed86855c53fc5d15fc55149149bdb3",
+      "role": "guide"
+    }
+  ],
+  "layout": {
+    "human_entry": "README.md",
+    "agent_entry": "AGENT.md",
+    "human_format": "markdown",
+    "agent_format": "structured_json",
+    "source_authority": "markdown"
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

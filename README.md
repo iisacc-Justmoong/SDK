@@ -26,6 +26,15 @@ dependencies. Applications can compose it with their format and file modules.
 checkpoints and failed-item retries. Applications supply file creation,
 execution ownership and recovery leases independently.
 
+[`iiPBRMaterial`](iiPBRMaterial/README.md) provides independent molecular
+formula parsing, sourced material properties, and PBR and material-ID texture
+contracts. Applications compose it with other SDKs without direct module links.
+
+[`iiVolumetricSolidMesh`](iiVolumetricSolidMesh/README.md) provides a CAD-design
+snapshot, tetrahedral and surface meshes, weighted material particles, and
+separate solver interfaces without cross-SDK dependencies. Its built-in
+authoring and discretization path currently covers boxes.
+
 Public headers live beside their implementations under each module's `src/`,
 organized by responsibility without repeating the project name. Existing modules
 are being migrated; their installed include names remain stable.

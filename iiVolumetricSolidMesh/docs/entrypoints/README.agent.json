@@ -1,0 +1,239 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:b9fb646e4c4fe43a50bb89e6a09f1261b22b360ed59d0db166a1fa5f1875e99a",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiVolumetricSolidMesh",
+    "name": "iiVolumetricSolidMesh",
+    "root": "SDK/iiVolumetricSolidMesh",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "README.md",
+    "sha256": "cc53fb08651308ec583c8240fe61b2b41004b0d699526fe0a1316a959b8b6356",
+    "bytes": 2018,
+    "line_count": 41,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "iiVolumetricSolidMesh",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# iiVolumetricSolidMesh\n",
+      "level": 1,
+      "title": "iiVolumetricSolidMesh"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 7,
+      "raw": "iiVolumetricSolidMesh is a Qt-free C++23 SDK for a hybrid 3D object: an\nimmutable CAD design snapshot, a derived tetrahedral volume and triangle\nsurface, and material particles representing non-overlapping tetrahedral cells. Applications can inspect the\nsurface as a mesh and use separate nodal or particle simulation states without\nmodifying the CAD source.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 9,
+      "end_line": 15,
+      "raw": "The first native authoring and meshing path is a dimensioned box. Custom CAD\nkernels and tetrahedral meshers are attached through independent interfaces;\nno other iiSDK module is a dependency. Materials and their spatial regions\nare separate. Reference mass, center of mass, and centroidal inertia are\nintegrated over the piecewise-uniform tetrahedra, while particle inertia is\nreported separately as a point-mass approximation. A material-only snapshot\nupdate recalculates mass without remeshing or resampling the existing cells.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 16,
+      "end_line": 16,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 17,
+      "end_line": 21,
+      "raw": "The SDK supplies FEM and particle-solver interfaces, not FEM, MPM, collision,\nfracture, or rendering solvers. General B-Rep/NURBS/CSG editing and arbitrary\nsolid tetrahedralization require application-supplied implementations. The\napplication is responsible for supplying a non-overlapping, conforming volume\nmesh and preserving or publishing files through its file provider.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 22,
+      "end_line": 22,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "fenced_code",
+      "start_line": 23,
+      "end_line": 27,
+      "raw": "```sh\ncmake -S . -B build -DBUILD_TESTING=ON\ncmake --build build\nctest --test-dir build --output-on-failure\n```\n",
+      "language": "sh",
+      "code": "cmake -S . -B build -DBUILD_TESTING=ON\ncmake --build build\nctest --test-dir build --output-on-failure\n",
+      "closed": true
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 28,
+      "end_line": 28,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "paragraph",
+      "start_line": 29,
+      "end_line": 32,
+      "raw": "Installation can be requested explicitly with `./install.sh` or an alternative\nprefix as its first argument. See the [architecture and contracts](docs/architecture.md)\nfor units, error handling, numerical assumptions, sample generation, solver\nboundaries, and the integration example.\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 33,
+      "end_line": 33,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "html",
+      "start_line": 34,
+      "end_line": 34,
+      "raw": "<!-- workspace-docs:readme:start -->\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "heading",
+      "start_line": 35,
+      "end_line": 35,
+      "raw": "## Documentation entry points\n",
+      "level": 2,
+      "title": "Documentation entry points"
+    },
+    {
+      "id": "b000015",
+      "kind": "blank",
+      "start_line": 36,
+      "end_line": 36,
+      "raw": "\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "list",
+      "start_line": 37,
+      "end_line": 40,
+      "raw": "- Human overview: this English `README.md`.\n- Agent instructions: [AGENT.md](AGENT.md).\n- Human documentation: [documentation index](docs/README.md).\n- Structured agent documentation: [agent index](docs/agent-index.json).\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "Human overview: this English `README.md`.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Agent instructions: [AGENT.md](AGENT.md).",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Human documentation: [documentation index](docs/README.md).",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Structured agent documentation: [agent index](docs/agent-index.json).",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000017",
+      "kind": "html",
+      "start_line": 41,
+      "end_line": 41,
+      "raw": "<!-- workspace-docs:readme:end -->\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "iiVolumetricSolidMesh",
+      "anchor": "iivolumetricsolidmesh",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000014",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Documentation entry points",
+      "anchor": "documentation-entry-points",
+      "start_line": 35
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [
+      {
+        "block_id": "b000009",
+        "language": "sh",
+        "code": "cmake -S . -B build -DBUILD_TESTING=ON\ncmake --build build\nctest --test-dir build --output-on-failure\n"
+      }
+    ],
+    "links": [
+      {
+        "block_id": "b000011",
+        "label": "architecture and contracts",
+        "target": "docs/architecture.md",
+        "kind": "relative",
+        "line": 30
+      },
+      {
+        "block_id": "b000016",
+        "label": "AGENT.md",
+        "target": "AGENT.md",
+        "kind": "relative",
+        "line": 38
+      },
+      {
+        "block_id": "b000016",
+        "label": "documentation index",
+        "target": "docs/README.md",
+        "kind": "relative",
+        "line": 39
+      },
+      {
+        "block_id": "b000016",
+        "label": "agent index",
+        "target": "docs/agent-index.json",
+        "kind": "relative",
+        "line": 40
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

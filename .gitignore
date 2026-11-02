@@ -9,6 +9,8 @@
 !/iiGPU/
 !/iiGlobalSearch/
 !/iiJob/
+!/iiPBRMaterial/
+!/iiVolumetricSolidMesh/
 !/iiCompression/
 build/
 /.state/

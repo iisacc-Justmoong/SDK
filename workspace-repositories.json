@@ -440,6 +440,16 @@
       "path": "SDK/iiJob",
       "repositoryPath": "SDK",
       "sourcePath": "iiJob"
+    },
+    {
+      "path": "SDK/iiVolumetricSolidMesh",
+      "repositoryPath": "SDK",
+      "sourcePath": "iiVolumetricSolidMesh"
+    },
+    {
+      "path": "SDK/iiPBRMaterial",
+      "repositoryPath": "SDK",
+      "sourcePath": "iiPBRMaterial"
     }
   ]
 }
