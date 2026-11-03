@@ -10,6 +10,25 @@ The project inventory also includes the independent `iiCompression` and
 `iiProjectManager` modules. Their presence in the inventory is not evidence
 that their Windows builds or tests have been executed.
 
+The inventory includes `ii3DGen` and `iiJob` as independently configured CMake
+projects. An empty user SDK installation directory is supported. The build
+driver uses the Python interpreter that launched it, retains caller-supplied
+`CMAKE_PREFIX_PATH` entries and respects an explicit `Qt6_DIR`. A Dokan path is
+forwarded only for `iiSocietyContainer` when `DOKAN_ROOT` is set; otherwise
+that project's own Dokan discovery and error handling apply. These source
+changes do not establish a Windows build, test, or installation result.
+`VCPKG_ROOT`, when supplied, selects both the x64 package prefix and CMake
+toolchain; the verification receipt fingerprints that installation's status.
+The development-shell helper initializes its own defaults, so set custom
+values after sourcing it. For LVRS-Svelte, Node.js is discovered on `PATH`;
+set `NPM_CLI_JS` to `npm-cli.js` when npm is not installed beside Node.js.
+
+For ii3DGen's test-enabled build, set `II3DGEN_MLX_TEST_SOURCE` to a prepared
+mlx-swift CPU port, or set the same CMake cache path explicitly. Its optional
+inference backend and model assets have additional requirements. For the HLS
+contracts in iiSDKBuilder, provide LLVM clang through `LLVM_ROOT`, a supported
+Windows installation, `PATH`, or the `IISDK_HLS_CLANG` CMake cache entry.
+
 `iiSocialIntegration` replaces `iiSocialPublish` as the checkout and package
 name. The legacy headers and package are source compatibility aliases of the
 same module, so Windows verifies the new checkout once.
@@ -17,8 +36,10 @@ same module, so Windows verifies the new checkout once.
 The iiFileProvider build leaves its Core I/O adapter disabled. Applications that
 use it configure `SDK/iiFileProvider/example/CoreIO` separately after installing
 iiFileProvider Native and iiSDKCore, and link the packages at the consumer boundary.
-After the independent SDK builds, the full verification separately builds and
-checks the Core I/O, audio-file, XML file-input, calendar-account, calendar-file, voice-file, camera-image, camera-media, MIDI file, MIDI async, JSON-Core value, bitmap-file, network load-balancer and decision GPU consumers, and compiles the
+The full verification separately builds, tests and installs the Core I/O
+adapter after iiFileProvider and iiSDKCore and before iiSocietyHelper, whose
+current monitoring configuration requires it. A failed adapter blocks its
+consumer. It also checks the audio-file, XML file-input, calendar-account, calendar-file, voice-file, camera-image, camera-media, MIDI file, MIDI async, JSON-Core value, bitmap-file, network load-balancer and decision GPU consumers, and compiles the
 voice CLI and image-adjustment examples. It verifies that the moved contract tests are present;
 a missing or failed composition keeps the full release gate closed. Vulkan
 execution and shared-GPU concurrency cannot be counted as passed when skipped.

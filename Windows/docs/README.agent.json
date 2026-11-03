@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/README.md",
-    "sha256": "e882525ff819c1e57422e5e82be37c4235c05b2790a810d8e54a274eba5917e4",
-    "bytes": 1349,
-    "line_count": 21,
+    "sha256": "02d523e27642d79ca9a8f55a0e79b2e33b99655494e85a22e9a0e6b3f0b55696",
+    "bytes": 3957,
+    "line_count": 63,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -40,46 +40,132 @@
     },
     {
       "id": "b000003",
-      "kind": "html",
+      "kind": "heading",
       "start_line": 3,
       "end_line": 3,
-      "raw": "<!-- workspace-docs:document-map:start -->\n"
+      "raw": "## Windows build configuration\n",
+      "level": 2,
+      "title": "Windows build configuration"
     },
     {
       "id": "b000004",
-      "kind": "heading",
+      "kind": "blank",
       "start_line": 4,
       "end_line": 4,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 5,
+      "end_line": 14,
+      "raw": "The project inventory includes the independent `ii3DGen` and `iiJob` CMake\nprojects. A user's SDK directory can be absent on a first installation. The\nbuild driver uses the current Python interpreter and retains caller-supplied\nCMake search paths and `Qt6_DIR`. `VCPKG_ROOT` selects the x64 package prefix,\ntoolchain and verification fingerprint; set custom values after sourcing the\ndevelopment-shell helper, which initializes defaults. It forwards `DOKAN_ROOT` only for\niiSocietyContainer when provided; otherwise that project's own discovery and\nerrors apply. Existing test and installation failure conditions are unchanged.\nLVRS-Svelte uses Node.js on `PATH`; `NPM_CLI_JS` can select an npm CLI outside\nthe Node.js installation directory.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 15,
+      "end_line": 15,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 16,
+      "end_line": 22,
+      "raw": "The default build inventory orders iiJson before iiActorObject and\niiAccountManager, iiJob before iiSocietyContainer, and iiColorManager before\nLVUI and iiGUI. These entries record dependencies already required by their\ncurrent configurations; native LVRS also requires iiJson, iiNetwork and\niiVisualCodec. Optional features can require additional packages.\n`iiSocialPublish` is a compatibility symlink to iiSocialIntegration and is\nbuilt through that canonical project rather than as a duplicate installation.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 23,
+      "end_line": 23,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 24,
+      "end_line": 29,
+      "raw": "The current Society monitoring configuration requires the separately built\niiFileProvider Core I/O adapter. In a complete run, its C++ consumer project\nis configured, built, tested and installed after iiFileProvider and iiSDKCore\nand before iiSocietyHelper. Failure blocks that consumer and its dependents.\nPartial runs that omit the adapter prerequisites continue to use whatever\nadapter installation the selected consumer can discover.\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 30,
+      "end_line": 30,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "paragraph",
+      "start_line": 31,
+      "end_line": 37,
+      "raw": "The ii3DGen test-enabled configuration requires the prepared mlx-swift CPU\nport; select its directory with `II3DGEN_MLX_TEST_SOURCE` before configuring,\nor set the CMake cache path explicitly. The optional inference backend and its\nmodel weights have additional separate requirements. iiSDKBuilder's HLS tests\ndiscover clang from `LLVM_ROOT/bin`, common Windows LLVM installations, the\nVisual Studio toolchain or `PATH`; `IISDK_HLS_CLANG` remains an explicit\noverride. Neither prerequisite is downloaded by the build driver.\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 38,
+      "end_line": 38,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 39,
+      "end_line": 43,
+      "raw": "On 2026-11-03 the isolated iiVirtualizer test host was stopped, so the Windows\nguest build did not start. Previously observed storage stalls and memory\nfluctuations were not established as resolved. These changes have no Windows\ncompilation, test, or installation result; project-specific dependencies and\nactual execution remain separate prerequisites.\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 44,
+      "end_line": 44,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "html",
+      "start_line": 45,
+      "end_line": 45,
+      "raw": "<!-- workspace-docs:document-map:start -->\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "heading",
+      "start_line": 46,
+      "end_line": 46,
       "raw": "## Human and agent document map\n",
       "level": 2,
       "title": "Human and agent document map"
     },
     {
-      "id": "b000005",
+      "id": "b000017",
       "kind": "blank",
-      "start_line": 5,
-      "end_line": 5,
+      "start_line": 47,
+      "end_line": 47,
       "raw": "\n"
     },
     {
-      "id": "b000006",
+      "id": "b000018",
       "kind": "paragraph",
-      "start_line": 6,
-      "end_line": 6,
+      "start_line": 48,
+      "end_line": 48,
       "raw": "Markdown is the maintained human source. Agent JSON is a structured, source-traceable projection.\n"
     },
     {
-      "id": "b000007",
+      "id": "b000019",
       "kind": "blank",
-      "start_line": 7,
-      "end_line": 7,
+      "start_line": 49,
+      "end_line": 49,
       "raw": "\n"
     },
     {
-      "id": "b000008",
+      "id": "b000020",
       "kind": "table",
-      "start_line": 8,
-      "end_line": 20,
+      "start_line": 50,
+      "end_line": 62,
       "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`Publication-20261025.md`](../Publication-20261025.md) | [JSON](entrypoints/Publication-20261025.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`Verification-20261020.md`](../Verification-20261020.md) | [JSON](entrypoints/Verification-20261020.agent.json) |\n| [`Verification-20261024.md`](../Verification-20261024.md) | [JSON](entrypoints/Verification-20261024.agent.json) |\n| [`docs/GPU.md`](GPU.md) | [JSON](GPU.agent.json) |\n| [`docs/Publication-20261025.md`](Publication-20261025.md) | [JSON](Publication-20261025.agent.json) |\n| [`docs/RuntimeRetirement.md`](RuntimeRetirement.md) | [JSON](RuntimeRetirement.agent.json) |\n| [`docs/Verification-20261020.md`](Verification-20261020.md) | [JSON](Verification-20261020.agent.json) |\n| [`docs/Verification-20261024.md`](Verification-20261024.md) | [JSON](Verification-20261024.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n",
       "columns": [
         "Document",
@@ -133,10 +219,10 @@
       ]
     },
     {
-      "id": "b000009",
+      "id": "b000021",
       "kind": "html",
-      "start_line": 21,
-      "end_line": 21,
+      "start_line": 63,
+      "end_line": 63,
       "raw": "<!-- workspace-docs:document-map:end -->\n"
     }
   ],
@@ -150,176 +236,192 @@
       "start_line": 1
     },
     {
-      "block_id": "b000004",
+      "block_id": "b000003",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Windows build configuration",
+      "anchor": "windows-build-configuration",
+      "start_line": 3
+    },
+    {
+      "block_id": "b000016",
       "parent_id": "b000001",
       "level": 2,
       "title": "Human and agent document map",
       "anchor": "human-and-agent-document-map",
-      "start_line": 4
+      "start_line": 46
     }
   ],
   "indexes": {
-    "directive_candidates": [],
+    "directive_candidates": [
+      {
+        "block_id": "b000007",
+        "line": 18,
+        "text": "LVUI and iiGUI. These entries record dependencies already required by their",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
     "commands": [],
     "links": [
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "`AGENT.md`",
         "target": "../AGENT.md",
         "kind": "relative",
-        "line": 10
+        "line": 52
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "JSON",
         "target": "entrypoints/AGENT.agent.json",
         "kind": "relative",
-        "line": 10
+        "line": 52
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "`Publication-20261025.md`",
         "target": "../Publication-20261025.md",
         "kind": "relative",
-        "line": 11
+        "line": 53
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "JSON",
         "target": "entrypoints/Publication-20261025.agent.json",
         "kind": "relative",
-        "line": 11
+        "line": 53
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "`README.md`",
         "target": "../README.md",
         "kind": "relative",
-        "line": 12
+        "line": 54
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "JSON",
         "target": "entrypoints/README.agent.json",
         "kind": "relative",
-        "line": 12
+        "line": 54
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "`Verification-20261020.md`",
         "target": "../Verification-20261020.md",
         "kind": "relative",
-        "line": 13
+        "line": 55
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "JSON",
         "target": "entrypoints/Verification-20261020.agent.json",
         "kind": "relative",
-        "line": 13
+        "line": 55
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "`Verification-20261024.md`",
         "target": "../Verification-20261024.md",
         "kind": "relative",
-        "line": 14
+        "line": 56
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "JSON",
         "target": "entrypoints/Verification-20261024.agent.json",
         "kind": "relative",
-        "line": 14
+        "line": 56
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "`docs/GPU.md`",
         "target": "GPU.md",
         "kind": "relative",
-        "line": 15
+        "line": 57
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "JSON",
         "target": "GPU.agent.json",
         "kind": "relative",
-        "line": 15
+        "line": 57
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "`docs/Publication-20261025.md`",
         "target": "Publication-20261025.md",
         "kind": "relative",
-        "line": 16
+        "line": 58
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "JSON",
         "target": "Publication-20261025.agent.json",
         "kind": "relative",
-        "line": 16
+        "line": 58
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "`docs/RuntimeRetirement.md`",
         "target": "RuntimeRetirement.md",
         "kind": "relative",
-        "line": 17
+        "line": 59
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "JSON",
         "target": "RuntimeRetirement.agent.json",
         "kind": "relative",
-        "line": 17
+        "line": 59
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "`docs/Verification-20261020.md`",
         "target": "Verification-20261020.md",
         "kind": "relative",
-        "line": 18
+        "line": 60
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "JSON",
         "target": "Verification-20261020.agent.json",
         "kind": "relative",
-        "line": 18
+        "line": 60
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "`docs/Verification-20261024.md`",
         "target": "Verification-20261024.md",
         "kind": "relative",
-        "line": 19
+        "line": 61
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "JSON",
         "target": "Verification-20261024.agent.json",
         "kind": "relative",
-        "line": 19
+        "line": 61
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "`docs/documentation-structure.md`",
         "target": "documentation-structure.md",
         "kind": "relative",
-        "line": 20
+        "line": 62
       },
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "label": "JSON",
         "target": "documentation-structure.agent.json",
         "kind": "relative",
-        "line": 20
+        "line": 62
       }
     ],
     "tables": [
       {
-        "block_id": "b000008",
+        "block_id": "b000020",
         "columns": [
           "Document",
           "Agent JSON"

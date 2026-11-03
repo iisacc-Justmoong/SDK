@@ -9,7 +9,7 @@ import subprocess
 import sys
 import resource_workspace
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 path = Path(__file__).resolve().parents[1]/'Windows/Verify.py'
 spec = importlib.util.spec_from_file_location('windows_verification', path)
@@ -118,9 +118,16 @@ class WindowsVerificationTests(unittest.TestCase):
         discovered = {directory.name for directory in sdk.iterdir() if directory.is_dir() and not directory.is_symlink()
                       and any((directory/marker).is_file() for marker in ('CMakeLists.txt', 'package.json'))}
         self.assertEqual(set(projects), discovered)
+        for module in ('ii3DGen', 'iiJob'):
+            self.assertEqual(projects[module], {'kind': 'cmake', 'dependencies': []})
         order = verification.dependency_order(projects)
-        for dependency, consumer in [('iiSDKCore', 'LVUI'), ('LVUI', 'iiGUI'),
-                                     ('iiGUI', 'LVRS'), ('iiVisualCodec', 'iiSharedCanvas')]:
+        for dependency, consumer in [('iiSDKCore', 'LVUI'), ('iiColorManager', 'LVUI'),
+                                     ('iiColorManager', 'iiGUI'), ('LVUI', 'iiGUI'),
+                                     ('iiGUI', 'LVRS'), ('iiJson', 'LVRS'),
+                                     ('iiNetwork', 'LVRS'), ('iiVisualCodec', 'LVRS'),
+                                     ('iiVisualCodec', 'iiSharedCanvas'),
+                                     ('iiJson', 'iiActorObject'), ('iiJson', 'iiAccountManager'),
+                                     ('iiJob', 'iiSocietyContainer')]:
             with self.subTest(dependency=dependency, consumer=consumer):
                 self.assertIn(dependency, projects[consumer]['dependencies'])
                 self.assertLess(order.index(dependency), order.index(consumer))
@@ -130,6 +137,61 @@ class WindowsVerificationTests(unittest.TestCase):
         definitions = verification.composition_definitions(sdk, Path('/profile'))
         self.assertEqual(set(definitions['decision-gpu']['requires']), {'iiDecision', 'iiGPU'})
         self.assertEqual(set(definitions['provider-coreio']['requires']), {'iiFileProvider', 'iiSDKCore'})
+        self.assertTrue(definitions['provider-coreio']['configuration'][-1])
+
+    def test_monitoring_adapter_is_prepared_before_its_consumer(self):
+        definitions = verification.composition_definitions(path.parents[1], Path('/profile'))
+        receipts = {'iiFileProvider': self.receipt(), 'iiSDKCore': self.receipt()}
+        builder = Mock()
+        names = ['iiFileProvider.CoreIO', 'iiFileProvider.CoreIOExample']
+        builder.check_additional_configuration.return_value = [
+            {'phase': 'coreio-consumer-build', 'exit_code': 0},
+            {'phase': 'coreio-consumer-test', 'exit_code': 0, 'tests': {'total': 2, 'passed': 2,
+                'failed': [], 'skipped': [], 'names': names}},
+            {'phase': 'coreio-consumer-install', 'exit_code': 0}]
+        result = verification.prepare_project_compositions('iiSocietyHelper', builder, definitions, receipts)
+        self.assertEqual(result['provider-coreio']['status'], 'installed')
+        self.assertTrue(builder.check_additional_configuration.call_args.args[1][-1])
+        builder.check_additional_configuration.return_value = builder.check_additional_configuration.return_value[:-1]
+        result = verification.prepare_project_compositions('iiSocietyHelper', builder, definitions, receipts)
+        self.assertEqual(result['provider-coreio']['status'], 'install-failed')
+        builder.reset_mock()
+        self.assertEqual(verification.prepare_project_compositions('iiSocietyHelper', builder, definitions,
+                         receipts, {'iiSocietyHelper'}), {})
+        builder.check_additional_configuration.assert_not_called()
+        failed = dict(receipts)
+        failed['iiSDKCore'] = {'status': 'failed', 'steps': []}
+        result = verification.prepare_project_compositions('iiSocietyHelper', builder, definitions, failed)
+        self.assertEqual(result['provider-coreio']['status'], 'dependency-failed')
+        builder.check_additional_configuration.assert_not_called()
+
+    def test_vcpkg_fingerprint_uses_selected_installation(self):
+        workspace = Path('/workspace')
+        self.assertEqual(verification.vcpkg_status_path(workspace, {}),
+                         workspace/'Tools/vcpkg/installed/vcpkg/status')
+        self.assertEqual(verification.vcpkg_status_path(workspace, {'VCPKG_ROOT': '/other/vcpkg'}),
+                         Path('/other/vcpkg/installed/vcpkg/status'))
+
+    def test_node_and_npm_are_discovered_from_the_active_environment(self):
+        with resource_workspace.temporary('windows-node-install-') as temporary:
+            root = Path(temporary)
+            node = root/'custom-node'/'node.exe'
+            npm = node.parent/'node_modules/npm/bin/npm-cli.js'
+            npm.parent.mkdir(parents=True)
+            node.write_bytes(b'fixture')
+            npm.write_text('// fixture', encoding='utf-8')
+            with patch.object(verification.shutil, 'which', return_value=str(node)):
+                self.assertEqual(verification.node_package_manager({'PATH': str(node.parent)}),
+                                 [str(node), str(npm)])
+                alternate = root/'other-npm-cli.js'
+                alternate.write_text('// explicit npm', encoding='utf-8')
+                self.assertEqual(verification.node_package_manager({
+                    'PATH': str(node.parent), 'NPM_CLI_JS': str(alternate)}),
+                    [str(node), str(alternate)])
+            npm.unlink()
+            with patch.object(verification.shutil, 'which', return_value=str(node)), \
+                 self.assertRaisesRegex(RuntimeError, 'npm'):
+                verification.node_package_manager({'PATH': str(node.parent)})
 
     def test_native_gpu_skips_do_not_hide_vulkan_execution_failure(self):
         allowed=verification.OPTIONAL_SKIPS['iiGPU']
@@ -172,7 +234,8 @@ class WindowsVerificationTests(unittest.TestCase):
         compiler = 'C:/Compiler/cl.exe'
         values = {'CMAKE_BUILD_TYPE': 'Release', 'CMAKE_CXX_COMPILER': compiler,
                   'CMAKE_INSTALL_PREFIX': (Path(os.environ['USERPROFILE'])/'.local/SDK/iiSDKCore').as_posix(),
-                  'CMAKE_TOOLCHAIN_FILE': (builder.ROOT/'Tools/vcpkg/scripts/buildsystems/vcpkg.cmake').as_posix(),
+                  'CMAKE_TOOLCHAIN_FILE': (Path(os.environ.get('VCPKG_ROOT') or builder.ROOT/'Tools/vcpkg')
+                                           /'scripts/buildsystems/vcpkg.cmake').as_posix(),
                   'CMAKE_PROJECT_INCLUDE': (builder.ROOT/'SDK/Windows/WindowsMsvcPrefix.cmake').as_posix()}
         cache = '\n'.join(name+':STRING='+value for name, value in values.items())
         self.assertTrue(builder.cache_matches_release(cache, 'SDK/iiSDKCore', compiler))

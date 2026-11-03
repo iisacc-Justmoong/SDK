@@ -19,7 +19,7 @@ if 'resources' not in parts or any(part == 'build' or part.startswith('cmake-bui
     raise ValueError('Verification state must stay inside workspace resources, outside build/')
 RUN.mkdir(parents=True, exist_ok=True)
 ctypes.windll.kernel32.SetErrorMode(0x8003)
-PYTHON = ROOT / 'Tools/Python314/tools/python.exe'
+PYTHON = Path(sys.executable)
 
 QT_LVRS_CONSUMERS = {'SDK/iiAccountManager', 'SDK/iiLicenseManager',
                      'SDK/iiSocietyHelper', 'SDK/iiPhotoLibrary', 'Product/Dreamscapes'}
@@ -30,7 +30,7 @@ def environment(key, build=None, qt_lvrs=False):
     env['CL'] = '/Zc:__cplusplus /bigobj /DNOMINMAX' if key == 'SDK/iiVoiceOver' else '/utf-8 /Zc:__cplusplus /bigobj /DNOMINMAX'
     build = build or ROOT / key / 'build'
     sdk_root = Path(os.environ['USERPROFILE']) / '.local/SDK'
-    installed = {path.name: path for path in sdk_root.iterdir() if path.is_dir() and path.name != 'node_modules' and 'onnx' not in path.name.casefold()}
+    installed = {path.name: path for path in (sdk_root.iterdir() if sdk_root.is_dir() else ()) if path.is_dir() and path.name != 'node_modules' and 'onnx' not in path.name.casefold()}
     projects = json.loads(Path(__file__).with_name('projects.json').read_text(encoding='utf-8'))
     pending = set(installed) & set(projects)
     prefixes = []
@@ -58,7 +58,17 @@ def environment(key, build=None, qt_lvrs=False):
     use_qt = qt_lvrs or key in QT_LVRS_CONSUMERS
     def selected(path):
         return path/'qt' if use_qt and path.name == 'LVRS' else path
-    env['CMAKE_PREFIX_PATH'] = ';'.join(['C:/Qt/6.8.3/msvc2022_64', (ROOT / 'Tools/vcpkg/installed/x64-windows').as_posix()] + [selected(path).as_posix() for path in prefixes])
+    inherited_prefixes = [item for item in env.get('CMAKE_PREFIX_PATH', '').split(';') if item]
+    candidates = ['C:/Qt/6.8.3/msvc2022_64', (Path(env.get('VCPKG_ROOT') or ROOT / 'Tools/vcpkg') / 'installed/x64-windows').as_posix()]
+    candidates += [selected(path).as_posix() for path in prefixes] + inherited_prefixes
+    accepted, seen_prefixes = [], set()
+    for item in candidates:
+        normalized = os.path.normcase(os.path.normpath(item))
+        parts = normalized.replace('\\', '/').split('/')
+        if normalized not in seen_prefixes and not any('onnxruntime' in part.casefold() or part.casefold() == 'onnx' for part in parts):
+            accepted.append(item)
+            seen_prefixes.add(normalized)
+    env['CMAKE_PREFIX_PATH'] = ';'.join(accepted)
     if qt_lvrs:
         env['LVRS_STATE_CAPTURE_DIR'] = str(RUN/'state-captures'/key.replace('/', '__'))
     env['PATH'] = os.pathsep.join([str(selected(path)/'bin') for path in prefixes if path.name in required]
@@ -104,10 +114,12 @@ def run(key, phase, command, env=None, timeout=3600, cwd=None):
     print(key, phase, code, result['seconds'], log.name, flush=True)
     return result
 
-def cache_matches_release(cache, key, compiler, prefix=None):
+def cache_matches_release(cache, key, compiler, prefix=None, env=None):
+    env = env if env is not None else os.environ
+    vcpkg = Path(env.get('VCPKG_ROOT') or ROOT / 'Tools/vcpkg')
     expected = {'CMAKE_BUILD_TYPE': 'Release', 'CMAKE_CXX_COMPILER': Path(compiler).as_posix(),
                 'CMAKE_INSTALL_PREFIX': (prefix or Path(os.environ['USERPROFILE']) / '.local' / key).as_posix(),
-                'CMAKE_TOOLCHAIN_FILE': (ROOT/'Tools/vcpkg/scripts/buildsystems/vcpkg.cmake').as_posix(),
+                'CMAKE_TOOLCHAIN_FILE': (vcpkg/'scripts/buildsystems/vcpkg.cmake').as_posix(),
                 'CMAKE_PROJECT_INCLUDE': (ROOT/'SDK/Windows/WindowsMsvcPrefix.cmake').as_posix()}
     for name, value in expected.items():
         actual = re.search(r'^'+re.escape(name)+r':[^=]+=(.*)$', cache, re.M)
@@ -128,7 +140,7 @@ def configure(key, extras, *, source=None, build=None, prefix=None, phase='confi
     home = re.search(r'^CMAKE_HOME_DIRECTORY:[^=]+=(.*)$', cache, re.M)
     relocated = home and Path(home[1]).resolve() != source.resolve()
     fresh = ['--fresh'] if cache and (relocated or 'CMAKE_GENERATOR:INTERNAL=Ninja' not in cache or not re.search(r'CMAKE_CXX_COMPILER:[^=]+=.*[/\\]cl\.exe', cache)) else []
-    command = ['cmake', *fresh, '-S', str(source), '-B', str(build), '-G', 'Ninja', '-DCMAKE_BUILD_TYPE=Release', '-DCMAKE_C_COMPILER=cl.exe', '-DCMAKE_CXX_COMPILER=cl.exe', '-DBUILD_TESTING=ON', '-DCMAKE_INSTALL_PREFIX=' + prefix.as_posix(), '-DCMAKE_PREFIX_PATH=' + env['CMAKE_PREFIX_PATH'], '-DCMAKE_TOOLCHAIN_FILE=' + (ROOT / 'Tools/vcpkg/scripts/buildsystems/vcpkg.cmake').as_posix(), '-DVCPKG_TARGET_TRIPLET=x64-windows', '-DCMAKE_PROJECT_INCLUDE=' + (ROOT / 'SDK/Windows/WindowsMsvcPrefix.cmake').as_posix(), '-DPython3_EXECUTABLE=' + PYTHON.as_posix(), '-DPython_EXECUTABLE=' + PYTHON.as_posix(), '-DQt6_DIR=C:/Qt/6.8.3/msvc2022_64/lib/cmake/Qt6']
+    command = ['cmake', *fresh, '-S', str(source), '-B', str(build), '-G', 'Ninja', '-DCMAKE_BUILD_TYPE=Release', '-DCMAKE_C_COMPILER=cl.exe', '-DCMAKE_CXX_COMPILER=cl.exe', '-DBUILD_TESTING=ON', '-DCMAKE_INSTALL_PREFIX=' + prefix.as_posix(), '-DCMAKE_PREFIX_PATH=' + env['CMAKE_PREFIX_PATH'], '-DCMAKE_TOOLCHAIN_FILE=' + (Path(env.get('VCPKG_ROOT') or ROOT / 'Tools/vcpkg') / 'scripts/buildsystems/vcpkg.cmake').as_posix(), '-DVCPKG_TARGET_TRIPLET=x64-windows', '-DCMAKE_PROJECT_INCLUDE=' + (ROOT / 'SDK/Windows/WindowsMsvcPrefix.cmake').as_posix(), '-DPython3_EXECUTABLE=' + PYTHON.as_posix(), '-DPython_EXECUTABLE=' + PYTHON.as_posix()]
     command = [('-DCMAKE_C_COMPILER='+compiler) if argument == '-DCMAKE_C_COMPILER=cl.exe' else ('-DCMAKE_CXX_COMPILER='+compiler) if argument == '-DCMAKE_CXX_COMPILER=cl.exe' else argument for argument in command]
     options = {
         'LVRS': ['LVRS_BACKEND=native', 'LVRS_ENABLE_IPO=OFF', 'LVRS_BUILD_TESTS=ON', 'LVRS_BUILD_EXAMPLES=ON'],
@@ -137,10 +149,16 @@ def configure(key, extras, *, source=None, build=None, prefix=None, phase='confi
         'iiXml': ['IIXML_BUILD_SHARED=OFF'],
         'iiSharedCanvas': ['IISHAREDCANVAS_BUILD_SHARED=OFF', 'IISHAREDCANVAS_BUILD_QUICK=ON'],
         'iiGeneralDocument': ['IIGENERALDOCUMENT_USE_SYSTEM_LIBZIP=ON'],
-        'iiSocietyContainer': ['Dokan_ROOT=' + os.environ['DOKAN_ROOT']],
         'iiCameraIntegration': ['IICAMERA_FFMPEG_EXECUTABLE=' + (ROOT / 'Tools/FFmpeg/ffmpeg-9.0.2-essentials_build/bin/ffmpeg.exe').as_posix()],
     }
     command += ['-D' + option for option in options.get(source.name, [])]
+    if source.name == 'iiSocietyContainer' and env.get('DOKAN_ROOT'):
+        command.append('-DDokan_ROOT=' + env['DOKAN_ROOT'])
+    qt_dir = next((value for name, value in env.items() if name.casefold() == 'qt6_dir' and value), None)
+    if not qt_dir and Path('C:/Qt/6.8.3/msvc2022_64/lib/cmake/Qt6').is_dir():
+        qt_dir = 'C:/Qt/6.8.3/msvc2022_64/lib/cmake/Qt6'
+    if qt_dir:
+        command.append('-DQt6_DIR=' + qt_dir)
     if source.name == 'iiDecision':
         command += ['-UIIDECISION_ONNX', '-UIIDECISION_LAYA', '-UONNXRuntime_*']
     if key in QT_LVRS_CONSUMERS:
@@ -149,14 +167,14 @@ def configure(key, extras, *, source=None, build=None, prefix=None, phase='confi
     result = run(key, phase, command, env=env)
     if result['exit_code'] == 0:
         actual_cache = (build/'CMakeCache.txt').read_text(encoding='utf-8', errors='replace')
-        if not cache_matches_release(actual_cache, key, compiler, prefix):
+        if not cache_matches_release(actual_cache, key, compiler, prefix, env):
             retry = [argument for argument in command if argument != '--fresh']
             retry.insert(1, '--fresh')
             result = run(key, phase+'-fresh', retry, env=env)
             if result['exit_code']:
                 return result
             actual_cache = (build/'CMakeCache.txt').read_text(encoding='utf-8', errors='replace')
-            if not cache_matches_release(actual_cache, key, compiler, prefix):
+            if not cache_matches_release(actual_cache, key, compiler, prefix, env):
                 raise RuntimeError('CMake did not retain the requested Release compiler/prefix/toolchain configuration')
         helper = run(key, phase+'-ninja-prefix', [PYTHON, ROOT / 'SDK/Windows/Configure-WindowsNinja.py', build], env=env)
         if helper['exit_code']:

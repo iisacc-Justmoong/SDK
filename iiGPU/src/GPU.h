@@ -126,7 +126,7 @@ public:
     Submission()=default;
     explicit operator bool() const noexcept { return bool(state_); }
     Result<bool> poll() const;
-    Result<void> wait(std::chrono::nanoseconds timeout=std::chrono::nanoseconds::max()) const;
+    Result<void> wait(std::chrono::nanoseconds timeout=(std::chrono::nanoseconds::max)()) const;
     // Submitted GPU work cannot be force-cancelled. The final handle's release
     // waits for native completion to preserve referenced resources.
 private:

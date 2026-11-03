@@ -28,7 +28,7 @@
       "document_id": "urn:iisacc:document:f2c6ae0d9c43cd4ff731bdd060902d91e7fba1e4906f995f71d99b5849682407",
       "source": "README.md",
       "agent_json": "docs/entrypoints/README.agent.json",
-      "source_sha256": "61f1b7b321a2cece3d2cb564dd6008d9f12c5a66d9a2b9a7f60ee29cd1863939",
+      "source_sha256": "be32ea28d3f85fc561d18fd1e4bcaa236b8a28e64a4faffcb48cd75ec6c23dcd",
       "role": "overview"
     },
     {
@@ -63,7 +63,7 @@
       "document_id": "urn:iisacc:document:537fa4dae5c2ef8982e33d989ef81bf5fb16900c53b450b2c118f0f7ecb72372",
       "source": "docs/README.md",
       "agent_json": "docs/README.agent.json",
-      "source_sha256": "e882525ff819c1e57422e5e82be37c4235c05b2790a810d8e54a274eba5917e4",
+      "source_sha256": "02d523e27642d79ca9a8f55a0e79b2e33b99655494e85a22e9a0e6b3f0b55696",
       "role": "overview"
     },
     {

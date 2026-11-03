@@ -58,7 +58,7 @@ public:
             if (elapsed >= timeout) return std::unexpected(Error{ErrorCode::Timeout, "wait timed out; GPU work was not cancelled"});
             WGPUFuture future{};
             { std::lock_guard lock(state_->mutex); future = state_->native_future; }
-            auto status = detail::wait_event(instance_, future, std::min(timeout - elapsed,
+            auto status = detail::wait_event(instance_, future, (std::min)(timeout - elapsed,
                 std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::milliseconds(5))));
             if (!status) return std::unexpected(status.error());
         }

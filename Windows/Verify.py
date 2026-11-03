@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
 import socket
 import subprocess
 import sys
@@ -67,10 +68,10 @@ def all_passed(projects, results):
 def composition_definitions(sdk, user_profile):
     sdk = Path(sdk)
     prefix_root = Path(user_profile) / '.local/SDK'
-    def definition(owner, name, source, requires, tests, *, build_only=False, extras=()):
+    def definition(owner, name, source, requires, tests, *, build_only=False, extras=(), install=False):
         root = sdk / owner
         configuration = (name, root / source, root / 'build' / name / 'build',
-                         prefix_root / owner, list(extras), False)
+                         prefix_root / owner, list(extras), install)
         return {'owner': owner, 'requires': tuple(requires), 'configuration': configuration,
                 'required_tests': set(tests), 'build_only': build_only}
     return {
@@ -81,7 +82,8 @@ def composition_definitions(sdk, user_profile):
              'iiDecision.InstalledGpu.metal', 'iiDecision.InstalledGpu.vulkan',
              'iiDecision.Acceleration.shared_gpu_concurrency')),
         'provider-coreio': definition('iiFileProvider', 'coreio-consumer', 'example/CoreIO',
-            ('iiFileProvider', 'iiSDKCore'), ('iiFileProvider.CoreIO', 'iiFileProvider.CoreIOExample')),
+            ('iiFileProvider', 'iiSDKCore'), ('iiFileProvider.CoreIO', 'iiFileProvider.CoreIOExample'),
+            install=True),
         'audio-file-output': definition('iiAudioGen', 'audio-consumer', 'tools',
             ('iiAudioGen', 'iiFileProvider'), ('iiAudioGen.GeneratedFile',)),
         'xml-file-input': definition('iiXml', 'xml-file-consumer', 'example/FileProvider',
@@ -144,6 +146,11 @@ def check_compositions(builder, definitions, projects, selected=None):
             missing = sorted(definition['required_tests'] - names)
             if missing:
                 result.update(status='missing-contract-tests', missing_tests=missing)
+            elif definition['configuration'][-1] and not any(
+                step.get('phase') == definition['configuration'][0] + '-install' and step.get('exit_code') == 0
+                for step in result['steps']
+            ):
+                result['status'] = 'install-failed'
             elif definition.get('build_only'):
                 result['status'] = ('installed' if len(result['steps']) >= 2
                                     and all(step.get('exit_code') == 0 for step in result['steps']) else 'failed')
@@ -156,6 +163,17 @@ def check_compositions(builder, definitions, projects, selected=None):
 
 def compositions_passed(results):
     return all(result.get('status') == 'installed' for result in results.values())
+
+
+def prepare_project_compositions(name, builder, definitions, projects, selected=None):
+    # Monitoring's current build consumes this separately-owned adapter. Build
+    # it after its own SDK prerequisites and before the first module that uses
+    # it, while leaving an intentionally partial run free to use an existing
+    # installation of unselected prerequisites.
+    names = {'iiSocietyHelper': ('provider-coreio',)}.get(name, ())
+    eligible = {key: definitions[key] for key in names
+                if selected is None or set(definitions[key]['requires']).issubset(selected)}
+    return check_compositions(builder, eligible, projects, selected)
 
 
 def propagate_invalid_compositions(compositions, projects):
@@ -195,8 +213,27 @@ def fingerprint(name):
     return digest.hexdigest()
 
 
+def node_package_manager(environment=None):
+    environment = os.environ if environment is None else environment
+    path = environment.get('PATH', '')
+    node = shutil.which('node.exe' if os.name == 'nt' else 'node', path=path)
+    if not node:
+        raise RuntimeError('Node.js is required on PATH for LVRS-Svelte')
+    explicit = environment.get('NPM_CLI_JS') or next(
+        (value for name, value in environment.items() if name.casefold() == 'npm_execpath' and value), None)
+    directory = Path(node).parent
+    candidates = ([Path(explicit)] if explicit else []) + [
+        directory/'node_modules/npm/bin/npm-cli.js',
+        directory.parent/'lib/node_modules/npm/bin/npm-cli.js',
+    ]
+    npm = next((candidate for candidate in candidates if candidate.is_file()), None)
+    if npm is None:
+        raise RuntimeError('npm CLI was not found; set NPM_CLI_JS to npm-cli.js')
+    return [str(node), str(npm)]
+
+
 def verify_npm(builder, key):
-    npm = ['C:/Program Files/nodejs/node.exe', 'C:/Program Files/nodejs/node_modules/npm/bin/npm-cli.js']
+    npm = node_package_manager()
     result = {'steps': []}
     for phase, command in [('npm-ci', npm+['ci', '--no-audit', '--no-fund'])] + [(phase, npm+['run', phase]) for phase in ['test', 'check', 'build']]:
         step = builder.run(key, phase, command)
@@ -259,6 +296,11 @@ def report_directory(requested, workspace=WORKSPACE, stamp=None):
     return directory
 
 
+def vcpkg_status_path(workspace, environment):
+    root = Path(environment.get('VCPKG_ROOT') or Path(workspace)/'Tools/vcpkg')
+    return root/'installed/vcpkg/status'
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--report-dir', type=Path)
@@ -279,11 +321,13 @@ def main():
     report_file = report_path/'verification.json'
     prior = json.loads(report_file.read_text(encoding='utf-8')) if args.resume and report_file.exists() else {}
     toolchain = hashlib.sha256()
-    for path in [HERE/'BuildProject.py', HERE/'Verify.py', HERE/'projects.json', HERE/'WindowsMsvcPrefix.cmake', HERE/'Configure-WindowsNinja.py', HERE/'Enter-DevEnvironment.ps1', HERE/'windows-utf8.manifest', WORKSPACE/'Tools/vcpkg/installed/vcpkg/status']:
+    for path in [HERE/'BuildProject.py', HERE/'Verify.py', HERE/'projects.json', HERE/'WindowsMsvcPrefix.cmake', HERE/'Configure-WindowsNinja.py', HERE/'Enter-DevEnvironment.ps1', HERE/'windows-utf8.manifest', vcpkg_status_path(WORKSPACE, os.environ)]:
         toolchain.update(path.read_bytes())
     report = {'started_at': datetime.datetime.now().astimezone().isoformat(), 'scope': list(projects), 'order': order,
               'toolchain': toolchain.hexdigest(), 'projects': {}, 'compositions': {},
               'all_projects_executed_successfully': False, 'commit_and_push_allowed': False}
+    definitions = composition_definitions(SDK, os.environ['USERPROFILE'])
+    selection = set(args.only) if args.only else None
     def save():
         report_file.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
     save()
@@ -301,6 +345,23 @@ def main():
             report['projects'][name] = {'status': 'dependency-failed', 'blocked_by': blocked,
                                         'steps': [], 'source': stamp, 'dependencies': dependency_stamps}
             print('BLOCKED', name, ', '.join(blocked), flush=True)
+            save()
+            continue
+        prerequisites = {'provider-coreio': definitions['provider-coreio']} if name == 'iiSocietyHelper' else {}
+        preparation_stamps = {component: {dependency: fingerprint(dependency)
+            for dependency in definition['requires']} for component, definition in prerequisites.items()
+            if selection is None or set(definition['requires']).issubset(selection)}
+        prepared = prepare_project_compositions(name, builder, definitions, report['projects'], selection)
+        for component, result in prepared.items():
+            result['sources'] = preparation_stamps[component]
+            if any(current != fingerprint(dependency) for dependency, current in result['sources'].items()):
+                result['status'] = 'stale-source'
+        report['compositions'].update(prepared)
+        failed_components = [component for component, result in prepared.items() if result['status'] != 'installed']
+        if failed_components:
+            report['projects'][name] = {'status': 'dependency-failed', 'blocked_by': failed_components,
+                                        'steps': [], 'source': stamp, 'dependencies': dependency_stamps}
+            print('BLOCKED', name, ', '.join(failed_components), flush=True)
             save()
             continue
         previous = prior.get('projects', {}).get(name, {})
@@ -330,14 +391,16 @@ def main():
         if result['source'] != fingerprint(name) or any(stamp != fingerprint(dependency) for dependency, stamp in result['dependencies'].items()):
             result['status'] = 'stale-source'
     propagate_invalid_dependencies(projects, report['projects'])
-    definitions = composition_definitions(SDK, os.environ['USERPROFILE'])
-    selection = set(args.only) if args.only else None
     stamps = {name: {dependency: fingerprint(dependency) for dependency in definition['requires']}
               for name, definition in definitions.items()
-              if selection is None or set(definition['requires']).issubset(selection)}
-    report['compositions'] = check_compositions(builder, definitions, report['projects'], selection)
+              if name not in report['compositions'] and
+              (selection is None or set(definition['requires']).issubset(selection))}
+    remaining = {name: definition for name, definition in definitions.items()
+                 if name not in report['compositions']}
+    report['compositions'].update(check_compositions(builder, remaining, report['projects'], selection))
     for name, result in report['compositions'].items():
-        result['sources'] = stamps[name]
+        if name in stamps:
+            result['sources'] = stamps[name]
         if any(stamp != fingerprint(dependency) for dependency, stamp in result['sources'].items()):
             result['status'] = 'stale-source'
     for name, result in report['projects'].items():

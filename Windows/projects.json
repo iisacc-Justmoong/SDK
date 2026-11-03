@@ -1,13 +1,20 @@
 {
+  "ii3DGen": {
+    "kind": "cmake",
+    "dependencies": []
+  },
   "iiAccountManager": {
     "kind": "cmake",
     "dependencies": [
-      "LVRS"
+      "LVRS",
+      "iiJson"
     ]
   },
   "iiActorObject": {
     "kind": "cmake",
-    "dependencies": []
+    "dependencies": [
+      "iiJson"
+    ]
   },
   "iiAudioGen": {
     "kind": "cmake",
@@ -64,8 +71,13 @@
     "kind": "cmake",
     "dependencies": [
       "iiSDKCore",
-      "LVUI"
+      "LVUI",
+      "iiColorManager"
     ]
+  },
+  "iiJob": {
+    "kind": "cmake",
+    "dependencies": []
   },
   "iiJson": {
     "kind": "cmake",
@@ -152,7 +164,8 @@
   "iiSocietyContainer": {
     "kind": "cmake",
     "dependencies": [
-      "iiFileProvider"
+      "iiFileProvider",
+      "iiJob"
     ]
   },
   "iiSocietyHelper": {
@@ -209,7 +222,10 @@
     "dependencies": [
       "iiFileProvider",
       "iiGUI",
-      "iiSDKCore"
+      "iiSDKCore",
+      "iiJson",
+      "iiNetwork",
+      "iiVisualCodec"
     ]
   },
   "LVRS-Svelte": {
@@ -219,7 +235,8 @@
   "LVUI": {
     "kind": "cmake",
     "dependencies": [
-      "iiSDKCore"
+      "iiSDKCore",
+      "iiColorManager"
     ]
   },
   "iiVirtualizer": {
