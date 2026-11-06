@@ -4,6 +4,11 @@
 
 `WebSearch`는 각 요청마다 `iiNetwork`로 HTTP(S) 문서를 새로 가져오고 링크를 따라가는 비동기 작업을 제출한다. 기존 Society 파일 색인과 별도 기능이다. 외부 검색 엔진·데이터베이스를 호출하지 않으며 검색용 영속 인덱스도 만들지 않는다. 방문 중복 집합, robots 규칙과 검색 결과는 해당 작업의 메모리에만 존재한다. 같은 요청을 다시 제출해도 네트워크와 robots를 다시 확인한다.
 
+HTTP 완료는 이벤트 루프의 깨움 통지를 기다리며, origin 요청 간격은 취소 가능한
+기한 대기로 처리한다. 변경이 없을 때 검색 작업이 2ms 또는 10ms 주기로 상태를
+확인하지 않는다. 이벤트 루프의 실제 타이머 기한과 사용자 취소도 같은 대기에서
+처리한다. CLI의 작업 완료 대기에도 주기적 1초 확인을 사용하지 않는다.
+
 `WebConfiguration::defaultSeeds`는 호스트가 지정하는 기본 시작 URL이다. 요청의 `seeds`가 비어 있으면 이를 사용하고, 요청별 URL을 지정하면 기본값을 대체한다. `includeDefaultSeeds`를 켜면 둘을 합친다. CLI는 [기본 시작점 목록](../resources/web-seeds.txt)을 읽으며 `--seed`를 여러 번 주거나 `--seed-file`로 교체할 수 있다. 기본 목록은 최초 탐색을 위한 소수의 공용 페이지일 뿐 웹 전체를 대표하거나 특정 검색어에 대한 포괄적 결과를 보장하지 않는다.
 
 큐는 너비 우선으로 링크를 따라가며 URL의 fragment를 제거하고 중복 방문을 줄인다. 페이지 수, 깊이, 결과 수, 응답 크기, DOM 노드 수, 요청 시간과 origin 간 요청 간격이 제한된다. 기본값은 페이지 20개, 깊이 2, 결과 20개, HTML 2 MiB, DOM 30,000개, 요청 및 렌더링 각각 20초, 같은 origin 요청 간 100ms이다. robots 요청과 브라우저의 CSS·이미지·스크립트 등 하위 요청은 페이지 수에 포함되지 않는다. `sameOriginOnly`로 발견 링크의 범위를 명시적으로 좁힐 수 있다.
@@ -15,6 +20,8 @@ robots.txt의 user-agent 그룹, 가장 구체적인 Allow/Disallow, `*`와 끝�
 ## DOM과 렌더링
 
 기본값으로 Chromium을 별도 프로세스와 임시 프로필에서 실행한다. iiSDKCore가 프로세스 수명·취소를 소유하고 iiNetwork의 로컬 DevTools 연결로 페이지 로드 후 DOM과 `location.href`를 받는다. 기본 사용자 브라우저의 프로필·로그인·쿠키를 사용하지 않는다. 프로필은 지정한 `scratchDirectory`의 임시 폴더에 만들고 정상 종료·취소 시 제거한다. 프로세스가 비정상 종료되면 임시 프로필이 남을 수 있다. 브라우저는 페이지의 스크립트와 하위 리소스를 요청할 수 있다.
+
+프로필 경로의 기본값은 현재 프로젝트의 `resources/web-rendering`이며 `scratchDirectory`로 교체할 수 있다. 디버거 포트 파일 생성·변경은 macOS의 kqueue, Linux의 inotify, Windows의 디렉터리 변경 이벤트로 관찰하고 프로세스 종료도 별도의 네이티브 완료 통지로 받는다. 디버거 연결과 문서 수신은 소켓 이벤트로, `renderWait`은 한 번의 실제 기한으로 처리한다. 지원하지 않는 호스트에서는 폴링으로 대체하지 않고 렌더러 오류를 반환한다.
 
 `renderWait`은 페이지 로드 이벤트 이후 동적 변경을 기다리는 시간이다. 장시간 연결이나 더 늦게 표시되는 콘텐츠는 이 시점에 없을 수 있다. 브라우저 실행·렌더링이 실패하면 오류와 `skipped`를 기록하고 서버의 HTML 결과로 계속 탐색한다. 그 결과의 `rendered`는 `false`이다. 호스트는 `WebRenderer`를 구현하여 렌더러를 교체할 수 있으며 최종 URL을 반드시 반환해야 한다. 로컬 작업을 보호하기 위해 명시된 시작 origin을 제외한 localhost·사설 IP 리터럴 링크는 큐에 추가하지 않는다. 이 검사는 DNS 주소 고정이나 브라우저 하위 요청 차단을 제공하지 않으므로 신뢰할 수 없는 웹을 다룰 때의 완전한 네트워크 격리 경계는 아니다.
 
@@ -47,6 +54,8 @@ if (task && task->waitFor(30s)) {
 
 `WebSearchProvider`와 `WebTask`는 대체 구현이 가능한 인터페이스이다. `WebFetcherFactory`는 각 작업에 독립된 전송 객체를 제공하며 생략하면 iiNetwork를 사용한다. `WebRenderer`와 전송 팩토리는 여러 작업자에서 동시에 호출될 수 있으므로 주입하는 구현은 그 수명과 동시성을 지켜야 한다. `WebSearch`는 기본적으로 재사용 작업자 2개와 큐 용량 16개를 사용한다. 상태는 `queued`, `running`, `completed`, `cancelled`, `failed`이며 검색 중에도 결과를 복사해 읽을 수 있다. `completed`여도 `skipped`와 최대 32개 `diagnostics`를 확인해야 한다. 이는 차단·오류나 렌더링 대체가 있었음을 뜻한다. `truncated`는 깊이·페이지·탐색 큐·결과 수 제한으로 범위가 잘렸음을 뜻한다. 소멸은 미완료 작업을 취소하고 작업자가 끝날 때까지 기다린다.
 
+작업과 로컬 색인의 `waitFor(std::chrono::milliseconds::max())`는 완료 통지까지 제한 없이 대기한다. 그 밖의 값은 지정한 실제 기한까지만 대기한다.
+
 ```sh
 build/ii-global-search web "creative tools" --seed https://example.com/ --max-pages 10 --depth 2
 build/ii-global-search web "search terms" --seed-file resources/web-seeds.txt --limit 10
@@ -56,3 +65,5 @@ build/ii-global-search web "search terms" --seed https://example.com/ --raw --sa
 `--include-default-seeds`, `--browser`, `--scratch`, `--timeout-ms`, `--render-wait-ms`, `--delay-ms`, `--no-dom`을 사용할 수 있다. `--raw`는 JavaScript 실행을 생략한다. CLI는 작업 종료 후 JSON을 출력한다. UTF-8이 아닌 응답 문자열은 JSON 출력에서 바이트별 Latin-1로 변환하며 C++ API의 원래 헤더 바이트는 보존한다. 소스 트리 실행 또는 설치된 `share/iiGlobalSearch/web-seeds.txt`를 찾지 못하면 `--seed`, `--seed-file` 또는 `IIGLOBALSEARCH_SEED_FILE`이 필요하다.
 
 `iiGlobalSearch.web`은 교체 가능한 가짜 전송·렌더러를 사용하여 DOM, 메타데이터·JSON-LD, 상대 링크, robots·noindex, HTTP/렌더러 리디렉션, URL 인코딩, 제한, 취소 및 재검색을 검사한다. CLI 인자 해석과 응답 JSON도 앱을 실행하지 않고 검사한다. `iiGlobalSearch.web.integration`은 실제 로컬 HTTP 서버·격리된 Chromium·CLI를 사용하는 별도 검사이며 기본 CTest에서는 비활성화되어 있다. 사용자 요청이 없는 실제 앱·브라우저 실행 검증을 피한다. 실제 공용 사이트와 다른 운영체제의 실행은 별도의 증거가 필요하다.
+
+`iiGlobalSearch.directory_events`는 파일 생성·내용 변경과 감시 해제, 유휴 상태를 검사한다. `iiGlobalSearch.process_completion`은 시험용 자식 프로세스의 종료 통지와 취소 후 정리를 검사한다. `iiGlobalSearch.web`은 이벤트 루프 타이머와 무기한 완료 대기의 깨움·취소도 검사한다. `iiGlobalSearch.web_network`는 브라우저 없이 로컬 HTTP 서버와 기본 네트워크 검색 경로를 연결해 검사한다.

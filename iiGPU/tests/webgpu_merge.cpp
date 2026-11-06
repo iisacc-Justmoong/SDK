@@ -1,4 +1,5 @@
 #include <iiGPU/GPU.h>
+#include <iiGPU/Session.h>
 #include <iiWebGPU/Arena.h>
 #include <iiWebGPU/Memory.h>
 #include <iiWebGPU/Native.h>
@@ -6,8 +7,10 @@
 #include <iiWebGPU/Texture.h>
 #include <iiWebGPU/WebGPU.h>
 #include <cstdint>
+#include <type_traits>
 
 int main() {
+    static_assert(!std::is_copy_constructible_v<ii::gpu::Session>);
     // Both interfaces must coexist in one package without depending on Core.
     ii::gpu::Extent shape{2, 3, 4};
     ii::webgpu::MemoryBudget budget{64};

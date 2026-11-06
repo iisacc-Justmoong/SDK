@@ -234,8 +234,8 @@ public:
         checked(vkCreateComputePipelines(device,VK_NULL_HANDLE,1,&info,nullptr,&value->pipeline),"create Vulkan compute pipeline");
         return value;
     }
-    std::unique_ptr<NativeSubmission> submit(const std::vector<Command>& commands) override {
-        auto job=std::make_unique<VulkanSubmission>(owner_);
+    std::shared_ptr<NativeSubmission> submit(const std::vector<Command>& commands) override {
+        auto job=std::make_shared<VulkanSubmission>(owner_);
         const auto device=owner_->device;
         VkCommandPoolCreateInfo pool{}; pool.sType=VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
         pool.flags=VK_COMMAND_POOL_CREATE_TRANSIENT_BIT; pool.queueFamilyIndex=owner_->family;

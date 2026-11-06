@@ -123,7 +123,7 @@ public:
             return std::make_unique<MetalPipeline>(state);
         }
     }
-    std::unique_ptr<NativeSubmission> submit(const std::vector<Command>& commands) override {
+    std::shared_ptr<NativeSubmission> submit(const std::vector<Command>& commands) override {
         @autoreleasepool {
             auto command=[queue_ commandBuffer];
             require(command!=nil,ErrorCode::backend_failure,"Metal command buffer allocation failed");
@@ -173,7 +173,7 @@ public:
                 // All encoders end here. Metal's tracked resources serialize
                 // dependencies across these nonconcurrent encoder boundaries.
             }
-            auto result=std::make_unique<MetalSubmission>(command);
+            auto result=std::make_shared<MetalSubmission>(command);
             [command commit];
             return result;
         }

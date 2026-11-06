@@ -1,4 +1,5 @@
 #include "WebGPU.h"
+#include "BindingIndex.h"
 #include <algorithm>
 #include <atomic>
 #include <bit>
@@ -92,16 +93,14 @@ Status wait_event(const std::shared_ptr<InstanceState>& instance, WGPUFuture fut
     return std::unexpected(Error{ErrorCode::Unsupported, "yield to the browser event loop and poll the future"});
 #else
     if (!instance) return std::unexpected(Error{ErrorCode::InvalidArgument, "missing WebGPU instance"});
-    std::lock_guard lock(instance->events);
-    if (future.id) {
-        WGPUFutureWaitInfo info = WGPU_FUTURE_WAIT_INFO_INIT;
-        info.future = future;
-        const auto status = wgpuInstanceWaitAny(instance->handle.native(), 1, &info, static_cast<std::uint64_t>(timeout.count()));
-        if (status != WGPUWaitStatus_Success && status != WGPUWaitStatus_TimedOut)
-            return std::unexpected(Error{ErrorCode::Internal, "native WebGPU wait failed"});
-    }
-    wgpuInstanceProcessEvents(instance->handle.native());
-    return {};
+    if (!future.id) return std::unexpected(Error{ErrorCode::InvalidArgument,"missing WebGPU future"});
+    WGPUFutureWaitInfo info = WGPU_FUTURE_WAIT_INFO_INIT;
+    info.future = future;
+    const auto status = wgpuInstanceWaitAny(instance->handle.native(), 1, &info, static_cast<std::uint64_t>(timeout.count()));
+    if (status == WGPUWaitStatus_Success) return {};
+    if (status == WGPUWaitStatus_TimedOut)
+        return std::unexpected(Error{ErrorCode::Timeout,"wait timed out; GPU work was not cancelled"});
+    return std::unexpected(Error{ErrorCode::Internal,"native WebGPU wait failed"});
 #endif
 }
 static std::string message(WGPUStringView text) {
@@ -434,10 +433,14 @@ Future<BindGroup> Device::create_bind_group(const WGPUBindGroupDescriptor& descr
     if (!state_) return failed<BindGroup>({ErrorCode::InvalidArgument, "empty device"});
     if (descriptor.entryCount && !descriptor.entries)
         return failed<BindGroup>({ErrorCode::InvalidArgument, "bind group entries are null"}, state_->instance);
+    bool needs_buffer_index=false;
+    for(std::size_t i=0;i<descriptor.entryCount;++i)if(descriptor.entries[i].buffer){needs_buffer_index=true;break;}
+    detail::BindingIndex index;
     std::vector<detail::Retained> retained;
     for (const auto& buffer : buffers) {
         if (!buffer.state_ || buffer.state_->device != state_)
             return failed<BindGroup>({ErrorCode::InvalidArgument, "bind group buffer belongs to another device"}, state_->instance);
+        if(needs_buffer_index)index.add(buffer.native(),buffer.offset_,buffer.size_,buffer.state_->size);
         retained.push_back({Handle<WGPUBuffer>::retain(buffer.native()), {}, buffer.state_->reservation, buffer.allocation_});
     }
     for (const auto& texture : textures) {
@@ -445,15 +448,12 @@ Future<BindGroup> Device::create_bind_group(const WGPUBindGroupDescriptor& descr
             return failed<BindGroup>({ErrorCode::InvalidArgument, "bind group texture belongs to another device"}, state_->instance);
         retained.push_back({{}, Handle<WGPUTexture>::retain(texture.native()), texture.state_->reservation, {}});
     }
+    if(needs_buffer_index)index.finish();
     for (std::size_t i=0; i<descriptor.entryCount; ++i) {
         const auto& entry = descriptor.entries[i];
         if (!entry.buffer) continue;
-        const auto found = std::find_if(buffers.begin(), buffers.end(), [&](const auto& slice) {
-            if (slice.native() != entry.buffer || entry.offset < slice.offset_ || entry.offset - slice.offset_ > slice.size_) return false;
-            const auto size = entry.size == WGPU_WHOLE_SIZE ? slice.state_->size - entry.offset : entry.size;
-            return size <= slice.size_ - (entry.offset - slice.offset_);
-        });
-        if (found == buffers.end()) return failed<BindGroup>({ErrorCode::InvalidArgument, "every buffer binding needs a covering managed slice"}, state_->instance);
+        if (!index.covers(entry.buffer,entry.offset,entry.size,entry.size==WGPU_WHOLE_SIZE))
+            return failed<BindGroup>({ErrorCode::InvalidArgument, "every buffer binding needs a covering managed slice"}, state_->instance);
     }
     return detail::checked<BindGroup>(state_, [&] {
         auto handle = Handle<WGPUBindGroup>::adopt(wgpuDeviceCreateBindGroup(native(), &descriptor));

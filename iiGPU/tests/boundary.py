@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 root=Path(sys.argv[1])
-headers=[root/'src/GPU.h',root/'src/Runtime/Completion.h']
+headers=[root/'src/GPU.h',root/'src/Session.h',root/'src/Runtime/Completion.h',root/'src/Runtime/CompletionService.h',root/'src/Runtime/DeviceThread.h']
 for path in headers:
     if not path.exists(): continue
     text=path.read_text()

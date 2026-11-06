@@ -629,7 +629,9 @@ bool Index::start() {
 void Index::cancel() noexcept { d->stop.store(true); }
 bool Index::waitFor(std::chrono::milliseconds timeout) const {
     std::unique_lock lock(d->mutex);
-    return d->changed.wait_for(lock, timeout, [&] { return d->status.state != State::indexing; });
+    const auto finished=[&] { return d->status.state != State::indexing; };
+    if(timeout==std::chrono::milliseconds::max()) { d->changed.wait(lock,finished); return true; }
+    return d->changed.wait_for(lock, timeout, finished);
 }
 Progress Index::progress() const { std::lock_guard lock(d->mutex); return d->status; }
 std::vector<Result> Index::search(const std::string& query, std::size_t limit) const {

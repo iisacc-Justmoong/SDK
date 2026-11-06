@@ -4,7 +4,9 @@
 #include "Native.h"
 #include "Texture.h"
 #include <algorithm>
+#include <array>
 #include <chrono>
+#include <condition_variable>
 #include <cstddef>
 #include <mutex>
 #include <optional>
@@ -19,15 +21,25 @@ void process_events(const std::shared_ptr<InstanceState>&);
 Status wait_event(const std::shared_ptr<InstanceState>&, WGPUFuture, std::chrono::nanoseconds);
 template<class T> struct AsyncState final {
     mutable std::mutex mutex;
+    std::condition_variable changed;
     std::optional<Result<T>> result;
-    WGPUFuture native_future{};
+    // Three error scopes and, for submissions, one queue-completion event.
+    std::array<WGPUFuture,4> native_futures{};
+    std::array<bool,4> observed{};
+    std::size_t future_count=0;
+    bool invalid_futures=false, native_wait_active=false;
 };
 template<class T> void complete(const std::shared_ptr<AsyncState<T>>& state, Result<T> result) {
-    std::lock_guard lock(state->mutex);
-    if (!state->result) state->result.emplace(std::move(result));
+    {
+        std::lock_guard lock(state->mutex);
+        if (!state->result) state->result.emplace(std::move(result));
+    }
+    state->changed.notify_all();
 }
 template<class T> void set_future(const std::shared_ptr<AsyncState<T>>& state, WGPUFuture future) {
-    std::lock_guard lock(state->mutex); state->native_future = future;
+    std::lock_guard lock(state->mutex);
+    if (!future.id || state->future_count==state->native_futures.size()) state->invalid_futures=true;
+    else state->native_futures[state->future_count++]=future;
 }
 }
 
@@ -51,16 +63,48 @@ public:
         return *state_->result;
     }
     [[nodiscard]] Result<T> wait(std::chrono::nanoseconds timeout = std::chrono::seconds(10)) const {
+        if (!state_) return std::unexpected(Error{ErrorCode::InvalidArgument,"empty future"});
         const auto start = std::chrono::steady_clock::now();
+        const bool unlimited=timeout==std::chrono::nanoseconds::max();
+        std::unique_lock lock(state_->mutex);
         for (;;) {
-            if (ready()) return result();
-            const auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now() - start);
-            if (elapsed >= timeout) return std::unexpected(Error{ErrorCode::Timeout, "wait timed out; GPU work was not cancelled"});
-            WGPUFuture future{};
-            { std::lock_guard lock(state_->mutex); future = state_->native_future; }
-            auto status = detail::wait_event(instance_, future, (std::min)(timeout - elapsed,
-                std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::milliseconds(5))));
+            if (state_->result) return *state_->result;
+            const auto elapsed=std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now()-start);
+            if (timeout<=std::chrono::nanoseconds::zero() || (!unlimited && elapsed>=timeout))
+                return std::unexpected(Error{ErrorCode::Timeout,"wait timed out; GPU work was not cancelled"});
+#ifdef __EMSCRIPTEN__
+            return std::unexpected(Error{ErrorCode::Unsupported,"yield to the browser event loop and explicitly poll the future"});
+#else
+            const auto remaining=unlimited ? std::chrono::nanoseconds::max() : timeout-elapsed;
+            if (state_->native_wait_active) {
+                const auto changed=[&] { return state_->result.has_value() || !state_->native_wait_active; };
+                if (unlimited) state_->changed.wait(lock,changed);
+                else if (!state_->changed.wait_for(lock,remaining,changed))
+                    return std::unexpected(Error{ErrorCode::Timeout,"wait timed out; GPU work was not cancelled"});
+                continue;
+            }
+            if (state_->invalid_futures)
+                return std::unexpected(Error{ErrorCode::Internal,"invalid native WebGPU future registration"});
+            std::size_t index=0;
+            while (index<state_->future_count && state_->observed[index]) ++index;
+            if (index==state_->future_count)
+                return std::unexpected(Error{ErrorCode::Internal,"native WebGPU completions did not resolve the future"});
+            const auto future=state_->native_futures[index];
+            state_->native_wait_active=true;
+            lock.unlock();
+            Status status;
+            try { status=detail::wait_event(instance_,future,remaining); }
+            catch (...) {
+                lock.lock(); state_->native_wait_active=false; state_->changed.notify_all();
+                throw;
+            }
+            lock.lock();
+            state_->native_wait_active=false;
+            if (status) state_->observed[index]=true;
+            state_->changed.notify_all();
+            if (state_->result) return *state_->result;
             if (!status) return std::unexpected(status.error());
+#endif
         }
     }
 private:

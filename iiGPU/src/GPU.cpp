@@ -1,7 +1,6 @@
 #include "Backend.h"
-#include <algorithm>
-#include <map>
-#include <set>
+#include <limits>
+#include <unordered_map>
 
 namespace ii::gpu {
 using namespace detail;
@@ -19,30 +18,45 @@ void owned(const std::shared_ptr<DeviceState>& owner,const std::shared_ptr<Buffe
     require(b->owner==owner,ErrorCode::wrong_device,"resource belongs to another device");
 }
 void aligned(std::uint64_t n) { require(n%4==0,ErrorCode::invalid_argument,"GPU transfer and storage ranges must be aligned to four bytes"); }
-std::vector<std::shared_ptr<BufferState>> validate(const CommandsState& s) {
-    std::map<BufferState*,Access> last;
-    std::map<BufferState*,std::shared_ptr<BufferState>> resources;
-    auto access=[&](const std::shared_ptr<BufferState>& b,Access a) {
-        auto found=last.find(b.get());
-        require(found==last.end()||(found->second==Access::read&&a==Access::read),
-            ErrorCode::invalid_argument,"buffer hazard requires an explicit memory barrier");
-        last[b.get()]=a; resources[b.get()]=b;
+struct Validation final {
+    std::vector<std::shared_ptr<BufferState>> resources;
+    std::vector<std::shared_ptr<PipelineState>> pipelines;
+};
+Validation validate(const CommandsState& s) {
+    struct AccessState final {
+        std::shared_ptr<BufferState> resource;Access last;std::uint64_t epoch;
+        AccessState(const std::shared_ptr<BufferState>& value,Access mode,std::uint64_t generation)
+            :resource(value),last(mode),epoch(generation){}
+    };
+    std::unordered_map<BufferState*,AccessState> resources;
+    std::uint64_t epoch=1;
+    Validation result;
+    auto access=[&](const std::shared_ptr<BufferState>& b,Access a,bool same_copy=false) {
+        auto [it,inserted]=resources.try_emplace(b.get(),b,a,epoch);
+        if(!inserted){
+            require(it->second.epoch!=epoch||same_copy||(it->second.last==Access::read&&a==Access::read),
+                ErrorCode::invalid_argument,"buffer hazard requires an explicit memory barrier");
+            it->second.last=a;it->second.epoch=epoch;
+        }
     };
     for(const auto& command:s.commands) {
         if(const auto* copy=std::get_if<Copy>(&command)) {
             access(copy->source,Access::read);
-            // Nonoverlapping ranges in one buffer are valid for a copy. A
-            // conservative whole-buffer write follows the operation.
-            if(copy->source==copy->destination) last.erase(copy->source.get());
-            access(copy->destination,Access::write);
+            // A validated nonoverlapping in-place copy admits its own write;
+            // the preceding read still checks hazards from earlier commands.
+            access(copy->destination,Access::write,copy->source==copy->destination);
         } else if(const auto* fill=std::get_if<Fill>(&command)) access(fill->buffer,Access::write);
         else if(const auto* dispatch=std::get_if<Dispatch>(&command)) {
+            result.pipelines.push_back(dispatch->pipeline);
             for(std::size_t i=0;i<dispatch->bindings.size();++i)
                 access(dispatch->bindings[i].buffer,dispatch->pipeline->desc.bindings[i]);
-        } else last.clear();
+        } else if(epoch==(std::numeric_limits<std::uint64_t>::max)()) {
+            for(auto& [key,value]:resources){(void)key;value.epoch=0;}
+            epoch=1;
+        } else ++epoch;
     }
-    std::vector<std::shared_ptr<BufferState>> result;
-    for(auto& [key,value]:resources) { (void)key; result.push_back(std::move(value)); }
+    result.resources.reserve(resources.size());
+    for(auto& [key,value]:resources) { (void)key; result.resources.push_back(std::move(value.resource)); }
     return result;
 }
 void validate_pipeline(const ComputeDesc& d,const Limits& l,Backend api) {
@@ -130,7 +144,7 @@ Result<Device> Device::create(Options options) {
                 require(bool(state->native),ErrorCode::unsupported,"GPU backend was not compiled");
                 require(!options.require_hardware||state->native->adapter.hardware,
                     ErrorCode::unavailable,"selected adapter is not a physical GPU");
-                return Device(std::move(state));
+                return DeviceAccess::adopt(std::move(state));
             } catch(const Failure& e) { error=e.error; }
         }
         throw Failure(error->code,error->message);
@@ -258,6 +272,15 @@ Result<void> CommandList::dispatch(const ComputePipeline& p,std::span<const Bind
     });
 }
 Result<void> CommandList::barrier() { return protect_void([&] {recording(state_); state_->commands.push_back(Barrier{});}); }
+Result<void> CommandList::append_prepared(const Dispatch& prepared,std::span<const std::byte> constants) {
+    return protect_void([&] {
+        recording(state_);
+        require(prepared.pipeline->owner==state_->owner,ErrorCode::wrong_device,"prepared dispatch belongs to another device");
+        require(constants.size()==prepared.pipeline->desc.constants_bytes,ErrorCode::invalid_argument,"constants differ from pipeline layout");
+        Dispatch command{prepared.pipeline,prepared.bindings,prepared.groups,{constants.begin(),constants.end()}};
+        state_->commands.push_back(std::move(command));
+    });
+}
 Result<void> CommandList::finish() {
     return protect_void([&] {
         require(state_&&state_->owner&&state_->phase==CommandsState::Phase::recording,ErrorCode::wrong_state,"command list is not recording");
@@ -270,21 +293,21 @@ Result<Submission> Device::submit(CommandList&& list,std::stop_token stop) const
         require(state_&&list.state_&&list.state_->phase==CommandsState::Phase::executable,ErrorCode::wrong_state,"command list must be executable and unused");
         require(state_==list.state_->owner,ErrorCode::wrong_device,"command list belongs to another device");
         require(!stop.stop_requested(),ErrorCode::cancelled,"GPU submission cancelled before admission");
-        auto resources=validate(*list.state_);
-        auto job=std::make_shared<SubmissionState>(); job->owner=state_; job->self=job;
-        job->resources=std::move(resources);
-        for(const auto& c:list.state_->commands) if(const auto* d=std::get_if<Dispatch>(&c)) job->pipelines.push_back(d->pipeline);
+        auto validated=validate(*list.state_);
+        auto job=std::make_shared<SubmissionState>(); job->owner=state_;
+        job->resources=std::move(validated.resources);job->pipelines=std::move(validated.pipelines);
         std::lock_guard lock(state_->mutex);
         require(state_->stats.in_flight<state_->options.max_in_flight,ErrorCode::busy,"GPU submission capacity exceeded; observe completion or collect");
-        std::erase_if(state_->jobs,[](const auto& w){return w.expired();});
-        // Reserve bookkeeping before committing work: admission must not fail
-        // with a host allocation error after the native queue accepted it.
-        state_->jobs.reserve(state_->jobs.size()+1);
-        require(!stop.stop_requested(),ErrorCode::cancelled,"GPU submission cancelled before native commit");
-        job->native=state_->native->submit(list.state_->commands);
+        // Allocate the indexed entry before committing native work. A failed
+        // admission removes it, and retirement erases it by identity.
+        const auto [tracked,inserted]=state_->jobs.emplace(job.get(),job);
+        require(inserted,ErrorCode::backend_failure,"duplicate GPU submission identity");
+        try {
+            require(!stop.stop_requested(),ErrorCode::cancelled,"GPU submission cancelled before native commit");
+            job->native=state_->native->submit(list.state_->commands);
+        }catch(...){state_->jobs.erase(tracked);throw;}
         for(const auto& b:job->resources) ++b->pending;
         ++state_->stats.in_flight; ++state_->stats.submissions;
-        state_->jobs.push_back(job);
         list.state_->phase=CommandsState::Phase::submitted;
         list.state_->commands.clear();
         return Submission(std::move(job));
@@ -299,23 +322,34 @@ void SubmissionState::retire() {
     // Keeping a completed public handle must not keep driver command pools,
     // descriptors or a growing weak-entry list alive.
     native.reset();
-    std::erase_if(owner->jobs,[&](const auto& weak) {
-        return !weak.owner_before(self)&&!self.owner_before(weak);
-    });
+    owner->jobs.erase(this);
     resources.clear(); pipelines.clear(); retired=true;
 }
 SubmissionState::~SubmissionState() {
     if(native&&!retired) (void)wait(std::chrono::nanoseconds::max());
 }
 Result<bool> SubmissionState::wait(std::chrono::nanoseconds timeout) {
-    std::lock_guard lock(mutex);
-    if(!retired) {
-        auto result=protect([&]{return native->wait(timeout);});
-        if(!result) { error=result.error(); retire(); }
-        else if(*result) retire();
-        else return false;
+    std::shared_ptr<NativeSubmission> submitted;
+    {
+        std::lock_guard lock(mutex);
+        if(retired) {
+            if(error) return std::unexpected(*error);
+            return true;
+        }
+        submitted=native;
     }
-    if(error) return std::unexpected(*error);
+    // Native waits can block; keep their handle alive without holding the
+    // bookkeeping mutex, so a concurrent zero-time poll stays nonblocking.
+    auto result=protect([&]{return submitted->wait(timeout);});
+    {
+        std::lock_guard lock(mutex);
+        if(!retired) {
+            if(!result) { error=result.error(); retire(); }
+            else if(*result) retire();
+            else return false;
+        }
+        if(error) return std::unexpected(*error);
+    }
     return true;
 }
 Result<bool> Submission::poll() const {
@@ -337,7 +371,7 @@ Result<void> Device::collect() const {
       // Reserve before promoting weak handles. An allocation failure while
       // holding the device lock must not drop the final pending job handle.
       jobs.reserve(state_->jobs.size());
-      for(const auto& weak:state_->jobs) if(auto job=weak.lock()) jobs.push_back(std::move(job)); }
+      for(const auto& [key,weak]:state_->jobs) { (void)key;if(auto job=weak.lock()) jobs.push_back(std::move(job)); } }
     for(const auto& job:jobs) {auto result=job->wait(std::chrono::nanoseconds::zero()); if(!result) return std::unexpected(result.error());}
     return {};
 }

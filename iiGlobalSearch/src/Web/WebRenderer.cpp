@@ -1,7 +1,11 @@
 #include "WebRenderer.h"
+#include "DirectoryEvents.h"
+#include "ProcessCompletion.h"
+#include "WebWait.h"
 #include <iiFileProviderNative.h>
 #include <iiSDKCore/Core/Time/Deadline.h>
 #include <iiSDKCore/Process/Process.h>
+#include <iiSDKCore/Runtime/HostLoop.h>
 #include <iiNetwork/Http.h>
 #include <iiNetwork/Transport.h>
 #include <iiNetwork/WebSocket.h>
@@ -9,7 +13,6 @@
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
-#include <thread>
 
 namespace iiGlobalSearch::detail {
 namespace fs = std::filesystem;
@@ -50,7 +53,7 @@ class ChromiumRenderer final : public WebRenderer {
 public:
     explicit ChromiumRenderer(const WebConfiguration& config)
         : executable(browserPath(config.browserExecutable)), scratch(config.scratchDirectory.empty()
-              ? fs::current_path() / "build/web-rendering" : fs::absolute(config.scratchDirectory)) {}
+              ? fs::current_path() / "resources/web-rendering" : fs::absolute(config.scratchDirectory)) {}
 
     std::expected<WebRenderedDocument, std::string> render(const std::string& url,
         std::chrono::milliseconds timeout, std::chrono::milliseconds settle,
@@ -73,29 +76,36 @@ public:
             launch.environment["TMPDIR"] = text(profile.path());
             launch.environment["TEMP"] = text(profile.path());
             launch.environment["TMP"] = text(profile.path());
+            WebWait wake;
+            DirectoryEvents profileEvents(profile.path(),"DevToolsActivePort",[&wake] { wake.signal(); });
             auto process = ii::process::Process::start(launch);
             if (!process) return std::unexpected("Cannot launch Chromium: " + process.error().message);
             const auto deadline = std::chrono::steady_clock::now() + timeout;
+            ProcessCompletion completion(*process,wake,timeout);
             unsigned port = 0;
             while (!stop.stop_requested() && std::chrono::steady_clock::now() < deadline) {
                 std::ifstream info(profile.path() / "DevToolsActivePort");
                 if (info >> port && port > 0 && port < 65536) break;
-                auto exited = process->poll();
-                if (!exited || *exited) return std::unexpected("Chromium exited before its renderer became available");
-                std::this_thread::sleep_for(std::chrono::milliseconds(20));
+                port=0;
+                if (completion.exited()) return std::unexpected("Chromium exited before its renderer became available");
+                if (profileEvents.failed()) return std::unexpected("Chromium profile notification failed");
+                (void)wake.wait(stop,deadline);
             }
             if (stop.stop_requested()) return std::unexpected("Rendering cancelled");
             if (!port) return std::unexpected("Chromium startup timed out");
+            profileEvents.close();
 
             ii::runtime::EventLoop loop;
+            ii::runtime::HostLoop host(loop,[&wake]() noexcept { wake.signal(); });
             ii::network::Http discovery(loop); ii::network::HttpRequest request;
             request.url = "http://127.0.0.1:" + std::to_string(port) + "/json/list";
             request.proxy.type = ii::network::ProxyType::disabled; request.timeout = timeout; request.maximum_bytes = 1024 * 1024;
             bool ready = false; ii::network::HttpResponse listing;
             if (!discovery.request(std::move(request), [&](auto value) { listing = std::move(value); ready = true; }))
                 return std::unexpected("Cannot request Chromium page list");
-            while (!ready && !stop.stop_requested() && std::chrono::steady_clock::now() < deadline) {
-                loop.poll(); std::this_thread::sleep_for(std::chrono::milliseconds(2));
+            while (!ready && !stop.stop_requested() && !completion.exited() && std::chrono::steady_clock::now() < deadline) {
+                loop.poll();
+                if (!ready && !completion.exited()) (void)wake.wait_for_loop(loop,stop,deadline);
             }
             if (!ready || !listing.ok()) { discovery.cancel(); return std::unexpected("Cannot read Chromium page list"); }
             auto parsed = ii::json::parse(listing.body);
@@ -120,10 +130,9 @@ public:
             auto socketProtocol = ii::network::WebSocketSession::client(client, limits);
             if (!socketProtocol) return std::unexpected("Cannot create Chromium debugger session");
             ii::network::Tcp socket(loop); socket.receive_limit(limits.buffered_bytes);
-            if (!socket.connect("127.0.0.1", static_cast<std::uint16_t>(port))) return std::unexpected("Cannot connect to Chromium debugger");
             bool handshake = false, enabled = false, navigated = false, evaluation = false, done = false;
-            std::optional<std::chrono::steady_clock::time_point> loaded;
             std::string error; WebRenderedDocument result;
+            ii::runtime::TaskToken settleTimer;
             auto send = [&](int id, const char* method, ii::json::Value::Object parameters) {
                 ii::json::Value message(ii::json::Value::Object{{"id", ii::json::Value(id)},
                     {"method", ii::json::Value(method)}, {"params", ii::json::Value(std::move(parameters))}});
@@ -131,8 +140,7 @@ public:
                 if (!encoded || !socketProtocol->send_text(*encoded) || !socket.write(socketProtocol->take_output()))
                     throw std::runtime_error("Cannot send Chromium debugger command");
             };
-            while (!done && !stop.stop_requested() && std::chrono::steady_clock::now() < deadline) {
-                loop.poll();
+            auto drive = [&] {
                 if (socket.is_connected() && !handshake) { if (!socket.write(socketProtocol->take_output())) throw std::runtime_error("Cannot start debugger handshake"); handshake = true; }
                 if (socket.available_bytes()) {
                     auto events = socketProtocol->receive(socket.read());
@@ -157,24 +165,43 @@ public:
                                 result.finalUrl = fieldText(*value, "url"); result.html = fieldText(*value, "html");
                                 if (result.html.empty() || result.html.size() > maximum) throw std::runtime_error("Chromium DOM is empty or exceeds its limit");
                                 done = true;
-                            } else if (navigated && fieldText(*message, "method") == "Page.loadEventFired") loaded = std::chrono::steady_clock::now();
+                            } else if (navigated && !evaluation && fieldText(*message, "method") == "Page.loadEventFired") {
+                                settleTimer.cancel();
+                                auto admitted=loop.after(settle,[&] {
+                                    try {
+                                        if(done || evaluation) return;
+                                        send(3, "Runtime.evaluate", {{"expression", ii::json::Value("({url: location.href, html: document.documentElement ? document.documentElement.outerHTML : ''})")},
+                                            {"returnByValue", ii::json::Value(true)}});
+                                        evaluation=true;
+                                    } catch(const std::exception& e) { error=e.what(); done=true; }
+                                });
+                                if(!admitted) throw std::runtime_error("Cannot schedule Chromium DOM evaluation");
+                                settleTimer=admitted.token;
+                            }
                         }
                     }
                     const auto pending = socketProtocol->take_output();
                     if (!pending.empty() && !socket.write(pending)) throw std::runtime_error("Cannot send debugger control frame");
                 }
-                if (loaded && !evaluation && std::chrono::steady_clock::now() >= *loaded + settle) {
-                    send(3, "Runtime.evaluate", {{"expression", ii::json::Value("({url: location.href, html: document.documentElement ? document.documentElement.outerHTML : ''})")},
-                        {"returnByValue", ii::json::Value(true)}});
-                    evaluation = true;
-                }
-                if (socket.state() == ii::network::SocketState::failed || socket.state() == ii::network::SocketState::closed)
-                    throw std::runtime_error("Chromium debugger disconnected");
-                std::this_thread::sleep_for(std::chrono::milliseconds(2));
+            };
+            auto dispatch=[&] {
+                try { if(!done) drive(); }
+                catch(const std::exception& e) { error=e.what(); done=true; }
+            };
+            socket.connected=dispatch; socket.readable=dispatch;
+            socket.failed=[&](std::string) { error="Chromium debugger disconnected"; done=true; };
+            socket.disconnected=[&] { if(!done) { error="Chromium debugger disconnected"; done=true; } };
+            if (!socket.connect("127.0.0.1", static_cast<std::uint16_t>(port))) return std::unexpected("Cannot connect to Chromium debugger");
+            while (!done && !stop.stop_requested() && !completion.exited() && std::chrono::steady_clock::now() < deadline) {
+                loop.poll();
+                if(!done && !completion.exited()) (void)wake.wait_for_loop(loop,stop,deadline);
             }
+            settleTimer.cancel();
+            socket.connected={}; socket.readable={}; socket.failed={}; socket.disconnected={};
             socket.close();
-            (void)process->cancel();
             if (stop.stop_requested()) return std::unexpected("Rendering cancelled");
+            if (!error.empty()) return std::unexpected(error);
+            if (completion.exited() && !done) return std::unexpected("Chromium exited while rendering");
             if (!done) return std::unexpected("Chromium rendering timed out");
             return result;
         } catch (const std::exception& e) { return std::unexpected(e.what()); }

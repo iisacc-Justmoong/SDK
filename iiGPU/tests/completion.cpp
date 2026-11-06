@@ -17,11 +17,11 @@ int main() {
         auto job=take(device.submit(std::move(commands)));
         ii::runtime::EventLoop loop(4);
         unsigned calls=0; const auto thread=std::this_thread::get_id();
-        auto watch=take(CompletionWatch::create(loop,job,[&](Result<void> completed) {
+        auto watch=take(CompletionWatch::create_polling(loop,job,[&](Result<void> completed) {
             take(std::move(completed));
             if(std::this_thread::get_id()!=thread) throw std::runtime_error("completion used another thread");
             ++calls;
-        }));
+        },std::chrono::milliseconds(1)));
         const auto deadline=std::chrono::steady_clock::now()+std::chrono::seconds(5);
         while(watch.active()&&std::chrono::steady_clock::now()<deadline) {
             loop.poll(); std::this_thread::sleep_for(std::chrono::milliseconds(1));
@@ -29,12 +29,12 @@ int main() {
         if(calls!=1||watch.active()) throw std::runtime_error("completion was not delivered exactly once");
         for(int i=0;i<3;++i) loop.poll();
         if(calls!=1) throw std::runtime_error("completion repeated");
-        auto cancelled=take(CompletionWatch::create(loop,job,[&](Result<void>){++calls;}));
+        auto cancelled=take(CompletionWatch::create_polling(loop,job,[&](Result<void>){++calls;},std::chrono::milliseconds(1)));
         cancelled.cancel(); loop.poll();
         if(cancelled.active()||calls!=1) throw std::runtime_error("cancelled observation ran");
         ii::runtime::EventLoop full(1);
         auto occupied=full.after(std::chrono::hours(1),[]{});
-        auto rejected=CompletionWatch::create(full,job,[](Result<void>){});
+        auto rejected=CompletionWatch::create_polling(full,job,[](Result<void>){},std::chrono::milliseconds(1));
         if(rejected||rejected.error().code!=ErrorCode::limit_exceeded) throw std::runtime_error("loop capacity not enforced");
         occupied.token.cancel();
         std::cout<<"Core completion exactly_once=true dispatch_thread=true bounded=true\n";

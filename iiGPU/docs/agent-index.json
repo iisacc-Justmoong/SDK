@@ -21,14 +21,14 @@
       "document_id": "urn:iisacc:document:043106b2ae142cf05818726e839d9f961d32bd06b81bddf6dd56951e2e7b444c",
       "source": "README.md",
       "agent_json": "docs/entrypoints/README.agent.json",
-      "source_sha256": "e5fc455d2d0fcd0598d0fe0a82246d6052aa26425a2ad20cb0d83b73806b338e",
+      "source_sha256": "85a641fd365e007d22315d5df6007c3a25636eebb2633174a9b698ce3c2e4f58",
       "role": "overview"
     },
     {
       "document_id": "urn:iisacc:document:c348ccadfae56def69ba4d6dd4c5a4f3344b1a74bb5a52bbb2e9373eefb70f21",
       "source": "docs/Contracts.md",
       "agent_json": "docs/Contracts.agent.json",
-      "source_sha256": "f4acbacfda455d66ba05a02bab122c214fbfa93b0c2f1773ca0de4cb706fc940",
+      "source_sha256": "b3f53f439c52b0e503e713a9b99524d29a3db55959ef5d0d5a7538bbabefc0df",
       "role": "reference"
     },
     {
@@ -42,14 +42,14 @@
       "document_id": "urn:iisacc:document:72a42addd9d9e081c50c8945a3a3a669af4f1ec7e2ab1f0879d7d03146036f67",
       "source": "docs/Verification.md",
       "agent_json": "docs/Verification.agent.json",
-      "source_sha256": "1428a44da12a554740dac1f5dfa53a7ab951c11679f554248eb660e233441f41",
+      "source_sha256": "a67123710b30f49d9c952dfdb6ad2509f28cfb6a67dcdb04415171cb8ac38028",
       "role": "evidence"
     },
     {
       "document_id": "urn:iisacc:document:2346a5bae3a890bccb7b5e86c9d8da7902cda193a0a5e384c0ce5ad97fbe82fc",
       "source": "docs/WebGPUContract.md",
       "agent_json": "docs/WebGPUContract.agent.json",
-      "source_sha256": "d0a13051a5482609b87ede1c9cd4d5e8177fc90d9c8a0782b8388df7073614ae",
+      "source_sha256": "1d535b41c93ff0316723b9eaba64356c2bf53ac5d3d61078def01390683cb3c9",
       "role": "reference"
     },
     {

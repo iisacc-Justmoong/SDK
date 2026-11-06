@@ -4,9 +4,22 @@ iiGPU is a Qt-free C++23 GPU command and compute foundation for iiSDK. It owns
 native adapters, queues, shared/device buffers, reusable compute pipelines,
 command recording, explicit memory dependencies and observable completion.
 Metal serves Apple platforms; Vulkan serves native desktop and Android targets.
-The optional `iiGPU::Runtime` component observes completion through a
-caller-supplied scheduler. An application can supply an iiSDKCore EventLoop or
-another compatible loop without making iiGPU depend on either implementation.
+`ii::gpu::Session` retains validated device-specific dispatch configurations.
+Prepare a pipeline and bindings once, then use the returned token to record
+subsequent dispatches with new constants without revalidating those fixed inputs.
+Sessions are bounded, explicit, and independent of iiSDKCore; recorded or
+submitted work retains the resources it needs after a session closes.
+The optional `iiGPU::Runtime` component provides a bounded, persistent
+`DeviceThread` for GPU command preparation and submission, separate from CPU
+worker pools. Applications explicitly post GPU work to it and can attach its
+lifetime to an independently linked iiSDKCore Runtime. Direct calls to `Device`
+continue to execute on the caller's thread.
+The component also provides a bounded completion service
+that waits for native GPU completion without periodic polling. Its fixed worker
+pool is independent of the application's CPU workers. It also retains the
+caller-supplied scheduler observer for existing consumers. An application can
+post completion to an iiSDKCore EventLoop or another executor without making
+iiGPU depend on either implementation.
 The base API lives under `src/`, with platform backends in `src/Backends/`,
 completion observation in `src/Runtime/`, and WebGPU in `src/WebGPUComponent/`. Existing
 `<iiGPU/...>` and `<iiWebGPU/...>` public include names remain unchanged.
@@ -91,11 +104,27 @@ find_package(iiGPU 0.1 CONFIG REQUIRED COMPONENTS WebGPU)
 target_link_libraries(MyWebGPUApp PRIVATE iiGPU::WebGPU)
 ```
 
-`CompletionWatch::create(loop, submission, callback)` also accepts a compatible
-caller-owned loop directly, or an application can supply `CompletionScheduler`
-callbacks. Cancellation stops observing; it does not cancel submitted GPU work.
-The old Core-specific binary interface has changed: rebuild applications that
-used it and link Core explicitly at the application boundary.
+For event-driven GPU completion, use `CompletionService`. A caller that
+deliberately requires periodic checks can use
+`CompletionWatch::create_polling(loop, submission, callback, interval)` or
+`observe_polling` with an explicit positive interval. The older `create` and
+`observe` entry points return `unsupported` and never schedule a timer, including
+calls from existing binaries that used their formerly implicit default interval.
+Cancellation stops observing; it does not cancel submitted GPU work.
+
+`<iiGPU/DeviceThread.h>` provides `DeviceThread::post(work)`. A device thread
+executes accepted work in FIFO order on one fixed thread, waits without polling
+when idle, and drains work and captures on close. It does not wait for GPU
+completion by itself; submit results must remain alive until observed.
+`<iiGPU/CompletionService.h>` provides `CompletionService::watch(submission, callback)`,
+which waits on an explicitly owned,
+bounded pool and invokes the callback once after native completion. Canceling a
+ticket suppresses an unclaimed callback; it does not cancel GPU execution.
+Close the service outside its callbacks and host UI thread: shutdown drains
+submitted GPU work and can block. The independent consumer fixture at
+`tests/consumer/acceleration.cpp` composes Core's CPU workers, an EventLoop and
+iiGPU. Its default test uses a controlled wait; `--hardware` is an explicit
+physical-GPU compute run, not part of that test.
 
 The [acceleration example](example/Acceleration/main.cpp) uploads 257 integers,
 dispatches a shader, waits for completion and checks every output. Configure

@@ -1,10 +1,12 @@
 #include "WebSearch.h"
 #include "WebHtml.h"
 #include "WebRenderer.h"
+#include "WebWait.h"
 #include <iiNetwork/Http.h>
 #include <iiJson/Json.h>
 #include <iiNetwork/Address.h>
 #include <iiSDKCore/Runtime/Runtime.h>
+#include <iiSDKCore/Runtime/HostLoop.h>
 #include <algorithm>
 #include <atomic>
 #include <cctype>
@@ -133,13 +135,19 @@ public:
         if (!http.request(std::move(request), [&](auto result) { response = std::move(result); done = true; })) {
             WebResponse failed; failed.error = "iiNetwork rejected HTTP request"; return failed;
         }
-        while (!done && !stop.stop_requested()) { loop.poll(); std::this_thread::sleep_for(2ms); }
+        while (!done && !stop.stop_requested()) {
+            loop.poll();
+            if (!done && !stop.stop_requested())
+                (void)wake.wait_for_loop(loop,stop,std::chrono::steady_clock::time_point::max());
+        }
         if (!done) { http.cancel(); response.cancelled = true; response.error = "cancelled"; }
         return {response.status, std::move(response.body), std::move(response.error),
                 std::move(response.content_type), response.header_fields.entries(), response.cancelled};
     }
 private:
     ii::runtime::EventLoop loop;
+    detail::WebWait wake;
+    ii::runtime::HostLoop host{loop,[this]() noexcept { wake.signal(); }};
     ii::network::Http http{loop};
 };
 std::vector<std::string> words(const std::string& query) {
@@ -238,9 +246,11 @@ public:
     void cancel() noexcept override { state_->stop.request_stop(); }
     bool waitFor(std::chrono::milliseconds timeout) const override {
         std::unique_lock lock(state_->mutex);
-        return state_->changed.wait_for(lock, timeout, [&] {
+        const auto finished=[&] {
             return state_->progress.state == WebState::completed || state_->progress.state == WebState::cancelled || state_->progress.state == WebState::failed;
-        });
+        };
+        if(timeout==std::chrono::milliseconds::max()) { state_->changed.wait(lock,finished); return true; }
+        return state_->changed.wait_for(lock, timeout, finished);
     }
     WebProgress progress() const override { std::lock_guard lock(state_->mutex); return state_->progress; }
     std::vector<WebDocument> results() const override { std::lock_guard lock(state_->mutex); return state_->results; }
@@ -315,6 +325,7 @@ struct WebSearch::Impl {
             if (!network) throw std::runtime_error("Web fetcher factory returned no fetcher");
             std::unordered_map<std::string, Robots> robots;
             std::unordered_map<std::string, std::chrono::steady_clock::time_point> nextRequest;
+            detail::WebWait originDelay;
             const auto terms = words(request.query);
             while (!queue.empty() && !stop.stop_requested()) {
                 { std::lock_guard lock(job->mutex); if (job->progress.fetched >= request.maxPages) { job->progress.truncated = true; break; } }
@@ -344,7 +355,7 @@ struct WebSearch::Impl {
                     found = robots.emplace(origin, std::move(policy)).first;
                 }
                 if (!found->second.allows(detail::pathOf(item.url))) { setError("robots.txt disallows " + item.url); continue; }
-                while (!stop.stop_requested() && std::chrono::steady_clock::now() < nextRequest[origin]) std::this_thread::sleep_for(10ms);
+                (void)originDelay.wait(stop,nextRequest[origin]);
                 if (stop.stop_requested()) break;
                 nextRequest[origin] = std::chrono::steady_clock::now() + request.perOriginDelay;
                 auto response = network->fetch(item.url, request.timeout, request.maxBytes, stop);

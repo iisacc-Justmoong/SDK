@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "AGENT.md",
-    "sha256": "f60fc31a845703bdde28dd760df6f4167ac98e28968240abdbaa73303ab6daf7",
-    "bytes": 2834,
-    "line_count": 39,
+    "sha256": "b541da1577d395aa646cfa15d027281bd6586a0b2cb23219d4476b25884ae8db",
+    "bytes": 3647,
+    "line_count": 49,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -87,9 +87,9 @@
       "kind": "heading",
       "start_line": 13,
       "end_line": 13,
-      "raw": "## 폐기한 추론 런타임\n",
+      "raw": "## 반응형 런타임\n",
       "level": 2,
-      "title": "폐기한 추론 런타임"
+      "title": "반응형 런타임"
     },
     {
       "id": "b000010",
@@ -102,58 +102,88 @@
       "id": "b000011",
       "kind": "paragraph",
       "start_line": 15,
-      "end_line": 18,
-      "raw": "ONNX와 ONNX Runtime은 전량 폐기한 기술이다. 제품과 SDK의 빌드, 모델 실행,\n설치 패키지와 배포 번들에 다시 추가하지 않는다. 기존 ONNX 모델을 암묵적으로\n실행하거나 자동 다운로드하지 않는다. 폐기된 모델 경로는 명시적 미지원 결과를\n반환하며, 새 기능은 iiSDK의 네이티브 인터페이스와 지원 중인 백엔드로 구현한다.\n"
+      "end_line": 21,
+      "raw": "iiSDK의 공통 개념은 이벤트와 쿼리로 반응하는 네이티브 런타임이다. 상태 변경은\n수명에 묶인 알림으로 전달하고, 수신자는 필요한 자원과 필드를 쿼리하여 부분적으로\n갱신한다. 변화가 없을 때의 암묵적인 주기 조회와 불필요한 전체 갱신을 기본 동작으로\n두지 않는다. 명시적으로 요청한 폴링, 실제 기한·만료·재시도, 프로토콜 heartbeat와\n활성 애니메이션·게임의 프레임 주기는 각각의 계약에 따라 허용한다. 모듈 간 직접\n의존성을 추가하지 않으며 독립 인터페이스를 앱이 조합한다. 현재 구현과 명세의\n점검 근거와 미해결 범위는 [반응형 런타임 감사](docs/ReactiveRuntimeAudit.md)를 따른다.\n"
     },
     {
       "id": "b000012",
-      "kind": "blank",
-      "start_line": 19,
-      "end_line": 19,
-      "raw": "\n"
-    },
-    {
-      "id": "b000013",
-      "kind": "paragraph",
-      "start_line": 20,
-      "end_line": 21,
-      "raw": "GGUF, safetensors and other supported non-ONNX model formats are permitted.\nFormat permission does not imply that every backend supports every architecture.\n"
-    },
-    {
-      "id": "b000014",
       "kind": "blank",
       "start_line": 22,
       "end_line": 22,
       "raw": "\n"
     },
     {
-      "id": "b000015",
-      "kind": "html",
+      "id": "b000013",
+      "kind": "heading",
       "start_line": 23,
       "end_line": 23,
-      "raw": "<!-- workspace-docs:agent:start -->\n"
+      "raw": "## 폐기한 추론 런타임\n",
+      "level": 2,
+      "title": "폐기한 추론 런타임"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 24,
+      "end_line": 24,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 25,
+      "end_line": 28,
+      "raw": "ONNX와 ONNX Runtime은 전량 폐기한 기술이다. 제품과 SDK의 빌드, 모델 실행,\n설치 패키지와 배포 번들에 다시 추가하지 않는다. 기존 ONNX 모델을 암묵적으로\n실행하거나 자동 다운로드하지 않는다. 폐기된 모델 경로는 명시적 미지원 결과를\n반환하며, 새 기능은 iiSDK의 네이티브 인터페이스와 지원 중인 백엔드로 구현한다.\n"
     },
     {
       "id": "b000016",
+      "kind": "blank",
+      "start_line": 29,
+      "end_line": 29,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "paragraph",
+      "start_line": 30,
+      "end_line": 31,
+      "raw": "GGUF, safetensors and other supported non-ONNX model formats are permitted.\nFormat permission does not imply that every backend supports every architecture.\n"
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 32,
+      "end_line": 32,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "html",
+      "start_line": 33,
+      "end_line": 33,
+      "raw": "<!-- workspace-docs:agent:start -->\n"
+    },
+    {
+      "id": "b000020",
       "kind": "heading",
-      "start_line": 24,
-      "end_line": 24,
+      "start_line": 34,
+      "end_line": 34,
       "raw": "## 문서 구조와 에이전트 탐색\n",
       "level": 2,
       "title": "문서 구조와 에이전트 탐색"
     },
     {
-      "id": "b000017",
+      "id": "b000021",
       "kind": "blank",
-      "start_line": 25,
-      "end_line": 25,
+      "start_line": 35,
+      "end_line": 35,
       "raw": "\n"
     },
     {
-      "id": "b000018",
+      "id": "b000022",
       "kind": "list",
-      "start_line": 26,
-      "end_line": 32,
+      "start_line": 36,
+      "end_line": 42,
       "raw": "- 프로젝트 루트의 `README.md`는 사람용 영문 진입 문서이며 `AGENT.md`는 에이전트 진입점이다.\n- 하위 인간용 Markdown과 구조화된 agent JSON을 함께 유지한다. Markdown이 원본이며 JSON은 원문 해시와 줄 범위를 가진 파생 문서이다.\n- 먼저 [docs/agent-index.json](docs/agent-index.json)에서 관련 문서와 JSON 투영을 찾는다. 원문 SHA-256이 다르면 현재 Markdown을 읽고 투영을 갱신한다.\n- JSON의 규칙 후보는 검색용 어휘 일치 결과이다. 과거 기록·예제·실패 상태를 현재 지시나 검증 완료로 자동 해석하지 않는다.\n- 기존 프로젝트별 규칙, 동결된 증거, 라이선스, 외부 원본, 사용자 데이터와 다른 작업의 변경을 보존한다.\n- 이 문서 재편 지침은 과거 작업의 기능 구현·배포를 자동 재개하라는 요청이 아니다. 현재 사용자의 작업 범위를 우선한다.\n- 문서를 수정하면 JSON 쌍·색인을 함께 갱신하고 검증한다. 기존 소스 변경에 대한 빌드·테스트 규칙은 계속 따른다.\n",
       "items": [
         {
@@ -194,41 +224,41 @@
       ]
     },
     {
-      "id": "b000019",
+      "id": "b000023",
       "kind": "blank",
-      "start_line": 33,
-      "end_line": 33,
+      "start_line": 43,
+      "end_line": 43,
       "raw": "\n"
     },
     {
-      "id": "b000020",
+      "id": "b000024",
       "kind": "paragraph",
-      "start_line": 34,
-      "end_line": 34,
+      "start_line": 44,
+      "end_line": 44,
       "raw": "Workspace에서 이 프로젝트의 문서를 갱신하는 명령은 다음과 같다.\n"
     },
     {
-      "id": "b000021",
+      "id": "b000025",
       "kind": "blank",
-      "start_line": 35,
-      "end_line": 35,
+      "start_line": 45,
+      "end_line": 45,
       "raw": "\n"
     },
     {
-      "id": "b000022",
+      "id": "b000026",
       "kind": "fenced_code",
-      "start_line": 36,
-      "end_line": 38,
+      "start_line": 46,
+      "end_line": 48,
       "raw": "```sh\npython3 ../Engineering/WorkspaceDocumentation/App/workspace_docs.py --workspace .. sync --project SDK\n```\n",
       "language": "sh",
       "code": "python3 ../Engineering/WorkspaceDocumentation/App/workspace_docs.py --workspace .. sync --project SDK\n",
       "closed": true
     },
     {
-      "id": "b000023",
+      "id": "b000027",
       "kind": "html",
-      "start_line": 39,
-      "end_line": 39,
+      "start_line": 49,
+      "end_line": 49,
       "raw": "<!-- workspace-docs:agent:end -->\n"
     }
   ],
@@ -253,17 +283,25 @@
       "block_id": "b000009",
       "parent_id": "b000001",
       "level": 2,
-      "title": "폐기한 추론 런타임",
-      "anchor": "폐기한-추론-런타임",
+      "title": "반응형 런타임",
+      "anchor": "반응형-런타임",
       "start_line": 13
     },
     {
-      "block_id": "b000016",
+      "block_id": "b000013",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "폐기한 추론 런타임",
+      "anchor": "폐기한-추론-런타임",
+      "start_line": 23
+    },
+    {
+      "block_id": "b000020",
       "parent_id": "b000001",
       "level": 2,
       "title": "문서 구조와 에이전트 탐색",
       "anchor": "문서-구조와-에이전트-탐색",
-      "start_line": 24
+      "start_line": 34
     }
   ],
   "indexes": {
@@ -283,22 +321,22 @@
         "context": "paragraph"
       },
       {
-        "block_id": "b000011",
-        "line": 16,
+        "block_id": "b000015",
+        "line": 26,
         "text": "설치 패키지와 배포 번들에 다시 추가하지 않는다. 기존 ONNX 모델을 암묵적으로",
         "basis": "lexical_match",
         "context": "paragraph"
       },
       {
-        "block_id": "b000011",
-        "line": 17,
+        "block_id": "b000015",
+        "line": 27,
         "text": "실행하거나 자동 다운로드하지 않는다. 폐기된 모델 경로는 명시적 미지원 결과를",
         "basis": "lexical_match",
         "context": "paragraph"
       },
       {
-        "block_id": "b000018",
-        "line": 29,
+        "block_id": "b000022",
+        "line": 39,
         "text": "- JSON의 규칙 후보는 검색용 어휘 일치 결과이다. 과거 기록·예제·실패 상태를 현재 지시나 검증 완료로 자동 해석하지 않는다.",
         "basis": "lexical_match",
         "context": "list"
@@ -306,7 +344,7 @@
     ],
     "commands": [
       {
-        "block_id": "b000022",
+        "block_id": "b000026",
         "language": "sh",
         "code": "python3 ../Engineering/WorkspaceDocumentation/App/workspace_docs.py --workspace .. sync --project SDK\n"
       }
@@ -320,11 +358,18 @@
         "line": 11
       },
       {
-        "block_id": "b000018",
+        "block_id": "b000011",
+        "label": "반응형 런타임 감사",
+        "target": "docs/ReactiveRuntimeAudit.md",
+        "kind": "relative",
+        "line": 21
+      },
+      {
+        "block_id": "b000022",
         "label": "docs/agent-index.json",
         "target": "docs/agent-index.json",
         "kind": "relative",
-        "line": 28
+        "line": 38
       }
     ],
     "tables": []

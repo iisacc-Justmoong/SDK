@@ -86,6 +86,7 @@ class WebTask {
 public:
     virtual ~WebTask() = default;
     virtual void cancel() noexcept = 0;
+    // milliseconds::max() waits for completion without a periodic timeout.
     [[nodiscard]] virtual bool waitFor(std::chrono::milliseconds timeout) const = 0;
     [[nodiscard]] virtual WebProgress progress() const = 0;
     [[nodiscard]] virtual std::vector<WebDocument> results() const = 0;

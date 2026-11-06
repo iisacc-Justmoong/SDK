@@ -107,6 +107,7 @@ public:
     virtual ~SearchProvider() = default;
     virtual bool start() = 0;
     virtual void cancel() noexcept = 0;
+    // milliseconds::max() waits for completion without a periodic timeout.
     [[nodiscard]] virtual bool waitFor(std::chrono::milliseconds timeout) const = 0;
     [[nodiscard]] virtual Progress progress() const = 0;
     [[nodiscard]] virtual std::vector<Result> search(const std::string& text = {},

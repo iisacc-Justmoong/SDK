@@ -1,10 +1,13 @@
 #include "WebSearch.h"
 #include "WebCli.h"
+#include "../src/Web/WebWait.h"
+#include <iiSDKCore/Runtime/HostLoop.h>
 #include <iiJson/Json.h>
 #include <algorithm>
 #include <atomic>
 #include <chrono>
 #include <iostream>
+#include <future>
 #include <mutex>
 #include <stdexcept>
 #include <thread>
@@ -94,6 +97,33 @@ std::shared_ptr<WebTask> submit(WebSearch& search, WebRequest request) {
     return task;
 }
 int main() try {
+    {
+        detail::WebWait gate;
+        std::promise<void> ready;
+        auto started=ready.get_future();
+        auto waiting=std::async(std::launch::async,[&] {
+            ready.set_value(); return gate.wait({},std::chrono::steady_clock::now()+2s);
+        });
+        started.wait();
+        check(waiting.wait_for(30ms)==std::future_status::timeout,"idle wait woke without an event");
+        gate.signal();
+        check(waiting.get()==detail::WebWake::signaled,"event did not wake the wait");
+        std::stop_source stop;
+        auto cancelled=std::async(std::launch::async,[&] { return gate.wait(stop.get_token(),std::chrono::steady_clock::now()+2s); });
+        stop.request_stop();
+        check(cancelled.get()==detail::WebWake::cancelled,"cancellation did not wake the wait");
+        check(gate.wait({},std::chrono::steady_clock::now())==detail::WebWake::deadline,"deadline wait failed");
+        ii::runtime::EventLoop loop;
+        ii::runtime::HostLoop host(loop,[&gate]() noexcept { gate.signal(); });
+        bool timer=false;
+        check(bool(loop.after(25ms,[&] { timer=true; })),"timer admission failed");
+        const auto deadline=std::chrono::steady_clock::now()+2s;
+        while(!timer && std::chrono::steady_clock::now()<deadline) {
+            loop.poll();
+            if(!timer) (void)gate.wait_for_loop(loop,{},deadline);
+        }
+        check(timer,"host wait did not wake for the loop deadline");
+    }
     auto fixture = std::make_shared<Fixture>();
     WebConfiguration configuration; configuration.defaultSeeds = {"https://seed.test/"};
     configuration.fetchers = std::make_shared<Factory>(fixture); configuration.renderer = std::make_shared<Renderer>(fixture);
@@ -214,8 +244,12 @@ int main() try {
     auto cancel = search.submit(slow); check(bool(cancel), "cancellation task rejected");
     const auto deadline = std::chrono::steady_clock::now() + 2s;
     while (!fixture->slowStarted.load() && std::chrono::steady_clock::now() < deadline) std::this_thread::sleep_for(1ms);
-    check(fixture->slowStarted.load(), "cancellation request never started"); cancel->cancel();
+    check(fixture->slowStarted.load(), "cancellation request never started");
+    auto indefinite=std::async(std::launch::async,[&] { return cancel->waitFor(std::chrono::milliseconds::max()); });
+    check(indefinite.wait_for(30ms)==std::future_status::timeout,"unbounded wait returned before the task completed");
+    cancel->cancel();
     check(cancel->waitFor(2s) && cancel->progress().state == WebState::cancelled, "cancellation failed");
+    check(indefinite.get(),"unbounded wait did not observe cancellation");
 
     fixture->slowStarted = 0;
     WebConfiguration serial = configuration; serial.workers = 1;

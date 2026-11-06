@@ -1,4 +1,5 @@
 #include "Kernel.h"
+#include <iiGPU/Session.h>
 #include <array>
 #include <iostream>
 #include <numeric>
@@ -17,8 +18,10 @@ int main(int argc,char** argv) {
         example::take(source.upload(std::as_bytes(std::span(input))));
         std::array<Binding,2> buffers{{{source},{destination}}};
         std::array<std::uint32_t,3> parameters{257,7,13};
+        Session session(device);
+        const auto prepared=example::take(session.prepare(pipeline,buffers,{5,1,1}));
         auto commands=device.commands();
-        example::take(commands.dispatch(pipeline,buffers,{5,1,1},std::as_bytes(std::span(parameters))));
+        example::take(session.dispatch(commands,prepared,std::as_bytes(std::span(parameters))));
         example::take(commands.finish());
         auto submission=example::take(device.submit(std::move(commands)));
         example::take(submission.wait());

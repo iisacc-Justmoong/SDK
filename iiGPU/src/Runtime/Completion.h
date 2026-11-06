@@ -40,13 +40,25 @@ public:
         std::chrono::nanoseconds interval=std::chrono::milliseconds(1));
     static Result<CompletionWatch> create(CompletionScheduler, Submission, CompletionCallback,
         std::chrono::nanoseconds interval=std::chrono::milliseconds(1));
+    // Repeated probes require an explicitly named request and a positive interval.
+    static Result<CompletionWatch> observe_polling(CompletionScheduler, CompletionProbe, CompletionCallback,
+        std::chrono::nanoseconds interval);
+    static Result<CompletionWatch> create_polling(CompletionScheduler, Submission, CompletionCallback,
+        std::chrono::nanoseconds interval);
 
     // Adapts any caller-owned loop with every(duration, callback), a boolean
     // admission result and a copyable token exposing cancel() and pending().
     // No particular SDK or runtime type is referenced by this module.
     template<CompletionLoop Loop>
-    static Result<CompletionWatch> observe(Loop& loop, CompletionProbe probe, CompletionCallback callback,
+    static Result<CompletionWatch> observe(Loop&, CompletionProbe, CompletionCallback,
         std::chrono::nanoseconds interval=std::chrono::milliseconds(1)) {
+        (void)interval;
+        return std::unexpected(Error{ErrorCode::unsupported,"use observe_polling with an explicit interval"});
+    }
+
+    template<CompletionLoop Loop>
+    static Result<CompletionWatch> observe_polling(Loop& loop, CompletionProbe probe, CompletionCallback callback,
+        std::chrono::nanoseconds interval) {
         CompletionScheduler scheduler{[&loop](std::chrono::nanoseconds duration,
                                               std::function<void()> tick) -> Result<CompletionTimer> {
             auto submission=loop.every(duration, std::move(tick));
@@ -62,14 +74,21 @@ public:
                 throw;
             }
         }};
-        return observe(std::move(scheduler),std::move(probe),std::move(callback),interval);
+        return observe_polling(std::move(scheduler),std::move(probe),std::move(callback),interval);
     }
 
     template<CompletionLoop Loop>
-    static Result<CompletionWatch> create(Loop& loop, Submission job, CompletionCallback callback,
+    static Result<CompletionWatch> create(Loop&, Submission, CompletionCallback,
         std::chrono::nanoseconds interval=std::chrono::milliseconds(1)) {
+        (void)interval;
+        return std::unexpected(Error{ErrorCode::unsupported,"use create_polling with an explicit interval"});
+    }
+
+    template<CompletionLoop Loop>
+    static Result<CompletionWatch> create_polling(Loop& loop, Submission job, CompletionCallback callback,
+        std::chrono::nanoseconds interval) {
         if(!job) return std::unexpected(Error{ErrorCode::invalid_argument,"completion watch needs a job"});
-        return observe(loop,[job=std::move(job)] { return job.poll(); },std::move(callback),interval);
+        return observe_polling(loop,[job=std::move(job)] { return job.poll(); },std::move(callback),interval);
     }
     void cancel();
     [[nodiscard]] bool active() const;

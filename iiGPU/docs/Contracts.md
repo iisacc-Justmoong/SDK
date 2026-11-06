@@ -88,6 +88,40 @@ Metal은 tracked resource와 encoder 경계를 사용하고, Vulkan은 명령 �
 드라이버 캐시, 셰이더 컴파일, descriptor/command pool 및 외부 native_access
 할당까지 포함하는 GPU 전체 사용량 계측은 아니다.
 
+## 장치 실행 세션
+
+`ii::gpu::Session`은 하나의 `Device`에 속한 명시적인 실행 수명이다. 앱은 이미
+생성한 컴퓨트 파이프라인, 버퍼 바인딩과 작업 그룹을 세션에 한 번 준비하고 받은
+불투명 토큰으로 이후 명령 목록에 반복 기록한다. 준비 시 장치·범위·정렬·사용법과
+작업 그룹을 기존 직접 기록과 동일하게 검증한다. 반복 기록은 토큰과 가변 상수,
+명령 목록의 상태·장치만 확인하고 불변 바인딩을 다시 검색하거나 검증하지 않는다.
+명령 사이의 메모리 위험과 명시적 장벽 검사는 각 제출에서 유지한다.
+토큰은 준비 시 선택한 버퍼와 범위를 유지한다. 호출자가 바인딩 배열을 다른 버퍼로
+바꾸더라도 토큰은 바뀌지 않으며, 바인딩을 교체하려면 새 구성을 준비한다. 같은
+버퍼의 내용 변경은 기존 버퍼 접근·GPU 완료 규칙을 지키면 그대로 반영된다.
+
+```cpp
+ii::gpu::Session session(device, {.dispatch_capacity = 64});
+auto prepared = session.prepare(pipeline, bindings, groups);
+if (!prepared) return std::unexpected(prepared.error());
+auto commands = device.commands();
+auto recorded = session.dispatch(commands, *prepared, constants);
+if (!recorded) return std::unexpected(recorded.error());
+// Finish and submit commands. Reuse *prepared for later command lists.
+```
+
+준비 슬롯 수는 제한되고 토큰은 다른 세션에서 사용할 수 없다. 해제 후 같은 슬롯을
+재사용하더라도 이전 토큰은 무효이다. 세션 종료는 새 작업을 거절하고 준비된
+파이프라인과 버퍼 참조를 반환한다. 종료 전에 이미 기록되거나 제출된 명령은 자신이
+필요한 자원을 계속 소유하므로 세션 종료가 GPU 작업 취소를 뜻하지 않는다. 세션은
+전역 캐시나 장치 검색을 만들지 않으며 iiSDKCore에 의존하지 않는다. 앱은 필요하면
+Core 세션 또는 Runtime의 객체 소유자에 이 인스턴스를 등록할 수 있다.
+`SessionStats`는 준비·기록·해제 횟수를 제공하며 GPU 실행 완료 횟수는 아니다.
+진행 중인 제출은 장치별 식별자 색인으로 추적해 제출과 완료 때 전체 목록을
+반복 검색하지 않는다. 명령 위험 검사는 한 번의 순회에서 자원별 상태를 모으고,
+장벽은 세대 전환으로 처리한다. `collect()`의 명시적 호출은 현재 진행 중인 작업을
+확인하기 위해 순회한다.
+
 ## 완료·취소·오류
 
 `Result<T>`는 `std::expected<T,Error>`이다. 장치 부재, 미지원 기능, 잘못된
@@ -102,9 +136,64 @@ Metal·Vulkan 중 장치를 선택하는 정책이다.
 제한 초과는 작업이나 자원의 해제가 아니다. 오류가 있으면 성공한 완료로
 집계하지 않는다. Stats의 completed는 관측된 제출 완료이며 FPS나 가속 배율
 측정값이 아니다.
+다른 스레드가 같은 제출의 무기한 완료를 기다리는 동안에도 `poll()`은 그 대기를
+직렬 잠금으로 이어받지 않는다. 동시에 완료를 관측해도 자원과 성공·실패 집계는
+한 번만 반환한다.
 
-`CompletionWatch::create`는 호출자가 제공한 `CompletionScheduler`의 반복 작업으로
-제출의 `poll()`을 호출한다. `observe`는 별도의 완료 검사 함수를 받는다. 반복
+### GPU 명령 전용 스레드
+
+선택적 `iiGPU::Runtime`의 `<iiGPU/DeviceThread.h>`는 GPU 명령 준비·제출을 위한
+고정 스레드 하나를 명시적으로 소유한다. `DeviceThread::post()`는 여러 생산자의
+작업을 제한된 FIFO 큐에 접수한다. 접수 순서대로 같은 스레드에서 실행하며 빈 큐는
+조건 변수로 대기한다. 용량은 대기 중인 작업과 실행 및 캡처 정리 중인 작업을 모두
+포함한다. 빈 작업, 용량 초과, 종료된 스레드는 각각 명시적 오류를 돌려준다.
+CPU Runtime 워커나 UI 이벤트 루프를 사용하지 않는다.
+
+`request_stop()`은 신규 접수를 막고 이미 접수된 작업을 끝까지 처리한다. `close()`와
+소멸은 작업과 캡처의 파괴가 끝날 때까지 기다리고 스레드를 반환한다. 스레드 자신의
+콜백이나 그 캡처의 파괴 중 `close()`는 `busy`를 반환한다. 해당 실행 중에는 소유자
+자체를 파괴하거나 소유한 상위 런타임의 종료를 기다리지 않는다. 작업 예외는 다음
+작업을 막지 않으며 `stats().failed`와 `failure()`로 확인한다. 동시에 다른 스레드에서
+`close()` 중인 경우에도 `busy`를 반환한다. 스레드 생성이 불가능한 플랫폼에서 다른
+실행 방식으로 자동 전환하지 않는다. `stats().stopping`은 접수가 닫힌 상태이고
+`stats().stopped`는 기존 작업 정리를 끝내고 실행 루프가 종료된 상태이다.
+
+장치 스레드의 작업 종료는 네이티브 GPU 작업 완료를 뜻하지 않는다. 성공한
+`Submission`은 완료까지 유지하고 별도의 `CompletionService`로 대기·전달할 수 있다.
+완료 서비스가 장치 스레드보다 먼저 파괴되지 않도록 소유자가 종료 순서를 정한다.
+GPU에서 이미 실행 중인 명령의 강제 취소나 스레드 단위 GPU 하드웨어 할당은 제공하지
+않는다. `Device`, `CommandList`를 직접 호출한 기존 경로가 자동으로 이 스레드에
+옮겨지지는 않는다. 앱은 해당 호출을 `post()`한 작업 안에서 수행한다.
+
+iiSDKCore와 함께 사용할 때 앱이 독립된 두 모듈을 조합할 수 있다. 예를 들어 Core의
+`Runtime::objects().emplace<ii::gpu::DeviceThread>()`로 전용 스레드를 런타임 소유
+객체에 등록하고, 반환된 `ObjectRef::with()`에서 `post()`한다. Runtime 종료는 CPU
+워커 정리 후 이 객체를 파괴하므로 전용 스레드도 드레인된다. Core나 iiGPU 어느 쪽도
+상대 모듈을 찾거나 링크하지 않는다. 다만 전용 스레드의 작업이 CPU Runtime의 종료나
+동기 응답을 기다리도록 순환 연결해서는 안 된다.
+
+`<iiGPU/CompletionService.h>`의 `CompletionService`는 호출자가 소유하는 고정 개수의 대기 워커와 제한된 슬롯을
+제공한다. `watch(submission, callback)`은 이미 네이티브 큐에 제출된 GPU 작업의 완료를
+한 번 기다린 뒤 콜백을 전달한다. 빈 GPU 동안 반복 타이머나 상태 폴링을 사용하지
+않으며, 대기 워커는 일반 CPU Runtime 워커와 분리된다. 여러 대기 워커를 명시하면
+독립된 GPU 제출을 병렬로 기다릴 수 있다. `observe(wait, callback)`은 같은 단일 대기
+계약을 공급하는 다른 비동기 장치와 시험에 사용한다. 결과 콜백은 서비스 워커에서
+실행되므로 UI나 다른 CPU 실행 영역이 필요하면 호출자가 해당 실행자의 post로 전달한다.
+
+토큰의 cancel은 아직 인수되지 않은 결과 콜백만 취소하며 GPU 명령이나 대기는
+중단하지 않는다. 제출과 자원은 실제 완료까지 보유하고 캡처 파괴가 끝난 뒤 슬롯을
+반환한다. 서비스 request_stop은 신규 접수를 막고 기존 대기와 콜백을 드레인한다.
+close와 소멸은 대기 중인 GPU 작업이 끝날 때까지 블록할 수 있으므로 GUI 스레드나
+콜백 내부에서 호출하지 않는다. 콜백 내부의 close는 busy이고, 이 경계에서 서비스
+자신을 파괴하지 않는다. 대기 워커 수·슬롯 수는 양수이고 워커 수는 슬롯 수 이하이다.
+워커 하나는 한 번에 하나의 제출을 기다리므로 앞선 작업이 느리면 뒤의 관측이
+지연될 수 있다. 콜백 예외는 다른 작업을 중단하지 않고 통계와 예외 핸들에 기록한다.
+이 서비스가 직접 받는 제출은 기본 iiGPU의 Metal·Vulkan `Submission`이다. 별도
+WebGPU 구성요소의 제출을 자동으로 변환하거나 CUDA·Direct3D 백엔드를 추가하지 않는다.
+Vulkan 대기는 [네이티브 펜스 대기](https://docs.vulkan.org/refpages/latest/refpages/source/vkWaitForFences.html)를 사용한다.
+
+`CompletionWatch::create_polling`은 호출자가 제공한 `CompletionScheduler`의 반복 작업으로
+제출의 `poll()`을 호출한다. `observe_polling`은 별도의 완료 검사 함수를 받는다. 반복
 작업의 등록은 양의 주기와 콜백을 받고, 스레드 안전한 `pending`과 멱등적인
 `cancel`을 제공하는 토큰이나 오류를 돌려준다. 호출자는 스케줄러와 실행 영역의
 수명을 관리한다. `every`와 복사 가능한 토큰을 제공하는 호환 루프는 템플릿으로
@@ -112,6 +201,8 @@ Metal·Vulkan 중 장치를 선택하는 정책이다.
 조합할 수 있다. 등록 중 동기 실행도 허용된다. 등록 거부·잘못된 토큰과 검사
 오류는 오류로 전파된다. 콜백은 호출자가 선택한 스케줄러의 실행 영역에서
 한 번 전달하며 전용 워커를 만들지 않는다.
+
+반복 확인은 `observe_polling` 또는 `create_polling`에 양의 확인 주기를 명시한 경우에만 등록한다. 기존 `observe`와 `create`는 기본 주기와 명시한 주기를 구별할 수 없으므로 모두 `unsupported`를 반환하며 타이머를 만들지 않는다. 일반적인 완료 통지는 네이티브 대기 기반 `CompletionService`를 사용한다.
 관측 취소는 GPU 작업을 취소하지 않는다. 취소와 동시에 이미 전달되기 시작한
 콜백을 되돌리거나 강제로 중단하지 않는다. 장치·버퍼·GPU 작업은 창이나
 이벤트 루프의 수명과 독립적이다. 관측을 취소하거나 파괴할 때도 원래 Submission

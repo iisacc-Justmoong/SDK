@@ -22,12 +22,18 @@ CompletionWatch::CompletionWatch(CompletionWatch&& other) noexcept:state_(std::m
 CompletionWatch& CompletionWatch::operator=(CompletionWatch&& other) noexcept {
     if(this!=&other) {cancel();state_=std::move(other.state_);} return *this;
 }
-Result<CompletionWatch> CompletionWatch::create(CompletionScheduler scheduler,Submission job,
+Result<CompletionWatch> CompletionWatch::create(CompletionScheduler,Submission,CompletionCallback,std::chrono::nanoseconds) {
+    return std::unexpected(Error{ErrorCode::unsupported,"use create_polling with an explicit interval"});
+}
+Result<CompletionWatch> CompletionWatch::observe(CompletionScheduler,CompletionProbe,CompletionCallback,std::chrono::nanoseconds) {
+    return std::unexpected(Error{ErrorCode::unsupported,"use observe_polling with an explicit interval"});
+}
+Result<CompletionWatch> CompletionWatch::create_polling(CompletionScheduler scheduler,Submission job,
     CompletionCallback callback,std::chrono::nanoseconds interval) {
     if(!job) return std::unexpected(Error{ErrorCode::invalid_argument,"completion watch needs a job"});
-    return observe(std::move(scheduler),[job=std::move(job)] { return job.poll(); },std::move(callback),interval);
+    return observe_polling(std::move(scheduler),[job=std::move(job)] { return job.poll(); },std::move(callback),interval);
 }
-Result<CompletionWatch> CompletionWatch::observe(CompletionScheduler scheduler,CompletionProbe probe,
+Result<CompletionWatch> CompletionWatch::observe_polling(CompletionScheduler scheduler,CompletionProbe probe,
     CompletionCallback callback,std::chrono::nanoseconds interval) {
     if(!scheduler.every || !probe || !callback || interval.count()<=0)
         return std::unexpected(Error{ErrorCode::invalid_argument,"completion watch needs a scheduler, probe, callback and positive interval"});

@@ -75,7 +75,7 @@ int webCommand(int argc, char** argv) {
     iiGlobalSearch::WebSearch search(std::move(options.configuration));
     auto task = search.submit(std::move(options.request));
     if (!task) throw std::runtime_error("web work queue is full");
-    while (!task->waitFor(std::chrono::seconds(1))) {}
+    (void)task->waitFor(std::chrono::milliseconds::max());
     const auto progress = task->progress();
     std::cout << iiGlobalSearch::detail::serializeWebResponse(progress, task->results()) << '\n';
     return progress.state == iiGlobalSearch::WebState::completed ? 0 : 1;
@@ -102,7 +102,7 @@ int main(int argc, char** argv) try {
     }
     iiGlobalSearch::Index index{std::filesystem::path(argv[2])};
     if (!index.start()) throw std::runtime_error("could not start indexing");
-    while (!index.waitFor(std::chrono::seconds(1))) {}
+    (void)index.waitFor(std::chrono::milliseconds::max());
     const auto progress = index.progress();
     Value::Array results;
     for (const auto& item : index.search(query, limit)) {

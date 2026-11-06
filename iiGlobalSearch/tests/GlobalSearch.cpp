@@ -163,6 +163,7 @@ int main(int argc, char** argv) try {
     check(!index.start(), "concurrent start accepted");
     { std::lock_guard lock(mutex); release = true; } changed.notify_all();
     check(index.waitFor(30s), "index timed out");
+    check(index.waitFor(std::chrono::milliseconds::max()), "unbounded index wait did not observe completion");
     check(index.progress().state == State::completed, "index failed");
     auto session = index.openSession();
     ObjectFilter filtered;

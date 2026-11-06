@@ -9,6 +9,9 @@
 #endif
 
 #include <iiGPU/GPU.h>
+#include <iiGPU/Session.h>
+#include <iiGPU/CompletionService.h>
+#include <iiGPU/DeviceThread.h>
 
 #if !defined(min) || !defined(max)
 #error "iiGPU public headers must preserve the consuming application's macros"

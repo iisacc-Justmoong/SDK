@@ -71,10 +71,11 @@ struct Stats final {
 };
 namespace detail {
 struct DeviceState; struct BufferState; struct PipelineState;
-struct CommandsState; struct SubmissionState;
+struct CommandsState; struct SubmissionState; struct Dispatch; struct DeviceAccess;
 }
 class Device;
 class CommandList;
+class Session;
 class Buffer final {
 public:
     Buffer()=default;
@@ -96,7 +97,7 @@ public:
     ComputePipeline()=default;
     explicit operator bool() const noexcept { return bool(state_); }
 private:
-    friend class Device; friend class CommandList;
+    friend class Device; friend class CommandList; friend class Session;
     explicit ComputePipeline(std::shared_ptr<detail::PipelineState> state):state_(std::move(state)) {}
     std::shared_ptr<detail::PipelineState> state_;
 };
@@ -117,8 +118,9 @@ public:
     Result<void> barrier();
     Result<void> finish();
 private:
-    friend class Device;
+    friend class Device; friend class Session;
     explicit CommandList(std::unique_ptr<detail::CommandsState>);
+    Result<void> append_prepared(const detail::Dispatch&, std::span<const std::byte>);
     std::unique_ptr<detail::CommandsState> state_;
 };
 class Submission final {
@@ -161,6 +163,7 @@ public:
     Result<void> native_access(std::span<const Buffer>,
         const std::function<Result<void>(const NativeContext&)>&) const;
 private:
+    friend struct detail::DeviceAccess;
     explicit Device(std::shared_ptr<detail::DeviceState> state):state_(std::move(state)) {}
     std::shared_ptr<detail::DeviceState> state_;
 };

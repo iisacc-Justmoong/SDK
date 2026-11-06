@@ -4,6 +4,7 @@
 #include <mutex>
 #include <optional>
 #include <stdexcept>
+#include <unordered_map>
 #include <variant>
 
 namespace ii::gpu::detail {
@@ -75,7 +76,8 @@ struct NativeDevice {
     virtual ~NativeDevice()=default;
     virtual std::unique_ptr<NativeBuffer> buffer(BufferDesc)=0;
     virtual std::unique_ptr<NativePipeline> pipeline(const ComputeDesc&)=0;
-    virtual std::unique_ptr<NativeSubmission> submit(const std::vector<Command>&)=0;
+    // Allocate shared ownership before native submission commits.
+    virtual std::shared_ptr<NativeSubmission> submit(const std::vector<Command>&)=0;
     virtual NativeContext context() const=0;
 };
 struct DeviceState final {
@@ -84,12 +86,14 @@ struct DeviceState final {
     mutable std::mutex mutex;
     std::atomic<std::uint64_t> allocated{0};
     Stats stats;
-    std::vector<std::weak_ptr<SubmissionState>> jobs;
+    std::unordered_map<SubmissionState*,std::weak_ptr<SubmissionState>> jobs;
+};
+struct DeviceAccess final {
+    static Device adopt(std::shared_ptr<DeviceState> state){return Device(std::move(state));}
 };
 struct SubmissionState final {
     std::shared_ptr<DeviceState> owner;
-    std::weak_ptr<SubmissionState> self;
-    std::unique_ptr<NativeSubmission> native;
+    std::shared_ptr<NativeSubmission> native;
     std::vector<std::shared_ptr<BufferState>> resources;
     std::vector<std::shared_ptr<PipelineState>> pipelines;
     mutable std::mutex mutex;

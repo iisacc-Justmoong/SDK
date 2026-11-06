@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/README.md",
-    "sha256": "4a5c8362bb3bb954622df8a1046f3ea04e8afaafa4b67a169c10d4d87fb7b52c",
-    "bytes": 2643,
-    "line_count": 33,
+    "sha256": "c3a0770aee7ed52ed6468e8991964b0a76cc71507cf6728b91bbe661dd27c9bc",
+    "bytes": 2747,
+    "line_count": 34,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -79,8 +79,8 @@
       "id": "b000008",
       "kind": "table",
       "start_line": 8,
-      "end_line": 32,
-      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`PatchRelease-20261019.md`](../PatchRelease-20261019.md) | [JSON](entrypoints/PatchRelease-20261019.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`WorkspaceSync.md`](../WorkspaceSync.md) | [JSON](entrypoints/WorkspaceSync.agent.json) |\n| [`docs/AccountManagerName.md`](AccountManagerName.md) | [JSON](AccountManagerName.agent.json) |\n| [`docs/BRUSH_AUTHORING.md`](BRUSH_AUTHORING.md) | [JSON](BRUSH_AUTHORING.agent.json) |\n| [`docs/GPU.md`](GPU.md) | [JSON](GPU.agent.json) |\n| [`docs/HeaderLayout.md`](HeaderLayout.md) | [JSON](HeaderLayout.agent.json) |\n| [`docs/Installation.md`](Installation.md) | [JSON](Installation.agent.json) |\n| [`docs/ModuleConsolidation.md`](ModuleConsolidation.md) | [JSON](ModuleConsolidation.agent.json) |\n| [`docs/ModuleNames.md`](ModuleNames.md) | [JSON](ModuleNames.agent.json) |\n| [`docs/PERFORMANCE_REVIEW.md`](PERFORMANCE_REVIEW.md) | [JSON](PERFORMANCE_REVIEW.agent.json) |\n| [`docs/PERFORMANCE_REVIEW_20261020.md`](PERFORMANCE_REVIEW_20261020.md) | [JSON](PERFORMANCE_REVIEW_20261020.agent.json) |\n| [`docs/PatchRelease-20261019.md`](PatchRelease-20261019.md) | [JSON](PatchRelease-20261019.agent.json) |\n| [`docs/QtIndependence.md`](QtIndependence.md) | [JSON](QtIndependence.agent.json) |\n| [`docs/SDKIndependence.md`](SDKIndependence.md) | [JSON](SDKIndependence.agent.json) |\n| [`docs/WorkspaceSync.md`](WorkspaceSync.md) | [JSON](WorkspaceSync.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n| [`tests/LocalPhotoBrush/README.md`](../tests/LocalPhotoBrush/README.md) | [JSON](mirrors/tests/LocalPhotoBrush/README.agent.json) |\n| [`tests/LocalPhotoBrush/Verification.md`](../tests/LocalPhotoBrush/Verification.md) | [JSON](mirrors/tests/LocalPhotoBrush/Verification.agent.json) |\n| [`tests/NativeHeaderLayout/README.md`](../tests/NativeHeaderLayout/README.md) | [JSON](mirrors/tests/NativeHeaderLayout/README.agent.json) |\n| [`tests/SocietyHelperConsumers/README.md`](../tests/SocietyHelperConsumers/README.md) | [JSON](mirrors/tests/SocietyHelperConsumers/README.agent.json) |\n| [`tests/SourceHeaderConsumers/README.md`](../tests/SourceHeaderConsumers/README.md) | [JSON](mirrors/tests/SourceHeaderConsumers/README.agent.json) |\n",
+      "end_line": 33,
+      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`PatchRelease-20261019.md`](../PatchRelease-20261019.md) | [JSON](entrypoints/PatchRelease-20261019.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`WorkspaceSync.md`](../WorkspaceSync.md) | [JSON](entrypoints/WorkspaceSync.agent.json) |\n| [`docs/AccountManagerName.md`](AccountManagerName.md) | [JSON](AccountManagerName.agent.json) |\n| [`docs/BRUSH_AUTHORING.md`](BRUSH_AUTHORING.md) | [JSON](BRUSH_AUTHORING.agent.json) |\n| [`docs/GPU.md`](GPU.md) | [JSON](GPU.agent.json) |\n| [`docs/HeaderLayout.md`](HeaderLayout.md) | [JSON](HeaderLayout.agent.json) |\n| [`docs/Installation.md`](Installation.md) | [JSON](Installation.agent.json) |\n| [`docs/ModuleConsolidation.md`](ModuleConsolidation.md) | [JSON](ModuleConsolidation.agent.json) |\n| [`docs/ModuleNames.md`](ModuleNames.md) | [JSON](ModuleNames.agent.json) |\n| [`docs/PERFORMANCE_REVIEW.md`](PERFORMANCE_REVIEW.md) | [JSON](PERFORMANCE_REVIEW.agent.json) |\n| [`docs/PERFORMANCE_REVIEW_20261020.md`](PERFORMANCE_REVIEW_20261020.md) | [JSON](PERFORMANCE_REVIEW_20261020.agent.json) |\n| [`docs/PatchRelease-20261019.md`](PatchRelease-20261019.md) | [JSON](PatchRelease-20261019.agent.json) |\n| [`docs/QtIndependence.md`](QtIndependence.md) | [JSON](QtIndependence.agent.json) |\n| [`docs/ReactiveRuntimeAudit.md`](ReactiveRuntimeAudit.md) | [JSON](ReactiveRuntimeAudit.agent.json) |\n| [`docs/SDKIndependence.md`](SDKIndependence.md) | [JSON](SDKIndependence.agent.json) |\n| [`docs/WorkspaceSync.md`](WorkspaceSync.md) | [JSON](WorkspaceSync.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n| [`tests/LocalPhotoBrush/README.md`](../tests/LocalPhotoBrush/README.md) | [JSON](mirrors/tests/LocalPhotoBrush/README.agent.json) |\n| [`tests/LocalPhotoBrush/Verification.md`](../tests/LocalPhotoBrush/Verification.md) | [JSON](mirrors/tests/LocalPhotoBrush/Verification.agent.json) |\n| [`tests/NativeHeaderLayout/README.md`](../tests/NativeHeaderLayout/README.md) | [JSON](mirrors/tests/NativeHeaderLayout/README.agent.json) |\n| [`tests/SocietyHelperConsumers/README.md`](../tests/SocietyHelperConsumers/README.md) | [JSON](mirrors/tests/SocietyHelperConsumers/README.agent.json) |\n| [`tests/SourceHeaderConsumers/README.md`](../tests/SourceHeaderConsumers/README.md) | [JSON](mirrors/tests/SourceHeaderConsumers/README.agent.json) |\n",
       "columns": [
         "Document",
         "Agent JSON"
@@ -147,6 +147,10 @@
           "[JSON](QtIndependence.agent.json)"
         ],
         [
+          "[`docs/ReactiveRuntimeAudit.md`](ReactiveRuntimeAudit.md)",
+          "[JSON](ReactiveRuntimeAudit.agent.json)"
+        ],
+        [
           "[`docs/SDKIndependence.md`](SDKIndependence.md)",
           "[JSON](SDKIndependence.agent.json)"
         ],
@@ -183,8 +187,8 @@
     {
       "id": "b000009",
       "kind": "html",
-      "start_line": 33,
-      "end_line": 33,
+      "start_line": 34,
+      "end_line": 34,
       "raw": "<!-- workspace-docs:document-map:end -->\n"
     }
   ],
@@ -422,115 +426,129 @@
       },
       {
         "block_id": "b000008",
+        "label": "`docs/ReactiveRuntimeAudit.md`",
+        "target": "ReactiveRuntimeAudit.md",
+        "kind": "relative",
+        "line": 25
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "ReactiveRuntimeAudit.agent.json",
+        "kind": "relative",
+        "line": 25
+      },
+      {
+        "block_id": "b000008",
         "label": "`docs/SDKIndependence.md`",
         "target": "SDKIndependence.md",
         "kind": "relative",
-        "line": 25
+        "line": 26
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "SDKIndependence.agent.json",
         "kind": "relative",
-        "line": 25
+        "line": 26
       },
       {
         "block_id": "b000008",
         "label": "`docs/WorkspaceSync.md`",
         "target": "WorkspaceSync.md",
         "kind": "relative",
-        "line": 26
+        "line": 27
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "WorkspaceSync.agent.json",
         "kind": "relative",
-        "line": 26
+        "line": 27
       },
       {
         "block_id": "b000008",
         "label": "`docs/documentation-structure.md`",
         "target": "documentation-structure.md",
         "kind": "relative",
-        "line": 27
+        "line": 28
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "documentation-structure.agent.json",
         "kind": "relative",
-        "line": 27
+        "line": 28
       },
       {
         "block_id": "b000008",
         "label": "`tests/LocalPhotoBrush/README.md`",
         "target": "../tests/LocalPhotoBrush/README.md",
         "kind": "relative",
-        "line": 28
+        "line": 29
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "mirrors/tests/LocalPhotoBrush/README.agent.json",
         "kind": "relative",
-        "line": 28
+        "line": 29
       },
       {
         "block_id": "b000008",
         "label": "`tests/LocalPhotoBrush/Verification.md`",
         "target": "../tests/LocalPhotoBrush/Verification.md",
         "kind": "relative",
-        "line": 29
+        "line": 30
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "mirrors/tests/LocalPhotoBrush/Verification.agent.json",
         "kind": "relative",
-        "line": 29
+        "line": 30
       },
       {
         "block_id": "b000008",
         "label": "`tests/NativeHeaderLayout/README.md`",
         "target": "../tests/NativeHeaderLayout/README.md",
         "kind": "relative",
-        "line": 30
+        "line": 31
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "mirrors/tests/NativeHeaderLayout/README.agent.json",
         "kind": "relative",
-        "line": 30
+        "line": 31
       },
       {
         "block_id": "b000008",
         "label": "`tests/SocietyHelperConsumers/README.md`",
         "target": "../tests/SocietyHelperConsumers/README.md",
         "kind": "relative",
-        "line": 31
+        "line": 32
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "mirrors/tests/SocietyHelperConsumers/README.agent.json",
         "kind": "relative",
-        "line": 31
+        "line": 32
       },
       {
         "block_id": "b000008",
         "label": "`tests/SourceHeaderConsumers/README.md`",
         "target": "../tests/SourceHeaderConsumers/README.md",
         "kind": "relative",
-        "line": 32
+        "line": 33
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "mirrors/tests/SourceHeaderConsumers/README.agent.json",
         "kind": "relative",
-        "line": 32
+        "line": 33
       }
     ],
     "tables": [
@@ -600,6 +618,10 @@
           [
             "[`docs/QtIndependence.md`](QtIndependence.md)",
             "[JSON](QtIndependence.agent.json)"
+          ],
+          [
+            "[`docs/ReactiveRuntimeAudit.md`](ReactiveRuntimeAudit.md)",
+            "[JSON](ReactiveRuntimeAudit.agent.json)"
           ],
           [
             "[`docs/SDKIndependence.md`](SDKIndependence.md)",
