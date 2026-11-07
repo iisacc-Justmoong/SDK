@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/ReactiveRuntimeAudit.md",
-    "sha256": "4933ed0e79f49c78a356894cdaa9b485207188a4d2f2b4b0aa087c3314006aa1",
-    "bytes": 34477,
-    "line_count": 169,
+    "sha256": "9ab8ff9ad257c5ced0a6aaa31591ae1a8a38335bc414f37524d79c1a95f65940",
+    "bytes": 40072,
+    "line_count": 233,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -729,6 +729,138 @@
       "start_line": 165,
       "end_line": 169,
       "raw": "**전체 작업은 미완료이다.** 위에서 열거한 변경 외에 감사 표의 장치·파일 감시,\n접근성, 에이전트, 프로세스 및 외부 공급자 항목이 남는다. iiWebServer가 추가로\n사용한 iiSDKCore `HostLoop`, LVUI와 iiNetwork의 예약 완료 신호 API 의존성도\n제거되지 않았다. 큐 포화 때 완료가 사라지거나 콜백 스레드가 바뀌지 않도록\n독립적인 호스트 전달 계약과 전환 검증이 필요하다.\n"
+    },
+    {
+      "id": "b000056",
+      "kind": "blank",
+      "start_line": 170,
+      "end_line": 170,
+      "raw": "\n"
+    },
+    {
+      "id": "b000057",
+      "kind": "heading",
+      "start_line": 171,
+      "end_line": 171,
+      "raw": "## 2026-11-06 후속 수정과 검증 상태\n",
+      "level": 2,
+      "title": "2026-11-06 후속 수정과 검증 상태"
+    },
+    {
+      "id": "b000058",
+      "kind": "blank",
+      "start_line": 172,
+      "end_line": 172,
+      "raw": "\n"
+    },
+    {
+      "id": "b000059",
+      "kind": "list",
+      "start_line": 173,
+      "end_line": 204,
+      "raw": "- iiSocietyHelper 동기화 상태는 Core `QueryPort`·`QueryStream`의 공개 타입과\n  `iiSDKCore::Runtime` 직접 공개 링크를 제거했다. 호스트가 예약하는 재사용 가능한\n  깨움, bounded 상태 이벤트와 revision·gap을 제공한다. 일시적인 깨움 거부는\n  수신자의 명시적 `resume()`으로 복구하며, 동시 종료와 콜백 자신의 종료, 생산자\n  파괴의 장벽을 검사한다. 상태 구현과 헤더만 분리한 C++23 검사는 Qt와 Core를\n  포함하지 않는다. 이 API와 ABI 변경을 위해 Helper 0.12를 사용한다. 기존\n  Monitoring의 Core 직결과 다른 기능 모듈 간 의존성이 제거된 것은 아니다.\n- 스냅샷 수신 및 송신 요청의 만료 검사는 각각 실제로 남은 가장 이른 120초 기한에\n  한 번만 예약한다. 조기 깨움은 다시 예약하고 요청 완료·취소·권한 철회·종료는\n  예약을 갱신한다. 송신 기한은 단조 시계로 계산하고 `pending`이 연장하지 않는다.\n- iiFileProvider 프리뷰의 변경 토큰 보호는 고정 크기 파일 식별자별 잠금으로 분산했다.\n  같은 원본의 임베딩과 정규화는 직렬화하되 확장 속성 및 파일 I/O 동안 전체 토큰\n  맵 잠금을 붙잡지 않는다. 잠금 충돌은 서로 다른 원본을 직렬화할 수 있다.\n  iiSocietyHelper 파일 수신은 매 단계 컨테이너 유효성과 경로·ID를 유지하면서 세 번\n  반복하던 드라이브 검증을 한 번으로 합쳤다.\n- 새 상태 계약과 독립 상태 구현, 공개 소비 예제, 저장소 교체 검증 및 두 기한의\n  조기 깨움·취소 검사는 통과했다. 상태 동시성 계약은 ThreadSanitizer로도 검사했다.\n  임시 설치본을 별도 소비자가 실제 적재하여 상태 계약·예제를 검사했고, 설치된\n  상태 헤더는 Core와 Qt 없이 컴파일했다. 프리뷰의 원본 접근·변경 정규화·잠금 분산\n  검사 세 건이 통과했다.\n- 전체 `iiSocietyHelper.session`은 기존 300초를 유지한 네 차례 후속 실행에서 모두\n  시간 초과되었다. 마지막 실행은 Helper 0.12와 새 프리뷰 라이브러리를 적재하여\n  saved-server 및 automatic-local-network 행까지 통과했으나 게이트웨이 행을\n  완료하지 못했다. 이 실행의 WebServer와 Core는 기존 시스템 설치본이다. 실행 중\n  표본은 프리뷰 속성 쓰기, 다른 파일의 토큰 잠금 대기와\n  SQLite 동기화·체크포인트 I/O를 보여 주지만, 이 관찰만으로 전체 원인을 확정하거나\n  수정 후 완전한 성능 개선을 주장할 수 없다. 새 Helper 0.12의 전체 Snapshot 검사도\n  한 차례 기존 120초에서 시간 초과했고, Controller 전체 검사는 기존 120초 시간\n  초과와 기존 5초 준비·파일 반영 검사 두 건의 실패를 보였다. 두 실패 행은 각각\n  원래 조건으로 재실행해 통과했고, 이후 Snapshot·Controller 전체도 같은 120초\n  제한에서 각각 5.43초와 39.23초로 통과했다. 검사의 제한이나 기존 검증 항목은\n  완화하지 않았다.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "iiSocietyHelper 동기화 상태는 Core `QueryPort`·`QueryStream`의 공개 타입과",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "스냅샷 수신 및 송신 요청의 만료 검사는 각각 실제로 남은 가장 이른 120초 기한에",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "iiFileProvider 프리뷰의 변경 토큰 보호는 고정 크기 파일 식별자별 잠금으로 분산했다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "새 상태 계약과 독립 상태 구현, 공개 소비 예제, 저장소 교체 검증 및 두 기한의",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "전체 `iiSocietyHelper.session`은 기존 300초를 유지한 네 차례 후속 실행에서 모두",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000060",
+      "kind": "blank",
+      "start_line": 205,
+      "end_line": 205,
+      "raw": "\n"
+    },
+    {
+      "id": "b000061",
+      "kind": "paragraph",
+      "start_line": 206,
+      "end_line": 209,
+      "raw": "**남은 작업:** iiNetwork의 예약 완료 신호, iiWebServer의 Core `HostLoop`, LVUI의\n이미지 및 쿼리 전달 경로는 아직 Core API를 직접 사용한다. 위의 동기화 상태만\n분리한 결과로 이들을 해결했다고 간주하지 않는다. 감사 표의 기타 폴링과 전체\n갱신, 이벤트 누락 복구 경계 및 실패한 전체 검사도 여전히 남아 있다.\n"
+    },
+    {
+      "id": "b000062",
+      "kind": "blank",
+      "start_line": 210,
+      "end_line": 210,
+      "raw": "\n"
+    },
+    {
+      "id": "b000063",
+      "kind": "heading",
+      "start_line": 211,
+      "end_line": 211,
+      "raw": "## 2026-11-07 호스트 판본 읽기와 추가 세션 검사\n",
+      "level": 2,
+      "title": "2026-11-07 호스트 판본 읽기와 추가 세션 검사"
+    },
+    {
+      "id": "b000064",
+      "kind": "blank",
+      "start_line": 212,
+      "end_line": 212,
+      "raw": "\n"
+    },
+    {
+      "id": "b000065",
+      "kind": "list",
+      "start_line": 213,
+      "end_line": 230,
+      "raw": "- 샘플링에서 직접 파일 전송은 읽기 조각마다 변경용 잠금 파일을 만들면서\n  `fsync`를 수행했고, 별도의 프리뷰 저장과 SQLite 체크포인트 I/O도 관찰되었다.\n  판본을 지정한 `drive.read`는 변경용 잠금 없이 핸들의 파일 식별자와 변경 토큰을\n  전후로 확인하고, 반환 전 경로와 드라이브·권한 주체를 다시 검사한다. 판본이\n  없는 읽기와 쓰기 등은 기존 잠금을 유지한다. 원본 변경과 잠금 경합을 검증하는\n  회귀 검사를 추가했다. 개별 I/O 표본만으로 세션 시간 초과의 전체 원인을 확정할\n  수는 없다.\n- 새 읽기 경계를 포함한 HostDrive와 Controller 전체 검사는 원래 제한에서 각각\n  5.63초와 30.35초로 통과했다. 게이트웨이 릴레이 행은 앞선 개별 실행에서\n  64.32초에 통과했으나 그 결과는 전체 세션의 통과를 뜻하지 않는다.\n- 전체 세션은 추가 두 차례 모두 기존 300초에서 시간 초과되었다. 첫 실행은\n  자동 로컬 연결의 프리뷰 요청이 `host_request_timeout`으로 실패했고, 다른\n  단일 회귀 검사와 겹쳤다. 두 번째는 saved-server와 automatic-local-network\n  행을 통과한 뒤 게이트웨이 행을 완료하지 못했다. 두 번째 실행 중 다른 작업의\n  Society 테스트가 함께 시작된 사실을 종료 후 확인했으므로 시스템 부하의 영향을\n  분리하지 못했다. 어느 테스트의 제한 시간이나 검증 항목도 완화하지 않았다.\n  이 결과는 현재 소스 Helper·FileProvider와 기존 설치 WebServer·Core 조합에\n  한정되며, 모든 현재 소스의 통합 검증이 아니다.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "샘플링에서 직접 파일 전송은 읽기 조각마다 변경용 잠금 파일을 만들면서",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "새 읽기 경계를 포함한 HostDrive와 Controller 전체 검사는 원래 제한에서 각각",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "전체 세션은 추가 두 차례 모두 기존 300초에서 시간 초과되었다. 첫 실행은",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000066",
+      "kind": "blank",
+      "start_line": 231,
+      "end_line": 231,
+      "raw": "\n"
+    },
+    {
+      "id": "b000067",
+      "kind": "paragraph",
+      "start_line": 232,
+      "end_line": 233,
+      "raw": "**전체 작업과 Society 전체 세션 시간 초과 해결은 미완료이다.** 앞서 열거한\nCore 직접 API 및 각 모듈의 대기·복구 경계가 계속 남아 있다.\n"
     }
   ],
   "outline": [
@@ -803,6 +935,22 @@
       "title": "2026-11-06 추가 수정과 남은 경계",
       "anchor": "2026-11-06-추가-수정과-남은-경계",
       "start_line": 120
+    },
+    {
+      "block_id": "b000057",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "2026-11-06 후속 수정과 검증 상태",
+      "anchor": "2026-11-06-후속-수정과-검증-상태",
+      "start_line": 171
+    },
+    {
+      "block_id": "b000063",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "2026-11-07 호스트 판본 읽기와 추가 세션 검사",
+      "anchor": "2026-11-07-호스트-판본-읽기와-추가-세션-검사",
+      "start_line": 211
     }
   ],
   "indexes": {
@@ -1030,6 +1178,34 @@
         "text": "라이브러리 경로만 바꾼 실행으로 전체 소비자 호환성을 보증하지 않는다.",
         "basis": "lexical_match",
         "context": "paragraph"
+      },
+      {
+        "block_id": "b000059",
+        "line": 178,
+        "text": "포함하지 않는다. 이 API와 ABI 변경을 위해 Helper 0.12를 사용한다. 기존",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000059",
+        "line": 182,
+        "text": "예약을 갱신한다. 송신 기한은 단조 시계로 계산하고 `pending`이 연장하지 않는다.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000061",
+        "line": 208,
+        "text": "분리한 결과로 이들을 해결했다고 간주하지 않는다. 감사 표의 기타 폴링과 전체",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000065",
+        "line": 222,
+        "text": "64.32초에 통과했으나 그 결과는 전체 세션의 통과를 뜻하지 않는다.",
+        "basis": "lexical_match",
+        "context": "list"
       }
     ],
     "commands": [],
