@@ -4,6 +4,9 @@ iiGPU is a Qt-free C++23 GPU command and compute foundation for iiSDK. It owns
 native adapters, queues, shared/device buffers, reusable compute pipelines,
 command recording, explicit memory dependencies and observable completion.
 Metal serves Apple platforms; Vulkan serves native desktop and Android targets.
+Device buffer budgets can be adjusted at runtime, and bounded staged transfers
+can copy or move buffer contents between device instances and backends. The
+desktop C ABI and Python wrapper provide the same resource controls.
 `ii::gpu::Session` retains validated device-specific dispatch configurations.
 Prepare a pipeline and bindings once, then use the returned token to record
 subsequent dispatches with new constants without revalidating those fixed inputs.

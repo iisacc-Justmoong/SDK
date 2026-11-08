@@ -1,0 +1,107 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:3c079b5ef9aabe6a3d9ecc16cca383d914e32808bf1f56fdb853f9665dfb46cb",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiJob",
+    "name": "iiJob",
+    "root": "SDK/iiJob",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "docs/DynamicLinking.md",
+    "sha256": "de4dbb17cdbd998f3e6dc7cd39a8a59f79a82a10744410a64b75eced4ddce2c9",
+    "bytes": 751,
+    "line_count": 11,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "동적 라이브러리 빌드",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# 동적 라이브러리 빌드\n",
+      "level": 1,
+      "title": "동적 라이브러리 빌드"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 7,
+      "raw": "`iiJob`은 기본적으로 공유 라이브러리로 빌드한다. 정적 산출물이 필요한\n소비자는 `BUILD_SHARED_LIBS=OFF`를 명시할 수 있다. 공유 라이브러리의 공개\nCMake 타깃과 헤더 경로는 유지하며, Windows에서는 공개 심볼을 DLL에서\n내보내고 iOS에서는 프레임워크로 설치한다. 애플리케이션은 실제 사용하는\n공유 라이브러리와 필요한 런타임 의존성을 자체 패키지에 내장해야 한다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 9,
+      "end_line": 11,
+      "raw": "테스트는 라이브러리 소비 실행 파일의 연결 정보를 검사하며 이 검사를 위해\n앱을 실행하지 않는다. 다른 운영체제와 실제 기기의 동작은 해당 환경에서 별도\n검증해야 한다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "동적 라이브러리 빌드",
+      "anchor": "동적-라이브러리-빌드",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000003",
+        "line": 7,
+        "text": "공유 라이브러리와 필요한 런타임 의존성을 자체 패키지에 내장해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000005",
+        "line": 10,
+        "text": "앱을 실행하지 않는다. 다른 운영체제와 실제 기기의 동작은 해당 환경에서 별도",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000005",
+        "line": 11,
+        "text": "검증해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

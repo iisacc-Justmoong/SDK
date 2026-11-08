@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/Contracts.md",
-    "sha256": "b3f53f439c52b0e503e713a9b99524d29a3db55959ef5d0d5a7538bbabefc0df",
-    "bytes": 17970,
-    "line_count": 231,
+    "sha256": "5ad06f3ba0ef493bdc4aacf94c1097bfeded47fe82c95c108650f8efe4e56556",
+    "bytes": 20997,
+    "line_count": 268,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -612,6 +612,96 @@
       "start_line": 230,
       "end_line": 231,
       "raw": "각 네이티브 API의 명령·수명·메모리 가시성 계약을 참고한다. 외부 렌더러나\n게임 엔진의 런타임에 의존하지 않는다.\n"
+    },
+    {
+      "id": "b000080",
+      "kind": "blank",
+      "start_line": 232,
+      "end_line": 232,
+      "raw": "\n"
+    },
+    {
+      "id": "b000081",
+      "kind": "heading",
+      "start_line": 233,
+      "end_line": 233,
+      "raw": "## 실행 중 GPU 메모리 예산 변경\n",
+      "level": 2,
+      "title": "실행 중 GPU 메모리 예산 변경"
+    },
+    {
+      "id": "b000082",
+      "kind": "blank",
+      "start_line": 234,
+      "end_line": 234,
+      "raw": "\n"
+    },
+    {
+      "id": "b000083",
+      "kind": "paragraph",
+      "start_line": 235,
+      "end_line": 242,
+      "raw": "`Device::memory_budget()`과 `Device::set_memory_budget(bytes)`는 해당 장치가\n소유하는 실제 버퍼의 신규 할당 상한을 조회·변경한다. 상한은 독립적인 SDK 예산이며\n운영체제나 GPU 드라이버 전체의 메모리 예약이 아니다. 현재 살아 있는 네이티브 할당의\n정렬을 포함한 크기보다 작은 값은 거부하며 기존 값과 버퍼를 보존한다. 버퍼를 소유하는\n제출·명령·다른 핸들이 남아 있으면 해당 저장소는 반환되지 않는다. 모든 할당이 반환된\n경우 0으로 설정하면 신규 할당을 중단하고, 양의 값으로 늘려 다시 허용할 수 있다.\n변경과 할당은 같은 장치 잠금에서 직렬화된다. OS가 실제 할당을 보장하거나 이미 제출한\nGPU 작업을 선점한다는 뜻은 아니다.\n"
+    },
+    {
+      "id": "b000084",
+      "kind": "blank",
+      "start_line": 243,
+      "end_line": 243,
+      "raw": "\n"
+    },
+    {
+      "id": "b000085",
+      "kind": "heading",
+      "start_line": 244,
+      "end_line": 244,
+      "raw": "## GPU 장치 간 버퍼 복사\n",
+      "level": 2,
+      "title": "GPU 장치 간 버퍼 복사"
+    },
+    {
+      "id": "b000086",
+      "kind": "blank",
+      "start_line": 245,
+      "end_line": 245,
+      "raw": "\n"
+    },
+    {
+      "id": "b000087",
+      "kind": "paragraph",
+      "start_line": 246,
+      "end_line": 255,
+      "raw": "`Device::import_buffer`는 다른 장치 또는 같은 장치의 버퍼 내용을 새 대상 버퍼에\n복사한다. 각 장치의 공유 스테이징 버퍼와 호스트 바이트 청크를 사용하며, device-only\n버퍼는 해당 장치 큐에서 복사 완료를 기다린다. 소스의 소유권은 그대로이며 실패하면\n부분적으로 생성된 대상은 반환하지 않는다. 전송 중 소스의 병렬 수정·제출은 호출자가\n동기화해야 한다. 이미 GPU가 사용 중인 소스는 `busy`다. device-only 경로는 4바이트\n정렬과 해당 전송 사용 플래그가 필요하며, 취소는 네이티브 제출 전에만 강제되고 이미\n제출된 작업은 완료를 기다린다. 스테이징 버퍼도 각 장치의 예산을 사용한다. 이는\n실행 중인 작업의 이주나 원격 장치 접속을 의미하지 않는다.\n`move_buffer`는 복사가 성공한 후 호출자가 넘긴 소스 핸들을 해제하며, 실패하면\n소스 핸들을 보존한다. 같은 저장소를 보유한 다른 핸들은 각자의 소유권을 유지한다.\n"
+    },
+    {
+      "id": "b000088",
+      "kind": "blank",
+      "start_line": 256,
+      "end_line": 256,
+      "raw": "\n"
+    },
+    {
+      "id": "b000089",
+      "kind": "heading",
+      "start_line": 257,
+      "end_line": 257,
+      "raw": "## Python 자원 제어\n",
+      "level": 2,
+      "title": "Python 자원 제어"
+    },
+    {
+      "id": "b000090",
+      "kind": "blank",
+      "start_line": 258,
+      "end_line": 258,
+      "raw": "\n"
+    },
+    {
+      "id": "b000091",
+      "kind": "paragraph",
+      "start_line": 259,
+      "end_line": 268,
+      "raw": "데스크톱 공유 `iiGPUResourceC` 라이브러리와\n`share/iiGPU/python/iigpu_resources.py`는 같은 `Device`·`Buffer` 구현을 호출한다.\n명시적인 라이브러리 경로로 Python `Library`를 만들고 장치·예산·버퍼·장치 간\n복사와 이동을 제어한다. Python이 새로 만든 버퍼는 0으로 초기화한다. device-only\n버퍼의 CPU 읽기·쓰기는 지원하지 않으며 공유 버퍼로 옮긴 뒤 접근한다. 입력에 필요한\nGPU 장치나 백엔드가 없으면 오류가 반환된다. 이 브리지는 Python 헤더를 GPU 본체에\n추가하지 않으며, iOS·WASM 정적 빌드에 데스크톱 Python 런타임을 포함하지 않는다.\n공유 브리지가 동적 Vulkan 로더 등 외부 라이브러리에 링크된 구성에서는 해당\n라이브러리를 배포 환경의 동적 로더가 찾을 수 있어야 한다. iiGPU 설치만으로 외부\nVulkan 로더를 함께 배포하거나 그 검색 경로를 설정하지 않는다.\n"
     }
   ],
   "outline": [
@@ -686,6 +776,30 @@
       "title": "기술 근거",
       "anchor": "기술-근거",
       "start_line": 224
+    },
+    {
+      "block_id": "b000081",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "실행 중 GPU 메모리 예산 변경",
+      "anchor": "실행-중-gpu-메모리-예산-변경",
+      "start_line": 233
+    },
+    {
+      "block_id": "b000085",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "GPU 장치 간 버퍼 복사",
+      "anchor": "gpu-장치-간-버퍼-복사",
+      "start_line": 244
+    },
+    {
+      "block_id": "b000089",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Python 자원 제어",
+      "anchor": "python-자원-제어",
+      "start_line": 257
     }
   ],
   "indexes": {
@@ -904,6 +1018,41 @@
         "block_id": "b000079",
         "line": 231,
         "text": "게임 엔진의 런타임에 의존하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000087",
+        "line": 249,
+        "text": "부분적으로 생성된 대상은 반환하지 않는다. 전송 중 소스의 병렬 수정·제출은 호출자가",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000087",
+        "line": 250,
+        "text": "동기화해야 한다. 이미 GPU가 사용 중인 소스는 `busy`다. device-only 경로는 4바이트",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000087",
+        "line": 253,
+        "text": "실행 중인 작업의 이주나 원격 장치 접속을 의미하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000091",
+        "line": 265,
+        "text": "추가하지 않으며, iOS·WASM 정적 빌드에 데스크톱 Python 런타임을 포함하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000091",
+        "line": 268,
+        "text": "Vulkan 로더를 함께 배포하거나 그 검색 경로를 설정하지 않는다.",
         "basis": "lexical_match",
         "context": "paragraph"
       }

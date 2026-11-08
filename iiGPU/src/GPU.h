@@ -53,6 +53,11 @@ struct BufferDesc final {
     Memory memory=Memory::shared;
     Usage usage=Usage::storage|Usage::transfer_source|Usage::transfer_destination;
 };
+struct BufferTransferOptions final {
+    Memory memory=Memory::shared;
+    Usage usage=Usage::storage|Usage::transfer_source|Usage::transfer_destination;
+    std::uint64_t chunk_bytes=1024u*1024u;
+};
 enum class Access { read, write, read_write };
 // Bindings are consecutive storage-buffer slots, starting at zero. Metal
 // constants occupy slot bindings.size(); Vulkan constants use push constants.
@@ -155,7 +160,14 @@ public:
     Adapter adapter() const;
     Limits limits() const;
     Stats stats() const;
+    // SDK-owned native-buffer budget; does not reserve the whole device.
+    Result<std::uint64_t> memory_budget() const;
+    Result<void> set_memory_budget(std::uint64_t bytes) const;
     Result<Buffer> buffer(BufferDesc) const;
+    // Synchronous, bounded host staging. The caller synchronizes source use.
+    Result<Buffer> import_buffer(const Buffer&,BufferTransferOptions={},std::stop_token={}) const;
+    // Resets this source handle only after the import succeeds.
+    Result<Buffer> move_buffer(Buffer&,BufferTransferOptions={},std::stop_token={}) const;
     Result<ComputePipeline> compute_pipeline(const ComputeDesc&) const;
     CommandList commands() const;
     Result<Submission> submit(CommandList&&, std::stop_token={}) const;

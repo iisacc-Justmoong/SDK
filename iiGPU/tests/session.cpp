@@ -165,6 +165,22 @@ void concurrent_completion_and_collect(){
     check(collected&&complete==count&&f.raw->jobs.empty()&&f.device.stats().in_flight==0&&f.device.stats().completed==count,
           "concurrent collection and completion lost or duplicated a tracked submission");
 }
+void mutable_memory_budget(){
+    Fixture f;
+    check(take(f.device.memory_budget())==256u*1024u*1024u,"initial device budget");
+    check(f.device.stats().allocated_bytes==32,"native allocations are counted");
+    rejects(f.device.set_memory_budget(31),ErrorCode::limit_exceeded,"live buffers must survive a budget reduction");
+    check(take(f.device.memory_budget())==256u*1024u*1024u,"failed budget change was not atomic");
+    take(f.device.set_memory_budget(32));
+    rejects(f.device.buffer({1}),ErrorCode::limit_exceeded,"full budget accepted new memory");
+    f.source={};f.target={};f.bindings={};
+    check(f.device.stats().allocated_bytes==0,"buffers were not returned after last owner");
+    take(f.device.set_memory_budget(0));
+    rejects(f.device.buffer({1}),ErrorCode::limit_exceeded,"zero budget accepted new memory");
+    take(f.device.set_memory_budget(64));auto buffer=take(f.device.buffer({64}));
+    check(buffer.size()==64&&take(f.device.memory_budget())==64,"raised budget did not admit new native allocation");
+    rejects(Device{}.set_memory_budget(0),ErrorCode::wrong_state,"empty device must reject a budget change");
 }
-int main(){try{reuse_and_hazards();lifetime_and_tokens();invalid_inputs();release_returns_unreferenced_resources();retry_and_wrong_device();indexed_inflight_and_collection();concurrent_recording();barrier_and_in_place_copy();concurrent_completion_and_collect();}
+}
+int main(){try{reuse_and_hazards();lifetime_and_tokens();invalid_inputs();release_returns_unreferenced_resources();retry_and_wrong_device();indexed_inflight_and_collection();concurrent_recording();barrier_and_in_place_copy();concurrent_completion_and_collect();mutable_memory_budget();}
 catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 1;}}

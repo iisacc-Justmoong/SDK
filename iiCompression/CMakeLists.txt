@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 project(iiCompression VERSION 0.1.0 LANGUAGES CXX)
+option(BUILD_SHARED_LIBS "Build iiCompression shared libraries" ON)
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND DEFINED ENV{HOME} AND NOT "$ENV{HOME}" STREQUAL "")
     set(CMAKE_INSTALL_PREFIX "$ENV{HOME}/.local" CACHE PATH "Installation prefix" FORCE)
@@ -14,7 +15,7 @@ find_package(ZLIB REQUIRED)
 file(GENERATE OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/include/iiCompression/Gzip.h"
     CONTENT "#pragma once\n#include \"${CMAKE_CURRENT_SOURCE_DIR}/src/Gzip.h\"\n")
 
-add_library(iiCompression STATIC src/Gzip.cpp)
+add_library(iiCompression src/Gzip.cpp)
 add_library(iiCompression::iiCompression ALIAS iiCompression)
 target_compile_features(iiCompression PUBLIC cxx_std_23)
 target_include_directories(iiCompression PUBLIC
@@ -23,6 +24,18 @@ target_include_directories(iiCompression PUBLIC
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 target_link_libraries(iiCompression PUBLIC ZLIB::ZLIB)
 set_target_properties(iiCompression PROPERTIES CXX_EXTENSIONS OFF POSITION_INDEPENDENT_CODE ON)
+
+if(BUILD_SHARED_LIBS)
+    set_target_properties(iiCompression PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+    if(CMAKE_SYSTEM_NAME STREQUAL "iOS")
+        set_target_properties(iiCompression PROPERTIES FRAMEWORK TRUE FRAMEWORK_VERSION A
+            MACOSX_FRAMEWORK_IDENTIFIER "com.iisacc.iiCompression")
+    elseif(APPLE)
+        set_property(TARGET iiCompression APPEND PROPERTY INSTALL_RPATH "@loader_path")
+    elseif(UNIX AND NOT EMSCRIPTEN)
+        set_property(TARGET iiCompression APPEND PROPERTY INSTALL_RPATH "$ORIGIN")
+    endif()
+endif()
 
 if(BUILD_TESTING)
     add_test(NAME iiCompression.SourceLayout COMMAND "${CMAKE_COMMAND}"
@@ -46,10 +59,18 @@ configure_package_config_file(cmake/iiCompressionConfig.cmake.in
     INSTALL_DESTINATION "${_package_dir}")
 write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/iiCompressionConfigVersion.cmake"
     VERSION ${PROJECT_VERSION} COMPATIBILITY SameMinorVersion)
-install(TARGETS iiCompression EXPORT iiCompressionTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS iiCompression EXPORT iiCompressionTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES src/Gzip.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/iiCompression)
 install(EXPORT iiCompressionTargets NAMESPACE iiCompression:: DESTINATION "${_package_dir}")
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/iiCompressionConfig.cmake"
     "${CMAKE_CURRENT_BINARY_DIR}/iiCompressionConfigVersion.cmake" DESTINATION "${_package_dir}")
 install(FILES README.md LICENSE NOTICE.md DESTINATION ${CMAKE_INSTALL_DATADIR}/iiCompression)
 install(DIRECTORY docs/ DESTINATION ${CMAKE_INSTALL_DATADIR}/iiCompression/docs)
+
+if(BUILD_TESTING AND BUILD_SHARED_LIBS AND NOT CMAKE_CROSSCOMPILING)
+    add_test(NAME iiCompression.shared_link COMMAND "${CMAKE_COMMAND}"
+        "-DIMAGE=$<TARGET_FILE:iiCompressionGzipTest>" "-DEXPECTED=$<TARGET_FILE:iiCompression>"
+        -P "${CMAKE_CURRENT_SOURCE_DIR}/tests/shared_link.cmake")
+endif()

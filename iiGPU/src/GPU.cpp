@@ -157,6 +157,20 @@ Stats Device::stats() const {
     std::lock_guard lock(state_->mutex);
     auto stats=state_->stats; stats.allocated_bytes=state_->allocated.load(); return stats;
 }
+Result<std::uint64_t> Device::memory_budget() const {
+    return protect([&] {
+        require(bool(state_),ErrorCode::wrong_state,"empty GPU device");
+        std::lock_guard lock(state_->mutex);return state_->options.memory_budget;
+    });
+}
+Result<void> Device::set_memory_budget(std::uint64_t bytes) const {
+    return protect_void([&] {
+        require(bool(state_),ErrorCode::wrong_state,"empty GPU device");
+        std::lock_guard lock(state_->mutex);
+        require(bytes>=state_->allocated.load(),ErrorCode::limit_exceeded,"new budget is below live native allocations");
+        state_->options.memory_budget=bytes;
+    });
+}
 BufferState::~BufferState() { native.reset(); if(owner&&charged) owner->allocated.fetch_sub(charged); }
 Result<Buffer> Device::buffer(BufferDesc desc) const {
     return protect([&] {
@@ -176,6 +190,57 @@ Result<Buffer> Device::buffer(BufferDesc desc) const {
         buffer->charged=bytes; state_->allocated.fetch_add(bytes);
         return Buffer(std::move(buffer));
     });
+}
+Result<Buffer> Device::import_buffer(const Buffer& source,BufferTransferOptions options,std::stop_token stop) const {
+    return protect([&] {
+        require(bool(state_)&&bool(source.state_),ErrorCode::wrong_state,"empty source buffer or destination device");
+        require(!stop.stop_requested(),ErrorCode::cancelled,"transfer cancelled before admission");
+        require(options.chunk_bytes>0&&options.chunk_bytes<=std::numeric_limits<std::size_t>::max(),
+            ErrorCode::invalid_argument,"invalid transfer chunk size");
+        const auto& desc=source.state_->desc;
+        const bool source_device=desc.memory==Memory::device,destination_device=options.memory==Memory::device;
+        if(source_device||destination_device){
+            require(desc.bytes%4==0&&options.chunk_bytes%4==0,ErrorCode::invalid_argument,"device transfer requires four-byte alignment");
+            if(source_device) require(has(desc.usage,Usage::transfer_source),ErrorCode::invalid_argument,"source lacks transfer-source usage");
+            if(destination_device) require(has(options.usage,Usage::transfer_destination),ErrorCode::invalid_argument,"destination lacks transfer-destination usage");
+        }
+        {
+            std::lock_guard lock(source.state_->owner->mutex);
+            require(!source.state_->pending,ErrorCode::busy,"source has an unobserved GPU submission");
+        }
+        auto take=[]<class T>(Result<T> value)->T {
+            if(!value)throw Failure(value.error().code,value.error().message);
+            return std::move(*value);
+        };
+        auto done=[](Result<void> value){if(!value)throw Failure(value.error().code,value.error().message);};
+        auto destination=take(buffer({desc.bytes,options.memory,options.usage}));
+        const auto chunk=std::min(desc.bytes,options.chunk_bytes);
+        std::vector<std::byte> host(static_cast<std::size_t>(chunk));
+        Device source_owner(source.state_->owner);
+        Buffer source_stage,destination_stage;
+        if(source_device) source_stage=take(source_owner.buffer({chunk,Memory::shared,Usage::transfer_destination}));
+        if(destination_device) destination_stage=take(buffer({chunk,Memory::shared,Usage::transfer_source}));
+        for(std::uint64_t offset=0;offset<desc.bytes;){
+            require(!stop.stop_requested(),ErrorCode::cancelled,"transfer cancelled between chunks");
+            const auto bytes=std::min(chunk,desc.bytes-offset);
+            auto view=std::span<std::byte>(host.data(),static_cast<std::size_t>(bytes));
+            if(source_device){
+                auto commands=source_owner.commands();done(commands.copy(source,source_stage,bytes,offset));done(commands.finish());
+                auto submitted=take(source_owner.submit(std::move(commands),stop));done(submitted.wait());done(source_stage.read(view));
+            } else done(source.read(view,offset));
+            require(!stop.stop_requested(),ErrorCode::cancelled,"transfer cancelled before destination write");
+            if(destination_device){
+                done(destination_stage.upload(view));auto commands=this->commands();
+                done(commands.copy(destination_stage,destination,bytes,0,offset));done(commands.finish());
+                auto submitted=take(submit(std::move(commands),stop));done(submitted.wait());
+            } else done(destination.upload(view,offset));
+            offset+=bytes;
+        }
+        return destination;
+    });
+}
+Result<Buffer> Device::move_buffer(Buffer& source,BufferTransferOptions options,std::stop_token stop) const {
+    auto result=import_buffer(source,options,stop);if(result)source={};return result;
 }
 std::uint64_t Buffer::size() const noexcept { return state_?state_->desc.bytes:0; }
 Result<void> Buffer::upload(std::span<const std::byte> bytes,std::uint64_t offset) const {

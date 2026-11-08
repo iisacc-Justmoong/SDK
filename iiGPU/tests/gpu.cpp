@@ -72,6 +72,46 @@ void transfers(Backend api) {
     take(b.read(std::as_writable_bytes(std::span(output))));
     check(output[0]==input[0]&&output[1]==0xaabbccddu&&output[2]==0xaabbccddu&&output[3]==input[3],"fill pattern and bounds");
 }
+void bridge(Backend api) {
+    auto source=make(api),destination=make(api);
+    std::array<std::uint32_t,8> input{1,2,3,4,5,6,7,8},output{};
+    auto shared=take(source.buffer({sizeof(input)}));
+    take(shared.upload(std::as_bytes(std::span(input))));
+    auto device=take(source.buffer({sizeof(input),Memory::device}));
+    auto upload=source.commands();take(upload.copy(shared,device,sizeof(input)));take(upload.finish());
+    take(take(source.submit(std::move(upload))).wait());
+    auto imported=take(destination.import_buffer(device,{.memory=Memory::device,.chunk_bytes=8}));
+    auto readback=take(destination.buffer({sizeof(input)}));
+    auto download=destination.commands();take(download.copy(imported,readback,sizeof(input)));take(download.finish());
+    take(take(destination.submit(std::move(download))).wait());
+    take(readback.read(std::as_writable_bytes(std::span(output))));
+    check(input==output,"cross-device staged transfer lost data");
+    auto host_import=take(destination.import_buffer(shared,{.chunk_bytes=7}));
+    output={};take(host_import.read(std::as_writable_bytes(std::span(output))));
+    check(input==output,"shared-buffer chunked transfer lost data");
+    std::stop_source stop;stop.request_stop();
+    rejects(destination.import_buffer(shared,{},stop.get_token()),ErrorCode::cancelled);
+    check(shared.size()==sizeof(input),"failed transfer changed source ownership");
+    rejects(destination.move_buffer(shared,{},stop.get_token()),ErrorCode::cancelled);
+    check(bool(shared),"failed move released source ownership");
+    auto moved=take(destination.move_buffer(shared,{.chunk_bytes=8}));
+    check(!shared,"successful move did not release the caller's source handle");
+    output={};take(moved.read(std::as_writable_bytes(std::span(output))));
+    check(input==output,"moved buffer lost data");
+}
+bool bridge_cross(Backend api) {
+    auto first=make(api);const auto other=api==Backend::metal?Backend::vulkan:Backend::metal;
+    auto second=Device::create({.backend=other});
+    if(!second&&(second.error().code==ErrorCode::unsupported||second.error().code==ErrorCode::unavailable))return false;
+    auto destination=take(std::move(second));
+    std::array<std::uint32_t,4> input{9,8,7,6},output{};
+    auto source=take(first.buffer({sizeof(input)}));take(source.upload(std::as_bytes(std::span(input))));
+    auto imported=take(destination.move_buffer(source,{.memory=Memory::device,.chunk_bytes=8}));
+    auto readback=take(destination.buffer({sizeof(input)}));auto commands=destination.commands();
+    take(commands.copy(imported,readback,sizeof(input)));take(commands.finish());
+    take(take(destination.submit(std::move(commands))).wait());take(readback.read(std::as_writable_bytes(std::span(output))));
+    check(!source&&output==input,"cross-backend transfer lost ownership or data");return true;
+}
 void transform(const Device& d,const ComputePipeline& p) {
     std::vector<std::uint32_t> input(257),output(input.size());
     std::iota(input.begin(),input.end(),0xffff0000u);
@@ -108,6 +148,13 @@ void dispatch(Backend api) {
 void lifecycle(Backend api) {
     auto d=make(api,{.memory_budget=16384,.max_in_flight=1,.max_commands=2});
     auto a=take(d.buffer({4096}));
+    const auto allocated=d.stats().allocated_bytes;
+    check(allocated>=4096,"native allocation accounting");
+    take(d.set_memory_budget(allocated));
+    rejects(d.buffer({1}),ErrorCode::limit_exceeded);
+    rejects(d.set_memory_budget(allocated-1),ErrorCode::limit_exceeded);
+    check(take(d.memory_budget())==allocated,"rejected reduction changed device budget");
+    take(d.set_memory_budget(16384));
     rejects(d.buffer({16384}),ErrorCode::limit_exceeded);
     auto c=d.commands(); take(c.fill(a,0)); take(c.barrier());
     rejects(c.barrier(),ErrorCode::limit_exceeded); take(c.finish());
@@ -161,7 +208,8 @@ int main(int argc,char** argv) {
             throw std::runtime_error(probe.error().message);
         }
         const std::string name=argv[2];
-        if(name=="contracts") contracts(api); else if(name=="transfers") transfers(api);
+        if(name=="contracts") contracts(api); else if(name=="transfers") transfers(api); else if(name=="bridge") bridge(api);
+        else if(name=="bridge_cross") {if(!bridge_cross(api)){std::cout<<"SKIP other backend unavailable\n";return 77;}}
         else if(name=="dispatch") dispatch(api); else if(name=="lifecycle") lifecycle(api);
         else if(name=="concurrency") concurrency(api); else if(name=="interop") interop(api); else return 2;
         std::cout<<"EXECUTED "<<backend_name(api)<<" device="<<probe->adapter().name<<" hardware=true case="<<name<<'\n';
