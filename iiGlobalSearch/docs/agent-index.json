@@ -32,6 +32,13 @@
       "role": "guide"
     },
     {
+      "document_id": "urn:iisacc:document:4f5b290e0740dd3336c70e497927ce948cd8dc7a0d926171db019675bb067f2f",
+      "source": "docs/DynamicLinking.md",
+      "agent_json": "docs/DynamicLinking.agent.json",
+      "source_sha256": "b6e78cb0a85d1d35a5037cdbc1e74379cee86a9feee74a0bbc75df278a58d33c",
+      "role": "guide"
+    },
+    {
       "document_id": "urn:iisacc:document:a503b1c5ea6a935d1dafa834e86bc01cda552ae408343d1a3447da1b5380588b",
       "source": "docs/Indexing.md",
       "agent_json": "docs/Indexing.agent.json",
@@ -49,7 +56,7 @@
       "document_id": "urn:iisacc:document:c53020658f1bc0c3ea0af64154df692066fbcd660e87e271899d306f0fcd0468",
       "source": "docs/README.md",
       "agent_json": "docs/README.agent.json",
-      "source_sha256": "23c9782e5f6b67f1df110a82a647247c962c240ab1631bc43fea73965e34a4cd",
+      "source_sha256": "8ee0c249b632fc6c8a0482f1c2824974a33a722ed8a2512da4448e7746f12a8c",
       "role": "overview"
     },
     {

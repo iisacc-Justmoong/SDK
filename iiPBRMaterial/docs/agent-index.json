@@ -25,10 +25,17 @@
       "role": "overview"
     },
     {
+      "document_id": "urn:iisacc:document:037904cd533feccae02afe6fd2b2e384a811fc38e3c38b3e38eb555ef7d8e9a9",
+      "source": "docs/DynamicLinking.md",
+      "agent_json": "docs/DynamicLinking.agent.json",
+      "source_sha256": "52a46752ad044fed1bd07b6dd94d8416434a580dc97329a7327305f32156afa2",
+      "role": "guide"
+    },
+    {
       "document_id": "urn:iisacc:document:48d8092543899088c01f893dfe319178412300cf1dd58d20bceec39f2c050230",
       "source": "docs/README.md",
       "agent_json": "docs/README.agent.json",
-      "source_sha256": "71d97dc09c205fb0b3d6d8f6cf5457bb601fc9cd5dcf8c384f319a1f108efb18",
+      "source_sha256": "b9f6e1ab3c65bae57eaa244f3bd5d7eeeadab06ab9c01ddff3ec19c4a6507356",
       "role": "overview"
     },
     {

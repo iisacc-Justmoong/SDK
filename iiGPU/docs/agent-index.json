@@ -32,10 +32,17 @@
       "role": "reference"
     },
     {
+      "document_id": "urn:iisacc:document:85607e919563da50a8860f5245cc6fb88c7f0f6894394f5a2be5182341c776ee",
+      "source": "docs/DynamicLinking.md",
+      "agent_json": "docs/DynamicLinking.agent.json",
+      "source_sha256": "f964fd46b17c47cee7fe6d5ab2e948ae76cbe3ae9874d2abf6c3e677aad9f38c",
+      "role": "guide"
+    },
+    {
       "document_id": "urn:iisacc:document:4ac475614635725a7ccd279a088788e2be4011eb6459e2e221c7bdd5cfda19bc",
       "source": "docs/README.md",
       "agent_json": "docs/README.agent.json",
-      "source_sha256": "2d8e16f785e1a158997c24ea04fa01f916967f0de258979aa567a774e140b9c3",
+      "source_sha256": "5d9357ee7eb8c752ac45a0188b65f879e4f838b202286efb6c9bd4918e6eacfc",
       "role": "overview"
     },
     {

@@ -1,4 +1,5 @@
 #include "GlobalSearch.h"
+#include "JsonValue.h"
 
 #include <DirectoryStorage.h>
 #include <FileCatalog.h>
@@ -20,7 +21,7 @@
 
 namespace iiGlobalSearch {
 namespace fs = std::filesystem;
-using CoreValue = ii::json::Value;
+using CoreValue = ii::core::Value;
 
 namespace {
 std::string text(const fs::path& path) {
@@ -69,7 +70,7 @@ void appendStrings(const CoreValue& value, std::string& output) {
 }
 struct Metadata { std::string title, key, terms; };
 Metadata classification(const std::string& document) {
-    const auto parsed = ii::json::parse(document);
+    const auto parsed = detail::parseCoreJson(document);
     if (!parsed) throw std::runtime_error("Provider classification is invalid JSON");
     const auto* metadata = field(*parsed, "metadata");
     if (!metadata) throw std::runtime_error("Provider classification has no metadata");
@@ -137,7 +138,7 @@ FileObject fromEntry(const iiFileProvider::FileSearchEntry& entry, const Snapsho
     result.type=objectType(result.relativePath,result.mimeType,result.extension); result.size=entry.size;
     result.hasClassification=entry.hasClassification; result.metadataPending=entry.metadataPending;
     if (entry.hasClassification) {
-        if (auto document=ii::json::parse(entry.classification)) {
+        if (auto document=detail::parseCoreJson(entry.classification)) {
             result.classification=*document;
             result.revision=nonnegativeInteger(field(*document,"revision"));
             if (const auto* metadata=field(*document,"metadata")) {
@@ -695,7 +696,7 @@ Answer localAnswer(const std::vector<Result>& results, const Progress& status, c
             {"hasClassification", iiGlobalSearch::Value(item.hasClassification)},
             {"hasPresentation", iiGlobalSearch::Value(item.hasPresentation)}, {"metadataPending", iiGlobalSearch::Value(item.metadataPending)}};
         if (item.hasClassification) {
-            auto parsed = ii::json::parse(item.classification);
+            auto parsed = detail::parseCoreJson(item.classification);
             if (parsed) fields.emplace("classification", iiGlobalSearch::Value::fromCore(*parsed));
         }
         if (auto asset = localAsset(item, root)) fields.emplace("value", std::move(*asset));

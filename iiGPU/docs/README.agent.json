@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/README.md",
-    "sha256": "2d8e16f785e1a158997c24ea04fa01f916967f0de258979aa567a774e140b9c3",
-    "bytes": 1218,
-    "line_count": 24,
+    "sha256": "5d9357ee7eb8c752ac45a0188b65f879e4f838b202286efb6c9bd4918e6eacfc",
+    "bytes": 1304,
+    "line_count": 25,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -124,8 +124,8 @@
       "id": "b000012",
       "kind": "table",
       "start_line": 15,
-      "end_line": 23,
-      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/Contracts.md`](Contracts.md) | [JSON](Contracts.agent.json) |\n| [`docs/Verification.md`](Verification.md) | [JSON](Verification.agent.json) |\n| [`docs/WebGPUContract.md`](WebGPUContract.md) | [JSON](WebGPUContract.agent.json) |\n| [`docs/WebGPUVerification.md`](WebGPUVerification.md) | [JSON](WebGPUVerification.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n",
+      "end_line": 24,
+      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/Contracts.md`](Contracts.md) | [JSON](Contracts.agent.json) |\n| [`docs/DynamicLinking.md`](DynamicLinking.md) | [JSON](DynamicLinking.agent.json) |\n| [`docs/Verification.md`](Verification.md) | [JSON](Verification.agent.json) |\n| [`docs/WebGPUContract.md`](WebGPUContract.md) | [JSON](WebGPUContract.agent.json) |\n| [`docs/WebGPUVerification.md`](WebGPUVerification.md) | [JSON](WebGPUVerification.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n",
       "columns": [
         "Document",
         "Agent JSON"
@@ -142,6 +142,10 @@
         [
           "[`docs/Contracts.md`](Contracts.md)",
           "[JSON](Contracts.agent.json)"
+        ],
+        [
+          "[`docs/DynamicLinking.md`](DynamicLinking.md)",
+          "[JSON](DynamicLinking.agent.json)"
         ],
         [
           "[`docs/Verification.md`](Verification.md)",
@@ -164,8 +168,8 @@
     {
       "id": "b000013",
       "kind": "html",
-      "start_line": 24,
-      "end_line": 24,
+      "start_line": 25,
+      "end_line": 25,
       "raw": "<!-- workspace-docs:document-map:end -->\n"
     }
   ],
@@ -256,59 +260,73 @@
       },
       {
         "block_id": "b000012",
+        "label": "`docs/DynamicLinking.md`",
+        "target": "DynamicLinking.md",
+        "kind": "relative",
+        "line": 20
+      },
+      {
+        "block_id": "b000012",
+        "label": "JSON",
+        "target": "DynamicLinking.agent.json",
+        "kind": "relative",
+        "line": 20
+      },
+      {
+        "block_id": "b000012",
         "label": "`docs/Verification.md`",
         "target": "Verification.md",
         "kind": "relative",
-        "line": 20
+        "line": 21
       },
       {
         "block_id": "b000012",
         "label": "JSON",
         "target": "Verification.agent.json",
         "kind": "relative",
-        "line": 20
+        "line": 21
       },
       {
         "block_id": "b000012",
         "label": "`docs/WebGPUContract.md`",
         "target": "WebGPUContract.md",
         "kind": "relative",
-        "line": 21
+        "line": 22
       },
       {
         "block_id": "b000012",
         "label": "JSON",
         "target": "WebGPUContract.agent.json",
         "kind": "relative",
-        "line": 21
+        "line": 22
       },
       {
         "block_id": "b000012",
         "label": "`docs/WebGPUVerification.md`",
         "target": "WebGPUVerification.md",
         "kind": "relative",
-        "line": 22
+        "line": 23
       },
       {
         "block_id": "b000012",
         "label": "JSON",
         "target": "WebGPUVerification.agent.json",
         "kind": "relative",
-        "line": 22
+        "line": 23
       },
       {
         "block_id": "b000012",
         "label": "`docs/documentation-structure.md`",
         "target": "documentation-structure.md",
         "kind": "relative",
-        "line": 23
+        "line": 24
       },
       {
         "block_id": "b000012",
         "label": "JSON",
         "target": "documentation-structure.agent.json",
         "kind": "relative",
-        "line": 23
+        "line": 24
       }
     ],
     "tables": [
@@ -330,6 +348,10 @@
           [
             "[`docs/Contracts.md`](Contracts.md)",
             "[JSON](Contracts.agent.json)"
+          ],
+          [
+            "[`docs/DynamicLinking.md`](DynamicLinking.md)",
+            "[JSON](DynamicLinking.agent.json)"
           ],
           [
             "[`docs/Verification.md`](Verification.md)",

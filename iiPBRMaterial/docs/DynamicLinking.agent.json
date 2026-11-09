@@ -1,0 +1,85 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:037904cd533feccae02afe6fd2b2e384a811fc38e3c38b3e38eb555ef7d8e9a9",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiPBRMaterial",
+    "name": "iiPBRMaterial",
+    "root": "SDK/iiPBRMaterial",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "docs/DynamicLinking.md",
+    "sha256": "52a46752ad044fed1bd07b6dd94d8416434a580dc97329a7327305f32156afa2",
+    "bytes": 736,
+    "line_count": 11,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "동적 라이브러리 빌드",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# 동적 라이브러리 빌드\n",
+      "level": 1,
+      "title": "동적 라이브러리 빌드"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 7,
+      "raw": "iiPBRMaterial 라이브러리는 기본적으로 공유 라이브러리로 빌드한다.\n`BUILD_SHARED_LIBS=OFF`는 동적 로더를 사용할 수 없는 환경 등을 위한 명시적\n정적 빌드 선택이다. Windows에서는 DLL과 가져오기 라이브러리, iOS에서는\n프레임워크, WebAssembly에서는 사이드 모듈로 구성한다. 앱에는 사용한 모듈과\n그 런타임 종속성만 패키징한다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 9,
+      "end_line": 11,
+      "raw": "기본 공유 빌드 검사는 대상 유형과 테스트 실행 파일의 직접 동적 연결을 확인한다.\n플랫폼별 구성은 해당 도구 체인으로 빌드해야 하며 이 검사가 다른 운영체제나\n실기기에서의 실행을 보장하지는 않는다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "동적 라이브러리 빌드",
+      "anchor": "동적-라이브러리-빌드",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

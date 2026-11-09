@@ -1,0 +1,114 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:85607e919563da50a8860f5245cc6fb88c7f0f6894394f5a2be5182341c776ee",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiGPU",
+    "name": "iiGPU",
+    "root": "SDK/iiGPU",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "docs/DynamicLinking.md",
+    "sha256": "f964fd46b17c47cee7fe6d5ab2e948ae76cbe3ae9874d2abf6c3e677aad9f38c",
+    "bytes": 1195,
+    "line_count": 14,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "동적 라이브러리 빌드",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# 동적 라이브러리 빌드\n",
+      "level": 1,
+      "title": "동적 라이브러리 빌드"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 6,
+      "raw": "GPU, 선택적 런타임과 WebGPU 구성 요소는 기본적으로 각각 공유 라이브러리로\n빌드한다. 기존 정적 연결은 `BUILD_SHARED_LIBS=OFF`로 선택한다. Windows DLL,\niOS 프레임워크, WebAssembly 사이드 모듈에 맞춰 설치하며 대상별 Dawn 배포본과\n플랫폼 GPU 런타임이 필요하다. 선택한 SDK 기능과 필요한 런타임만 앱에 포함한다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 8,
+      "end_line": 9,
+      "raw": "공유 연결 테스트는 대상 유형과 소비 실행 파일의 종속성을 확인하며 앱을 띄우거나\nGPU 실행을 보장하지 않는다. 장치 가속은 별도 환경에서 검증해야 한다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 10,
+      "end_line": 10,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 11,
+      "end_line": 14,
+      "raw": "Emscripten 소비자 설정은 공유 사이드 모듈을 가져오기 전에 CMake의 공유 라이브러리 지원을 활성화한다. 앱의 메인 모듈 컴파일·링크 옵션은 빌더 또는 앱이 지정해야 한다.\n오래된 Emscripten C++ 라이브러리에서는 취소 토큰 지원을 검사하고 필요한 실험적\n라이브러리 옵션을 소비자에게 전달한다. 완료 관찰 런타임은 pthread가 필요하다.\n설치된 런타임은 연쇄 iiGPU 사이드 모듈을 찾도록 링크 검색 경로도 제공한다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "동적 라이브러리 빌드",
+      "anchor": "동적-라이브러리-빌드",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000005",
+        "line": 9,
+        "text": "GPU 실행을 보장하지 않는다. 장치 가속은 별도 환경에서 검증해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000007",
+        "line": 11,
+        "text": "Emscripten 소비자 설정은 공유 사이드 모듈을 가져오기 전에 CMake의 공유 라이브러리 지원을 활성화한다. 앱의 메인 모듈 컴파일·링크 옵션은 빌더 또는 앱이 지정해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

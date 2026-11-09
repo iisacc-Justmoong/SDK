@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/README.md",
-    "sha256": "34ef424d277a9180c12a7f93f474d9c31d3b2703b4563f871d832d42effc2838",
-    "bytes": 629,
-    "line_count": 14,
+    "sha256": "e0ab4d436e43ea2b01282568c9c3a4bc778516bb96fb653937b7e479b06cdd2d",
+    "bytes": 715,
+    "line_count": 15,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -79,8 +79,8 @@
       "id": "b000008",
       "kind": "table",
       "start_line": 8,
-      "end_line": 13,
-      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/architecture.md`](architecture.md) | [JSON](architecture.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n",
+      "end_line": 14,
+      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/DynamicLinking.md`](DynamicLinking.md) | [JSON](DynamicLinking.agent.json) |\n| [`docs/architecture.md`](architecture.md) | [JSON](architecture.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n",
       "columns": [
         "Document",
         "Agent JSON"
@@ -95,6 +95,10 @@
           "[JSON](entrypoints/README.agent.json)"
         ],
         [
+          "[`docs/DynamicLinking.md`](DynamicLinking.md)",
+          "[JSON](DynamicLinking.agent.json)"
+        ],
+        [
           "[`docs/architecture.md`](architecture.md)",
           "[JSON](architecture.agent.json)"
         ],
@@ -107,8 +111,8 @@
     {
       "id": "b000009",
       "kind": "html",
-      "start_line": 14,
-      "end_line": 14,
+      "start_line": 15,
+      "end_line": 15,
       "raw": "<!-- workspace-docs:document-map:end -->\n"
     }
   ],
@@ -164,31 +168,45 @@
       },
       {
         "block_id": "b000008",
+        "label": "`docs/DynamicLinking.md`",
+        "target": "DynamicLinking.md",
+        "kind": "relative",
+        "line": 12
+      },
+      {
+        "block_id": "b000008",
+        "label": "JSON",
+        "target": "DynamicLinking.agent.json",
+        "kind": "relative",
+        "line": 12
+      },
+      {
+        "block_id": "b000008",
         "label": "`docs/architecture.md`",
         "target": "architecture.md",
         "kind": "relative",
-        "line": 12
+        "line": 13
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "architecture.agent.json",
         "kind": "relative",
-        "line": 12
+        "line": 13
       },
       {
         "block_id": "b000008",
         "label": "`docs/documentation-structure.md`",
         "target": "documentation-structure.md",
         "kind": "relative",
-        "line": 13
+        "line": 14
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "documentation-structure.agent.json",
         "kind": "relative",
-        "line": 13
+        "line": 14
       }
     ],
     "tables": [
@@ -206,6 +224,10 @@
           [
             "[`README.md`](../README.md)",
             "[JSON](entrypoints/README.agent.json)"
+          ],
+          [
+            "[`docs/DynamicLinking.md`](DynamicLinking.md)",
+            "[JSON](DynamicLinking.agent.json)"
           ],
           [
             "[`docs/architecture.md`](architecture.md)",

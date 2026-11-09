@@ -4,6 +4,10 @@ project(iiGlobalSearch VERSION 0.1.0 LANGUAGES CXX)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CTest)
+option(BUILD_SHARED_LIBS "Build SDK libraries as shared libraries" ON)
+if(EMSCRIPTEN AND BUILD_SHARED_LIBS)
+    set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS TRUE)
+endif()
 option(IIGLOBALSEARCH_BUILD_EXAMPLES "Build examples" OFF)
 option(IIGLOBALSEARCH_BUILD_BENCHMARKS "Build benchmarks" OFF)
 include(cmake/SourceHeaders.cmake)
@@ -27,7 +31,7 @@ target_include_directories(iiGlobalSearchAnswer PUBLIC
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/iiGlobalSearch>)
 target_link_libraries(iiGlobalSearchAnswer PUBLIC iiSDKCore::Values PRIVATE iiSDKCore::Runtime)
 
-add_library(iiGlobalSearch src/Local/GlobalSearch.cpp src/Local/LocalAsset.cpp)
+add_library(iiGlobalSearch src/Local/GlobalSearch.cpp src/Local/LocalAsset.cpp src/Local/JsonValue.cpp)
 add_library(iiGlobalSearch::iiGlobalSearch ALIAS iiGlobalSearch)
 target_compile_features(iiGlobalSearch PUBLIC cxx_std_23)
 target_include_directories(iiGlobalSearch PUBLIC
@@ -36,7 +40,7 @@ target_include_directories(iiGlobalSearch PUBLIC
 target_link_libraries(iiGlobalSearch PUBLIC iiGlobalSearchAnswer PRIVATE iiSDKCore::Runtime iiJson::iiJson
     iiFileProvider::Catalog iiFileProvider::Native iiSocietyContainer::FileTree)
 
-add_library(iiGlobalSearchWeb src/Web/WebSearch.cpp src/Web/WebHtml.cpp src/Web/WebRenderer.cpp src/Web/DirectoryEvents.cpp src/Web/WebCli.cpp)
+add_library(iiGlobalSearchWeb src/Web/WebSearch.cpp src/Web/WebHtml.cpp src/Web/WebRenderer.cpp src/Web/DirectoryEvents.cpp src/Web/WebCli.cpp src/Local/JsonValue.cpp)
 add_library(iiGlobalSearch::Web ALIAS iiGlobalSearchWeb)
 set_target_properties(iiGlobalSearchWeb PROPERTIES EXPORT_NAME Web)
 target_compile_features(iiGlobalSearchWeb PUBLIC cxx_std_23)
@@ -45,6 +49,22 @@ target_include_directories(iiGlobalSearchWeb PUBLIC
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/iiGlobalSearch>)
 target_link_libraries(iiGlobalSearchWeb PUBLIC iiGlobalSearchAnswer PRIVATE iiSDKCore::Runtime iiJson::iiJson iiFileProvider::Native
     iiNetwork::iiNetwork LibXml2::LibXml2 CURL::libcurl)
+foreach(_target IN ITEMS iiGlobalSearchAnswer iiGlobalSearch iiGlobalSearchWeb)
+    set_target_properties(${_target} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+    if(BUILD_SHARED_LIBS)
+        if(CMAKE_SYSTEM_NAME STREQUAL "iOS")
+            set_target_properties(${_target} PROPERTIES FRAMEWORK TRUE FRAMEWORK_VERSION A
+                MACOSX_FRAMEWORK_IDENTIFIER "com.iisacc.${_target}")
+        elseif(EMSCRIPTEN)
+            target_compile_options(${_target} PRIVATE -fPIC -sSIDE_MODULE=1)
+            target_link_options(${_target} PRIVATE -sSIDE_MODULE=1)
+        elseif(APPLE)
+            set_property(TARGET ${_target} APPEND PROPERTY INSTALL_RPATH "@loader_path")
+        elseif(UNIX)
+            set_property(TARGET ${_target} APPEND PROPERTY INSTALL_RPATH "$ORIGIN")
+        endif()
+    endif()
+endforeach()
 
 if(IIGLOBALSEARCH_BUILD_EXAMPLES)
     add_library(iiGlobalSearchExample OBJECT example/search.cpp)
@@ -60,6 +80,10 @@ if(IIGLOBALSEARCH_BUILD_BENCHMARKS)
 endif()
 
 if(BUILD_TESTING)
+    add_executable(iiGlobalSearchJsonValueTests tests/JsonValue.cpp src/Local/JsonValue.cpp)
+    target_compile_features(iiGlobalSearchJsonValueTests PRIVATE cxx_std_23)
+    target_link_libraries(iiGlobalSearchJsonValueTests PRIVATE iiSDKCore::Runtime iiJson::iiJson)
+    add_test(NAME iiGlobalSearch.json_value COMMAND iiGlobalSearchJsonValueTests)
     if(CMAKE_GENERATOR MATCHES "Ninja|Makefiles")
         add_test(NAME iiGlobalSearch.build_targets COMMAND ${CMAKE_COMMAND}
             -DBUILD_DIR=${CMAKE_BINARY_DIR}
@@ -83,6 +107,15 @@ if(BUILD_TESTING)
     add_executable(iiGlobalSearchWebTests tests/WebSearchUnit.cpp)
     target_link_libraries(iiGlobalSearchWebTests PRIVATE iiGlobalSearchWeb iiNetwork::iiNetwork)
     add_test(NAME iiGlobalSearch.web COMMAND iiGlobalSearchWebTests)
+    if(NOT CMAKE_CROSSCOMPILING AND (NOT DEFINED BUILD_SHARED_LIBS OR BUILD_SHARED_LIBS))
+        foreach(_pair IN ITEMS "iiGlobalSearchAnswer;iiGlobalSearchAnswerTests" "iiGlobalSearch;iiGlobalSearchTests" "iiGlobalSearchWeb;iiGlobalSearchWebTests")
+            list(GET _pair 0 _library)
+            list(GET _pair 1 _image)
+            add_test(NAME ${_library}.SharedLink COMMAND ${CMAKE_COMMAND}
+                "-DLIBRARY_TYPE=$<TARGET_PROPERTY:${_library},TYPE>" "-DLIBRARY=$<TARGET_FILE:${_library}>"
+                "-DIMAGE=$<TARGET_FILE:${_image}>" -P "${CMAKE_CURRENT_SOURCE_DIR}/tests/shared_link.cmake")
+        endforeach()
+    endif()
     set_tests_properties(iiGlobalSearch.web PROPERTIES TIMEOUT 30)
     add_executable(iiGlobalSearchDirectoryEventsTests tests/DirectoryEvents.cpp)
     target_link_libraries(iiGlobalSearchDirectoryEventsTests PRIVATE iiGlobalSearchWeb iiFileProvider::Native)
@@ -107,14 +140,16 @@ if(BUILD_TESTING)
 endif()
 
 install(TARGETS iiGlobalSearchAnswer EXPORT iiGlobalSearchAnswerTargets
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(EXPORT iiGlobalSearchAnswerTargets NAMESPACE iiGlobalSearch::
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/iiGlobalSearch)
 install(TARGETS iiGlobalSearch EXPORT iiGlobalSearchTargets
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(TARGETS iiGlobalSearchWeb EXPORT iiGlobalSearchWebTargets
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(TARGETS ii-global-search RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES src/Answers/Answer.h src/Local/GlobalSearch.h src/Web/WebSearch.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/iiGlobalSearch)
 install(FILES resources/web-seeds.txt DESTINATION ${CMAKE_INSTALL_DATADIR}/iiGlobalSearch)

@@ -2,6 +2,7 @@
 #include "WebHtml.h"
 #include "WebRenderer.h"
 #include "WebWait.h"
+#include "../Local/JsonValue.h"
 #include <iiNetwork/Http.h>
 #include <iiJson/Json.h>
 #include <iiNetwork/Address.h>
@@ -212,7 +213,7 @@ Answer webAnswer(const WebProgress& status, const std::vector<WebDocument>& page
                 graph.edges.push_back({std::to_string(node.parent), std::to_string(i), "child", {}});
         }
         for (const auto& json : page.structuredData) {
-            auto parsed = ii::json::parse(json);
+            auto parsed = detail::parseCoreJson(json);
             structured.push_back(parsed ? Value::fromCore(*parsed) : Value(json));
         }
         Value::Object fields{{"url", Value(page.url)}, {"canonicalUrl", Value(page.canonicalUrl)},

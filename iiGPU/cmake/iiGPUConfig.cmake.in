@@ -1,4 +1,9 @@
 @PACKAGE_INIT@
+if(EMSCRIPTEN)
+    # Emscripten supports side modules although its CMake toolchain defaults
+    # the shared-library capability to false.
+    set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS TRUE)
+endif()
 include(CMakeFindDependencyMacro)
 find_dependency(Threads)
 if(@IIGPU_HAS_VULKAN@)
@@ -12,6 +17,11 @@ set(iiGPU_WebGPU_FOUND @IIGPU_HAS_WEBGPU@)
 set(iiGPU_EXAMPLE_DIR "${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_DATADIR@/iiGPU/example/Acceleration")
 if("Runtime" IN_LIST iiGPU_FIND_COMPONENTS AND iiGPU_Runtime_FOUND)
     include("${CMAKE_CURRENT_LIST_DIR}/iiGPURuntimeTargets.cmake")
+    if(EMSCRIPTEN)
+        # emcc searches -L for the Runtime side module's iiGPU dependency.
+        set_property(TARGET iiGPU::Runtime APPEND PROPERTY INTERFACE_LINK_DIRECTORIES
+            "$<TARGET_FILE_DIR:iiGPU::iiGPU>")
+    endif()
 endif()
 if("WebGPU" IN_LIST iiGPU_FIND_COMPONENTS AND iiGPU_WebGPU_FOUND)
     if(NOT TARGET dawn::webgpu_dawn)

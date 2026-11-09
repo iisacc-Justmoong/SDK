@@ -1,3 +1,8 @@
 @PACKAGE_INIT@
+if(EMSCRIPTEN AND @BUILD_SHARED_LIBS@)
+    # Emscripten's CMake toolchain defaults to static libraries even when the
+    # installed SDK was deliberately built as a WebAssembly side module.
+    set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS TRUE)
+endif()
 include("${CMAKE_CURRENT_LIST_DIR}/iiPBRMaterialTargets.cmake")
 check_required_components(iiPBRMaterial)

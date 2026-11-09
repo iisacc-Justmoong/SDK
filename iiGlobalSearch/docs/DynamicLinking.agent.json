@@ -1,0 +1,107 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:4f5b290e0740dd3336c70e497927ce948cd8dc7a0d926171db019675bb067f2f",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiGlobalSearch",
+    "name": "iiGlobalSearch",
+    "root": "SDK/iiGlobalSearch",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "docs/DynamicLinking.md",
+    "sha256": "b6e78cb0a85d1d35a5037cdbc1e74379cee86a9feee74a0bbc75df278a58d33c",
+    "bytes": 1041,
+    "line_count": 15,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "동적 라이브러리 빌드",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# 동적 라이브러리 빌드\n",
+      "level": 1,
+      "title": "동적 라이브러리 빌드"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 7,
+      "raw": "Answer, 로컬 검색과 웹 검색 라이브러리는 기본적으로 공유 라이브러리로 빌드한다.\n`BUILD_SHARED_LIBS=OFF`는 동적 로더를 사용할 수 없는 환경 등을 위한 명시적\n정적 빌드 선택이다. Windows에서는 DLL과 가져오기 라이브러리, iOS에서는\n프레임워크, WebAssembly에서는 사이드 모듈로 구성한다. 앱에는 사용한 모듈과\n그 런타임 종속성만 패키징한다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 9,
+      "end_line": 11,
+      "raw": "기본 공유 빌드 검사는 대상 유형과 테스트 실행 파일의 직접 동적 연결을 확인한다.\n플랫폼별 구성은 해당 도구 체인으로 빌드해야 하며 이 검사가 다른 운영체제나\n실기기에서의 실행을 보장하지는 않는다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 12,
+      "end_line": 12,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 13,
+      "end_line": 15,
+      "raw": "검색 결과에 포함하는 JSON은 iiJson의 제한을 적용해 파싱한 뒤 검색 API가 소유하는\niiSDKCore 값으로 명시적으로 변환한다. 배열·객체의 중첩과 수치 유형을 보존하며\n잘못된 JSON은 기존처럼 결과에 삽입하지 않는다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "동적 라이브러리 빌드",
+      "anchor": "동적-라이브러리-빌드",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000007",
+        "line": 15,
+        "text": "잘못된 JSON은 기존처럼 결과에 삽입하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}
