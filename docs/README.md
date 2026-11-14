@@ -18,6 +18,7 @@ Markdown is the maintained human source. Agent JSON is a structured, source-trac
 | [`docs/Installation.md`](Installation.md) | [JSON](Installation.agent.json) |
 | [`docs/ModuleConsolidation.md`](ModuleConsolidation.md) | [JSON](ModuleConsolidation.agent.json) |
 | [`docs/ModuleNames.md`](ModuleNames.md) | [JSON](ModuleNames.agent.json) |
+| [`docs/ModuleViewMigration.md`](ModuleViewMigration.md) | [JSON](ModuleViewMigration.agent.json) |
 | [`docs/PERFORMANCE_REVIEW.md`](PERFORMANCE_REVIEW.md) | [JSON](PERFORMANCE_REVIEW.agent.json) |
 | [`docs/PERFORMANCE_REVIEW_20261020.md`](PERFORMANCE_REVIEW_20261020.md) | [JSON](PERFORMANCE_REVIEW_20261020.agent.json) |
 | [`docs/PatchRelease-20261019.md`](PatchRelease-20261019.md) | [JSON](PatchRelease-20261019.agent.json) |

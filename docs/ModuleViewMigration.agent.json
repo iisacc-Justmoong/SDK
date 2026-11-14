@@ -1,0 +1,122 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:422e333288aa1895eb1c06d6c2f23e5924080bd9dca08b70b4413003513376d7",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "docs/ModuleViewMigration.md",
+    "sha256": "0032c47295c44ebae48a7d6d8a5decbd6925bca1556eb713be86f33be725c468",
+    "bytes": 1783,
+    "line_count": 32,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "SDK module view migration boundary",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# SDK module view migration boundary\n",
+      "level": 1,
+      "title": "SDK module view migration boundary"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 9,
+      "raw": "An SDK module's maintained user interface is declared in LVUI and mounted by\nan application through the module's C++ presentation model. The application\nowns the iiGUI host and connects any services through interfaces. The model\nmay use the iiSDKCore runtime; it does not gain an iiGUI or LVUI dependency.\nLegacy Qt Quick views and their QML-only hosts belong under a `Legacy` directory.\nThe LVRS and LVRS-Svelte projects are themselves legacy systems and are not\nrewritten by this migration.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 10,
+      "end_line": 10,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 11,
+      "end_line": 17,
+      "raw": "The source inventory covers the entire maintained tree of each `ii*` module\nand LVUI, including resources, examples, tests and untracked files. It omits\nhidden directories, `Legacy`, generated builds, third-party trees and symbolic\nlinks. QML compatibility fixtures also belong under a `Legacy` directory. The\ncheck does not inspect generated builds, installed packages, or application\nrepositories, and a clean inventory does not prove that an app mounts its\nLVUI replacement. Run it with:\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 18,
+      "end_line": 18,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "fenced_code",
+      "start_line": 19,
+      "end_line": 22,
+      "raw": "```sh\npython3 -B tools/audit_module_views.py\npython3 -B tests/test_module_views.py\n```\n",
+      "language": "sh",
+      "code": "python3 -B tools/audit_module_views.py\npython3 -B tests/test_module_views.py\n",
+      "closed": true
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 23,
+      "end_line": 23,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 24,
+      "end_line": 32,
+      "raw": "The replacements are iiLicenseManager's license gate, iiAccountManager's\naccount flow, iiPhotoLibrary's gallery and iiMultimodalAgent's question sheet.\nEach module's paired view documentation describes its service adapter, tests,\nand remaining feature and platform boundaries. Society and Dreamscapes still\ncontain consumers of isolated QML views; their native host migration is not\nimplied by the module source inventory. Dreamscapes has macOS native question\nand license gate integrations, and Society has native question and account\nintegrations in source, all with legacy fallbacks. Other module views, other platforms and\nactual window display remain separate work.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "SDK module view migration boundary",
+      "anchor": "sdk-module-view-migration-boundary",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [
+      {
+        "block_id": "b000007",
+        "language": "sh",
+        "code": "python3 -B tools/audit_module_views.py\npython3 -B tests/test_module_views.py\n"
+      }
+    ],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

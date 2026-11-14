@@ -235,7 +235,6 @@ weights retain their respective licenses.
 - [`SDK/iiGeneralDocument`](iiGeneralDocument/README.md)
 - [`SDK/iiGlobalSearch`](iiGlobalSearch/README.md)
 - [`SDK/iiGraphicAdjust`](iiGraphicAdjust/README.md)
-- [`SDK/iiJob`](iiJob/README.md)
 - [`SDK/iiJson`](iiJson/README.md)
 - [`SDK/iiLicenseManager`](iiLicenseManager/README.md)
 - [`SDK/iiLocalDiffusion`](iiLocalDiffusion/README.md)
