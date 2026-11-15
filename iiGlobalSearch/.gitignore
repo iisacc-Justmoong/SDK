@@ -3,3 +3,4 @@
 .iisacc-temporary.lock
 
 .*.iisacc-preview
+resources/
