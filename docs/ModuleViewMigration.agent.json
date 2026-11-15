@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/ModuleViewMigration.md",
-    "sha256": "0032c47295c44ebae48a7d6d8a5decbd6925bca1556eb713be86f33be725c468",
-    "bytes": 1783,
-    "line_count": 32,
+    "sha256": "f06580dea86d7aae5a515e7c1d51d65787d239e56e527c82957ed468b4f2468f",
+    "bytes": 13240,
+    "line_count": 198,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -56,39 +56,276 @@
       "id": "b000005",
       "kind": "paragraph",
       "start_line": 11,
-      "end_line": 17,
-      "raw": "The source inventory covers the entire maintained tree of each `ii*` module\nand LVUI, including resources, examples, tests and untracked files. It omits\nhidden directories, `Legacy`, generated builds, third-party trees and symbolic\nlinks. QML compatibility fixtures also belong under a `Legacy` directory. The\ncheck does not inspect generated builds, installed packages, or application\nrepositories, and a clean inventory does not prove that an app mounts its\nLVUI replacement. Run it with:\n"
+      "end_line": 15,
+      "raw": "The current scope is replacement of module-owned `.qml` view declarations\nwith `.lvui` declarations and isolation of their old QML. Existing C++ Qt Quick\nitems and further platform or rendering-framework development are outside\nthis change. Source replacement alone does not establish full behavior or\nensure every existing application has selected its native view path.\n"
     },
     {
       "id": "b000006",
       "kind": "blank",
-      "start_line": 18,
-      "end_line": 18,
+      "start_line": 16,
+      "end_line": 16,
       "raw": "\n"
     },
     {
       "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 17,
+      "end_line": 24,
+      "raw": "iiAccountManager's legacy Quick component is excluded from new builds by\ndefault. Existing Qt applications that still require its fallback must build\nthat SDK explicitly with `IIACCOUNTMANAGER_BUILD_QUICK=ON`; existing CMake\ncache choices remain intact. A package built without Quick also ignores stale\nQuick exports in an upgraded install prefix; it does not delete existing files.\niiPhotoLibrary's default service and installed-consumer tests no longer load\nor link the old Qt Quick/LVRS view. Its historical QML view checks remain available\nwith `IIPHOTOLIBRARY_TEST_LEGACY_QML=ON`.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 25,
+      "end_line": 25,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 26,
+      "end_line": 38,
+      "raw": "The source inventory covers maintained directories throughout SDK, including\nprojects whose names do not begin with `ii`, LVUI, resources, examples, tests\nand untracked files. The legacy LVRS and LVRS-Svelte projects are excluded.\nHidden directories, `Legacy`, generated builds, third-party trees (including\nPython `site-packages` and `dist-packages`) and symbolic links are also excluded.\nThe staged upstream Dawn distribution at `iiGPU/resources/dawn` is an explicit\nexternal-tree exclusion; similarly named directories elsewhere remain in scope.\nQML compatibility fixtures belong under a `Legacy` directory. The inventory\nalso reports literal `QtQuick`, `QtQml`, and `LVRS` import declarations embedded in C, C++,\nObjective-C, Python and JavaScript source files; dynamically assembled source\nand other embedding formats still require review. The check does not inspect\ngenerated builds, installed packages or application repositories, and a clean\ninventory does not prove that an app mounts its LVUI replacement. Run it with:\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 39,
+      "end_line": 39,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
       "kind": "fenced_code",
-      "start_line": 19,
-      "end_line": 22,
+      "start_line": 40,
+      "end_line": 43,
       "raw": "```sh\npython3 -B tools/audit_module_views.py\npython3 -B tests/test_module_views.py\n```\n",
       "language": "sh",
       "code": "python3 -B tools/audit_module_views.py\npython3 -B tests/test_module_views.py\n",
       "closed": true
     },
     {
-      "id": "b000008",
+      "id": "b000012",
       "kind": "blank",
-      "start_line": 23,
-      "end_line": 23,
+      "start_line": 44,
+      "end_line": 44,
       "raw": "\n"
     },
     {
-      "id": "b000009",
+      "id": "b000013",
       "kind": "paragraph",
-      "start_line": 24,
-      "end_line": 32,
-      "raw": "The replacements are iiLicenseManager's license gate, iiAccountManager's\naccount flow, iiPhotoLibrary's gallery and iiMultimodalAgent's question sheet.\nEach module's paired view documentation describes its service adapter, tests,\nand remaining feature and platform boundaries. Society and Dreamscapes still\ncontain consumers of isolated QML views; their native host migration is not\nimplied by the module source inventory. Dreamscapes has macOS native question\nand license gate integrations, and Society has native question and account\nintegrations in source, all with legacy fallbacks. Other module views, other platforms and\nactual window display remain separate work.\n"
+      "start_line": 45,
+      "end_line": 67,
+      "raw": "On 2026-11-15 the expanded inventory reported zero unisolated QML files and\nzero literal `QtQuick`, `QtQml`, or `LVRS` imports in the scanned source files; six audit\nregressions passed. Regression fixtures cover project names without\nthe `ii` prefix, third-party Python package directories, similarly named\nmaintained directories, the path-specific Dawn exclusion, embedded raw and escaped declarations, and the\nlegacy-system and user-data exclusions. The account and agent question QML\ntests now live in `tests/Legacy`; mixed photo and canvas tests keep their QML\ndeclaration fixtures there while retaining their non-QML checks. LVUI's QML\nobservation tests also load their unchanged input examples from `tests/Legacy`.\nWith the same staged LVUI compiler and iiSDKCore runtime, the four generated\nLVUI view consumers passed headless macOS tests. Those consumers use the\nstatic iiGUI test package to access its internal test host. A Society macOS\nbundle was separately rebuilt against the shared iiGUI package, and its native\naccount presenter and view passed offscreen tests. The application was not\nlaunched or installed. One first photo-consumer attempt selected an older\nphoto presentation staging prefix and failed; the test passed after selecting\nthe current `lvui-photo-info-stage` package. These staging checks do not\nreplace the installed SDK or establish equivalence on other platforms.\nThe account, photo-information, and agent-question sheets explicitly select\nautomatic platform presentation: desktop consumers are centered, while mobile\ntargets use the native mobile sheet mode. Headless macOS checks cover the\ndesktop placement; the question view also covers scrolling and submitting a\nlong request in a small viewport. These are not device-display checks.\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 68,
+      "end_line": 68,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 69,
+      "end_line": 73,
+      "raw": "The System design's account, photo, question and license frames were checked\nagainst the published LVUI library. Their TextField, LabelButton, Radio and\nApplicationWindow instance keys match the LVUI assets. Some inherited asset\ndescriptions still use the older LVRS name; that wording does not identify a\ndifferent library connection. No Figma components were replaced in this check.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 74,
+      "end_line": 74,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "paragraph",
+      "start_line": 75,
+      "end_line": 75,
+      "raw": "The maintained module view families and their isolated predecessors are:\n"
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 76,
+      "end_line": 76,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "table",
+      "start_line": 77,
+      "end_line": 82,
+      "raw": "| Module | Isolated QML | LVUI declaration |\n| --- | --- | --- |\n| iiLicenseManager | `SocietyLicenseGate.qml` | `SocietyLicenseGate.lvui` |\n| iiAccountManager | `AccountDialog.qml`, `LoginView.qml`, `SignUpView.qml` | `AccountDialog.lvui` |\n| iiPhotoLibrary | `PhotosView.qml`, `GalleryInfo.qml`, `GalleryTile.qml`, `GalleryZoom.qml` | `PhotosView.lvui` |\n| iiMultimodalAgent | `UserQuestionsSheet.qml` | `UserQuestionsSheet.lvui` |\n",
+      "columns": [
+        "Module",
+        "Isolated QML",
+        "LVUI declaration"
+      ],
+      "rows": [
+        [
+          "iiLicenseManager",
+          "`SocietyLicenseGate.qml`",
+          "`SocietyLicenseGate.lvui`"
+        ],
+        [
+          "iiAccountManager",
+          "`AccountDialog.qml`, `LoginView.qml`, `SignUpView.qml`",
+          "`AccountDialog.lvui`"
+        ],
+        [
+          "iiPhotoLibrary",
+          "`PhotosView.qml`, `GalleryInfo.qml`, `GalleryTile.qml`, `GalleryZoom.qml`",
+          "`PhotosView.lvui`"
+        ],
+        [
+          "iiMultimodalAgent",
+          "`UserQuestionsSheet.qml`",
+          "`UserQuestionsSheet.lvui`"
+        ]
+      ]
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 83,
+      "end_line": 83,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "paragraph",
+      "start_line": 84,
+      "end_line": 94,
+      "raw": "The photo module's `tests/Legacy/PhotosHarness.qml` is an isolated test\nfixture, rather than a separate application view. The table identifies source\nreplacements; it is not proof of visual or runtime equivalence. Each module's\npaired view documentation describes its service adapter, tests, and remaining\nfeature and platform boundaries. Society and Dreamscapes still\ncontain consumers of isolated QML views; their native host migration is not\nimplied by the module source inventory. Dreamscapes has a macOS native question\nintegration and a macOS/Windows source path for the native license gate; Society has native question, account and\nphoto integrations in source, all with legacy fallbacks. Society's account\nand photo presenters are also selected by their Windows desktop source configuration. Other platforms and\nactual window display remain separate work.\n"
+    },
+    {
+      "id": "b000022",
+      "kind": "blank",
+      "start_line": 95,
+      "end_line": 95,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "paragraph",
+      "start_line": 96,
+      "end_line": 100,
+      "raw": "All four generated views also have headless consumers using an application-owned\n`iiGUI::PaintView` and a fake frame device. These exercise state changes, input,\nexplicit painting and view retirement without a native window. The test device\ndoes not demonstrate GPU output, OS input integration or product adoption; an\napplication still supplies its surface, input and scheduling.\n"
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 101,
+      "end_line": 101,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
+      "kind": "paragraph",
+      "start_line": 102,
+      "end_line": 128,
+      "raw": "iiGUI now also implements a borrowed Windows HWND surface in source, using a\ntransparent Direct3D 11 and DirectComposition swapchain, owner-thread event\nobservation, deferred close and change-driven resizing. The host, renderers\nand hidden-parent integration test were cross-compiled to x86-64 objects; the\ncomposition surface was separately linked against Windows system libraries.\nThe complete Windows iiGUI was not linked and Windows tests were not run.\nDreamscapes now selects the Windows license presenter in source; its Windows\nproduct build, account transport and actual window/input behavior are not yet\nverified. Society's account and photo presenters have not been linked or exercised\nas Windows products; its question presenter and Dreamscapes' question presenter\nremain macOS-gated. Society's photo-region Win32 driver and hidden-window test\nwere cross-linked, while macOS mock-window tests cover geometry, DPI and lifetime;\nthose checks do not establish actual Windows GPU output or input. A parent with an\noccupied topmost DirectComposition target cannot accept this surface, and\ninput sent to another child HWND requires integration by the owning app.\nThe iOS iiGUI source now provides a borrowed UIView attachment, event-driven\nresize and lifecycle handling, and deferred cleanup. Its policy tests and\niPhoneOS 16/18 arm64 object compilation pass. The full iPhoneOS 18 iiGUI static\nlibrary and an installed-stage host consumer also link. Society now selects its\naccount and photo LVUI presenters on iOS; their actual product presenters,\noverlays, iOS photo-region source and generated views compile as iPhoneOS 18\narm64 objects. The iiGUI borrowed view can request a temporary copied document\nfrom its owning UIKit controller; the admission and photo-picker lifecycle\npolicies have headless tests. This does not link the complete iOS product or\nverify app, document picker, device, display or input behavior.\nWayland, Android and Web external attachment remain unsupported. The legacy\nfallbacks therefore remain necessary until those integrations are completed.\n"
+    },
+    {
+      "id": "b000026",
+      "kind": "blank",
+      "start_line": 129,
+      "end_line": 129,
+      "raw": "\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "paragraph",
+      "start_line": 130,
+      "end_line": 146,
+      "raw": "Using clean iPhoneOS 18 arm64 Core, LVUI and iiGUI staging packages, the\nlicense, account and photo LVUI declarations were AOT compiled and linked\nagainst their staged presentation packages. The question declaration was\ncompiled and linked with the question model and C boundary directly from\nsource; this is not a build of the complete agent library. The binaries have no\ndirect Qt dynamic linkage. None of the consumers was executed, and these builds\ndo not establish app mounting, device input or GPU display behavior. An initial\naccount build selected older headers from an aggregate SDK prefix; it passed\nafter Core and Vulkan headers were isolated from those other packages.\nThe same four AOT consumers were also built and linked with Android NDK 30,\narm64 and API 24; the first three use staged presentation packages and the\nquestion consumer uses its model and C boundary from source. Their ELF\ndependency tables contain no direct Qt dynamic linkage. This is a cross-build,\nnot an Android package, app launch, emulator run or real-device test.\nAll eight mobile binaries also contain the generated view's host-mount code\nand iiGUI's `Host::mount_widgets` symbols; neither call was executed as part of\nthe mobile checks.\n"
+    },
+    {
+      "id": "b000028",
+      "kind": "blank",
+      "start_line": 147,
+      "end_line": 147,
+      "raw": "\n"
+    },
+    {
+      "id": "b000029",
+      "kind": "paragraph",
+      "start_line": 148,
+      "end_line": 155,
+      "raw": "An additional iOS build of the Qt account service without Quick succeeded.\nEnabling its isolated Quick fallback against the existing\n`SDK/build/congregation-ipados/prefix` failed package configuration because\nthat prefix's LVRS and iiGUI native ABI identifiers differ. This describes\nthat particular staging combination, not every installed SDK. LVRS and its\ninstallation were not changed. Society's account and photo selectors now include\niOS, but the object-only product fixtures do not link that legacy package and do\nnot prove complete product integration.\n"
+    },
+    {
+      "id": "b000030",
+      "kind": "blank",
+      "start_line": 156,
+      "end_line": 156,
+      "raw": "\n"
+    },
+    {
+      "id": "b000031",
+      "kind": "paragraph",
+      "start_line": 157,
+      "end_line": 161,
+      "raw": "The license gate has an iiSDKCore-only `iiLicenseManager::Presentation` package\nand can be built without the legacy Qt or native license clients. Those clients\nretain their existing gate-model symbols for binary compatibility, so updated\nCMake exports reject linking either client together with the presentation\nprovider. An older or manually linked binary cannot be checked this way.\n"
+    },
+    {
+      "id": "b000032",
+      "kind": "blank",
+      "start_line": 162,
+      "end_line": 162,
+      "raw": "\n"
+    },
+    {
+      "id": "b000033",
+      "kind": "paragraph",
+      "start_line": 163,
+      "end_line": 172,
+      "raw": "The photo presentation model now rejects foreign-thread queries and direct\ncommands before reading or mutating owner-thread state, including no-op\nrequests. Its query ports close before model state is destroyed. Focused\nconcurrent, cancellation, sanitizer and staged LVUI-consumer checks cover this\nboundary; they do not establish device-level rendering or input equivalence.\nThe legacy photo-service adapter now exposes preview URLs only when their\nrevision is ready. A new or changed preview source is invalidated before view\nobservers are notified, including removal and reinsertion; repeated sources in\none update are coalesced. Service-bridge, staged LVUI-consumer and sanitizer\ntests cover this path without opening an application window.\n"
+    },
+    {
+      "id": "b000034",
+      "kind": "blank",
+      "start_line": 173,
+      "end_line": 173,
+      "raw": "\n"
+    },
+    {
+      "id": "b000035",
+      "kind": "paragraph",
+      "start_line": 174,
+      "end_line": 180,
+      "raw": "The Web text backend now uses one grapheme-safe, width-dependent line split for\nboth measuring and painting the question view's long text. A WebAssembly test\nwith a fake Canvas covers that shared path; browser rendering and application\nmounting have not been verified, and full Unicode line-breaking rules are not\nclaimed. The current Core was independently staged as Web side modules, and\nthe iiGUI Web static library compiled against that staging. This is not an\napplication link or browser execution result.\n"
+    },
+    {
+      "id": "b000036",
+      "kind": "blank",
+      "start_line": 181,
+      "end_line": 181,
+      "raw": "\n"
+    },
+    {
+      "id": "b000037",
+      "kind": "paragraph",
+      "start_line": 182,
+      "end_line": 187,
+      "raw": "The generated LVUI headless consumer source and the C++ presentation model\nsource for all four view families also compiled independently to MinGW x86-64\nobjects on 2026-11-15. The checks used staged headers and did not link Windows\nlibraries, run the Windows tests or prove visual and input equivalence.\nThe generated-view-to-host mount adapters for all four also compile to x86-64\nCOFF objects. This additional check does not link a Windows executable.\n"
+    },
+    {
+      "id": "b000038",
+      "kind": "blank",
+      "start_line": 188,
+      "end_line": 188,
+      "raw": "\n"
+    },
+    {
+      "id": "b000039",
+      "kind": "paragraph",
+      "start_line": 189,
+      "end_line": 198,
+      "raw": "The license, account, photo and question presentation models also expose C\nboundaries and installed Python bindings. They send owner-thread\nchanges through the same queries and publish notifications without polling.\nPhoto row-property observation is limited to IDs explicitly requested by the\nconsumer. The account binding has an opt-in Core cooldown loop and emits\ndeadline-change events for a host-managed one-shot wakeup. The question binding\nrejects edits to stale row generations. Staged C and Python consumers for all\nfour passed on macOS; Windows C ABI sources were cross-compiled to objects but\nnot linked or run. The question binding is part of the existing shared agent\nlibrary and therefore retains that library's existing dependencies.\n"
     }
   ],
   "outline": [
@@ -102,16 +339,97 @@
     }
   ],
   "indexes": {
-    "directive_candidates": [],
-    "commands": [
+    "directive_candidates": [
       {
         "block_id": "b000007",
+        "line": 18,
+        "text": "default. Existing Qt applications that still require its fallback must build",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000009",
+        "line": 27,
+        "text": "projects whose names do not begin with `ii`, LVUI, resources, examples, tests",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000013",
+        "line": 61,
+        "text": "the current `lvui-photo-info-stage` package. These staging checks do not",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000025",
+        "line": 114,
+        "text": "those checks do not establish actual Windows GPU output or input. A parent with an",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000027",
+        "line": 136,
+        "text": "do not establish app mounting, device input or GPU display behavior. An initial",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000029",
+        "line": 154,
+        "text": "iOS, but the object-only product fixtures do not link that legacy package and do",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000033",
+        "line": 167,
+        "text": "boundary; they do not establish device-level rendering or input equivalence.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [
+      {
+        "block_id": "b000011",
         "language": "sh",
         "code": "python3 -B tools/audit_module_views.py\npython3 -B tests/test_module_views.py\n"
       }
     ],
     "links": [],
-    "tables": []
+    "tables": [
+      {
+        "block_id": "b000019",
+        "columns": [
+          "Module",
+          "Isolated QML",
+          "LVUI declaration"
+        ],
+        "rows": [
+          [
+            "iiLicenseManager",
+            "`SocietyLicenseGate.qml`",
+            "`SocietyLicenseGate.lvui`"
+          ],
+          [
+            "iiAccountManager",
+            "`AccountDialog.qml`, `LoginView.qml`, `SignUpView.qml`",
+            "`AccountDialog.lvui`"
+          ],
+          [
+            "iiPhotoLibrary",
+            "`PhotosView.qml`, `GalleryInfo.qml`, `GalleryTile.qml`, `GalleryZoom.qml`",
+            "`PhotosView.lvui`"
+          ],
+          [
+            "iiMultimodalAgent",
+            "`UserQuestionsSheet.qml`",
+            "`UserQuestionsSheet.lvui`"
+          ]
+        ]
+      }
+    ]
   },
   "provenance": {
     "generator": "workspace-docs",
