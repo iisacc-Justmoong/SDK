@@ -1,4 +1,5 @@
 @PACKAGE_INIT@
+set(iiJob_SPDX_LICENSE "Apache-2.0")
 include(CMakeFindDependencyMacro)
 find_dependency(SQLite3 3.26)
 if(NOT TARGET SQLite3::SQLite3)

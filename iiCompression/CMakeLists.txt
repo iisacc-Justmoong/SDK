@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 project(iiCompression VERSION 0.1.0 LANGUAGES CXX)
+set(iiCompression_SPDX_LICENSE "Apache-2.0")
 option(BUILD_SHARED_LIBS "Build iiCompression shared libraries" ON)
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND DEFINED ENV{HOME} AND NOT "$ENV{HOME}" STREQUAL "")

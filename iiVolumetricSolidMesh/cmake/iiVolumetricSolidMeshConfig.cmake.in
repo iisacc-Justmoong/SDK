@@ -1,4 +1,5 @@
 @PACKAGE_INIT@
+set(iiVolumetricSolidMesh_SPDX_LICENSE "Apache-2.0")
 if(EMSCRIPTEN AND @BUILD_SHARED_LIBS@)
     # Emscripten's CMake toolchain defaults to static libraries even when the
     # installed SDK was deliberately built as a WebAssembly side module.

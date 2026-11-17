@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "README.md",
-    "sha256": "5a7453ba9468b29e9544be435f7fb83783d35259c4c96a95a57f3215b433a7f3",
-    "bytes": 1391,
-    "line_count": 32,
+    "sha256": "e1f5f058c1dcdc367d6b72fc6f9e17687accdff98464a0095d0d904047f6d4c3",
+    "bytes": 1704,
+    "line_count": 41,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -99,32 +99,76 @@
     },
     {
       "id": "b000011",
-      "kind": "html",
+      "kind": "heading",
       "start_line": 25,
       "end_line": 25,
-      "raw": "<!-- workspace-docs:readme:start -->\n"
+      "raw": "## License\n",
+      "level": 2,
+      "title": "License"
     },
     {
       "id": "b000012",
-      "kind": "heading",
+      "kind": "blank",
       "start_line": 26,
       "end_line": 26,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 27,
+      "end_line": 27,
+      "raw": "SPDX-License-Identifier: Apache-2.0\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 28,
+      "end_line": 28,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 29,
+      "end_line": 32,
+      "raw": "This module is part of the iiSDK tree and is licensed under the\n[Apache License, Version 2.0](LICENSE). The copyright notice is\n`Copyright (c) 2026 iisacc`. [NOTICE.md](NOTICE.md) records that notice and\nthe separate zlib license of the external zlib dependency.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 33,
+      "end_line": 33,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "html",
+      "start_line": 34,
+      "end_line": 34,
+      "raw": "<!-- workspace-docs:readme:start -->\n"
+    },
+    {
+      "id": "b000018",
+      "kind": "heading",
+      "start_line": 35,
+      "end_line": 35,
       "raw": "## Documentation entry points\n",
       "level": 2,
       "title": "Documentation entry points"
     },
     {
-      "id": "b000013",
+      "id": "b000019",
       "kind": "blank",
-      "start_line": 27,
-      "end_line": 27,
+      "start_line": 36,
+      "end_line": 36,
       "raw": "\n"
     },
     {
-      "id": "b000014",
+      "id": "b000020",
       "kind": "list",
-      "start_line": 28,
-      "end_line": 31,
+      "start_line": 37,
+      "end_line": 40,
       "raw": "- Human overview: this English `README.md`.\n- Agent instructions: [AGENT.md](AGENT.md).\n- Human documentation: [documentation index](docs/README.md).\n- Structured agent documentation: [agent index](docs/agent-index.json).\n",
       "items": [
         {
@@ -150,10 +194,10 @@
       ]
     },
     {
-      "id": "b000015",
+      "id": "b000021",
       "kind": "html",
-      "start_line": 32,
-      "end_line": 32,
+      "start_line": 41,
+      "end_line": 41,
       "raw": "<!-- workspace-docs:readme:end -->\n"
     }
   ],
@@ -167,12 +211,20 @@
       "start_line": 1
     },
     {
-      "block_id": "b000012",
+      "block_id": "b000011",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "License",
+      "anchor": "license",
+      "start_line": 25
+    },
+    {
+      "block_id": "b000018",
       "parent_id": "b000001",
       "level": 2,
       "title": "Documentation entry points",
       "anchor": "documentation-entry-points",
-      "start_line": 26
+      "start_line": 35
     }
   ],
   "indexes": {
@@ -200,25 +252,39 @@
         "line": 6
       },
       {
-        "block_id": "b000014",
-        "label": "AGENT.md",
-        "target": "AGENT.md",
-        "kind": "relative",
-        "line": 29
-      },
-      {
-        "block_id": "b000014",
-        "label": "documentation index",
-        "target": "docs/README.md",
+        "block_id": "b000015",
+        "label": "Apache License, Version 2.0",
+        "target": "LICENSE",
         "kind": "relative",
         "line": 30
       },
       {
-        "block_id": "b000014",
+        "block_id": "b000015",
+        "label": "NOTICE.md",
+        "target": "NOTICE.md",
+        "kind": "relative",
+        "line": 31
+      },
+      {
+        "block_id": "b000020",
+        "label": "AGENT.md",
+        "target": "AGENT.md",
+        "kind": "relative",
+        "line": 38
+      },
+      {
+        "block_id": "b000020",
+        "label": "documentation index",
+        "target": "docs/README.md",
+        "kind": "relative",
+        "line": 39
+      },
+      {
+        "block_id": "b000020",
         "label": "agent index",
         "target": "docs/agent-index.json",
         "kind": "relative",
-        "line": 31
+        "line": 40
       }
     ],
     "tables": []

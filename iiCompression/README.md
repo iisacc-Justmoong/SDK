@@ -22,6 +22,15 @@ explicit `CMAKE_INSTALL_PREFIX`, including when invoked through `install.sh`.
 The gzip interface and implementation live together directly under `src/`;
 CMake generates a build-only forwarding header to preserve the public include.
 
+## License
+
+SPDX-License-Identifier: Apache-2.0
+
+This module is part of the iiSDK tree and is licensed under the
+[Apache License, Version 2.0](LICENSE). The copyright notice is
+`Copyright (c) 2026 iisacc`. [NOTICE.md](NOTICE.md) records that notice and
+the separate zlib license of the external zlib dependency.
+
 <!-- workspace-docs:readme:start -->
 ## Documentation entry points
 
