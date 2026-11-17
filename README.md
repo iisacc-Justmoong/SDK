@@ -260,3 +260,7 @@ weights retain their respective licenses.
 - [`SDK/iiXml`](iiXml/README.md)
 - [`SDK/iiProjectManager`](iiProjectManager/README.md)
 <!-- workspace-docs:readme:end -->
+
+[`iiSystemHardware`](iiSystemHardware/README.md) provides explicit native driver
+discovery, device-control sessions, firmware and register access. It is
+independent of the device-multimedia module and the Core runtime.

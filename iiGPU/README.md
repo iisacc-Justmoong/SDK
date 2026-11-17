@@ -12,6 +12,11 @@ Prepare a pipeline and bindings once, then use the returned token to record
 subsequent dispatches with new constants without revalidating those fixed inputs.
 Sessions are bounded, explicit, and independent of iiSDKCore; recorded or
 submitted work retains the resources it needs after a session closes.
+`ii::gpu::ComputeManager` partitions independent array elements across selected
+physical GPU devices and returns ordered host results. Applications provide
+matching Metal and Vulkan shaders; it does not translate arbitrary CPU code or
+silently fall back to the CPU. The desktop C ABI and Python wrapper expose the
+same managed compute path. See [the compute manager contract](docs/ComputeManager.md).
 The optional `iiGPU::Runtime` component provides a bounded, persistent
 `DeviceThread` for GPU command preparation and submission, separate from CPU
 worker pools. Applications explicitly post GPU work to it and can attach its

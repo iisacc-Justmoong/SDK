@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "README.md",
-    "sha256": "1eda0505238644168b1d77429df34fe131ac4f2f03f38b078389bac077a07617",
-    "bytes": 17950,
-    "line_count": 262,
+    "sha256": "6d2cde4ee7f247c86e490ff7f347ef6718c69be0c3a6c5df6bac436bba14b831",
+    "bytes": 18170,
+    "line_count": 266,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -989,6 +989,20 @@
       "start_line": 262,
       "end_line": 262,
       "raw": "<!-- workspace-docs:readme:end -->\n"
+    },
+    {
+      "id": "b000097",
+      "kind": "blank",
+      "start_line": 263,
+      "end_line": 263,
+      "raw": "\n"
+    },
+    {
+      "id": "b000098",
+      "kind": "paragraph",
+      "start_line": 264,
+      "end_line": 266,
+      "raw": "[`iiSystemHardware`](iiSystemHardware/README.md) provides explicit native driver\ndiscovery, device-control sessions, firmware and register access. It is\nindependent of the device-multimedia module and the Core runtime.\n"
     }
   ],
   "outline": [
@@ -1674,6 +1688,13 @@
         "target": "iiProjectManager/README.md",
         "kind": "relative",
         "line": 261
+      },
+      {
+        "block_id": "b000098",
+        "label": "`iiSystemHardware`",
+        "target": "iiSystemHardware/README.md",
+        "kind": "relative",
+        "line": 264
       }
     ],
     "tables": []

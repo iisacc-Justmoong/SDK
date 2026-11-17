@@ -1,7 +1,10 @@
 #include "GPUResourceC.h"
 #include "GPU.h"
+#include "ComputeManager.h"
 #include <algorithm>
 #include <array>
+#include <cstring>
+#include <limits>
 #include <memory>
 #include <new>
 #include <span>
@@ -9,6 +12,7 @@
 using namespace ii::gpu;
 struct iigpu_resource_device final { explicit iigpu_resource_device(Device value):device(std::move(value)){} Device device; };
 struct iigpu_resource_buffer final { Buffer buffer; };
+struct iigpu_resource_manager final { std::unique_ptr<ComputeManager> manager; };
 namespace {
 int code(ErrorCode error){return 1+static_cast<int>(error);}
 template<class F>int protect_resource(F&& fn) noexcept {
@@ -17,6 +21,52 @@ template<class F>int protect_resource(F&& fn) noexcept {
 int invalid(){return code(ErrorCode::invalid_argument);}
 }
 extern "C" {
+int iigpu_resource_manager_create(int backend,uint64_t budget,size_t max_devices,uint32_t chunk,
+                                  iigpu_resource_manager** out){return protect_resource([&]{
+    if(!out)return invalid();
+    *out=nullptr;
+    if(backend<0||backend>2||!budget||!max_devices||!chunk)return invalid();
+    ComputeManagerOptions options;
+    options.memory_budget_per_device=budget;options.max_devices=max_devices;options.max_items_per_chunk=chunk;
+    auto manager=ComputeManager::discover(static_cast<Backend>(backend),options);
+    if(!manager)return code(manager.error().code);
+    *out=new iigpu_resource_manager{std::move(*manager)};return 0;
+});}
+void iigpu_resource_manager_destroy(iigpu_resource_manager* manager){delete manager;}
+int iigpu_resource_manager_count(iigpu_resource_manager* manager,size_t* out){return protect_resource([&]{
+    if(!manager||!out)return invalid();*out=manager->manager->adapters().size();return 0;
+});}
+int iigpu_resource_manager_execute(iigpu_resource_manager* manager,const iigpu_compute_program* source,
+        const void* input,size_t input_size,size_t input_stride,void* output,size_t output_size,size_t output_stride){
+    return protect_resource([&]{
+        if(!manager||!source||!input_stride||!output_stride||(input_size&&!input)||(output_size&&!output)||
+           (source->metal_library_size&&!source->metal_library)||(source->spirv_size&&!source->spirv)||
+           (source->constants_size&&!source->constants)||source->spirv_size%4||source->constants_size%4||
+           source->constants_size>(std::numeric_limits<uint32_t>::max)()-12u||!source->group_size_x||
+           (source->metal_entry&&!*source->metal_entry)||(source->vulkan_entry&&!*source->vulkan_entry)||
+           input_size%input_stride)return invalid();
+        const auto count=input_size/input_stride;
+        if(count>(std::numeric_limits<size_t>::max)()/output_stride||count*output_stride!=output_size)return invalid();
+        ComputeProgram program;
+        if(source->metal_source)program.kernel.metal_source=source->metal_source;
+        if(source->metal_entry)program.kernel.metal_entry=source->metal_entry;
+        if(source->vulkan_entry)program.kernel.vulkan_entry=source->vulkan_entry;
+        program.kernel.metal_library.resize(source->metal_library_size);
+        if(source->metal_library_size)std::memcpy(program.kernel.metal_library.data(),source->metal_library,source->metal_library_size);
+        program.kernel.spirv.resize(source->spirv_size/4);
+        if(source->spirv_size)std::memcpy(program.kernel.spirv.data(),source->spirv,source->spirv_size);
+        program.constants.resize(source->constants_size);
+        if(source->constants_size)std::memcpy(program.constants.data(),source->constants,source->constants_size);
+        program.input_stride=input_stride;program.output_stride=output_stride;
+        program.kernel.bindings={Access::read,Access::write};
+        program.kernel.constants_bytes=static_cast<uint32_t>(source->constants_size)+12;
+        program.kernel.group_size={source->group_size_x,1,1};
+        auto result=manager->manager->execute(program,{static_cast<const std::byte*>(input),input_size});
+        if(!result)return code(result.error().code);
+        if(output_size)std::memcpy(output,result->bytes.data(),output_size);
+        return 0;
+    });
+}
 int iigpu_resource_device_create(int backend,uint64_t budget,iigpu_resource_device** out){return protect_resource([&]{
     if(!out||backend<0||backend>2||!budget)return invalid();*out=nullptr;
     auto device=Device::create({.backend=static_cast<Backend>(backend),.memory_budget=budget});

@@ -1,6 +1,7 @@
 # iiGPU 문서
 
 - [API·자원 수명·동기화·의존성](Contracts.md)
+- [데이터 병렬 GPU 컴퓨팅 관리자](ComputeManager.md)
 - [플랫폼과 재현·검증 범위](Verification.md)
 - [에이전트 문서 색인](agent-index.json)
 
@@ -17,6 +18,7 @@ Markdown is the maintained human source. Agent JSON is a structured, source-trac
 | [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |
 | [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |
 | [`docs/Contracts.md`](Contracts.md) | [JSON](Contracts.agent.json) |
+| [`docs/ComputeManager.md`](ComputeManager.md) | [JSON](ComputeManager.agent.json) |
 | [`docs/DynamicLinking.md`](DynamicLinking.md) | [JSON](DynamicLinking.agent.json) |
 | [`docs/Verification.md`](Verification.md) | [JSON](Verification.agent.json) |
 | [`docs/WebGPUContract.md`](WebGPUContract.md) | [JSON](WebGPUContract.agent.json) |

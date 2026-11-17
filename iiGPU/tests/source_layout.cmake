@@ -12,7 +12,7 @@ foreach(_entry IN LISTS _source_entries)
         message(FATAL_ERROR "Source directory would shadow the third-party webgpu headers on case-insensitive filesystems")
     endif()
 endforeach()
-foreach(_file GPU.h GPU.cpp Session.h Session.cpp Runtime/Completion.h Runtime/Completion.cpp Runtime/CompletionService.h Runtime/CompletionService.cpp Runtime/DeviceThread.h Runtime/DeviceThread.cpp
+foreach(_file GPU.h GPU.cpp Session.h Session.cpp ComputeManager.h ComputeManager.cpp Runtime/Completion.h Runtime/Completion.cpp Runtime/CompletionService.h Runtime/CompletionService.cpp Runtime/DeviceThread.h Runtime/DeviceThread.cpp
         Backends/Backend.h Backends/Metal.mm Backends/Vulkan.cpp
         WebGPUComponent/WebGPU.h WebGPUComponent/WebGPU.cpp WebGPUComponent/BindingIndex.h
         WebGPUComponent/Memory.h WebGPUComponent/Memory.cpp

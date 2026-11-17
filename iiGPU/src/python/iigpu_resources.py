@@ -1,5 +1,7 @@
 """Python access to real iiGPU devices, buffers and bounded transfers."""
 import ctypes
+import sys
+import threading
 
 UNAVAILABLE = 2
 UNSUPPORTED = 3
@@ -16,6 +18,21 @@ def _number(value):
     if not isinstance(value, int) or value < 0 or value > (1 << 64) - 1:
         raise ValueError("value must fit an unsigned 64-bit integer")
     return value
+
+
+def _positive(value, maximum):
+    value = _number(value)
+    if not value or value > maximum:
+        raise ValueError("value must be positive and within the supported range")
+    return value
+
+
+class _ComputeProgram(ctypes.Structure):
+    _fields_ = [("metal_source", ctypes.c_char_p), ("metal_entry", ctypes.c_char_p),
+                ("metal_library", ctypes.c_void_p), ("metal_library_size", ctypes.c_size_t),
+                ("spirv", ctypes.c_void_p), ("spirv_size", ctypes.c_size_t),
+                ("vulkan_entry", ctypes.c_char_p), ("group_size_x", ctypes.c_uint32),
+                ("constants", ctypes.c_void_p), ("constants_size", ctypes.c_size_t)]
 
 
 class Library:
@@ -35,10 +52,19 @@ class Library:
             "buffer_read": ([p, u, p, n], ctypes.c_int),
             "buffer_write": ([p, u, p, n], ctypes.c_int),
             "buffer_transfer": ([p, p, ctypes.c_int, ctypes.c_int, u, po], ctypes.c_int),
+            "manager_create": ([ctypes.c_int, u, n, ctypes.c_uint32, po], ctypes.c_int),
+            "manager_destroy": ([p], None),
+            "manager_count": ([p, ctypes.POINTER(n)], ctypes.c_int),
+            "manager_execute": ([p, ctypes.POINTER(_ComputeProgram), p, n, n, p, n, n], ctypes.c_int),
         }
         self._functions = {}
         for name, (arguments, result) in signatures.items():
-            function = getattr(self._dll, "iigpu_resource_" + name)
+            try:
+                function = getattr(self._dll, "iigpu_resource_" + name)
+            except AttributeError:
+                if name.startswith("manager_"):
+                    continue
+                raise
             function.argtypes, function.restype = arguments, result
             self._functions[name] = function
 
@@ -54,6 +80,21 @@ class Library:
         result = ctypes.c_void_p()
         self._call("device_create", backends[backend], _number(memory_budget), ctypes.byref(result))
         return Device(self, result)
+
+    def compute_manager(self, backend="automatic", memory_budget=256 * 1024 * 1024,
+                        max_devices=8, max_items_per_chunk=65536):
+        if any(name not in self._functions for name in
+               ("manager_create", "manager_destroy", "manager_count", "manager_execute")):
+            raise ResourceError(UNSUPPORTED)
+        backends = {"automatic": 0, "metal": 1, "vulkan": 2}
+        if backend not in backends:
+            raise ValueError("unknown GPU backend")
+        size_max = ctypes.c_size_t(-1).value
+        result = ctypes.c_void_p()
+        self._call("manager_create", backends[backend], _positive(memory_budget, (1 << 64) - 1),
+                   _positive(max_devices, size_max), _positive(max_items_per_chunk, (1 << 32) - 1),
+                   ctypes.byref(result))
+        return ComputeManager(self, result)
 
 
 class _Owner:
@@ -87,6 +128,57 @@ class _Owner:
                 self.close()
         except Exception:
             pass
+
+
+class ComputeManager(_Owner):
+    _destroy = "manager_destroy"
+
+    def __init__(self, library, handle):
+        super().__init__(library, handle)
+        self._operation = threading.RLock()
+
+    def close(self):
+        with self._operation:
+            super().close()
+
+    @property
+    def device_count(self):
+        with self._operation:
+            value = ctypes.c_size_t()
+            self._library._call("manager_count", self._get(), ctypes.byref(value))
+            return value.value
+
+    def execute(self, data, *, input_stride, output_stride, metal_source="", metal_library=b"",
+                spirv=b"", metal_entry="main0", vulkan_entry="main", group_size=64, constants=b""):
+        data, metal_library, spirv, constants = bytes(data), bytes(metal_library), bytes(spirv), bytes(constants)
+        size_max = ctypes.c_size_t(-1).value
+        input_stride = _positive(input_stride, size_max)
+        output_stride = _positive(output_stride, size_max)
+        group_size = _positive(group_size, (1 << 32) - 1)
+        if len(data) % input_stride or len(spirv) % 4 or len(constants) % 4:
+            raise ValueError("input elements, SPIR-V and constants must have valid alignment")
+        if len(constants) > (1 << 32) - 13:
+            raise ValueError("constants exceed the supported size")
+        output_size = len(data) // input_stride * output_stride
+        if output_size > min(size_max, sys.maxsize):
+            raise ValueError("output exceeds the supported size")
+        for text in (metal_source, metal_entry, vulkan_entry):
+            if not isinstance(text, str) or "\0" in text:
+                raise ValueError("shader source and entry points must be NUL-free strings")
+        if not metal_entry or not vulkan_entry:
+            raise ValueError("shader entry points must be nonempty")
+        source_text, metal_name, vulkan_name = (s.encode("utf-8") for s in (metal_source, metal_entry, vulkan_entry))
+        def storage(value):
+            return ctypes.create_string_buffer(value, len(value)) if value else None
+        source_buffer, metal_buffer, spirv_buffer, constants_buffer = map(storage, (data, metal_library, spirv, constants))
+        output = ctypes.create_string_buffer(output_size)
+        program = _ComputeProgram(source_text, metal_name, ctypes.cast(metal_buffer, ctypes.c_void_p), len(metal_library),
+                                  ctypes.cast(spirv_buffer, ctypes.c_void_p), len(spirv), vulkan_name, group_size,
+                                  ctypes.cast(constants_buffer, ctypes.c_void_p), len(constants))
+        with self._operation:
+            self._library._call("manager_execute", self._get(), ctypes.byref(program), source_buffer, len(data),
+                                input_stride, output, output_size, output_stride)
+        return output.raw
 
 
 class Device(_Owner):
