@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 project(iiJob VERSION 0.1.0 LANGUAGES CXX)
+set(iiJob_SPDX_LICENSE "Apache-2.0")
 option(BUILD_SHARED_LIBS "Build iiJob shared libraries" ON)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)

@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/README.md",
-    "sha256": "cef84ed12c9212a6d3c6e8b4e635520708b8a6cb44a9490d6c308b1073eb1989",
-    "bytes": 1034,
-    "line_count": 20,
+    "sha256": "7620061570fbee2e51ed5bfc30b75eac30c93ec4ef291b1e6926f4bbd259f64d",
+    "bytes": 1267,
+    "line_count": 22,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -54,33 +54,33 @@
     },
     {
       "id": "b000005",
-      "kind": "html",
+      "kind": "paragraph",
       "start_line": 5,
       "end_line": 5,
-      "raw": "<!-- workspace-docs:document-map:start -->\n"
+      "raw": "이 모듈은 iiSDK 트리에 속하며 Apache License 2.0으로 배포한다. 저작권 표시는 `Copyright (c) 2026 iisacc`이다. zlib는 별도로 제공되는 의존성이며 그 고지는 [NOTICE.md](../NOTICE.md)에 있다.\n"
     },
     {
       "id": "b000006",
-      "kind": "heading",
+      "kind": "blank",
       "start_line": 6,
       "end_line": 6,
-      "raw": "## Human and agent document map\n",
-      "level": 2,
-      "title": "Human and agent document map"
-    },
-    {
-      "id": "b000007",
-      "kind": "blank",
-      "start_line": 7,
-      "end_line": 7,
       "raw": "\n"
     },
     {
+      "id": "b000007",
+      "kind": "html",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "<!-- workspace-docs:document-map:start -->\n"
+    },
+    {
       "id": "b000008",
-      "kind": "paragraph",
+      "kind": "heading",
       "start_line": 8,
       "end_line": 8,
-      "raw": "Markdown is the maintained human source. Agent JSON is a structured, source-traceable projection.\n"
+      "raw": "## Human and agent document map\n",
+      "level": 2,
+      "title": "Human and agent document map"
     },
     {
       "id": "b000009",
@@ -91,9 +91,23 @@
     },
     {
       "id": "b000010",
-      "kind": "table",
+      "kind": "paragraph",
       "start_line": 10,
-      "end_line": 19,
+      "end_line": 10,
+      "raw": "Markdown is the maintained human source. Agent JSON is a structured, source-traceable projection.\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "blank",
+      "start_line": 11,
+      "end_line": 11,
+      "raw": "\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "table",
+      "start_line": 12,
+      "end_line": 21,
       "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`NOTICE.md`](../NOTICE.md) | [JSON](entrypoints/NOTICE.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/DynamicLinking.md`](DynamicLinking.md) | [JSON](DynamicLinking.agent.json) |\n| [`docs/Gzip.md`](Gzip.md) | [JSON](Gzip.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n| [`example/README.md`](../example/README.md) | [JSON](mirrors/example/README.agent.json) |\n| [`resources/README.md`](../resources/README.md) | [JSON](mirrors/resources/README.agent.json) |\n",
       "columns": [
         "Document",
@@ -135,10 +149,10 @@
       ]
     },
     {
-      "id": "b000011",
+      "id": "b000013",
       "kind": "html",
-      "start_line": 20,
-      "end_line": 20,
+      "start_line": 22,
+      "end_line": 22,
       "raw": "<!-- workspace-docs:document-map:end -->\n"
     }
   ],
@@ -152,12 +166,12 @@
       "start_line": 1
     },
     {
-      "block_id": "b000006",
+      "block_id": "b000008",
       "parent_id": "b000001",
       "level": 2,
       "title": "Human and agent document map",
       "anchor": "human-and-agent-document-map",
-      "start_line": 6
+      "start_line": 8
     }
   ],
   "indexes": {
@@ -172,121 +186,128 @@
         "line": 3
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000005",
+        "label": "NOTICE.md",
+        "target": "../NOTICE.md",
+        "kind": "relative",
+        "line": 5
+      },
+      {
+        "block_id": "b000012",
         "label": "`AGENT.md`",
         "target": "../AGENT.md",
         "kind": "relative",
-        "line": 12
+        "line": 14
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "JSON",
         "target": "entrypoints/AGENT.agent.json",
         "kind": "relative",
-        "line": 12
+        "line": 14
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "`NOTICE.md`",
         "target": "../NOTICE.md",
         "kind": "relative",
-        "line": 13
+        "line": 15
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "JSON",
         "target": "entrypoints/NOTICE.agent.json",
         "kind": "relative",
-        "line": 13
+        "line": 15
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "`README.md`",
         "target": "../README.md",
         "kind": "relative",
-        "line": 14
+        "line": 16
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "JSON",
         "target": "entrypoints/README.agent.json",
         "kind": "relative",
-        "line": 14
+        "line": 16
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "`docs/DynamicLinking.md`",
         "target": "DynamicLinking.md",
         "kind": "relative",
-        "line": 15
+        "line": 17
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "JSON",
         "target": "DynamicLinking.agent.json",
         "kind": "relative",
-        "line": 15
+        "line": 17
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "`docs/Gzip.md`",
         "target": "Gzip.md",
         "kind": "relative",
-        "line": 16
+        "line": 18
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "JSON",
         "target": "Gzip.agent.json",
         "kind": "relative",
-        "line": 16
+        "line": 18
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "`docs/documentation-structure.md`",
         "target": "documentation-structure.md",
         "kind": "relative",
-        "line": 17
+        "line": 19
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "JSON",
         "target": "documentation-structure.agent.json",
         "kind": "relative",
-        "line": 17
+        "line": 19
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "`example/README.md`",
         "target": "../example/README.md",
         "kind": "relative",
-        "line": 18
+        "line": 20
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "JSON",
         "target": "mirrors/example/README.agent.json",
         "kind": "relative",
-        "line": 18
+        "line": 20
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "`resources/README.md`",
         "target": "../resources/README.md",
         "kind": "relative",
-        "line": 19
+        "line": 21
       },
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "label": "JSON",
         "target": "mirrors/resources/README.agent.json",
         "kind": "relative",
-        "line": 19
+        "line": 21
       }
     ],
     "tables": [
       {
-        "block_id": "b000010",
+        "block_id": "b000012",
         "columns": [
           "Document",
           "Agent JSON"

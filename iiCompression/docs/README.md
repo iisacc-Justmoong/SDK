@@ -2,6 +2,8 @@
 
 [gzip 계약](Gzip.md)은 입력과 출력 한도, 오류, 단일 gzip 멤버 정책을 설명한다.
 
+이 모듈은 iiSDK 트리에 속하며 Apache License 2.0으로 배포한다. 저작권 표시는 `Copyright (c) 2026 iisacc`이다. zlib는 별도로 제공되는 의존성이며 그 고지는 [NOTICE.md](../NOTICE.md)에 있다.
+
 <!-- workspace-docs:document-map:start -->
 ## Human and agent document map
 

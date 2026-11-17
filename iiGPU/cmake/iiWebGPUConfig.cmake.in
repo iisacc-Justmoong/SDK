@@ -1,4 +1,5 @@
 @PACKAGE_INIT@
+set(iiWebGPU_SPDX_LICENSE "Apache-2.0")
 include(CMakeFindDependencyMacro)
 if((NOT DEFINED iiGPU_DIR OR iiGPU_DIR STREQUAL "" OR iiGPU_DIR MATCHES "-NOTFOUND$")
         AND EXISTS "${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@/cmake/iiGPU/iiGPUConfig.cmake")

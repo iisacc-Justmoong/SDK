@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 project(iiGlobalSearch VERSION 0.1.0 LANGUAGES CXX)
+set(iiGlobalSearch_SPDX_LICENSE "Apache-2.0")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
