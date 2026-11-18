@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "AGENT.md",
-    "sha256": "7f35e7076d306df82a144c5cf2b45419285ae5f213dd4c5f6a916db9fbafcf92",
-    "bytes": 3856,
-    "line_count": 52,
+    "sha256": "a7dc609ef6015a24d9fd6f71c471aafd583dedfecb750a4de8fee6bc50bc6402",
+    "bytes": 5200,
+    "line_count": 71,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -87,9 +87,9 @@
       "kind": "heading",
       "start_line": 13,
       "end_line": 13,
-      "raw": "## 반응형 런타임\n",
+      "raw": "## 모듈 구성과 개발 표준\n",
       "level": 2,
-      "title": "반응형 런타임"
+      "title": "모듈 구성과 개발 표준"
     },
     {
       "id": "b000010",
@@ -102,102 +102,174 @@
       "id": "b000011",
       "kind": "paragraph",
       "start_line": 15,
-      "end_line": 21,
-      "raw": "iiSDK의 공통 개념은 이벤트와 쿼리로 반응하는 네이티브 런타임이다. 상태 변경은\n수명에 묶인 알림으로 전달하고, 수신자는 필요한 자원과 필드를 쿼리하여 부분적으로\n갱신한다. 변화가 없을 때의 암묵적인 주기 조회와 불필요한 전체 갱신을 기본 동작으로\n두지 않는다. 명시적으로 요청한 폴링, 실제 기한·만료·재시도, 프로토콜 heartbeat와\n활성 애니메이션·게임의 프레임 주기는 각각의 계약에 따라 허용한다. 모듈 간 직접\n의존성을 추가하지 않으며 독립 인터페이스를 앱이 조합한다. 현재 구현과 명세의\n점검 근거와 미해결 범위는 [반응형 런타임 감사](docs/ReactiveRuntimeAudit.md)를 따른다.\n"
+      "end_line": 17,
+      "raw": "iiSDK의 최우선 과제는 단일 코드베이스로 모든 크로스 플랫폼 애플리케이션을\n네이티브로 구축하는 것이며, 장기적으로 Qt 의존성을 제거한다. 전환 현황과 점검\n범위는 [QtIndependence.md](docs/QtIndependence.md)를 따른다.\n"
     },
     {
       "id": "b000012",
+      "kind": "blank",
+      "start_line": 18,
+      "end_line": 18,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 19,
+      "end_line": 21,
+      "raw": "각 모듈은 `src/`, `example/`, `docs/`, `tests/`, `cmake/`, `resources/`,\n`README.md`, `AGENT.md`, `LICENSE`, `.gitignore`, `install.sh` 또는 `install.py`,\n`CMakeLists.txt`를 갖춘다. 헤더 배치는 [HeaderLayout.md](docs/HeaderLayout.md)를 따른다.\n"
+    },
+    {
+      "id": "b000014",
       "kind": "blank",
       "start_line": 22,
       "end_line": 22,
       "raw": "\n"
     },
     {
-      "id": "b000013",
+      "id": "b000015",
       "kind": "paragraph",
       "start_line": 23,
-      "end_line": 24,
-      "raw": "Linux GUI의 기본 대상은 직접 Wayland이다. X11은 폐기 예정이며 명시적 레거시\n선택으로만 유지한다. Wayland 의존성이 없다는 이유로 X11에 자동 전환하지 않는다.\n"
-    },
-    {
-      "id": "b000014",
-      "kind": "blank",
-      "start_line": 25,
       "end_line": 25,
-      "raw": "\n"
-    },
-    {
-      "id": "b000015",
-      "kind": "heading",
-      "start_line": 26,
-      "end_line": 26,
-      "raw": "## 폐기한 추론 런타임\n",
-      "level": 2,
-      "title": "폐기한 추론 런타임"
+      "raw": "각 모듈은 앱에서 사용하는 API, 다른 모듈과 병행하기 위한 인터페이스와 Python API를\n제공한다. 여기서 병행은 앱이 독립 인터페이스를 조합하는 방식이며 SDK 간 직접 의존을\n허용하지 않는다. 일반 의존 방향 규칙보다 SDK 간 독립성이 더 엄격하므로 이를 우선한다.\n"
     },
     {
       "id": "b000016",
       "kind": "blank",
-      "start_line": 27,
-      "end_line": 27,
+      "start_line": 26,
+      "end_line": 26,
       "raw": "\n"
     },
     {
       "id": "b000017",
       "kind": "paragraph",
-      "start_line": 28,
-      "end_line": 31,
-      "raw": "ONNX와 ONNX Runtime은 전량 폐기한 기술이다. 제품과 SDK의 빌드, 모델 실행,\n설치 패키지와 배포 번들에 다시 추가하지 않는다. 기존 ONNX 모델을 암묵적으로\n실행하거나 자동 다운로드하지 않는다. 폐기된 모델 경로는 명시적 미지원 결과를\n반환하며, 새 기능은 iiSDK의 네이티브 인터페이스와 지원 중인 백엔드로 구현한다.\n"
+      "start_line": 27,
+      "end_line": 29,
+      "raw": "GUI를 그리는 모듈은 LVUI로 iiGUI 네이티브 위젯을 그린다. `LVRS/`는 레거시이며 새 뷰에\n사용하지 않는다. 기술 스택, TDD 순서, 설계 원칙과 디자인 규칙은 상위\n[Workspace 지침](../AGENT.md)과 [개발·디자인 표준](../docs/company/iisacc_dev_standard_2026-11-18.md)을 따른다.\n"
     },
     {
       "id": "b000018",
+      "kind": "blank",
+      "start_line": 30,
+      "end_line": 30,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "heading",
+      "start_line": 31,
+      "end_line": 31,
+      "raw": "## 반응형 런타임\n",
+      "level": 2,
+      "title": "반응형 런타임"
+    },
+    {
+      "id": "b000020",
       "kind": "blank",
       "start_line": 32,
       "end_line": 32,
       "raw": "\n"
     },
     {
-      "id": "b000019",
+      "id": "b000021",
       "kind": "paragraph",
       "start_line": 33,
-      "end_line": 34,
-      "raw": "GGUF, safetensors and other supported non-ONNX model formats are permitted.\nFormat permission does not imply that every backend supports every architecture.\n"
-    },
-    {
-      "id": "b000020",
-      "kind": "blank",
-      "start_line": 35,
-      "end_line": 35,
-      "raw": "\n"
-    },
-    {
-      "id": "b000021",
-      "kind": "html",
-      "start_line": 36,
-      "end_line": 36,
-      "raw": "<!-- workspace-docs:agent:start -->\n"
+      "end_line": 40,
+      "raw": "iiSDK와 이를 사용하는 모든 앱은 이벤트와 쿼리로 반응한다. 전체 상태 로딩과\n뷰 구성은 데이터 범위의 초기화에서 수행한다. 이후에는 변경된 자원·필드와\n리비전을 수명에 묶인 이벤트로 전달하고 필요한 범위만 갱신한다. 이벤트가\n누락되면 해당 자원의 리비전부터 복구하고, 원본 연결이 교체되면 새 수명으로 초기화한다.\n명시적으로 요청한 폴링, 실제 기한·만료·재시도, 프로토콜 heartbeat와\n활성 애니메이션·게임의 프레임 주기는 각각의 계약에 따라 허용한다. 모듈 간 직접\n의존성을 추가하지 않으며 독립 인터페이스를 앱이 조합한다. 현재 구현과 명세의\n점검 근거와 미해결 범위는 [반응형 런타임 감사](docs/ReactiveRuntimeAudit.md)를 따른다.\n"
     },
     {
       "id": "b000022",
+      "kind": "blank",
+      "start_line": 41,
+      "end_line": 41,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "paragraph",
+      "start_line": 42,
+      "end_line": 43,
+      "raw": "Linux GUI의 기본 대상은 직접 Wayland이다. X11은 폐기 예정이며 명시적 레거시\n선택으로만 유지한다. Wayland 의존성이 없다는 이유로 X11에 자동 전환하지 않는다.\n"
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 44,
+      "end_line": 44,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
       "kind": "heading",
-      "start_line": 37,
-      "end_line": 37,
+      "start_line": 45,
+      "end_line": 45,
+      "raw": "## 폐기한 추론 런타임\n",
+      "level": 2,
+      "title": "폐기한 추론 런타임"
+    },
+    {
+      "id": "b000026",
+      "kind": "blank",
+      "start_line": 46,
+      "end_line": 46,
+      "raw": "\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "paragraph",
+      "start_line": 47,
+      "end_line": 50,
+      "raw": "ONNX와 ONNX Runtime은 전량 폐기한 기술이다. 제품과 SDK의 빌드, 모델 실행,\n설치 패키지와 배포 번들에 다시 추가하지 않는다. 기존 ONNX 모델을 암묵적으로\n실행하거나 자동 다운로드하지 않는다. 폐기된 모델 경로는 명시적 미지원 결과를\n반환하며, 새 기능은 iiSDK의 네이티브 인터페이스와 지원 중인 백엔드로 구현한다.\n"
+    },
+    {
+      "id": "b000028",
+      "kind": "blank",
+      "start_line": 51,
+      "end_line": 51,
+      "raw": "\n"
+    },
+    {
+      "id": "b000029",
+      "kind": "paragraph",
+      "start_line": 52,
+      "end_line": 53,
+      "raw": "GGUF, safetensors and other supported non-ONNX model formats are permitted.\nFormat permission does not imply that every backend supports every architecture.\n"
+    },
+    {
+      "id": "b000030",
+      "kind": "blank",
+      "start_line": 54,
+      "end_line": 54,
+      "raw": "\n"
+    },
+    {
+      "id": "b000031",
+      "kind": "html",
+      "start_line": 55,
+      "end_line": 55,
+      "raw": "<!-- workspace-docs:agent:start -->\n"
+    },
+    {
+      "id": "b000032",
+      "kind": "heading",
+      "start_line": 56,
+      "end_line": 56,
       "raw": "## 문서 구조와 에이전트 탐색\n",
       "level": 2,
       "title": "문서 구조와 에이전트 탐색"
     },
     {
-      "id": "b000023",
+      "id": "b000033",
       "kind": "blank",
-      "start_line": 38,
-      "end_line": 38,
+      "start_line": 57,
+      "end_line": 57,
       "raw": "\n"
     },
     {
-      "id": "b000024",
+      "id": "b000034",
       "kind": "list",
-      "start_line": 39,
-      "end_line": 45,
+      "start_line": 58,
+      "end_line": 64,
       "raw": "- 프로젝트 루트의 `README.md`는 사람용 영문 진입 문서이며 `AGENT.md`는 에이전트 진입점이다.\n- 하위 인간용 Markdown과 구조화된 agent JSON을 함께 유지한다. Markdown이 원본이며 JSON은 원문 해시와 줄 범위를 가진 파생 문서이다.\n- 먼저 [docs/agent-index.json](docs/agent-index.json)에서 관련 문서와 JSON 투영을 찾는다. 원문 SHA-256이 다르면 현재 Markdown을 읽고 투영을 갱신한다.\n- JSON의 규칙 후보는 검색용 어휘 일치 결과이다. 과거 기록·예제·실패 상태를 현재 지시나 검증 완료로 자동 해석하지 않는다.\n- 기존 프로젝트별 규칙, 동결된 증거, 라이선스, 외부 원본, 사용자 데이터와 다른 작업의 변경을 보존한다.\n- 이 문서 재편 지침은 과거 작업의 기능 구현·배포를 자동 재개하라는 요청이 아니다. 현재 사용자의 작업 범위를 우선한다.\n- 문서를 수정하면 JSON 쌍·색인을 함께 갱신하고 검증한다. 기존 소스 변경에 대한 빌드·테스트 규칙은 계속 따른다.\n",
       "items": [
         {
@@ -238,41 +310,41 @@
       ]
     },
     {
-      "id": "b000025",
+      "id": "b000035",
       "kind": "blank",
-      "start_line": 46,
-      "end_line": 46,
+      "start_line": 65,
+      "end_line": 65,
       "raw": "\n"
     },
     {
-      "id": "b000026",
+      "id": "b000036",
       "kind": "paragraph",
-      "start_line": 47,
-      "end_line": 47,
+      "start_line": 66,
+      "end_line": 66,
       "raw": "Workspace에서 이 프로젝트의 문서를 갱신하는 명령은 다음과 같다.\n"
     },
     {
-      "id": "b000027",
+      "id": "b000037",
       "kind": "blank",
-      "start_line": 48,
-      "end_line": 48,
+      "start_line": 67,
+      "end_line": 67,
       "raw": "\n"
     },
     {
-      "id": "b000028",
+      "id": "b000038",
       "kind": "fenced_code",
-      "start_line": 49,
-      "end_line": 51,
+      "start_line": 68,
+      "end_line": 70,
       "raw": "```sh\npython3 ../Engineering/WorkspaceDocumentation/App/workspace_docs.py --workspace .. sync --project SDK\n```\n",
       "language": "sh",
       "code": "python3 ../Engineering/WorkspaceDocumentation/App/workspace_docs.py --workspace .. sync --project SDK\n",
       "closed": true
     },
     {
-      "id": "b000029",
+      "id": "b000039",
       "kind": "html",
-      "start_line": 52,
-      "end_line": 52,
+      "start_line": 71,
+      "end_line": 71,
       "raw": "<!-- workspace-docs:agent:end -->\n"
     }
   ],
@@ -297,25 +369,33 @@
       "block_id": "b000009",
       "parent_id": "b000001",
       "level": 2,
-      "title": "반응형 런타임",
-      "anchor": "반응형-런타임",
+      "title": "모듈 구성과 개발 표준",
+      "anchor": "모듈-구성과-개발-표준",
       "start_line": 13
     },
     {
-      "block_id": "b000015",
+      "block_id": "b000019",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "반응형 런타임",
+      "anchor": "반응형-런타임",
+      "start_line": 31
+    },
+    {
+      "block_id": "b000025",
       "parent_id": "b000001",
       "level": 2,
       "title": "폐기한 추론 런타임",
       "anchor": "폐기한-추론-런타임",
-      "start_line": 26
+      "start_line": 45
     },
     {
-      "block_id": "b000022",
+      "block_id": "b000032",
       "parent_id": "b000001",
       "level": 2,
       "title": "문서 구조와 에이전트 탐색",
       "anchor": "문서-구조와-에이전트-탐색",
-      "start_line": 37
+      "start_line": 56
     }
   ],
   "indexes": {
@@ -335,29 +415,43 @@
         "context": "paragraph"
       },
       {
-        "block_id": "b000013",
-        "line": 24,
+        "block_id": "b000015",
+        "line": 25,
+        "text": "허용하지 않는다. 일반 의존 방향 규칙보다 SDK 간 독립성이 더 엄격하므로 이를 우선한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000017",
+        "line": 28,
+        "text": "사용하지 않는다. 기술 스택, TDD 순서, 설계 원칙과 디자인 규칙은 상위",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000023",
+        "line": 43,
         "text": "선택으로만 유지한다. Wayland 의존성이 없다는 이유로 X11에 자동 전환하지 않는다.",
         "basis": "lexical_match",
         "context": "paragraph"
       },
       {
-        "block_id": "b000017",
-        "line": 29,
+        "block_id": "b000027",
+        "line": 48,
         "text": "설치 패키지와 배포 번들에 다시 추가하지 않는다. 기존 ONNX 모델을 암묵적으로",
         "basis": "lexical_match",
         "context": "paragraph"
       },
       {
-        "block_id": "b000017",
-        "line": 30,
+        "block_id": "b000027",
+        "line": 49,
         "text": "실행하거나 자동 다운로드하지 않는다. 폐기된 모델 경로는 명시적 미지원 결과를",
         "basis": "lexical_match",
         "context": "paragraph"
       },
       {
-        "block_id": "b000024",
-        "line": 42,
+        "block_id": "b000034",
+        "line": 61,
         "text": "- JSON의 규칙 후보는 검색용 어휘 일치 결과이다. 과거 기록·예제·실패 상태를 현재 지시나 검증 완료로 자동 해석하지 않는다.",
         "basis": "lexical_match",
         "context": "list"
@@ -365,7 +459,7 @@
     ],
     "commands": [
       {
-        "block_id": "b000028",
+        "block_id": "b000038",
         "language": "sh",
         "code": "python3 ../Engineering/WorkspaceDocumentation/App/workspace_docs.py --workspace .. sync --project SDK\n"
       }
@@ -380,17 +474,45 @@
       },
       {
         "block_id": "b000011",
-        "label": "반응형 런타임 감사",
-        "target": "docs/ReactiveRuntimeAudit.md",
+        "label": "QtIndependence.md",
+        "target": "docs/QtIndependence.md",
+        "kind": "relative",
+        "line": 17
+      },
+      {
+        "block_id": "b000013",
+        "label": "HeaderLayout.md",
+        "target": "docs/HeaderLayout.md",
         "kind": "relative",
         "line": 21
       },
       {
-        "block_id": "b000024",
+        "block_id": "b000017",
+        "label": "Workspace 지침",
+        "target": "../AGENT.md",
+        "kind": "relative",
+        "line": 29
+      },
+      {
+        "block_id": "b000017",
+        "label": "개발·디자인 표준",
+        "target": "../docs/company/iisacc_dev_standard_2026-11-18.md",
+        "kind": "relative",
+        "line": 29
+      },
+      {
+        "block_id": "b000021",
+        "label": "반응형 런타임 감사",
+        "target": "docs/ReactiveRuntimeAudit.md",
+        "kind": "relative",
+        "line": 40
+      },
+      {
+        "block_id": "b000034",
         "label": "docs/agent-index.json",
         "target": "docs/agent-index.json",
         "kind": "relative",
-        "line": 41
+        "line": 60
       }
     ],
     "tables": []

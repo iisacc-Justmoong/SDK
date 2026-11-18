@@ -1,0 +1,11 @@
+#pragma once
+
+// C++ public entry for iiPBRMaterial; the linked components select the API.
+#include <CustomAtom.h>
+#include <CustomBond.h>
+#include <MolecularFormula.h>
+#include <Molecule.h>
+#include <MolecularMap.h>
+#include <Texture.h>
+#include <PBRMaterial.h>
+#include <OrganicMaterial.h>

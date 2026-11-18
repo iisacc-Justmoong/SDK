@@ -1,0 +1,5 @@
+#pragma once
+
+// C++ public entry for iiVolumetricSolidMesh; the linked components select the API.
+#include <VolumetricSolidMesh.h>
+#include <BoxCad.h>

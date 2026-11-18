@@ -1,11 +1,11 @@
-#include "App/Account/AccountController.h"
-#include "App/Account/DeviceInfo.h"
-#include "App/Network/AutomaticPairing.h"
-#include "App/Network/DiscoveryService.h"
-#include "App/Network/NearbyDevices.h"
-#include "App/Network/PairingCredentials.h"
-#include "App/State/GroupSessionStore.h"
-#include "App/State/StateCrypto.h"
+#include "Society/Account/AccountController.h"
+#include "Society/Account/DeviceInfo.h"
+#include "Society/Network/AutomaticPairing.h"
+#include "Society/Network/DiscoveryService.h"
+#include "Society/Network/NearbyDevices.h"
+#include "Society/Network/PairingCredentials.h"
+#include "Society/State/GroupSessionStore.h"
+#include "Society/State/StateCrypto.h"
 #include <iiSocietyHelper.h>
 #include <QCoreApplication>
 

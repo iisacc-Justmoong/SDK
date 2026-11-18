@@ -1,0 +1,4 @@
+#pragma once
+
+// C++ public entry for iiCompression; the linked components select the API.
+#include <iiCompression/Gzip.h>

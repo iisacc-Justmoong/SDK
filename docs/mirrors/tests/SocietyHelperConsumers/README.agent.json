@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "tests/SocietyHelperConsumers/README.md",
-    "sha256": "fe5816c4cb9ab6cea91b64ba58d67eecaee46ee82276310388fb440580cc8054",
-    "bytes": 1436,
-    "line_count": 26,
+    "sha256": "d8cbc0480b1539bf133351de32cef7e3fb655a51bb09da21f5b00b5593e1a335",
+    "bytes": 2456,
+    "line_count": 40,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -42,53 +42,67 @@
       "id": "b000003",
       "kind": "paragraph",
       "start_line": 3,
-      "end_line": 9,
-      "raw": "This integration project compiles the actual Society account wrapper and\ncompatibility headers, Society's actual network/sync/host controller, encrypted\ngroup-state and file-projection regressions, and\nDreamscapes' migrated generation controller against installed iiSocietyHelper\n0.10.0. Core contains account/client access, Sync and Generation::Remote;\ndesktop generation explicitly selects `iiSocietyHelper::GenerationHost`.\nPhotoLibrary is a lower-level dependency of Society's network controller.\n"
+      "end_line": 11,
+      "raw": "This integration project compiles the actual Society account wrapper and\ncompatibility headers, Society's actual network/sync/host controller, encrypted\ngroup-state and file-projection regressions, and\nDreamscapes' migrated generation controller against installed iiSocietyHelper\n0.10.0. Core contains account/client access, Sync and Generation::Remote;\ndesktop generation explicitly selects `iiSocietyHelper::GenerationHost`.\nPhotoLibrary is a lower-level dependency of Society's network controller.\nThe Society sources and include paths follow `Product/Society/App/Society/`,\nincluding the account controller and its two broker implementations.\n"
     },
     {
       "id": "b000004",
       "kind": "blank",
-      "start_line": 10,
-      "end_line": 10,
+      "start_line": 12,
+      "end_line": 12,
       "raw": "\n"
     },
     {
       "id": "b000005",
       "kind": "paragraph",
-      "start_line": 11,
-      "end_line": 13,
-      "raw": "The executables are ordinary native tests. They do not create an `.app`,\nreconfigure an existing product build, deploy a product or restart a process.\nFixtures and compiler outputs belong beneath `SDK/build/`.\n"
+      "start_line": 13,
+      "end_line": 15,
+      "raw": "The executables are ordinary native tests. They do not create an `.app`,\nreconfigure an existing product build, deploy a product or restart a process.\nCompiler outputs for this CMake project belong beneath `SDK/tests/SocietyHelperConsumers/build/`.\n"
     },
     {
       "id": "b000006",
       "kind": "blank",
-      "start_line": 14,
-      "end_line": 14,
+      "start_line": 16,
+      "end_line": 16,
       "raw": "\n"
     },
     {
       "id": "b000007",
-      "kind": "fenced_code",
-      "start_line": 15,
-      "end_line": 21,
-      "raw": "```sh\ncmake -S SDK/tests/SocietyHelperConsumers -B SDK/build/society-helper-consumers/build \\\n    -DiiSocietyHelper_DIR=/path/to/iiSocietyHelper/lib/cmake/iiSocietyHelper \\\n    -DCMAKE_PREFIX_PATH='/path/to/qt;/path/to/dependency-prefixes'\ncmake --build SDK/build/society-helper-consumers/build --parallel 4\nctest --test-dir SDK/build/society-helper-consumers/build --output-on-failure\n```\n",
-      "language": "sh",
-      "code": "cmake -S SDK/tests/SocietyHelperConsumers -B SDK/build/society-helper-consumers/build \\\n    -DiiSocietyHelper_DIR=/path/to/iiSocietyHelper/lib/cmake/iiSocietyHelper \\\n    -DCMAKE_PREFIX_PATH='/path/to/qt;/path/to/dependency-prefixes'\ncmake --build SDK/build/society-helper-consumers/build --parallel 4\nctest --test-dir SDK/build/society-helper-consumers/build --output-on-failure\n",
-      "closed": true
+      "kind": "paragraph",
+      "start_line": 17,
+      "end_line": 19,
+      "raw": "The Society group-state and file-projection consumers use the product's CTest\nrunner without linking QtTest. Their disposable fixtures are created under\n`Product/Society/resources/`. This consumer project no longer requests QtTest.\n"
     },
     {
       "id": "b000008",
       "kind": "blank",
-      "start_line": 22,
-      "end_line": 22,
+      "start_line": 20,
+      "end_line": 20,
       "raw": "\n"
     },
     {
       "id": "b000009",
+      "kind": "fenced_code",
+      "start_line": 21,
+      "end_line": 27,
+      "raw": "```sh\ncmake -S SDK/tests/SocietyHelperConsumers -B SDK/tests/SocietyHelperConsumers/build \\\n    -DiiSocietyHelper_DIR=/path/to/iiSocietyHelper/lib/cmake/iiSocietyHelper \\\n    -DCMAKE_PREFIX_PATH='/path/to/qt;/path/to/dependency-prefixes'\ncmake --build SDK/tests/SocietyHelperConsumers/build --parallel 4\nctest --test-dir SDK/tests/SocietyHelperConsumers/build --output-on-failure\n```\n",
+      "language": "sh",
+      "code": "cmake -S SDK/tests/SocietyHelperConsumers -B SDK/tests/SocietyHelperConsumers/build \\\n    -DiiSocietyHelper_DIR=/path/to/iiSocietyHelper/lib/cmake/iiSocietyHelper \\\n    -DCMAKE_PREFIX_PATH='/path/to/qt;/path/to/dependency-prefixes'\ncmake --build SDK/tests/SocietyHelperConsumers/build --parallel 4\nctest --test-dir SDK/tests/SocietyHelperConsumers/build --output-on-failure\n",
+      "closed": true
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 28,
+      "end_line": 28,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
       "kind": "paragraph",
-      "start_line": 23,
-      "end_line": 26,
-      "raw": "The Dreamscapes cases use injected inference and a synthetic model. They verify\nreal application state and publication behavior, not model quality or device\ninference. The SDK's own session tests separately prove authenticated LAN TLS,\nrelay and same-device native drive access.\n"
+      "start_line": 29,
+      "end_line": 40,
+      "raw": "The Dreamscapes cases use injected inference and a synthetic model. They verify\nreal application state and publication behavior, not model quality or device\ninference. Each case uses its own temporary directory in this project's\n`resources/`, including a separate container path and model-preferences file.\nThe three `SocietyHelperConsumers.dreamscapes_host.*` CTests each launch their\nown process and select one case, so their lifetimes and timeouts are independent.\nThe preview case records pixels and publication state in its signal handler;\nthe synchronization case records completion notifications. Assertions run\nafter event delivery has returned. A source-compatible installed iiLocalDiffusion\npackage is required to compile the current Dreamscapes generation sources.\nThe SDK's own session tests separately prove authenticated LAN TLS,\nrelay and same-device native drive access.\n"
     }
   ],
   "outline": [
@@ -105,7 +119,7 @@
     "directive_candidates": [
       {
         "block_id": "b000005",
-        "line": 11,
+        "line": 13,
         "text": "The executables are ordinary native tests. They do not create an `.app`,",
         "basis": "lexical_match",
         "context": "paragraph"
@@ -113,9 +127,9 @@
     ],
     "commands": [
       {
-        "block_id": "b000007",
+        "block_id": "b000009",
         "language": "sh",
-        "code": "cmake -S SDK/tests/SocietyHelperConsumers -B SDK/build/society-helper-consumers/build \\\n    -DiiSocietyHelper_DIR=/path/to/iiSocietyHelper/lib/cmake/iiSocietyHelper \\\n    -DCMAKE_PREFIX_PATH='/path/to/qt;/path/to/dependency-prefixes'\ncmake --build SDK/build/society-helper-consumers/build --parallel 4\nctest --test-dir SDK/build/society-helper-consumers/build --output-on-failure\n"
+        "code": "cmake -S SDK/tests/SocietyHelperConsumers -B SDK/tests/SocietyHelperConsumers/build \\\n    -DiiSocietyHelper_DIR=/path/to/iiSocietyHelper/lib/cmake/iiSocietyHelper \\\n    -DCMAKE_PREFIX_PATH='/path/to/qt;/path/to/dependency-prefixes'\ncmake --build SDK/tests/SocietyHelperConsumers/build --parallel 4\nctest --test-dir SDK/tests/SocietyHelperConsumers/build --output-on-failure\n"
       }
     ],
     "links": [],

@@ -1,0 +1,25 @@
+#pragma once
+
+// C++ public entry for iiGPU; the linked components select the API.
+
+#if defined(IISDK_IMPORT_IIGPU_CORE)
+#include <iiGPU/GPU.h>
+#include <iiGPU/Session.h>
+#include <iiGPU/ComputeManager.h>
+#endif
+
+#if defined(IISDK_IMPORT_IIGPU_RUNTIME)
+#include <iiGPU/Completion.h>
+#include <iiGPU/CompletionService.h>
+#include <iiGPU/DeviceThread.h>
+#endif
+
+#if defined(IISDK_IMPORT_IIGPU_WEBGPU)
+#include <iiWebGPU/BindingIndex.h>
+#include <iiWebGPU/Native.h>
+#include <iiWebGPU/Result.h>
+#include <iiWebGPU/Memory.h>
+#include <iiWebGPU/Texture.h>
+#include <iiWebGPU/Arena.h>
+#include <iiWebGPU/WebGPU.h>
+#endif

@@ -1,0 +1,4 @@
+#pragma once
+
+// C++ public entry for iiJob; the linked components select the API.
+#include <Job.h>

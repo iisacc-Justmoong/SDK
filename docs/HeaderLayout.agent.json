@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/HeaderLayout.md",
-    "sha256": "b01d685cb34e5096c851be7ad8b8c9693e92e677295f50deb8d3a582bc32e08f",
-    "bytes": 6519,
-    "line_count": 87,
+    "sha256": "0663b915b429cd165916b1b8b51e3f866719355353bb8983cebeae4721985b66",
+    "bytes": 8323,
+    "line_count": 125,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -404,6 +404,126 @@
       "start_line": 86,
       "end_line": 87,
       "raw": "검증 기록은 Workspace의 `build/header-layout-20261021/summary.json`에 있다. 사용자 설치본과\n앱은 갱신하지 않았으며, Windows·Linux·모바일·WASM에서의 실제 실행은 이 검증에 포함하지 않는다.\n"
+    },
+    {
+      "id": "b000036",
+      "kind": "blank",
+      "start_line": 88,
+      "end_line": 88,
+      "raw": "\n"
+    },
+    {
+      "id": "b000037",
+      "kind": "heading",
+      "start_line": 89,
+      "end_line": 89,
+      "raw": "## 모듈 이름으로 공개 C++ API 사용\n",
+      "level": 2,
+      "title": "모듈 이름으로 공개 C++ API 사용"
+    },
+    {
+      "id": "b000038",
+      "kind": "blank",
+      "start_line": 90,
+      "end_line": 90,
+      "raw": "\n"
+    },
+    {
+      "id": "b000039",
+      "kind": "paragraph",
+      "start_line": 91,
+      "end_line": 91,
+      "raw": "애플리케이션과 공개 C++ 예제는 확장자 없이 모듈 이름을 사용한다.\n"
+    },
+    {
+      "id": "b000040",
+      "kind": "blank",
+      "start_line": 92,
+      "end_line": 92,
+      "raw": "\n"
+    },
+    {
+      "id": "b000041",
+      "kind": "fenced_code",
+      "start_line": 93,
+      "end_line": 98,
+      "raw": "```cpp\n#include <iiSDKCore>\n#include <iiGUI>\n#include <LVUI>\n#include <functional>\n```\n",
+      "language": "cpp",
+      "code": "#include <iiSDKCore>\n#include <iiGUI>\n#include <LVUI>\n#include <functional>\n",
+      "closed": true
+    },
+    {
+      "id": "b000042",
+      "kind": "blank",
+      "start_line": 99,
+      "end_line": 99,
+      "raw": "\n"
+    },
+    {
+      "id": "b000043",
+      "kind": "paragraph",
+      "start_line": 100,
+      "end_line": 102,
+      "raw": "CMake에서는 기존 방식대로 필요한 패키지와 컴포넌트를 선택한다. 타깃이 공개\n헤더 검색 경로와 선택된 API를 전달하므로 앱에서 별도의 include 디렉터리를\n추가할 필요가 없다.\n"
+    },
+    {
+      "id": "b000044",
+      "kind": "blank",
+      "start_line": 103,
+      "end_line": 103,
+      "raw": "\n"
+    },
+    {
+      "id": "b000045",
+      "kind": "fenced_code",
+      "start_line": 104,
+      "end_line": 109,
+      "raw": "```cmake\nfind_package(iiSDKCore CONFIG REQUIRED COMPONENTS Runtime)\nfind_package(iiGUI CONFIG REQUIRED)\nfind_package(LVUI CONFIG REQUIRED COMPONENTS Native)\ntarget_link_libraries(MyApp PRIVATE iiSDKCore::Runtime iiGUI::iiGUI LVUI::Native)\n```\n",
+      "language": "cmake",
+      "code": "find_package(iiSDKCore CONFIG REQUIRED COMPONENTS Runtime)\nfind_package(iiGUI CONFIG REQUIRED)\nfind_package(LVUI CONFIG REQUIRED COMPONENTS Native)\ntarget_link_libraries(MyApp PRIVATE iiSDKCore::Runtime iiGUI::iiGUI LVUI::Native)\n",
+      "closed": true
+    },
+    {
+      "id": "b000046",
+      "kind": "blank",
+      "start_line": 110,
+      "end_line": 110,
+      "raw": "\n"
+    },
+    {
+      "id": "b000047",
+      "kind": "paragraph",
+      "start_line": 111,
+      "end_line": 116,
+      "raw": "같은 `<iiSDKCore>`라도 `iiSDKCore::Contracts`를 선택하면 공통 자료형과 계약을,\n`iiSDKCore::Runtime`을 선택하면 런타임 API까지 가져온다. `iiGUI::Painter`와\n`iiGUI::iiGUI`도 동일한 `<iiGUI>` 진입점을 사용한다. `<LVUI>`를 단독으로\n사용해 선언과 바인딩을 사용할 수 있으며, iiGUI 타깃을 함께 연결하면\n네이티브 뷰 어댑터를 사용할 수 있다. LVUI AOT 생성물도 사용하는 모듈 이름을\n한 번씩 include한다.\n"
+    },
+    {
+      "id": "b000048",
+      "kind": "blank",
+      "start_line": 117,
+      "end_line": 117,
+      "raw": "\n"
+    },
+    {
+      "id": "b000049",
+      "kind": "paragraph",
+      "start_line": 118,
+      "end_line": 121,
+      "raw": "각 독립 SDK는 `src/ModuleImports/<모듈명>`을 설치 패키지의\n`include/iisdk/<모듈명>`에 내보낸다. 개별 공개 헤더는 호환성과 SDK 내부의\n선택적 컴파일을 위해 기존 경로에 설치한다. C ABI 헤더는 기존 경로를 사용한다.\n소스 소비자와 설치 소비자는 같은 CMake 타깃으로 모듈 진입점을 얻는다.\n"
+    },
+    {
+      "id": "b000050",
+      "kind": "blank",
+      "start_line": 122,
+      "end_line": 122,
+      "raw": "\n"
+    },
+    {
+      "id": "b000051",
+      "kind": "paragraph",
+      "start_line": 123,
+      "end_line": 125,
+      "raw": "`tests/test_module_imports.py`는 SDK 진입점과 애플리케이션의 공개 헤더 계약을\n검사한다. `tests/ModuleImports`는 설치된 타깃만 연결해 모듈 이름으로\nC++ 소비자를 컴파일한다.\n"
     }
   ],
   "outline": [
@@ -454,6 +574,14 @@
       "title": "전환 검증 결과",
       "anchor": "전환-검증-결과",
       "start_line": 73
+    },
+    {
+      "block_id": "b000037",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "모듈 이름으로 공개 C++ API 사용",
+      "anchor": "모듈-이름으로-공개-c++-api-사용",
+      "start_line": 89
     }
   ],
   "indexes": {

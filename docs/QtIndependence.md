@@ -98,3 +98,5 @@ SDK에는 이미 JSON·네트워크·프로세스·런타임·파일·장치·�
 Vision·OpenCV 확장은 iiVisualCodec 0.3에서 독립 타깃으로 제공한다. 이미지 전용 소스 소비자는 IIVISUALCODEC_OPENCV=OFF를 지정하고, 설치 소비자는 Image 구성요소만 요청한다. Vision 객체는 OpenCV 없이 사용할 수 있다.
 
 iiVisualCodec 0.4는 표준 C++ Geometry와 선택적 Asset3D(Assimp)·CAD(Open CASCADE) 타깃을 추가한다. 이미지 전용 소스 소비자는 IIVISUALCODEC_3D=OFF와 IIVISUALCODEC_CAD=OFF도 지정한다. Geometry 단독 패키지는 두 백엔드를 탐색하지 않는다. 상세 계약과 실제 플랫폼 검증은 iiVisualCodec/docs/Geometry.md·Asset3D.md·CAD.md·GeometryVerification.md를 기준으로 한다.
+
+SDK의 SocietyHelper 소비자 검사는 Dreamscapes의 기존 선택 사례 세 개를 CTest 실행기로 구성하며 QtTest를 요구하지 않는다. 미리보기 픽셀·게시 상태와 동기화 완료 신호를 기록하고 각 사례의 컨테이너 및 설정 파일을 독립 resources 작업공간에 둔다. 생성 실행은 합성 모델과 주입된 추론을 사용한다. 현재 앱 소스와 호환되는 iiLocalDiffusion 패키지로 빌드 및 실행 결과를 별도 확인해야 한다.

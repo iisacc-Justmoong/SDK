@@ -85,3 +85,41 @@ SDK 루트에서 `python3 -B tests/test_source_header_layout.py`를 실행한다
 
 검증 기록은 Workspace의 `build/header-layout-20261021/summary.json`에 있다. 사용자 설치본과
 앱은 갱신하지 않았으며, Windows·Linux·모바일·WASM에서의 실제 실행은 이 검증에 포함하지 않는다.
+
+## 모듈 이름으로 공개 C++ API 사용
+
+애플리케이션과 공개 C++ 예제는 확장자 없이 모듈 이름을 사용한다.
+
+```cpp
+#include <iiSDKCore>
+#include <iiGUI>
+#include <LVUI>
+#include <functional>
+```
+
+CMake에서는 기존 방식대로 필요한 패키지와 컴포넌트를 선택한다. 타깃이 공개
+헤더 검색 경로와 선택된 API를 전달하므로 앱에서 별도의 include 디렉터리를
+추가할 필요가 없다.
+
+```cmake
+find_package(iiSDKCore CONFIG REQUIRED COMPONENTS Runtime)
+find_package(iiGUI CONFIG REQUIRED)
+find_package(LVUI CONFIG REQUIRED COMPONENTS Native)
+target_link_libraries(MyApp PRIVATE iiSDKCore::Runtime iiGUI::iiGUI LVUI::Native)
+```
+
+같은 `<iiSDKCore>`라도 `iiSDKCore::Contracts`를 선택하면 공통 자료형과 계약을,
+`iiSDKCore::Runtime`을 선택하면 런타임 API까지 가져온다. `iiGUI::Painter`와
+`iiGUI::iiGUI`도 동일한 `<iiGUI>` 진입점을 사용한다. `<LVUI>`를 단독으로
+사용해 선언과 바인딩을 사용할 수 있으며, iiGUI 타깃을 함께 연결하면
+네이티브 뷰 어댑터를 사용할 수 있다. LVUI AOT 생성물도 사용하는 모듈 이름을
+한 번씩 include한다.
+
+각 독립 SDK는 `src/ModuleImports/<모듈명>`을 설치 패키지의
+`include/iisdk/<모듈명>`에 내보낸다. 개별 공개 헤더는 호환성과 SDK 내부의
+선택적 컴파일을 위해 기존 경로에 설치한다. C ABI 헤더는 기존 경로를 사용한다.
+소스 소비자와 설치 소비자는 같은 CMake 타깃으로 모듈 진입점을 얻는다.
+
+`tests/test_module_imports.py`는 SDK 진입점과 애플리케이션의 공개 헤더 계약을
+검사한다. `tests/ModuleImports`는 설치된 타깃만 연결해 모듈 이름으로
+C++ 소비자를 컴파일한다.

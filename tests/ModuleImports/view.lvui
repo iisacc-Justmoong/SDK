@@ -1,0 +1,8 @@
+Application {
+    Window(title: "Module imports") {
+        VStack {
+            Label(text: "Module imports")
+            PushButton(text: "Continue")
+        }
+    }
+}

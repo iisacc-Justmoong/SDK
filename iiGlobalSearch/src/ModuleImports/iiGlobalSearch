@@ -1,0 +1,15 @@
+#pragma once
+
+// C++ public entry for iiGlobalSearch; the linked components select the API.
+
+#if defined(IISDK_IMPORT_IIGLOBALSEARCH_ANSWER)
+#include <Answer.h>
+#endif
+
+#if defined(IISDK_IMPORT_IIGLOBALSEARCH_CORE)
+#include <GlobalSearch.h>
+#endif
+
+#if defined(IISDK_IMPORT_IIGLOBALSEARCH_WEB)
+#include <WebSearch.h>
+#endif
