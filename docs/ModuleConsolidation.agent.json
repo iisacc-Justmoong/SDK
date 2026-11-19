@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/ModuleConsolidation.md",
-    "sha256": "6281b69e6a69e16b379d63920749aab64f1155ba52b9b1767719e9ee6cf7249a",
-    "bytes": 2099,
-    "line_count": 30,
+    "sha256": "7c54cd7e02b5c5a54c599b43739b470b63c82fd8569d53f1aaf204d6762cbd07",
+    "bytes": 2490,
+    "line_count": 35,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -171,6 +171,20 @@
       "start_line": 29,
       "end_line": 30,
       "raw": "각 구성요소의 빌드·설치 소비자 검증과 운영체제별 범위는 소유 모듈의 문서와\n`build/` 테스트 로그를 따른다. macOS 검사는 Windows·Linux 실기기 실행을 대신하지 않는다.\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 31,
+      "end_line": 31,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 32,
+      "end_line": 35,
+      "raw": "iiXml 0.1.2 설치본에서 두 CMake 이름은 같은 타깃 내보내기를 사용한다. XML 파서는\n단독으로 사용할 수 있고 HTML 블록은 그 파서를 사용한다. 기존 iiHtmlBlock 이름으로도\n같이 설치된 컴포넌트를 찾을 수 있다. 별도 접두사에 구형 독립 iiHtmlBlock이 남아 있으면\n새 iiXml 설치본을 검색 경로로 지정한다.\n"
     }
   ],
   "outline": [
