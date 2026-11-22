@@ -220,7 +220,7 @@ weights retain their respective licenses.
 - [`SDK/iiActorObject`](iiActorObject/README.md)
 - [`SDK/iiAudioGen`](iiAudioGen/README.md)
 - [`SDK/iiCSMIDI`](iiCSMIDI/README.md)
-- [`SDK/iiCalendar`](iiCalendar/README.md)
+- [`SDK/iiCalendarIntegration`](iiCalendarIntegration/README.md)
 - [`SDK/iiCameraIntegration`](iiCameraIntegration/README.md)
 - [`SDK/iiColorManager`](iiColorManager/README.md)
 - [`SDK/iiCompression`](iiCompression/README.md)

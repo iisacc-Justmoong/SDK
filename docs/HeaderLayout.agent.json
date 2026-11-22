@@ -10,8 +10,8 @@
   },
   "source": {
     "path": "docs/HeaderLayout.md",
-    "sha256": "0663b915b429cd165916b1b8b51e3f866719355353bb8983cebeae4721985b66",
-    "bytes": 8323,
+    "sha256": "37ae337e6c28a790b136d5784795c4bbf1aeac09a7212ffc17fface034dff6c5",
+    "bytes": 8354,
     "line_count": 125,
     "encoding": "utf-8",
     "language": "ko"
@@ -145,7 +145,7 @@
       "kind": "table",
       "start_line": 34,
       "end_line": 49,
-      "raw": "| 모듈 | 소스와 공개 헤더의 위치 |\n| --- | --- |\n| LVUI | `src/LVUI/` |\n| iiActorObject | `src/iiActorObject/` |\n| iiCalendar | `src/iiCalendar/` |\n| iiColorManager | `src/iiColorManager/` |\n| iiGUI | `src/iiGUI/` |\n| iiJson | `src/iiJson/` |\n| iiLicenseManager | `src/iiLicenseManager/`, `Native/src/iiLicenseManager/` |\n| iiNetwork | `src/iiNetwork/` |\n| iiPhotoLibrary | `src/iiPhotoLibrary/` |\n| iiSDKBuilder | `src/iiSDKBuilder/` |\n| iiSocialPublish | `src/iiSocialPublish/` |\n| iiUpdateManager | `src/iiUpdateManager/`, `Native/src/iiUpdateManager/` |\n| iiAccountManager | 네이티브 API의 `Native/src/iiAccountManager/` |\n| iiFileProvider | 파일 호환 API의 `Compatibility/src/` |\n",
+      "raw": "| 모듈 | 소스와 공개 헤더의 위치 |\n| --- | --- |\n| LVUI | `src/LVUI/` |\n| iiActorObject | `src/iiActorObject/` |\n| iiCalendarIntegration | `src/Integration/`, `src/Chronology/` |\n| iiColorManager | `src/iiColorManager/` |\n| iiGUI | `src/iiGUI/` |\n| iiJson | `src/iiJson/` |\n| iiLicenseManager | `src/iiLicenseManager/`, `Native/src/iiLicenseManager/` |\n| iiNetwork | `src/iiNetwork/` |\n| iiPhotoLibrary | `src/iiPhotoLibrary/` |\n| iiSDKBuilder | `src/iiSDKBuilder/` |\n| iiSocialPublish | `src/iiSocialPublish/` |\n| iiUpdateManager | `src/iiUpdateManager/`, `Native/src/iiUpdateManager/` |\n| iiAccountManager | 네이티브 API의 `Native/src/iiAccountManager/` |\n| iiFileProvider | 파일 호환 API의 `Compatibility/src/` |\n",
       "columns": [
         "모듈",
         "소스와 공개 헤더의 위치"
@@ -160,8 +160,8 @@
           "`src/iiActorObject/`"
         ],
         [
-          "iiCalendar",
-          "`src/iiCalendar/`"
+          "iiCalendarIntegration",
+          "`src/Integration/`, `src/Chronology/`"
         ],
         [
           "iiColorManager",
@@ -641,8 +641,8 @@
             "`src/iiActorObject/`"
           ],
           [
-            "iiCalendar",
-            "`src/iiCalendar/`"
+            "iiCalendarIntegration",
+            "`src/Integration/`, `src/Chronology/`"
           ],
           [
             "iiColorManager",

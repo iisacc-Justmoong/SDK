@@ -87,7 +87,7 @@
       "lfs": false
     },
     {
-      "path": "SDK/iiCalendar",
+      "path": "SDK/iiCalendarIntegration",
       "url": "https://github.com/iisacc-Justmoong/iiCalendar.git",
       "branch": "main",
       "sourceCommit": "4e49c5aee9e24900e4a8726a9d1c09bf21805929",

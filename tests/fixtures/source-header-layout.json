@@ -79,7 +79,7 @@
       ]
     },
     {
-      "module": "iiCalendar",
+      "module": "iiCalendarIntegration",
       "publicHeaders": [
         "src/Integration/Accounts.h",
         "src/Chronology/Calendar.h",
@@ -91,7 +91,7 @@
         "src/Chronology/Time.h",
         "src/Chronology/TimeZone.h",
         "src/Presentation/View.h",
-        "src/Integration/iiCalendar.h"
+        "src/Integration/iiCalendarIntegration.h"
       ],
       "sourceRootDeduplicated": true
     },

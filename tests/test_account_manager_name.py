@@ -53,7 +53,7 @@ class AccountManagerNameTests(unittest.TestCase):
     def test_native_qt_and_product_dependents_use_the_canonical_name(self):
         workspace = SDK.parent
         paths = (
-            "SDK/iiCalendar/tests/iisacc_bridge.cpp",
+            "SDK/iiCalendarIntegration/tests/iisacc_bridge.cpp",
             "SDK/iiLicenseManager/src/Client/LicenseClient.h",
             "SDK/iiLicenseManager/Native/cmake/iiLicenseManagerNativeConfig.cmake.in",
             "SDK/iiUpdateManager/Native/src/Updates/NativeUpdateManager.cpp",

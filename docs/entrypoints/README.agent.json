@@ -10,8 +10,8 @@
   },
   "source": {
     "path": "README.md",
-    "sha256": "c18b3543d1204a4e9243ccc53b05cfb260de8b3cced0ba6d7b82e8b0ac9864d4",
-    "bytes": 18184,
+    "sha256": "55b6c4a1f8ccbd4d93fdd53a233a9ddb18e7e010d8176876227e1d907c5ee87d",
+    "bytes": 18206,
     "line_count": 266,
     "encoding": "utf-8",
     "language": "ko"
@@ -729,7 +729,7 @@
       "kind": "list",
       "start_line": 212,
       "end_line": 261,
-      "raw": "- [`SDK/Flamewall`](Flamewall/README.md)\n- [`SDK/LVRS`](LVRS/README.md)\n- [`SDK/LVRS-Svelte`](LVRS-Svelte/README.md)\n- [`SDK/LVUI`](LVUI/README.md)\n- [`SDK/Silentlocked`](Silentlocked/README.md)\n- [`SDK/Windows`](Windows/README.md)\n- [`SDK/ii3DGen`](ii3DGen/README.md)\n- [`SDK/iiAccountManager`](iiAccountManager/README.md)\n- [`SDK/iiActorObject`](iiActorObject/README.md)\n- [`SDK/iiAudioGen`](iiAudioGen/README.md)\n- [`SDK/iiCSMIDI`](iiCSMIDI/README.md)\n- [`SDK/iiCalendar`](iiCalendar/README.md)\n- [`SDK/iiCameraIntegration`](iiCameraIntegration/README.md)\n- [`SDK/iiColorManager`](iiColorManager/README.md)\n- [`SDK/iiCompression`](iiCompression/README.md)\n- [`SDK/iiComputerHistory`](iiComputerHistory/README.md)\n- [`SDK/iiComputerUse`](iiComputerUse/README.md)\n- [`SDK/iiDecision`](iiDecision/README.md)\n- [`SDK/iiDeviceMultimedia`](iiDeviceMultimedia/README.md)\n- [`SDK/iiEmailClient`](iiEmailClient/README.md)\n- [`SDK/iiFileProvider`](iiFileProvider/README.md)\n- [`SDK/iiGPU`](iiGPU/README.md)\n- [`SDK/iiGUI`](iiGUI/README.md)\n- [`SDK/iiGeneralDocument`](iiGeneralDocument/README.md)\n- [`SDK/iiGlobalSearch`](iiGlobalSearch/README.md)\n- [`SDK/iiGraphicAdjust`](iiGraphicAdjust/README.md)\n- [`SDK/iiJson`](iiJson/README.md)\n- [`SDK/iiLicenseManager`](iiLicenseManager/README.md)\n- [`SDK/iiLocalDiffusion`](iiLocalDiffusion/README.md)\n- [`SDK/iiLocalLLM`](iiLocalLLM/README.md)\n- [`SDK/iiMultimodalAgent`](iiMultimodalAgent/README.md)\n- [`SDK/iiNetwork`](iiNetwork/README.md)\n- [`SDK/iiPBRMaterial`](iiPBRMaterial/README.md)\n- [`SDK/iiPaintEngine`](iiPaintEngine/README.md)\n- [`SDK/iiPhotoLibrary`](iiPhotoLibrary/README.md)\n- [`SDK/iiSDKBuilder`](iiSDKBuilder/README.md)\n- [`SDK/iiSDKCore`](iiSDKCore/README.md)\n- [`SDK/iiSharedCanvas`](iiSharedCanvas/README.md)\n- [`SDK/iiSocialIntegration`](iiSocialIntegration/README.md)\n- [`SDK/iiSocietyContainer`](iiSocietyContainer/README.md)\n- [`SDK/iiSocietyHelper`](iiSocietyHelper/README.md)\n- [`SDK/iiUpdateManager`](iiUpdateManager/README.md)\n- [`SDK/iiVirtualizer`](iiVirtualizer/README.md)\n- [`SDK/iiVisualCodec`](iiVisualCodec/README.md)\n- [`SDK/iiVoiceOver`](iiVoiceOver/README.md)\n- [`SDK/iiVolumetricSolidMesh`](iiVolumetricSolidMesh/README.md)\n- [`SDK/iiWebServer`](iiWebServer/README.md)\n- [`SDK/iiWhatsNew`](iiWhatsNew/README.md)\n- [`SDK/iiXml`](iiXml/README.md)\n- [`SDK/iiProjectManager`](iiProjectManager/README.md)\n",
+      "raw": "- [`SDK/Flamewall`](Flamewall/README.md)\n- [`SDK/LVRS`](LVRS/README.md)\n- [`SDK/LVRS-Svelte`](LVRS-Svelte/README.md)\n- [`SDK/LVUI`](LVUI/README.md)\n- [`SDK/Silentlocked`](Silentlocked/README.md)\n- [`SDK/Windows`](Windows/README.md)\n- [`SDK/ii3DGen`](ii3DGen/README.md)\n- [`SDK/iiAccountManager`](iiAccountManager/README.md)\n- [`SDK/iiActorObject`](iiActorObject/README.md)\n- [`SDK/iiAudioGen`](iiAudioGen/README.md)\n- [`SDK/iiCSMIDI`](iiCSMIDI/README.md)\n- [`SDK/iiCalendarIntegration`](iiCalendarIntegration/README.md)\n- [`SDK/iiCameraIntegration`](iiCameraIntegration/README.md)\n- [`SDK/iiColorManager`](iiColorManager/README.md)\n- [`SDK/iiCompression`](iiCompression/README.md)\n- [`SDK/iiComputerHistory`](iiComputerHistory/README.md)\n- [`SDK/iiComputerUse`](iiComputerUse/README.md)\n- [`SDK/iiDecision`](iiDecision/README.md)\n- [`SDK/iiDeviceMultimedia`](iiDeviceMultimedia/README.md)\n- [`SDK/iiEmailClient`](iiEmailClient/README.md)\n- [`SDK/iiFileProvider`](iiFileProvider/README.md)\n- [`SDK/iiGPU`](iiGPU/README.md)\n- [`SDK/iiGUI`](iiGUI/README.md)\n- [`SDK/iiGeneralDocument`](iiGeneralDocument/README.md)\n- [`SDK/iiGlobalSearch`](iiGlobalSearch/README.md)\n- [`SDK/iiGraphicAdjust`](iiGraphicAdjust/README.md)\n- [`SDK/iiJson`](iiJson/README.md)\n- [`SDK/iiLicenseManager`](iiLicenseManager/README.md)\n- [`SDK/iiLocalDiffusion`](iiLocalDiffusion/README.md)\n- [`SDK/iiLocalLLM`](iiLocalLLM/README.md)\n- [`SDK/iiMultimodalAgent`](iiMultimodalAgent/README.md)\n- [`SDK/iiNetwork`](iiNetwork/README.md)\n- [`SDK/iiPBRMaterial`](iiPBRMaterial/README.md)\n- [`SDK/iiPaintEngine`](iiPaintEngine/README.md)\n- [`SDK/iiPhotoLibrary`](iiPhotoLibrary/README.md)\n- [`SDK/iiSDKBuilder`](iiSDKBuilder/README.md)\n- [`SDK/iiSDKCore`](iiSDKCore/README.md)\n- [`SDK/iiSharedCanvas`](iiSharedCanvas/README.md)\n- [`SDK/iiSocialIntegration`](iiSocialIntegration/README.md)\n- [`SDK/iiSocietyContainer`](iiSocietyContainer/README.md)\n- [`SDK/iiSocietyHelper`](iiSocietyHelper/README.md)\n- [`SDK/iiUpdateManager`](iiUpdateManager/README.md)\n- [`SDK/iiVirtualizer`](iiVirtualizer/README.md)\n- [`SDK/iiVisualCodec`](iiVisualCodec/README.md)\n- [`SDK/iiVoiceOver`](iiVoiceOver/README.md)\n- [`SDK/iiVolumetricSolidMesh`](iiVolumetricSolidMesh/README.md)\n- [`SDK/iiWebServer`](iiWebServer/README.md)\n- [`SDK/iiWhatsNew`](iiWhatsNew/README.md)\n- [`SDK/iiXml`](iiXml/README.md)\n- [`SDK/iiProjectManager`](iiProjectManager/README.md)\n",
       "items": [
         {
           "marker": "-",
@@ -788,7 +788,7 @@
         },
         {
           "marker": "-",
-          "text": "[`SDK/iiCalendar`](iiCalendar/README.md)",
+          "text": "[`SDK/iiCalendarIntegration`](iiCalendarIntegration/README.md)",
           "checked": null
         },
         {
@@ -1418,8 +1418,8 @@
       },
       {
         "block_id": "b000095",
-        "label": "`SDK/iiCalendar`",
-        "target": "iiCalendar/README.md",
+        "label": "`SDK/iiCalendarIntegration`",
+        "target": "iiCalendarIntegration/README.md",
         "kind": "relative",
         "line": 223
       },

@@ -35,7 +35,7 @@ macOS arm64에서 변경된 모듈의 빌드, 관련 자동 테스트와 설치 
 | --- | --- |
 | LVUI | `src/LVUI/` |
 | iiActorObject | `src/iiActorObject/` |
-| iiCalendar | `src/iiCalendar/` |
+| iiCalendarIntegration | `src/Integration/`, `src/Chronology/` |
 | iiColorManager | `src/iiColorManager/` |
 | iiGUI | `src/iiGUI/` |
 | iiJson | `src/iiJson/` |

@@ -10,8 +10,8 @@
   },
   "source": {
     "path": "docs/SDKIndependence.md",
-    "sha256": "3e6d4ff834ac899fac28c157fa981031811f4ab66cd43b09c98d07ac33b419af",
-    "bytes": 12012,
+    "sha256": "c020d205c41d4787fd1efe8186ca002c60cd6a4a025af34c9067e6008146b138",
+    "bytes": 12034,
     "line_count": 159,
     "encoding": "utf-8",
     "language": "ko"
@@ -101,7 +101,7 @@
       "kind": "paragraph",
       "start_line": 26,
       "end_line": 28,
-      "raw": "iiCalendar의 계정 연동과 파일 저장은 각각 별도 소비자가 계정 SDK 또는 파일\n제공자를 조합한다. 파일 기반 `Store(path)`와 계정 파일 저장 멤버는 제거됐으므로\n앱은 새 소비자 어댑터 또는 자체 파일 연결을 사용하도록 변경하고 다시 빌드해야 한다.\n"
+      "raw": "iiCalendarIntegration의 계정 연동과 파일 저장은 각각 별도 소비자가 계정 SDK 또는 파일\n제공자를 조합한다. 파일 기반 `Store(path)`와 계정 파일 저장 멤버는 제거됐으므로\n앱은 새 소비자 어댑터 또는 자체 파일 연결을 사용하도록 변경하고 다시 빌드해야 한다.\n"
     },
     {
       "id": "b000012",
@@ -273,7 +273,7 @@
       "kind": "paragraph",
       "start_line": 88,
       "end_line": 98,
-      "raw": "2026-10-28 카메라 파일 포트 이전 전 전체 정적 목록은 SDK 디렉터리 45개 중 24개에서 다른 SDK를\n참조하는 후보를 찾았고, Windows 프로젝트 목록에서는 23개가 SDK 의존성을\n선언했다. 검사하지 못한 파일은 0개였다. 이 숫자는 설정·전처리·실행 결과를\n평가하지 않는 어휘 검사 시점의 결과이므로 현재 체크아웃에서 명령을 다시 실행해\n갱신해야 한다. iiGPU, iiGraphicAdjust, iiAudioGen, iiDecision, iiFileProvider,\niiXml, iiCalendar, iiVoiceOver 8개를 별도로 선택한 엄격 검사에는 다른 SDK 참조\n후보와 Windows 목록 의존성이 없었다. 이후 iiCameraIntegration과 iiCSMIDI를\n이전했으며 각각 같은 엄격 검사에서 참조 후보와 Windows 목록 의존성이 없음을\n확인한다. 이어 iiJson과 iiPaintEngine까지 포함한 12개 모듈의 선택 검사에서도\n참조 후보·Windows 목록 의존성과 검사 누락이 없었다. 이 결과는 전체 SDK가 아닌\n해당 모듈의 정적 검사이다.\n"
+      "raw": "2026-10-28 카메라 파일 포트 이전 전 전체 정적 목록은 SDK 디렉터리 45개 중 24개에서 다른 SDK를\n참조하는 후보를 찾았고, Windows 프로젝트 목록에서는 23개가 SDK 의존성을\n선언했다. 검사하지 못한 파일은 0개였다. 이 숫자는 설정·전처리·실행 결과를\n평가하지 않는 어휘 검사 시점의 결과이므로 현재 체크아웃에서 명령을 다시 실행해\n갱신해야 한다. iiGPU, iiGraphicAdjust, iiAudioGen, iiDecision, iiFileProvider,\niiXml, iiCalendarIntegration, iiVoiceOver 8개를 별도로 선택한 엄격 검사에는 다른 SDK 참조\n후보와 Windows 목록 의존성이 없었다. 이후 iiCameraIntegration과 iiCSMIDI를\n이전했으며 각각 같은 엄격 검사에서 참조 후보와 Windows 목록 의존성이 없음을\n확인한다. 이어 iiJson과 iiPaintEngine까지 포함한 12개 모듈의 선택 검사에서도\n참조 후보·Windows 목록 의존성과 검사 누락이 없었다. 이 결과는 전체 SDK가 아닌\n해당 모듈의 정적 검사이다.\n"
     },
     {
       "id": "b000036",

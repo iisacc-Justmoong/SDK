@@ -23,7 +23,7 @@ iiVoiceOver는 독립 오류 타입과 파일 I/O 없는 WAV 바이트 인코딩
 다시 빌드해야 한다. 멀티모달 에이전트의 WAV 경로는 바이트를 파일 제공자로 직접
 게시하도록 조정했지만 에이전트 자체의 다른 SDK 직접 의존성은 아직 남아 있다.
 
-iiCalendar의 계정 연동과 파일 저장은 각각 별도 소비자가 계정 SDK 또는 파일
+iiCalendarIntegration의 계정 연동과 파일 저장은 각각 별도 소비자가 계정 SDK 또는 파일
 제공자를 조합한다. 파일 기반 `Store(path)`와 계정 파일 저장 멤버는 제거됐으므로
 앱은 새 소비자 어댑터 또는 자체 파일 연결을 사용하도록 변경하고 다시 빌드해야 한다.
 
@@ -90,7 +90,7 @@ iiGPU의 Dawn 다운로드 계약에는 저장 어댑터를 주입하고, 독립
 선언했다. 검사하지 못한 파일은 0개였다. 이 숫자는 설정·전처리·실행 결과를
 평가하지 않는 어휘 검사 시점의 결과이므로 현재 체크아웃에서 명령을 다시 실행해
 갱신해야 한다. iiGPU, iiGraphicAdjust, iiAudioGen, iiDecision, iiFileProvider,
-iiXml, iiCalendar, iiVoiceOver 8개를 별도로 선택한 엄격 검사에는 다른 SDK 참조
+iiXml, iiCalendarIntegration, iiVoiceOver 8개를 별도로 선택한 엄격 검사에는 다른 SDK 참조
 후보와 Windows 목록 의존성이 없었다. 이후 iiCameraIntegration과 iiCSMIDI를
 이전했으며 각각 같은 엄격 검사에서 참조 후보와 Windows 목록 의존성이 없음을
 확인한다. 이어 iiJson과 iiPaintEngine까지 포함한 12개 모듈의 선택 검사에서도

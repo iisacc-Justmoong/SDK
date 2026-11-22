@@ -20,7 +20,7 @@
     "kind": "cmake",
     "dependencies": []
   },
-  "iiCalendar": {
+  "iiCalendarIntegration": {
     "kind": "cmake",
     "dependencies": []
   },
