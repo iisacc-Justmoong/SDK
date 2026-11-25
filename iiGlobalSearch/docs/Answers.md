@@ -6,15 +6,13 @@
 
 `Value::get<T>()`는 정확한 타입의 읽기 전용 포인터를 반환하고, 객체의 `find(key)`는 없거나 객체가 아니면 빈 포인터를 반환한다. `Value::List`는 서로 다른 `Value`를 재귀적으로 담고, `Value::Object`는 문자열 키를 가진다. 숫자·문자열 외에도 null, bool, 바이트 배열을 보존한다. 양수 정수는 부호 있는 `int64_t` 또는 부호 없는 `uint64_t`로 정확히 보존하며 `double`은 Float이다. 분류 JSON과 JSON-LD는 iiSDKCore `Value`와 iiJson을 통해 구조를 보존하고 이 답변 값으로 변환한다. 유효하지 않은 JSON-LD는 원래 문자열로 둔다. 입력이 없는 유형을 추측하여 생성하지 않는다.
 
-| 유형 | 답변 표현과 원본 |
-| --- | --- |
-| Int, Float, String | 각각 `int64_t`/`uint64_t`, `double`, `std::string`이다. |
-| List[Any], Object | `Value::List`, `Value::Object`이다. 모든 유형을 중첩할 수 있다. |
-| Image, Video, Audio | 각 `content`에 MIME 힌트와 출처, 선택적으로 메모리 바이트가 있다. |
-| Vector | `std::vector<double>`인 숫자 벡터 또는 인코딩된 벡터 그래픽 `Asset`이다. |
-| Spreadsheet | HTML 표의 행과 `ii::core::Value` 셀 또는 외부 문서의 `source` 참조이다. |
-| Graph | 노드·간선 및 수치 좌표를 가진 데이터 계열과 속성이다. 요청된 웹 DOM은 `domGraph`로도 표현된다. |
-| Scene | 노드·부모·행렬·속성 또는 3D 문서의 `source` 참조이다. |
+- 유형: Int, Float, String; 답변 표현과 원본: 각각 `int64_t`/`uint64_t`, `double`, `std::string`이다.
+- 유형: List[Any], Object; 답변 표현과 원본: `Value::List`, `Value::Object`이다. 모든 유형을 중첩할 수 있다.
+- 유형: Image, Video, Audio; 답변 표현과 원본: 각 `content`에 MIME 힌트와 출처, 선택적으로 메모리 바이트가 있다.
+- 유형: Vector; 답변 표현과 원본: `std::vector<double>`인 숫자 벡터 또는 인코딩된 벡터 그래픽 `Asset`이다.
+- 유형: Spreadsheet; 답변 표현과 원본: HTML 표의 행과 `ii::core::Value` 셀 또는 외부 문서의 `source` 참조이다.
+- 유형: Graph; 답변 표현과 원본: 노드·간선 및 수치 좌표를 가진 데이터 계열과 속성이다. 요청된 웹 DOM은 `domGraph`로도 표현된다.
+- 유형: Scene; 답변 표현과 원본: 노드·부모·행렬·속성 또는 3D 문서의 `source` 참조이다.
 
 로컬 답변의 항목은 상대 경로, 파일 키, 제목, 크기, MIME, 분류 객체 및 존재·대기 상태를 포함한다. 검색된 파일의 MIME이나 확장자로 미디어, 벡터 그래픽, 스프레드시트, 3D 장면을 식별하면 `value`에 해당 타입의 참조를 담는다. 판별은 형식 힌트이며 파일을 디코딩하거나 MIME을 인증하지 않는다. 분류되지 않은 일반 파일이 새로 색인 대상이 되지는 않는다.
 

@@ -1,0 +1,3126 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:e58e62aa8bcc57966f1d91eb28d8458b7c97a168014dfbdc1bce509ddec4f0be",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "docs/Integrations/Congregation/CONGREGATION_GLOBAL_MENU_FUNCTION_MODULES.md",
+    "sha256": "f73289ea842f8ec2aaa3a92a2fe89d146ffac95246b3395070f98e35d60bde3e",
+    "bytes": 19169,
+    "line_count": 297,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "Congregation 글로벌 메뉴 기능별 iiSDK 모듈 배정",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Congregation 글로벌 메뉴 기능별 iiSDK 모듈 배정\n",
+      "level": 1,
+      "title": "Congregation 글로벌 메뉴 기능별 iiSDK 모듈 배정"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "기준일: 2026-11-25. Congregation의 글로벌 메뉴에서 현재 비활성인 명령과 비어 있는 하위 메뉴를 기능별로 나열하고, 각 기능의 주 담당 모듈과 함께 구성할 모듈을 정리한다. [메뉴 정의](../../../../Product/Congregation/App/Application/AppMenu.h)와 [기존 모듈별 배정 문서](../../../../Product/Congregation/docs/GLOBAL_MENU_SDK_ALLOCATION.md)를 기준으로 작성했다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 4,
+      "end_line": 4,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 5,
+      "end_line": 5,
+      "raw": "아래 211행은 비활성 명령 162개와 빈 하위 메뉴 49개이다. **†**는 `No commands available`만 있는 하위 메뉴로, 세부 기능이 정해지지 않았으므로 배정이 잠정적이다. Help의 `Help unavailable`은 상태 행으로 별도 기록한다. 활성 상태이지만 불완전한 경로도 별도 표에 둔다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "**`*`는 신규 제안 모듈이다.** 별표가 없는 모듈은 현재 SDK 작업 공간에 있다. 기존 모듈이 해당 메뉴 기능을 이미 구현했거나 앱에 연결했다는 뜻은 아니다. 신규 이름은 책임 배정 제안이며 실제 모듈을 만든 것은 아니다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 9,
+      "end_line": 9,
+      "raw": "주 담당은 기능의 핵심 계약을 맡는 제안이다. 협력 모듈은 해당 문서 작업·파일 입출력·계산 등의 경계를 함께 구성할 후보이며, 실제 파일 입출력이나 해당 백엔드를 쓰지 않는 구현에서는 생략할 수 있다. 모듈 간 직접 링크나 공개 타입 의존성을 뜻하지 않는다. Congregation이 독립 인터페이스를 조합하고 제품 명령·이력·오류를 연결한다. 파일 생성은 iiFileProvider가 담당한다. [SDK 독립성 지침](../../../AGENT.md)\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 10,
+      "end_line": 10,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "paragraph",
+      "start_line": 11,
+      "end_line": 11,
+      "raw": "메뉴 화면과 설정 화면에는 LVUI와 iiGUI를 공통으로 사용한다. 표의 iiGUI는 그 공통 표시 외에 클립보드·파일 선택·플랫폼 기능처럼 별도 경계가 필요한 경우에만 적는다. 생성형 기능에는 폐기된 ONNX 및 ONNX Runtime을 다시 도입하지 않는다.\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 12,
+      "end_line": 12,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 13,
+      "end_line": 13,
+      "raw": "구현 시 각 SDK는 C++ API와 독립적인 연동 인터페이스, Python API를 제공한다. Congregation은 동일한 제품 명령을 AI 에이전트가 호출할 수 있도록 CLI 또는 이에 준하는 인터페이스와 MCP를 구성한다. `iiAgentApplicationInterface`를 앱의 명령 등록과 연동할 수 있지만, 현재 제품에서 이 통합이 완성되었다고 가정하지 않는다.\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 14,
+      "end_line": 14,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "heading",
+      "start_line": 15,
+      "end_line": 15,
+      "raw": "## File\n",
+      "level": 2,
+      "title": "File"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 16,
+      "end_line": 16,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "table",
+      "start_line": 17,
+      "end_line": 32,
+      "raw": "| 기능 | 주 담당 | 협력 모듈 |\n| --- | --- | --- |\n| Open As… | `iiDocumentSession`* | `iiSharedCanvas`, `iiFileProvider`, `iiVisualCodec`, `iiGUI` |\n| Open Recent † | `iiDocumentSession`* | `iiSharedCanvas`, `iiFileProvider` |\n| Close | `iiDocumentSession`* | `iiSharedCanvas` |\n| Close All | `iiDocumentSession`* | `iiSharedCanvas` |\n| Close Others | `iiDocumentSession`* | `iiSharedCanvas` |\n| Save a Copy… | `iiDocumentSession`* | `iiSharedCanvas`, `iiFileProvider` |\n| Revert | `iiDocumentSession`* | `iiSharedCanvas`, `iiFileProvider` |\n| Place Linked… | `iiSharedCanvas` | `iiResource`, `iiFileProvider`, `iiVisualCodec::Image` |\n| Automate † | `iiAutomation`* | `iiAgentApplicationInterface` |\n| Scripts † | `iiAutomation`* | `iiAgentApplicationInterface` |\n| Import † | `iiVisualCodec` | `iiSharedCanvas`, `iiFileProvider` |\n| File Info… | `iiSharedCanvas` | `iiFileProvider`, `iiVisualCodec::Image` |\n| Print… | `iiPrint`* | `iiSharedCanvas`, `iiColorManager` |\n| Print One Copy | `iiPrint`* | `iiSharedCanvas`, `iiColorManager` |\n",
+      "columns": [
+        "기능",
+        "주 담당",
+        "협력 모듈"
+      ],
+      "rows": [
+        [
+          "Open As…",
+          "`iiDocumentSession`*",
+          "`iiSharedCanvas`, `iiFileProvider`, `iiVisualCodec`, `iiGUI`"
+        ],
+        [
+          "Open Recent †",
+          "`iiDocumentSession`*",
+          "`iiSharedCanvas`, `iiFileProvider`"
+        ],
+        [
+          "Close",
+          "`iiDocumentSession`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Close All",
+          "`iiDocumentSession`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Close Others",
+          "`iiDocumentSession`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Save a Copy…",
+          "`iiDocumentSession`*",
+          "`iiSharedCanvas`, `iiFileProvider`"
+        ],
+        [
+          "Revert",
+          "`iiDocumentSession`*",
+          "`iiSharedCanvas`, `iiFileProvider`"
+        ],
+        [
+          "Place Linked…",
+          "`iiSharedCanvas`",
+          "`iiResource`, `iiFileProvider`, `iiVisualCodec::Image`"
+        ],
+        [
+          "Automate †",
+          "`iiAutomation`*",
+          "`iiAgentApplicationInterface`"
+        ],
+        [
+          "Scripts †",
+          "`iiAutomation`*",
+          "`iiAgentApplicationInterface`"
+        ],
+        [
+          "Import †",
+          "`iiVisualCodec`",
+          "`iiSharedCanvas`, `iiFileProvider`"
+        ],
+        [
+          "File Info…",
+          "`iiSharedCanvas`",
+          "`iiFileProvider`, `iiVisualCodec::Image`"
+        ],
+        [
+          "Print…",
+          "`iiPrint`*",
+          "`iiSharedCanvas`, `iiColorManager`"
+        ],
+        [
+          "Print One Copy",
+          "`iiPrint`*",
+          "`iiSharedCanvas`, `iiColorManager`"
+        ]
+      ]
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 33,
+      "end_line": 33,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "heading",
+      "start_line": 34,
+      "end_line": 34,
+      "raw": "## Edit\n",
+      "level": 2,
+      "title": "Edit"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 35,
+      "end_line": 35,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "table",
+      "start_line": 36,
+      "end_line": 67,
+      "raw": "| 기능 | 주 담당 | 협력 모듈 |\n| --- | --- | --- |\n| Toggle Last State | `iiSharedCanvas` | — |\n| Fade… | `iiPaintEngine` | `iiSharedCanvas` |\n| Cut | `iiPaintEngine` | `iiSharedCanvas`, `iiGUI` |\n| Paste Special † | `iiPaintEngine` | `iiSharedCanvas`, `iiGUI` |\n| Clear | `iiPaintEngine` | `iiSharedCanvas` |\n| Search (명령 검색으로 잠정 해석) | `iiCommandRegistry`* | — |\n| Check Spelling… | `iiTextServices`* | `iiSharedCanvas` |\n| Find and Replace Text… | `iiTextServices`* | `iiSharedCanvas` |\n| Fill… | `iiPaintEngine` | `iiSharedCanvas` |\n| Stroke… | `iiPaintEngine` | `iiSharedCanvas` |\n| Content-Aware Fill… | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Content-Aware Scale | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Puppet Warp | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Perspective Warp | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Free Transform | `iiPaintEngine` | `iiSharedCanvas`, `iiGraphicAdjust` |\n| Transform † | `iiPaintEngine` | `iiSharedCanvas`, `iiGraphicAdjust` |\n| Auto-Align Layers… | `iiGraphicAdjust` | `iiSharedCanvas`, `iiVisualCodec::OpenCV` |\n| Auto-Blend Layers… | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Sky Replacement… | `iiGraphicAdjust` | `iiSharedCanvas`, `iiVisualCodec::Vision` |\n| Define Brush Preset… | `iiPaintEngine` | `iiSharedCanvas`, `iiPresetManager`*, `iiFileProvider` |\n| Define Pattern… | `iiPresetManager`* | `iiFileProvider`, `iiSharedCanvas` |\n| Define Custom Shape… | `iiPresetManager`* | `iiFileProvider`, `iiSharedCanvas` |\n| Purge † | `iiResource` | — |\n| Presets † | `iiPresetManager`* | `iiFileProvider`, `iiSharedCanvas` |\n| Color Settings… | `iiColorManager` | `iiSharedCanvas` |\n| Assign Profile… | `iiColorManager` | `iiSharedCanvas` |\n| Convert to Profile… | `iiColorManager` | `iiSharedCanvas` |\n| Keyboard Shortcuts… | `iiCommandRegistry`* | `iiGUI`, `iiFileProvider` |\n| Menus… | `iiCommandRegistry`* | `iiGUI`, `iiFileProvider` |\n| Toolbar… | `iiCommandRegistry`* | `iiGUI`, `iiFileProvider` |\n",
+      "columns": [
+        "기능",
+        "주 담당",
+        "협력 모듈"
+      ],
+      "rows": [
+        [
+          "Toggle Last State",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Fade…",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Cut",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`, `iiGUI`"
+        ],
+        [
+          "Paste Special †",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`, `iiGUI`"
+        ],
+        [
+          "Clear",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Search (명령 검색으로 잠정 해석)",
+          "`iiCommandRegistry`*",
+          "—"
+        ],
+        [
+          "Check Spelling…",
+          "`iiTextServices`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Find and Replace Text…",
+          "`iiTextServices`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Fill…",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Stroke…",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Content-Aware Fill…",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Content-Aware Scale",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Puppet Warp",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Perspective Warp",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Free Transform",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`, `iiGraphicAdjust`"
+        ],
+        [
+          "Transform †",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`, `iiGraphicAdjust`"
+        ],
+        [
+          "Auto-Align Layers…",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`, `iiVisualCodec::OpenCV`"
+        ],
+        [
+          "Auto-Blend Layers…",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Sky Replacement…",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`, `iiVisualCodec::Vision`"
+        ],
+        [
+          "Define Brush Preset…",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`, `iiPresetManager`*, `iiFileProvider`"
+        ],
+        [
+          "Define Pattern…",
+          "`iiPresetManager`*",
+          "`iiFileProvider`, `iiSharedCanvas`"
+        ],
+        [
+          "Define Custom Shape…",
+          "`iiPresetManager`*",
+          "`iiFileProvider`, `iiSharedCanvas`"
+        ],
+        [
+          "Purge †",
+          "`iiResource`",
+          "—"
+        ],
+        [
+          "Presets †",
+          "`iiPresetManager`*",
+          "`iiFileProvider`, `iiSharedCanvas`"
+        ],
+        [
+          "Color Settings…",
+          "`iiColorManager`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Assign Profile…",
+          "`iiColorManager`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Convert to Profile…",
+          "`iiColorManager`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Keyboard Shortcuts…",
+          "`iiCommandRegistry`*",
+          "`iiGUI`, `iiFileProvider`"
+        ],
+        [
+          "Menus…",
+          "`iiCommandRegistry`*",
+          "`iiGUI`, `iiFileProvider`"
+        ],
+        [
+          "Toolbar…",
+          "`iiCommandRegistry`*",
+          "`iiGUI`, `iiFileProvider`"
+        ]
+      ]
+    },
+    {
+      "id": "b000022",
+      "kind": "blank",
+      "start_line": 68,
+      "end_line": 68,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "heading",
+      "start_line": 69,
+      "end_line": 69,
+      "raw": "## Select\n",
+      "level": 2,
+      "title": "Select"
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 70,
+      "end_line": 70,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
+      "kind": "table",
+      "start_line": 71,
+      "end_line": 90,
+      "raw": "| 기능 | 주 담당 | 협력 모듈 |\n| --- | --- | --- |\n| All | `iiPaintEngine` | `iiSharedCanvas` |\n| Reselect | `iiPaintEngine` | `iiSharedCanvas` |\n| All Layers | `iiSharedCanvas` | — |\n| Deselect Layers | `iiSharedCanvas` | — |\n| Find Layers | `iiSharedCanvas` | — |\n| Isolate Layers | `iiSharedCanvas` | — |\n| Color Range… | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Focus Area… | `iiVisualCodec::OpenCV` | `iiSharedCanvas`, `iiPaintEngine` |\n| Subject | `iiVisualCodec::Vision` | `iiSharedCanvas`, `iiPaintEngine` |\n| Sky | `iiVisualCodec::Vision` | `iiSharedCanvas`, `iiPaintEngine` |\n| Select and Mask… | `iiPaintEngine` | `iiSharedCanvas` |\n| Modify † | `iiPaintEngine` | `iiSharedCanvas` |\n| Grow | `iiPaintEngine` | `iiSharedCanvas` |\n| Similar | `iiPaintEngine` | `iiSharedCanvas` |\n| Transform Selection | `iiPaintEngine` | `iiSharedCanvas` |\n| Load Selection… | `iiSharedCanvas` | — |\n| Save Selection… | `iiSharedCanvas` | — |\n| New 3D Extrusion | `iiVisualCodec::CAD` | `iiSharedCanvas`, `ii3DScene`* |\n",
+      "columns": [
+        "기능",
+        "주 담당",
+        "협력 모듈"
+      ],
+      "rows": [
+        [
+          "All",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Reselect",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "All Layers",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Deselect Layers",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Find Layers",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Isolate Layers",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Color Range…",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Focus Area…",
+          "`iiVisualCodec::OpenCV`",
+          "`iiSharedCanvas`, `iiPaintEngine`"
+        ],
+        [
+          "Subject",
+          "`iiVisualCodec::Vision`",
+          "`iiSharedCanvas`, `iiPaintEngine`"
+        ],
+        [
+          "Sky",
+          "`iiVisualCodec::Vision`",
+          "`iiSharedCanvas`, `iiPaintEngine`"
+        ],
+        [
+          "Select and Mask…",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Modify †",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Grow",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Similar",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Transform Selection",
+          "`iiPaintEngine`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Load Selection…",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Save Selection…",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "New 3D Extrusion",
+          "`iiVisualCodec::CAD`",
+          "`iiSharedCanvas`, `ii3DScene`*"
+        ]
+      ]
+    },
+    {
+      "id": "b000026",
+      "kind": "blank",
+      "start_line": 91,
+      "end_line": 91,
+      "raw": "\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "heading",
+      "start_line": 92,
+      "end_line": 92,
+      "raw": "## View\n",
+      "level": 2,
+      "title": "View"
+    },
+    {
+      "id": "b000028",
+      "kind": "blank",
+      "start_line": 93,
+      "end_line": 93,
+      "raw": "\n"
+    },
+    {
+      "id": "b000029",
+      "kind": "table",
+      "start_line": 94,
+      "end_line": 116,
+      "raw": "| 기능 | 주 담당 | 협력 모듈 |\n| --- | --- | --- |\n| Proof Setup † | `iiColorManager` | `iiSharedCanvas` |\n| Proof Colors | `iiColorManager` | `iiSharedCanvas` |\n| Gamut Warning | `iiColorManager` | `iiSharedCanvas` |\n| Pixel Aspect Ratio † | `iiSharedCanvas` | — |\n| Pixel Aspect Ratio Correction | `iiViewport`* | `iiSharedCanvas` |\n| 32-bit Preview Options… | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Fit Layer on Screen | `iiViewport`* | `iiSharedCanvas` |\n| Fit Artboard on Screen | `iiViewport`* | `iiSharedCanvas` |\n| 100% | `iiViewport`* | `iiSharedCanvas` |\n| 200% | `iiViewport`* | `iiSharedCanvas` |\n| Print Size | `iiViewport`* | `iiSharedCanvas`, `iiGUI` |\n| Actual Size | `iiViewport`* | `iiSharedCanvas`, `iiGUI` |\n| Flip Horizontal | `iiViewport`* | `iiSharedCanvas` |\n| Pattern Preview | `iiViewport`* | `iiSharedCanvas` |\n| Extras | `iiViewport`* | `iiSharedCanvas` |\n| Show † | `iiViewport`* | `iiSharedCanvas` |\n| Snap | `iiViewport`* | `iiSharedCanvas` |\n| Snap To † | `iiViewport`* | `iiSharedCanvas` |\n| Guides † | `iiViewport`* | `iiSharedCanvas` |\n| Lock Slices | `iiViewport`* | `iiSharedCanvas` |\n| Clear Slices | `iiViewport`* | `iiSharedCanvas` |\n",
+      "columns": [
+        "기능",
+        "주 담당",
+        "협력 모듈"
+      ],
+      "rows": [
+        [
+          "Proof Setup †",
+          "`iiColorManager`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Proof Colors",
+          "`iiColorManager`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Gamut Warning",
+          "`iiColorManager`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Pixel Aspect Ratio †",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Pixel Aspect Ratio Correction",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "32-bit Preview Options…",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Fit Layer on Screen",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Fit Artboard on Screen",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "100%",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "200%",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Print Size",
+          "`iiViewport`*",
+          "`iiSharedCanvas`, `iiGUI`"
+        ],
+        [
+          "Actual Size",
+          "`iiViewport`*",
+          "`iiSharedCanvas`, `iiGUI`"
+        ],
+        [
+          "Flip Horizontal",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Pattern Preview",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Extras",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Show †",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Snap",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Snap To †",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Guides †",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Lock Slices",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Clear Slices",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ]
+      ]
+    },
+    {
+      "id": "b000030",
+      "kind": "blank",
+      "start_line": 117,
+      "end_line": 117,
+      "raw": "\n"
+    },
+    {
+      "id": "b000031",
+      "kind": "heading",
+      "start_line": 118,
+      "end_line": 118,
+      "raw": "## Layer\n",
+      "level": 2,
+      "title": "Layer"
+    },
+    {
+      "id": "b000032",
+      "kind": "blank",
+      "start_line": 119,
+      "end_line": 119,
+      "raw": "\n"
+    },
+    {
+      "id": "b000033",
+      "kind": "table",
+      "start_line": 120,
+      "end_line": 149,
+      "raw": "| 기능 | 주 담당 | 협력 모듈 |\n| --- | --- | --- |\n| Copy CSS | `iiSharedCanvas` | `iiGUI` |\n| Copy SVG | `iiSharedCanvas` | `iiGUI` |\n| Quick Export as JPG | `iiVisualCodec::Image` | `iiSharedCanvas`, `iiFileProvider` |\n| Export As… | `iiVisualCodec::Image` | `iiSharedCanvas`, `iiFileProvider`, `iiGUI` |\n| Rename Layer… | `iiSharedCanvas` | — |\n| Layer Style † | `iiSharedCanvas` | `iiGraphicAdjust` |\n| New Fill Layer † | `iiSharedCanvas` | `iiGraphicAdjust` |\n| New Adjustment Layer † | `iiSharedCanvas` | `iiGraphicAdjust` |\n| Layer Content Options… | `iiSharedCanvas` | `iiGraphicAdjust` |\n| Layer Mask † | `iiSharedCanvas` | `iiPaintEngine` |\n| Vector Mask † | `iiSharedCanvas` | `iiPaintEngine` |\n| Mask All Objects | `iiVisualCodec::Vision` | `iiSharedCanvas`, `iiPaintEngine` |\n| Video Layers † | `iiSharedCanvas` | `iiVisualCodec::Video` |\n| Rasterize † | `iiSharedCanvas` | `iiPaintEngine` |\n| New Layer-Based Slice | `iiSharedCanvas` | `iiViewport`* |\n| Group Layers | `iiSharedCanvas` | — |\n| Ungroup Layers | `iiSharedCanvas` | — |\n| Arrange † | `iiSharedCanvas` | — |\n| Combine Shapes † | `iiSharedCanvas` | — |\n| Align † | `iiSharedCanvas` | — |\n| Distribute † | `iiSharedCanvas` | — |\n| Lock Layers… | `iiSharedCanvas` | — |\n| Link Layers | `iiSharedCanvas` | — |\n| Select Linked Layers | `iiSharedCanvas` | — |\n| Merge Layers | `iiSharedCanvas` | `iiPaintEngine` |\n| Merge Visible | `iiSharedCanvas` | `iiPaintEngine` |\n| Flatten Image | `iiSharedCanvas` | `iiPaintEngine` |\n| Matting † | `iiGraphicAdjust` | `iiSharedCanvas` |\n",
+      "columns": [
+        "기능",
+        "주 담당",
+        "협력 모듈"
+      ],
+      "rows": [
+        [
+          "Copy CSS",
+          "`iiSharedCanvas`",
+          "`iiGUI`"
+        ],
+        [
+          "Copy SVG",
+          "`iiSharedCanvas`",
+          "`iiGUI`"
+        ],
+        [
+          "Quick Export as JPG",
+          "`iiVisualCodec::Image`",
+          "`iiSharedCanvas`, `iiFileProvider`"
+        ],
+        [
+          "Export As…",
+          "`iiVisualCodec::Image`",
+          "`iiSharedCanvas`, `iiFileProvider`, `iiGUI`"
+        ],
+        [
+          "Rename Layer…",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Layer Style †",
+          "`iiSharedCanvas`",
+          "`iiGraphicAdjust`"
+        ],
+        [
+          "New Fill Layer †",
+          "`iiSharedCanvas`",
+          "`iiGraphicAdjust`"
+        ],
+        [
+          "New Adjustment Layer †",
+          "`iiSharedCanvas`",
+          "`iiGraphicAdjust`"
+        ],
+        [
+          "Layer Content Options…",
+          "`iiSharedCanvas`",
+          "`iiGraphicAdjust`"
+        ],
+        [
+          "Layer Mask †",
+          "`iiSharedCanvas`",
+          "`iiPaintEngine`"
+        ],
+        [
+          "Vector Mask †",
+          "`iiSharedCanvas`",
+          "`iiPaintEngine`"
+        ],
+        [
+          "Mask All Objects",
+          "`iiVisualCodec::Vision`",
+          "`iiSharedCanvas`, `iiPaintEngine`"
+        ],
+        [
+          "Video Layers †",
+          "`iiSharedCanvas`",
+          "`iiVisualCodec::Video`"
+        ],
+        [
+          "Rasterize †",
+          "`iiSharedCanvas`",
+          "`iiPaintEngine`"
+        ],
+        [
+          "New Layer-Based Slice",
+          "`iiSharedCanvas`",
+          "`iiViewport`*"
+        ],
+        [
+          "Group Layers",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Ungroup Layers",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Arrange †",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Combine Shapes †",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Align †",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Distribute †",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Lock Layers…",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Link Layers",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Select Linked Layers",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Merge Layers",
+          "`iiSharedCanvas`",
+          "`iiPaintEngine`"
+        ],
+        [
+          "Merge Visible",
+          "`iiSharedCanvas`",
+          "`iiPaintEngine`"
+        ],
+        [
+          "Flatten Image",
+          "`iiSharedCanvas`",
+          "`iiPaintEngine`"
+        ],
+        [
+          "Matting †",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ]
+      ]
+    },
+    {
+      "id": "b000034",
+      "kind": "blank",
+      "start_line": 150,
+      "end_line": 150,
+      "raw": "\n"
+    },
+    {
+      "id": "b000035",
+      "kind": "heading",
+      "start_line": 151,
+      "end_line": 151,
+      "raw": "## Image\n",
+      "level": 2,
+      "title": "Image"
+    },
+    {
+      "id": "b000036",
+      "kind": "blank",
+      "start_line": 152,
+      "end_line": 152,
+      "raw": "\n"
+    },
+    {
+      "id": "b000037",
+      "kind": "table",
+      "start_line": 153,
+      "end_line": 172,
+      "raw": "| 기능 | 주 담당 | 협력 모듈 |\n| --- | --- | --- |\n| Mode † | `iiColorManager` | `iiSharedCanvas` |\n| Adjustments † | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Auto Tone | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Auto Contrast | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Auto Color | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Image Size… | `iiSharedCanvas` | `iiGraphicAdjust` |\n| Canvas Size… | `iiSharedCanvas` | — |\n| Image Rotation † | `iiSharedCanvas` | `iiGraphicAdjust` |\n| Crop | `iiSharedCanvas` | `iiGraphicAdjust` |\n| Trim… | `iiSharedCanvas` | `iiGraphicAdjust` |\n| Reveal All | `iiSharedCanvas` | — |\n| Duplicate… | `iiSharedCanvas` | — |\n| Apply Image… | `iiSharedCanvas` | `iiGraphicAdjust` |\n| Calculations… | `iiSharedCanvas` | `iiGraphicAdjust` |\n| Variables † | `iiDocumentVariables`* | `iiSharedCanvas` |\n| Apply Data Set… | `iiDocumentVariables`* | `iiSharedCanvas` |\n| Trap… | `iiPrint`* | `iiColorManager`, `iiSharedCanvas` |\n| Analysis † | `iiGraphicAdjust` | `iiSharedCanvas` |\n",
+      "columns": [
+        "기능",
+        "주 담당",
+        "협력 모듈"
+      ],
+      "rows": [
+        [
+          "Mode †",
+          "`iiColorManager`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Adjustments †",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Auto Tone",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Auto Contrast",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Auto Color",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Image Size…",
+          "`iiSharedCanvas`",
+          "`iiGraphicAdjust`"
+        ],
+        [
+          "Canvas Size…",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Image Rotation †",
+          "`iiSharedCanvas`",
+          "`iiGraphicAdjust`"
+        ],
+        [
+          "Crop",
+          "`iiSharedCanvas`",
+          "`iiGraphicAdjust`"
+        ],
+        [
+          "Trim…",
+          "`iiSharedCanvas`",
+          "`iiGraphicAdjust`"
+        ],
+        [
+          "Reveal All",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Duplicate…",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Apply Image…",
+          "`iiSharedCanvas`",
+          "`iiGraphicAdjust`"
+        ],
+        [
+          "Calculations…",
+          "`iiSharedCanvas`",
+          "`iiGraphicAdjust`"
+        ],
+        [
+          "Variables †",
+          "`iiDocumentVariables`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Apply Data Set…",
+          "`iiDocumentVariables`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Trap…",
+          "`iiPrint`*",
+          "`iiColorManager`, `iiSharedCanvas`"
+        ],
+        [
+          "Analysis †",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ]
+      ]
+    },
+    {
+      "id": "b000038",
+      "kind": "blank",
+      "start_line": 173,
+      "end_line": 173,
+      "raw": "\n"
+    },
+    {
+      "id": "b000039",
+      "kind": "heading",
+      "start_line": 174,
+      "end_line": 174,
+      "raw": "## Sequence\n",
+      "level": 2,
+      "title": "Sequence"
+    },
+    {
+      "id": "b000040",
+      "kind": "blank",
+      "start_line": 175,
+      "end_line": 175,
+      "raw": "\n"
+    },
+    {
+      "id": "b000041",
+      "kind": "table",
+      "start_line": 176,
+      "end_line": 211,
+      "raw": "| 기능 | 주 담당 | 협력 모듈 |\n| --- | --- | --- |\n| Sequence Settings… | `iiSharedCanvas` | — |\n| Render Effects in Work Area | `iiTimelineRender`* | `iiSharedCanvas`, `iiGraphicAdjust`, `iiFileProvider` |\n| Render Entire Work Area | `iiTimelineRender`* | `iiSharedCanvas`, `iiFileProvider` |\n| Render Selection | `iiTimelineRender`* | `iiSharedCanvas`, `iiFileProvider` |\n| Render Audio | `iiAudioProcessing`* | `iiSharedCanvas` |\n| Delete Render Files | `iiTimelineRender`* | `iiFileProvider` |\n| Delete Work Area Render Files | `iiTimelineRender`* | `iiFileProvider` |\n| Match Frame | `iiSharedCanvas` | — |\n| Reverse Match Frame | `iiSharedCanvas` | — |\n| Add Edit | `iiSharedCanvas` | — |\n| Add Edit to All Tracks | `iiSharedCanvas` | — |\n| Trim Edit | `iiSharedCanvas` | — |\n| Extend Selected Edit to Playhead | `iiSharedCanvas` | — |\n| Apply Video Transition | `iiSharedCanvas` | `iiTimelineRender`* |\n| Apply Audio Transition | `iiSharedCanvas` | `iiAudioProcessing`* |\n| Apply Default Transitions to Selection | `iiSharedCanvas` | `iiTimelineRender`*, `iiAudioProcessing`* |\n| Lift | `iiSharedCanvas` | — |\n| Extract | `iiSharedCanvas` | — |\n| Zoom In | `iiViewport`* | `iiSharedCanvas` |\n| Zoom Out | `iiViewport`* | `iiSharedCanvas` |\n| Close Gap | `iiSharedCanvas` | — |\n| Go to Gap † | `iiSharedCanvas` | — |\n| Snap in Timeline | `iiViewport`* | `iiSharedCanvas` |\n| Linked Selection | `iiSharedCanvas` | — |\n| Selection Follows Playhead | `iiSharedCanvas` | — |\n| Show Through Edits | `iiSharedCanvas` | — |\n| Normalize Mix Track… | `iiAudioProcessing`* | `iiSharedCanvas` |\n| Make Subsequence | `iiSharedCanvas` | — |\n| Auto Reframe Sequence… | `iiVisualCodec::Vision` | `iiSharedCanvas` |\n| Transcribe Sequence… | `iiSpeechRecognition`* | `iiSharedCanvas` |\n| Simplify Sequence… | `iiSharedCanvas` | — |\n| Add Tracks… | `iiSharedCanvas` | — |\n| Delete Tracks… | `iiSharedCanvas` | — |\n| Captions † | `iiSharedCanvas` | — |\n",
+      "columns": [
+        "기능",
+        "주 담당",
+        "협력 모듈"
+      ],
+      "rows": [
+        [
+          "Sequence Settings…",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Render Effects in Work Area",
+          "`iiTimelineRender`*",
+          "`iiSharedCanvas`, `iiGraphicAdjust`, `iiFileProvider`"
+        ],
+        [
+          "Render Entire Work Area",
+          "`iiTimelineRender`*",
+          "`iiSharedCanvas`, `iiFileProvider`"
+        ],
+        [
+          "Render Selection",
+          "`iiTimelineRender`*",
+          "`iiSharedCanvas`, `iiFileProvider`"
+        ],
+        [
+          "Render Audio",
+          "`iiAudioProcessing`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Delete Render Files",
+          "`iiTimelineRender`*",
+          "`iiFileProvider`"
+        ],
+        [
+          "Delete Work Area Render Files",
+          "`iiTimelineRender`*",
+          "`iiFileProvider`"
+        ],
+        [
+          "Match Frame",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Reverse Match Frame",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Add Edit",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Add Edit to All Tracks",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Trim Edit",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Extend Selected Edit to Playhead",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Apply Video Transition",
+          "`iiSharedCanvas`",
+          "`iiTimelineRender`*"
+        ],
+        [
+          "Apply Audio Transition",
+          "`iiSharedCanvas`",
+          "`iiAudioProcessing`*"
+        ],
+        [
+          "Apply Default Transitions to Selection",
+          "`iiSharedCanvas`",
+          "`iiTimelineRender`*, `iiAudioProcessing`*"
+        ],
+        [
+          "Lift",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Extract",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Zoom In",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Zoom Out",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Close Gap",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Go to Gap †",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Snap in Timeline",
+          "`iiViewport`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Linked Selection",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Selection Follows Playhead",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Show Through Edits",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Normalize Mix Track…",
+          "`iiAudioProcessing`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Make Subsequence",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Auto Reframe Sequence…",
+          "`iiVisualCodec::Vision`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Transcribe Sequence…",
+          "`iiSpeechRecognition`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Simplify Sequence…",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Add Tracks…",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Delete Tracks…",
+          "`iiSharedCanvas`",
+          "—"
+        ],
+        [
+          "Captions †",
+          "`iiSharedCanvas`",
+          "—"
+        ]
+      ]
+    },
+    {
+      "id": "b000042",
+      "kind": "blank",
+      "start_line": 212,
+      "end_line": 212,
+      "raw": "\n"
+    },
+    {
+      "id": "b000043",
+      "kind": "heading",
+      "start_line": 213,
+      "end_line": 213,
+      "raw": "## Filter\n",
+      "level": 2,
+      "title": "Filter"
+    },
+    {
+      "id": "b000044",
+      "kind": "blank",
+      "start_line": 214,
+      "end_line": 214,
+      "raw": "\n"
+    },
+    {
+      "id": "b000045",
+      "kind": "table",
+      "start_line": 215,
+      "end_line": 234,
+      "raw": "| 기능 | 주 담당 | 협력 모듈 |\n| --- | --- | --- |\n| Gaussian Blur | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Generative filter | `iiLocalDiffusion` | `iiSharedCanvas` |\n| Filter Gallery… | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Adaptive Wide Angle… | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Lens Correction… | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Liquify… | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Vanishing Point… | `iiGraphicAdjust` | `iiSharedCanvas` |\n| 3D † | `ii3DRender`* | — |\n| Noise † | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Render † | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Video † | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Sharpen † | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Stylize † | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Distort † | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Pixelate † | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Blur † | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Blur Gallery † | `iiGraphicAdjust` | `iiSharedCanvas` |\n| Other † | `iiGraphicAdjust` | `iiSharedCanvas` |\n",
+      "columns": [
+        "기능",
+        "주 담당",
+        "협력 모듈"
+      ],
+      "rows": [
+        [
+          "Gaussian Blur",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Generative filter",
+          "`iiLocalDiffusion`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Filter Gallery…",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Adaptive Wide Angle…",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Lens Correction…",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Liquify…",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Vanishing Point…",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "3D †",
+          "`ii3DRender`*",
+          "—"
+        ],
+        [
+          "Noise †",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Render †",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Video †",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Sharpen †",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Stylize †",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Distort †",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Pixelate †",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Blur †",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Blur Gallery †",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Other †",
+          "`iiGraphicAdjust`",
+          "`iiSharedCanvas`"
+        ]
+      ]
+    },
+    {
+      "id": "b000046",
+      "kind": "blank",
+      "start_line": 235,
+      "end_line": 235,
+      "raw": "\n"
+    },
+    {
+      "id": "b000047",
+      "kind": "heading",
+      "start_line": 236,
+      "end_line": 236,
+      "raw": "## 3D\n",
+      "level": 2,
+      "title": "3D"
+    },
+    {
+      "id": "b000048",
+      "kind": "blank",
+      "start_line": 237,
+      "end_line": 237,
+      "raw": "\n"
+    },
+    {
+      "id": "b000049",
+      "kind": "table",
+      "start_line": 238,
+      "end_line": 269,
+      "raw": "| 기능 | 주 담당 | 협력 모듈 |\n| --- | --- | --- |\n| New 3D Layer from File… | `iiVisualCodec::Asset3D` | `ii3DScene`*, `iiSharedCanvas`, `iiFileProvider` |\n| Merge 3D Layers | `ii3DScene`* | `iiSharedCanvas` |\n| Export 3D Layer… | `iiVisualCodec::Asset3D` | `ii3DScene`*, `iiSharedCanvas`, `iiFileProvider` |\n| Spherical Panorama † | `iiVisualCodec::Spatial` | — |\n| Download Content… | `iiNetwork` | `iiFileProvider` |\n| New 3D Extrusion from Selected Layer | `iiVisualCodec::CAD` | `ii3DScene`*, `iiSharedCanvas` |\n| New 3D Extrusion from Selected Path | `iiVisualCodec::CAD` | `ii3DScene`*, `iiSharedCanvas` |\n| New 3D Extrusion from Current Selection | `iiVisualCodec::CAD` | `ii3DScene`*, `iiSharedCanvas` |\n| New Mesh from Layer † | `iiMeshProcessing`* | `ii3DScene`*, `iiSharedCanvas` |\n| Group Objects | `ii3DScene`* | `iiSharedCanvas` |\n| Group All Objects in Scene | `ii3DScene`* | `iiSharedCanvas` |\n| Move Objects to Ground Plane | `ii3DScene`* | `iiSharedCanvas` |\n| Pack Objects on Ground Plane | `ii3DScene`* | `iiSharedCanvas` |\n| New Tiled Painting from Layer | `ii3DScene`* | `iiSharedCanvas`, `iiPaintEngine` |\n| Generate UVs… | `iiMeshProcessing`* | `ii3DScene`*, `iiSharedCanvas` |\n| Paint Falloff… | `ii3DScene`* | `iiSharedCanvas`, `iiPaintEngine` |\n| Paint System † | `ii3DScene`* | `iiSharedCanvas`, `iiPaintEngine` |\n| Paint on Target Texture † | `ii3DScene`* | `iiSharedCanvas`, `iiPaintEngine` |\n| Select Paintable Areas | `ii3DScene`* | `iiSharedCanvas` |\n| Create Painting Overlay † | `ii3DScene`* | `iiSharedCanvas`, `iiPaintEngine` |\n| Split Extrusion | `iiMeshProcessing`* | `ii3DScene`*, `iiSharedCanvas` |\n| Apply Cross Section to Scene | `iiMeshProcessing`* | `ii3DScene`*, `iiSharedCanvas` |\n| Unify Scene for 3D Printing | `iiMeshProcessing`* | `ii3DScene`*, `iiSharedCanvas` |\n| Simplify Mesh… | `iiMeshProcessing`* | `ii3DScene`*, `iiSharedCanvas` |\n| Make Work Path from 3D Layer | `iiMeshProcessing`* | `ii3DScene`*, `iiSharedCanvas` |\n| Render 3D Layer | `ii3DRender`* | `ii3DScene`*, `iiSharedCanvas` |\n| Render Document to File… | `ii3DRender`* | `ii3DScene`*, `iiSharedCanvas`, `iiVisualCodec::Image`, `iiFileProvider` |\n| Sketch with Current Brush | `ii3DScene`* | `iiSharedCanvas`, `iiPaintEngine` |\n| 3D Print Settings… | `ii3DPrinting`* | `ii3DScene`*, `iiMeshProcessing`* |\n| 3D Print… | `ii3DPrinting`* | `ii3DScene`*, `iiMeshProcessing`* |\n",
+      "columns": [
+        "기능",
+        "주 담당",
+        "협력 모듈"
+      ],
+      "rows": [
+        [
+          "New 3D Layer from File…",
+          "`iiVisualCodec::Asset3D`",
+          "`ii3DScene`*, `iiSharedCanvas`, `iiFileProvider`"
+        ],
+        [
+          "Merge 3D Layers",
+          "`ii3DScene`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Export 3D Layer…",
+          "`iiVisualCodec::Asset3D`",
+          "`ii3DScene`*, `iiSharedCanvas`, `iiFileProvider`"
+        ],
+        [
+          "Spherical Panorama †",
+          "`iiVisualCodec::Spatial`",
+          "—"
+        ],
+        [
+          "Download Content…",
+          "`iiNetwork`",
+          "`iiFileProvider`"
+        ],
+        [
+          "New 3D Extrusion from Selected Layer",
+          "`iiVisualCodec::CAD`",
+          "`ii3DScene`*, `iiSharedCanvas`"
+        ],
+        [
+          "New 3D Extrusion from Selected Path",
+          "`iiVisualCodec::CAD`",
+          "`ii3DScene`*, `iiSharedCanvas`"
+        ],
+        [
+          "New 3D Extrusion from Current Selection",
+          "`iiVisualCodec::CAD`",
+          "`ii3DScene`*, `iiSharedCanvas`"
+        ],
+        [
+          "New Mesh from Layer †",
+          "`iiMeshProcessing`*",
+          "`ii3DScene`*, `iiSharedCanvas`"
+        ],
+        [
+          "Group Objects",
+          "`ii3DScene`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Group All Objects in Scene",
+          "`ii3DScene`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Move Objects to Ground Plane",
+          "`ii3DScene`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Pack Objects on Ground Plane",
+          "`ii3DScene`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "New Tiled Painting from Layer",
+          "`ii3DScene`*",
+          "`iiSharedCanvas`, `iiPaintEngine`"
+        ],
+        [
+          "Generate UVs…",
+          "`iiMeshProcessing`*",
+          "`ii3DScene`*, `iiSharedCanvas`"
+        ],
+        [
+          "Paint Falloff…",
+          "`ii3DScene`*",
+          "`iiSharedCanvas`, `iiPaintEngine`"
+        ],
+        [
+          "Paint System †",
+          "`ii3DScene`*",
+          "`iiSharedCanvas`, `iiPaintEngine`"
+        ],
+        [
+          "Paint on Target Texture †",
+          "`ii3DScene`*",
+          "`iiSharedCanvas`, `iiPaintEngine`"
+        ],
+        [
+          "Select Paintable Areas",
+          "`ii3DScene`*",
+          "`iiSharedCanvas`"
+        ],
+        [
+          "Create Painting Overlay †",
+          "`ii3DScene`*",
+          "`iiSharedCanvas`, `iiPaintEngine`"
+        ],
+        [
+          "Split Extrusion",
+          "`iiMeshProcessing`*",
+          "`ii3DScene`*, `iiSharedCanvas`"
+        ],
+        [
+          "Apply Cross Section to Scene",
+          "`iiMeshProcessing`*",
+          "`ii3DScene`*, `iiSharedCanvas`"
+        ],
+        [
+          "Unify Scene for 3D Printing",
+          "`iiMeshProcessing`*",
+          "`ii3DScene`*, `iiSharedCanvas`"
+        ],
+        [
+          "Simplify Mesh…",
+          "`iiMeshProcessing`*",
+          "`ii3DScene`*, `iiSharedCanvas`"
+        ],
+        [
+          "Make Work Path from 3D Layer",
+          "`iiMeshProcessing`*",
+          "`ii3DScene`*, `iiSharedCanvas`"
+        ],
+        [
+          "Render 3D Layer",
+          "`ii3DRender`*",
+          "`ii3DScene`*, `iiSharedCanvas`"
+        ],
+        [
+          "Render Document to File…",
+          "`ii3DRender`*",
+          "`ii3DScene`*, `iiSharedCanvas`, `iiVisualCodec::Image`, `iiFileProvider`"
+        ],
+        [
+          "Sketch with Current Brush",
+          "`ii3DScene`*",
+          "`iiSharedCanvas`, `iiPaintEngine`"
+        ],
+        [
+          "3D Print Settings…",
+          "`ii3DPrinting`*",
+          "`ii3DScene`*, `iiMeshProcessing`*"
+        ],
+        [
+          "3D Print…",
+          "`ii3DPrinting`*",
+          "`ii3DScene`*, `iiMeshProcessing`*"
+        ]
+      ]
+    },
+    {
+      "id": "b000050",
+      "kind": "blank",
+      "start_line": 270,
+      "end_line": 270,
+      "raw": "\n"
+    },
+    {
+      "id": "b000051",
+      "kind": "heading",
+      "start_line": 271,
+      "end_line": 271,
+      "raw": "## Help\n",
+      "level": 2,
+      "title": "Help"
+    },
+    {
+      "id": "b000052",
+      "kind": "blank",
+      "start_line": 272,
+      "end_line": 272,
+      "raw": "\n"
+    },
+    {
+      "id": "b000053",
+      "kind": "table",
+      "start_line": 273,
+      "end_line": 275,
+      "raw": "| 기능 | 주 담당 | 협력 모듈 |\n| --- | --- | --- |\n| 도움말: 현재 `Help unavailable` 상태만 표시 | `iiHelp`* | — |\n",
+      "columns": [
+        "기능",
+        "주 담당",
+        "협력 모듈"
+      ],
+      "rows": [
+        [
+          "도움말: 현재 `Help unavailable` 상태만 표시",
+          "`iiHelp`*",
+          "—"
+        ]
+      ]
+    },
+    {
+      "id": "b000054",
+      "kind": "blank",
+      "start_line": 276,
+      "end_line": 276,
+      "raw": "\n"
+    },
+    {
+      "id": "b000055",
+      "kind": "heading",
+      "start_line": 277,
+      "end_line": 277,
+      "raw": "## 활성화되어 있지만 불완전한 기능\n",
+      "level": 2,
+      "title": "활성화되어 있지만 불완전한 기능"
+    },
+    {
+      "id": "b000056",
+      "kind": "blank",
+      "start_line": 278,
+      "end_line": 278,
+      "raw": "\n"
+    },
+    {
+      "id": "b000057",
+      "kind": "table",
+      "start_line": 279,
+      "end_line": 287,
+      "raw": "| 기능과 현재 제한 | 주 담당 | 협력 모듈 |\n| --- | --- | --- |\n| Edit > Copy / Copy Merged: 둘 다 선택 영역·선택 레이어가 아닌 프레임 0의 합성 이미지를 복사 | `iiSharedCanvas` | `iiGUI` |\n| 텍스트 입력이 포커스를 유지할 때 Edit > Undo / Redo / Copy / Copy Merged / Paste 메뉴 명령이 입력 대상으로 전달되지 않음 | `iiGUI` | `iiSharedCanvas` (캔버스 명령 대상과의 구분) |\n| File > Export > Export…: 비트맵 내보내기가 현재 프레임 대신 프레임 0 사용 | `iiSharedCanvas` | `iiVisualCodec::Image`, `iiFileProvider` |\n| iPad의 File > Save As… 및 첫 Save: 명시적 파일명 저장 경로 미지원 | `iiGUI` | `iiFileProvider`, `iiSharedCanvas` |\n| iPad의 File > Export > Export…: 폴더 선택 후 파일명이 `Canvas.png`로 고정 | `iiGUI` | `iiVisualCodec::Image`, `iiFileProvider` |\n| iPad·Android의 View > Screen Mode > Presentation 및 Window > Presentation: 호스트 전체 화면 전환 미지원 | `iiGUI` | — |\n| Android의 New document…, Add canvas…, Open…, Save As…, 첫 Save, Export…, Place Embedded…, Image > Place image…, Edit > Preferences > Preferences…: 보조 창 또는 파일 선택기 미지원 | `iiGUI` | `iiFileProvider`, `iiSharedCanvas` (파일·문서 처리 시) |\n",
+      "columns": [
+        "기능과 현재 제한",
+        "주 담당",
+        "협력 모듈"
+      ],
+      "rows": [
+        [
+          "Edit > Copy / Copy Merged: 둘 다 선택 영역·선택 레이어가 아닌 프레임 0의 합성 이미지를 복사",
+          "`iiSharedCanvas`",
+          "`iiGUI`"
+        ],
+        [
+          "텍스트 입력이 포커스를 유지할 때 Edit > Undo / Redo / Copy / Copy Merged / Paste 메뉴 명령이 입력 대상으로 전달되지 않음",
+          "`iiGUI`",
+          "`iiSharedCanvas` (캔버스 명령 대상과의 구분)"
+        ],
+        [
+          "File > Export > Export…: 비트맵 내보내기가 현재 프레임 대신 프레임 0 사용",
+          "`iiSharedCanvas`",
+          "`iiVisualCodec::Image`, `iiFileProvider`"
+        ],
+        [
+          "iPad의 File > Save As… 및 첫 Save: 명시적 파일명 저장 경로 미지원",
+          "`iiGUI`",
+          "`iiFileProvider`, `iiSharedCanvas`"
+        ],
+        [
+          "iPad의 File > Export > Export…: 폴더 선택 후 파일명이 `Canvas.png`로 고정",
+          "`iiGUI`",
+          "`iiVisualCodec::Image`, `iiFileProvider`"
+        ],
+        [
+          "iPad·Android의 View > Screen Mode > Presentation 및 Window > Presentation: 호스트 전체 화면 전환 미지원",
+          "`iiGUI`",
+          "—"
+        ],
+        [
+          "Android의 New document…, Add canvas…, Open…, Save As…, 첫 Save, Export…, Place Embedded…, Image > Place image…, Edit > Preferences > Preferences…: 보조 창 또는 파일 선택기 미지원",
+          "`iiGUI`",
+          "`iiFileProvider`, `iiSharedCanvas` (파일·문서 처리 시)"
+        ]
+      ]
+    },
+    {
+      "id": "b000058",
+      "kind": "blank",
+      "start_line": 288,
+      "end_line": 288,
+      "raw": "\n"
+    },
+    {
+      "id": "b000059",
+      "kind": "heading",
+      "start_line": 289,
+      "end_line": 289,
+      "raw": "## 경계와 현재 제공 범위\n",
+      "level": 2,
+      "title": "경계와 현재 제공 범위"
+    },
+    {
+      "id": "b000060",
+      "kind": "blank",
+      "start_line": 290,
+      "end_line": 290,
+      "raw": "\n"
+    },
+    {
+      "id": "b000061",
+      "kind": "list",
+      "start_line": 291,
+      "end_line": 297,
+      "raw": "- [iiSharedCanvas](../../../iiSharedCanvas/README.md)의 `TimelineProject`는 영상 편집 모델이며, 그 자체는 시퀀스 렌더러나 오디오 믹서가 아니다. 해당 모델의 `.iisc` 영속화도 별도이다.\n- [iiGraphicAdjust](../../../iiGraphicAdjust/README.md)는 다수의 이미지 필터와 변형 계산을 제공한다. 각 메뉴에 필요한 옵션, 결과 적용과 이력 연결은 추가 확인이 필요하다.\n- [iiVisualCodec](../../../iiVisualCodec/README.md)은 Image·Video·Vision·OpenCV·Geometry·Asset3D·CAD 등의 구성요소를 가진다. Vision 객체의 추적 ID는 호출자가 제공하며 자동 추적기가 있는 것으로 전제하지 않는다. 모델과 백엔드도 별도로 필요하다. [Vision 인터페이스](../../../iiVisualCodec/src/Vision/Vision.h)\n- [iiColorManager](../../../iiColorManager/README.md)는 임의 문서의 ICC 프로파일 변환 전체를 지원한다고 주장하지 않는다. 프로파일 변환·교정과 플랫폼별 지원은 확장이 필요하다.\n- 브러시 작성은 [iiPaintEngine::BrushTools](../../../iiPaintEngine/README.md)를 기준으로 한다. `iiBrushTools`는 기존 호환 패키지이며 별도 신규 모듈로 배정하지 않는다.\n- [Congregation의 Layer Mask 계약](../../../../Product/Congregation/docs/MASK_WORKFLOW.md)처럼 글로벌 메뉴가 비어 있어도 앱의 다른 경로에 기능이 있을 수 있다.\n- 이 문서는 소스 기반의 배정 제안이다. 앱을 실행하여 메뉴를 조작하거나 각 플랫폼에서 실제 동작을 검증한 결과는 아니다.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "[iiSharedCanvas](../../../iiSharedCanvas/README.md)의 `TimelineProject`는 영상 편집 모델이며, 그 자체는 시퀀스 렌더러나 오디오 믹서가 아니다. 해당 모델의 `.iisc` 영속화도 별도이다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[iiGraphicAdjust](../../../iiGraphicAdjust/README.md)는 다수의 이미지 필터와 변형 계산을 제공한다. 각 메뉴에 필요한 옵션, 결과 적용과 이력 연결은 추가 확인이 필요하다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[iiVisualCodec](../../../iiVisualCodec/README.md)은 Image·Video·Vision·OpenCV·Geometry·Asset3D·CAD 등의 구성요소를 가진다. Vision 객체의 추적 ID는 호출자가 제공하며 자동 추적기가 있는 것으로 전제하지 않는다. 모델과 백엔드도 별도로 필요하다. [Vision 인터페이스](../../../iiVisualCodec/src/Vision/Vision.h)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[iiColorManager](../../../iiColorManager/README.md)는 임의 문서의 ICC 프로파일 변환 전체를 지원한다고 주장하지 않는다. 프로파일 변환·교정과 플랫폼별 지원은 확장이 필요하다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "브러시 작성은 [iiPaintEngine::BrushTools](../../../iiPaintEngine/README.md)를 기준으로 한다. `iiBrushTools`는 기존 호환 패키지이며 별도 신규 모듈로 배정하지 않는다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[Congregation의 Layer Mask 계약](../../../../Product/Congregation/docs/MASK_WORKFLOW.md)처럼 글로벌 메뉴가 비어 있어도 앱의 다른 경로에 기능이 있을 수 있다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "이 문서는 소스 기반의 배정 제안이다. 앱을 실행하여 메뉴를 조작하거나 각 플랫폼에서 실제 동작을 검증한 결과는 아니다.",
+          "checked": null
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Congregation 글로벌 메뉴 기능별 iiSDK 모듈 배정",
+      "anchor": "congregation-글로벌-메뉴-기능별-iisdk-모듈-배정",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000015",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "File",
+      "anchor": "file",
+      "start_line": 15
+    },
+    {
+      "block_id": "b000019",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Edit",
+      "anchor": "edit",
+      "start_line": 34
+    },
+    {
+      "block_id": "b000023",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Select",
+      "anchor": "select",
+      "start_line": 69
+    },
+    {
+      "block_id": "b000027",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "View",
+      "anchor": "view",
+      "start_line": 92
+    },
+    {
+      "block_id": "b000031",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Layer",
+      "anchor": "layer",
+      "start_line": 118
+    },
+    {
+      "block_id": "b000035",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Image",
+      "anchor": "image",
+      "start_line": 151
+    },
+    {
+      "block_id": "b000039",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Sequence",
+      "anchor": "sequence",
+      "start_line": 174
+    },
+    {
+      "block_id": "b000043",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Filter",
+      "anchor": "filter",
+      "start_line": 213
+    },
+    {
+      "block_id": "b000047",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "3D",
+      "anchor": "3d",
+      "start_line": 236
+    },
+    {
+      "block_id": "b000051",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Help",
+      "anchor": "help",
+      "start_line": 271
+    },
+    {
+      "block_id": "b000055",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "활성화되어 있지만 불완전한 기능",
+      "anchor": "활성화되어-있지만-불완전한-기능",
+      "start_line": 277
+    },
+    {
+      "block_id": "b000059",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "경계와 현재 제공 범위",
+      "anchor": "경계와-현재-제공-범위",
+      "start_line": 289
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000009",
+        "line": 9,
+        "text": "주 담당은 기능의 핵심 계약을 맡는 제안이다. 협력 모듈은 해당 문서 작업·파일 입출력·계산 등의 경계를 함께 구성할 후보이며, 실제 파일 입출력이나 해당 백엔드를 쓰지 않는 구현에서는 생략할 수 있다. 모듈 간 직접 링크나 공개 타입 의존성을 뜻하지 않는다. Congregation이 독립 인터페이스를 조합하고 제품 명령·이력·오류를 연결한다. 파일 생성은 iiFileProvider가 담당한다. [SDK 독립성 지침](../../../AGENT.md)",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000011",
+        "line": 11,
+        "text": "메뉴 화면과 설정 화면에는 LVUI와 iiGUI를 공통으로 사용한다. 표의 iiGUI는 그 공통 표시 외에 클립보드·파일 선택·플랫폼 기능처럼 별도 경계가 필요한 경우에만 적는다. 생성형 기능에는 폐기된 ONNX 및 ONNX Runtime을 다시 도입하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000013",
+        "line": 13,
+        "text": "구현 시 각 SDK는 C++ API와 독립적인 연동 인터페이스, Python API를 제공한다. Congregation은 동일한 제품 명령을 AI 에이전트가 호출할 수 있도록 CLI 또는 이에 준하는 인터페이스와 MCP를 구성한다. `iiAgentApplicationInterface`를 앱의 명령 등록과 연동할 수 있지만, 현재 제품에서 이 통합이 완성되었다고 가정하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000061",
+        "line": 293,
+        "text": "- [iiVisualCodec](../../../iiVisualCodec/README.md)은 Image·Video·Vision·OpenCV·Geometry·Asset3D·CAD 등의 구성요소를 가진다. Vision 객체의 추적 ID는 호출자가 제공하며 자동 추적기가 있는 것으로 전제하지 않는다. 모델과 백엔드도 별도로 필요하다. [Vision 인터페이스](../../../iiVisualCodec/src/Vision/Vision.h)",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000061",
+        "line": 294,
+        "text": "- [iiColorManager](../../../iiColorManager/README.md)는 임의 문서의 ICC 프로파일 변환 전체를 지원한다고 주장하지 않는다. 프로파일 변환·교정과 플랫폼별 지원은 확장이 필요하다.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000061",
+        "line": 295,
+        "text": "- 브러시 작성은 [iiPaintEngine::BrushTools](../../../iiPaintEngine/README.md)를 기준으로 한다. `iiBrushTools`는 기존 호환 패키지이며 별도 신규 모듈로 배정하지 않는다.",
+        "basis": "lexical_match",
+        "context": "list"
+      }
+    ],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000003",
+        "label": "메뉴 정의",
+        "target": "../../../../Product/Congregation/App/Application/AppMenu.h",
+        "kind": "relative",
+        "line": 3
+      },
+      {
+        "block_id": "b000003",
+        "label": "기존 모듈별 배정 문서",
+        "target": "../../../../Product/Congregation/docs/GLOBAL_MENU_SDK_ALLOCATION.md",
+        "kind": "relative",
+        "line": 3
+      },
+      {
+        "block_id": "b000009",
+        "label": "SDK 독립성 지침",
+        "target": "../../../AGENT.md",
+        "kind": "relative",
+        "line": 9
+      },
+      {
+        "block_id": "b000061",
+        "label": "iiSharedCanvas",
+        "target": "../../../iiSharedCanvas/README.md",
+        "kind": "relative",
+        "line": 291
+      },
+      {
+        "block_id": "b000061",
+        "label": "iiGraphicAdjust",
+        "target": "../../../iiGraphicAdjust/README.md",
+        "kind": "relative",
+        "line": 292
+      },
+      {
+        "block_id": "b000061",
+        "label": "iiVisualCodec",
+        "target": "../../../iiVisualCodec/README.md",
+        "kind": "relative",
+        "line": 293
+      },
+      {
+        "block_id": "b000061",
+        "label": "Vision 인터페이스",
+        "target": "../../../iiVisualCodec/src/Vision/Vision.h",
+        "kind": "relative",
+        "line": 293
+      },
+      {
+        "block_id": "b000061",
+        "label": "iiColorManager",
+        "target": "../../../iiColorManager/README.md",
+        "kind": "relative",
+        "line": 294
+      },
+      {
+        "block_id": "b000061",
+        "label": "iiPaintEngine::BrushTools",
+        "target": "../../../iiPaintEngine/README.md",
+        "kind": "relative",
+        "line": 295
+      },
+      {
+        "block_id": "b000061",
+        "label": "Congregation의 Layer Mask 계약",
+        "target": "../../../../Product/Congregation/docs/MASK_WORKFLOW.md",
+        "kind": "relative",
+        "line": 296
+      }
+    ],
+    "tables": [
+      {
+        "block_id": "b000017",
+        "columns": [
+          "기능",
+          "주 담당",
+          "협력 모듈"
+        ],
+        "rows": [
+          [
+            "Open As…",
+            "`iiDocumentSession`*",
+            "`iiSharedCanvas`, `iiFileProvider`, `iiVisualCodec`, `iiGUI`"
+          ],
+          [
+            "Open Recent †",
+            "`iiDocumentSession`*",
+            "`iiSharedCanvas`, `iiFileProvider`"
+          ],
+          [
+            "Close",
+            "`iiDocumentSession`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Close All",
+            "`iiDocumentSession`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Close Others",
+            "`iiDocumentSession`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Save a Copy…",
+            "`iiDocumentSession`*",
+            "`iiSharedCanvas`, `iiFileProvider`"
+          ],
+          [
+            "Revert",
+            "`iiDocumentSession`*",
+            "`iiSharedCanvas`, `iiFileProvider`"
+          ],
+          [
+            "Place Linked…",
+            "`iiSharedCanvas`",
+            "`iiResource`, `iiFileProvider`, `iiVisualCodec::Image`"
+          ],
+          [
+            "Automate †",
+            "`iiAutomation`*",
+            "`iiAgentApplicationInterface`"
+          ],
+          [
+            "Scripts †",
+            "`iiAutomation`*",
+            "`iiAgentApplicationInterface`"
+          ],
+          [
+            "Import †",
+            "`iiVisualCodec`",
+            "`iiSharedCanvas`, `iiFileProvider`"
+          ],
+          [
+            "File Info…",
+            "`iiSharedCanvas`",
+            "`iiFileProvider`, `iiVisualCodec::Image`"
+          ],
+          [
+            "Print…",
+            "`iiPrint`*",
+            "`iiSharedCanvas`, `iiColorManager`"
+          ],
+          [
+            "Print One Copy",
+            "`iiPrint`*",
+            "`iiSharedCanvas`, `iiColorManager`"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000021",
+        "columns": [
+          "기능",
+          "주 담당",
+          "협력 모듈"
+        ],
+        "rows": [
+          [
+            "Toggle Last State",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Fade…",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Cut",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`, `iiGUI`"
+          ],
+          [
+            "Paste Special †",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`, `iiGUI`"
+          ],
+          [
+            "Clear",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Search (명령 검색으로 잠정 해석)",
+            "`iiCommandRegistry`*",
+            "—"
+          ],
+          [
+            "Check Spelling…",
+            "`iiTextServices`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Find and Replace Text…",
+            "`iiTextServices`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Fill…",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Stroke…",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Content-Aware Fill…",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Content-Aware Scale",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Puppet Warp",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Perspective Warp",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Free Transform",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`, `iiGraphicAdjust`"
+          ],
+          [
+            "Transform †",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`, `iiGraphicAdjust`"
+          ],
+          [
+            "Auto-Align Layers…",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`, `iiVisualCodec::OpenCV`"
+          ],
+          [
+            "Auto-Blend Layers…",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Sky Replacement…",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`, `iiVisualCodec::Vision`"
+          ],
+          [
+            "Define Brush Preset…",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`, `iiPresetManager`*, `iiFileProvider`"
+          ],
+          [
+            "Define Pattern…",
+            "`iiPresetManager`*",
+            "`iiFileProvider`, `iiSharedCanvas`"
+          ],
+          [
+            "Define Custom Shape…",
+            "`iiPresetManager`*",
+            "`iiFileProvider`, `iiSharedCanvas`"
+          ],
+          [
+            "Purge †",
+            "`iiResource`",
+            "—"
+          ],
+          [
+            "Presets †",
+            "`iiPresetManager`*",
+            "`iiFileProvider`, `iiSharedCanvas`"
+          ],
+          [
+            "Color Settings…",
+            "`iiColorManager`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Assign Profile…",
+            "`iiColorManager`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Convert to Profile…",
+            "`iiColorManager`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Keyboard Shortcuts…",
+            "`iiCommandRegistry`*",
+            "`iiGUI`, `iiFileProvider`"
+          ],
+          [
+            "Menus…",
+            "`iiCommandRegistry`*",
+            "`iiGUI`, `iiFileProvider`"
+          ],
+          [
+            "Toolbar…",
+            "`iiCommandRegistry`*",
+            "`iiGUI`, `iiFileProvider`"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000025",
+        "columns": [
+          "기능",
+          "주 담당",
+          "협력 모듈"
+        ],
+        "rows": [
+          [
+            "All",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Reselect",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "All Layers",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Deselect Layers",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Find Layers",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Isolate Layers",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Color Range…",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Focus Area…",
+            "`iiVisualCodec::OpenCV`",
+            "`iiSharedCanvas`, `iiPaintEngine`"
+          ],
+          [
+            "Subject",
+            "`iiVisualCodec::Vision`",
+            "`iiSharedCanvas`, `iiPaintEngine`"
+          ],
+          [
+            "Sky",
+            "`iiVisualCodec::Vision`",
+            "`iiSharedCanvas`, `iiPaintEngine`"
+          ],
+          [
+            "Select and Mask…",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Modify †",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Grow",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Similar",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Transform Selection",
+            "`iiPaintEngine`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Load Selection…",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Save Selection…",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "New 3D Extrusion",
+            "`iiVisualCodec::CAD`",
+            "`iiSharedCanvas`, `ii3DScene`*"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000029",
+        "columns": [
+          "기능",
+          "주 담당",
+          "협력 모듈"
+        ],
+        "rows": [
+          [
+            "Proof Setup †",
+            "`iiColorManager`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Proof Colors",
+            "`iiColorManager`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Gamut Warning",
+            "`iiColorManager`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Pixel Aspect Ratio †",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Pixel Aspect Ratio Correction",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "32-bit Preview Options…",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Fit Layer on Screen",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Fit Artboard on Screen",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "100%",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "200%",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Print Size",
+            "`iiViewport`*",
+            "`iiSharedCanvas`, `iiGUI`"
+          ],
+          [
+            "Actual Size",
+            "`iiViewport`*",
+            "`iiSharedCanvas`, `iiGUI`"
+          ],
+          [
+            "Flip Horizontal",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Pattern Preview",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Extras",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Show †",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Snap",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Snap To †",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Guides †",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Lock Slices",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Clear Slices",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000033",
+        "columns": [
+          "기능",
+          "주 담당",
+          "협력 모듈"
+        ],
+        "rows": [
+          [
+            "Copy CSS",
+            "`iiSharedCanvas`",
+            "`iiGUI`"
+          ],
+          [
+            "Copy SVG",
+            "`iiSharedCanvas`",
+            "`iiGUI`"
+          ],
+          [
+            "Quick Export as JPG",
+            "`iiVisualCodec::Image`",
+            "`iiSharedCanvas`, `iiFileProvider`"
+          ],
+          [
+            "Export As…",
+            "`iiVisualCodec::Image`",
+            "`iiSharedCanvas`, `iiFileProvider`, `iiGUI`"
+          ],
+          [
+            "Rename Layer…",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Layer Style †",
+            "`iiSharedCanvas`",
+            "`iiGraphicAdjust`"
+          ],
+          [
+            "New Fill Layer †",
+            "`iiSharedCanvas`",
+            "`iiGraphicAdjust`"
+          ],
+          [
+            "New Adjustment Layer †",
+            "`iiSharedCanvas`",
+            "`iiGraphicAdjust`"
+          ],
+          [
+            "Layer Content Options…",
+            "`iiSharedCanvas`",
+            "`iiGraphicAdjust`"
+          ],
+          [
+            "Layer Mask †",
+            "`iiSharedCanvas`",
+            "`iiPaintEngine`"
+          ],
+          [
+            "Vector Mask †",
+            "`iiSharedCanvas`",
+            "`iiPaintEngine`"
+          ],
+          [
+            "Mask All Objects",
+            "`iiVisualCodec::Vision`",
+            "`iiSharedCanvas`, `iiPaintEngine`"
+          ],
+          [
+            "Video Layers †",
+            "`iiSharedCanvas`",
+            "`iiVisualCodec::Video`"
+          ],
+          [
+            "Rasterize †",
+            "`iiSharedCanvas`",
+            "`iiPaintEngine`"
+          ],
+          [
+            "New Layer-Based Slice",
+            "`iiSharedCanvas`",
+            "`iiViewport`*"
+          ],
+          [
+            "Group Layers",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Ungroup Layers",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Arrange †",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Combine Shapes †",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Align †",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Distribute †",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Lock Layers…",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Link Layers",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Select Linked Layers",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Merge Layers",
+            "`iiSharedCanvas`",
+            "`iiPaintEngine`"
+          ],
+          [
+            "Merge Visible",
+            "`iiSharedCanvas`",
+            "`iiPaintEngine`"
+          ],
+          [
+            "Flatten Image",
+            "`iiSharedCanvas`",
+            "`iiPaintEngine`"
+          ],
+          [
+            "Matting †",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000037",
+        "columns": [
+          "기능",
+          "주 담당",
+          "협력 모듈"
+        ],
+        "rows": [
+          [
+            "Mode †",
+            "`iiColorManager`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Adjustments †",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Auto Tone",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Auto Contrast",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Auto Color",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Image Size…",
+            "`iiSharedCanvas`",
+            "`iiGraphicAdjust`"
+          ],
+          [
+            "Canvas Size…",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Image Rotation †",
+            "`iiSharedCanvas`",
+            "`iiGraphicAdjust`"
+          ],
+          [
+            "Crop",
+            "`iiSharedCanvas`",
+            "`iiGraphicAdjust`"
+          ],
+          [
+            "Trim…",
+            "`iiSharedCanvas`",
+            "`iiGraphicAdjust`"
+          ],
+          [
+            "Reveal All",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Duplicate…",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Apply Image…",
+            "`iiSharedCanvas`",
+            "`iiGraphicAdjust`"
+          ],
+          [
+            "Calculations…",
+            "`iiSharedCanvas`",
+            "`iiGraphicAdjust`"
+          ],
+          [
+            "Variables †",
+            "`iiDocumentVariables`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Apply Data Set…",
+            "`iiDocumentVariables`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Trap…",
+            "`iiPrint`*",
+            "`iiColorManager`, `iiSharedCanvas`"
+          ],
+          [
+            "Analysis †",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000041",
+        "columns": [
+          "기능",
+          "주 담당",
+          "협력 모듈"
+        ],
+        "rows": [
+          [
+            "Sequence Settings…",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Render Effects in Work Area",
+            "`iiTimelineRender`*",
+            "`iiSharedCanvas`, `iiGraphicAdjust`, `iiFileProvider`"
+          ],
+          [
+            "Render Entire Work Area",
+            "`iiTimelineRender`*",
+            "`iiSharedCanvas`, `iiFileProvider`"
+          ],
+          [
+            "Render Selection",
+            "`iiTimelineRender`*",
+            "`iiSharedCanvas`, `iiFileProvider`"
+          ],
+          [
+            "Render Audio",
+            "`iiAudioProcessing`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Delete Render Files",
+            "`iiTimelineRender`*",
+            "`iiFileProvider`"
+          ],
+          [
+            "Delete Work Area Render Files",
+            "`iiTimelineRender`*",
+            "`iiFileProvider`"
+          ],
+          [
+            "Match Frame",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Reverse Match Frame",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Add Edit",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Add Edit to All Tracks",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Trim Edit",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Extend Selected Edit to Playhead",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Apply Video Transition",
+            "`iiSharedCanvas`",
+            "`iiTimelineRender`*"
+          ],
+          [
+            "Apply Audio Transition",
+            "`iiSharedCanvas`",
+            "`iiAudioProcessing`*"
+          ],
+          [
+            "Apply Default Transitions to Selection",
+            "`iiSharedCanvas`",
+            "`iiTimelineRender`*, `iiAudioProcessing`*"
+          ],
+          [
+            "Lift",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Extract",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Zoom In",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Zoom Out",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Close Gap",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Go to Gap †",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Snap in Timeline",
+            "`iiViewport`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Linked Selection",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Selection Follows Playhead",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Show Through Edits",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Normalize Mix Track…",
+            "`iiAudioProcessing`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Make Subsequence",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Auto Reframe Sequence…",
+            "`iiVisualCodec::Vision`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Transcribe Sequence…",
+            "`iiSpeechRecognition`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Simplify Sequence…",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Add Tracks…",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Delete Tracks…",
+            "`iiSharedCanvas`",
+            "—"
+          ],
+          [
+            "Captions †",
+            "`iiSharedCanvas`",
+            "—"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000045",
+        "columns": [
+          "기능",
+          "주 담당",
+          "협력 모듈"
+        ],
+        "rows": [
+          [
+            "Gaussian Blur",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Generative filter",
+            "`iiLocalDiffusion`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Filter Gallery…",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Adaptive Wide Angle…",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Lens Correction…",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Liquify…",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Vanishing Point…",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "3D †",
+            "`ii3DRender`*",
+            "—"
+          ],
+          [
+            "Noise †",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Render †",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Video †",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Sharpen †",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Stylize †",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Distort †",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Pixelate †",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Blur †",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Blur Gallery †",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Other †",
+            "`iiGraphicAdjust`",
+            "`iiSharedCanvas`"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000049",
+        "columns": [
+          "기능",
+          "주 담당",
+          "협력 모듈"
+        ],
+        "rows": [
+          [
+            "New 3D Layer from File…",
+            "`iiVisualCodec::Asset3D`",
+            "`ii3DScene`*, `iiSharedCanvas`, `iiFileProvider`"
+          ],
+          [
+            "Merge 3D Layers",
+            "`ii3DScene`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Export 3D Layer…",
+            "`iiVisualCodec::Asset3D`",
+            "`ii3DScene`*, `iiSharedCanvas`, `iiFileProvider`"
+          ],
+          [
+            "Spherical Panorama †",
+            "`iiVisualCodec::Spatial`",
+            "—"
+          ],
+          [
+            "Download Content…",
+            "`iiNetwork`",
+            "`iiFileProvider`"
+          ],
+          [
+            "New 3D Extrusion from Selected Layer",
+            "`iiVisualCodec::CAD`",
+            "`ii3DScene`*, `iiSharedCanvas`"
+          ],
+          [
+            "New 3D Extrusion from Selected Path",
+            "`iiVisualCodec::CAD`",
+            "`ii3DScene`*, `iiSharedCanvas`"
+          ],
+          [
+            "New 3D Extrusion from Current Selection",
+            "`iiVisualCodec::CAD`",
+            "`ii3DScene`*, `iiSharedCanvas`"
+          ],
+          [
+            "New Mesh from Layer †",
+            "`iiMeshProcessing`*",
+            "`ii3DScene`*, `iiSharedCanvas`"
+          ],
+          [
+            "Group Objects",
+            "`ii3DScene`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Group All Objects in Scene",
+            "`ii3DScene`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Move Objects to Ground Plane",
+            "`ii3DScene`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Pack Objects on Ground Plane",
+            "`ii3DScene`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "New Tiled Painting from Layer",
+            "`ii3DScene`*",
+            "`iiSharedCanvas`, `iiPaintEngine`"
+          ],
+          [
+            "Generate UVs…",
+            "`iiMeshProcessing`*",
+            "`ii3DScene`*, `iiSharedCanvas`"
+          ],
+          [
+            "Paint Falloff…",
+            "`ii3DScene`*",
+            "`iiSharedCanvas`, `iiPaintEngine`"
+          ],
+          [
+            "Paint System †",
+            "`ii3DScene`*",
+            "`iiSharedCanvas`, `iiPaintEngine`"
+          ],
+          [
+            "Paint on Target Texture †",
+            "`ii3DScene`*",
+            "`iiSharedCanvas`, `iiPaintEngine`"
+          ],
+          [
+            "Select Paintable Areas",
+            "`ii3DScene`*",
+            "`iiSharedCanvas`"
+          ],
+          [
+            "Create Painting Overlay †",
+            "`ii3DScene`*",
+            "`iiSharedCanvas`, `iiPaintEngine`"
+          ],
+          [
+            "Split Extrusion",
+            "`iiMeshProcessing`*",
+            "`ii3DScene`*, `iiSharedCanvas`"
+          ],
+          [
+            "Apply Cross Section to Scene",
+            "`iiMeshProcessing`*",
+            "`ii3DScene`*, `iiSharedCanvas`"
+          ],
+          [
+            "Unify Scene for 3D Printing",
+            "`iiMeshProcessing`*",
+            "`ii3DScene`*, `iiSharedCanvas`"
+          ],
+          [
+            "Simplify Mesh…",
+            "`iiMeshProcessing`*",
+            "`ii3DScene`*, `iiSharedCanvas`"
+          ],
+          [
+            "Make Work Path from 3D Layer",
+            "`iiMeshProcessing`*",
+            "`ii3DScene`*, `iiSharedCanvas`"
+          ],
+          [
+            "Render 3D Layer",
+            "`ii3DRender`*",
+            "`ii3DScene`*, `iiSharedCanvas`"
+          ],
+          [
+            "Render Document to File…",
+            "`ii3DRender`*",
+            "`ii3DScene`*, `iiSharedCanvas`, `iiVisualCodec::Image`, `iiFileProvider`"
+          ],
+          [
+            "Sketch with Current Brush",
+            "`ii3DScene`*",
+            "`iiSharedCanvas`, `iiPaintEngine`"
+          ],
+          [
+            "3D Print Settings…",
+            "`ii3DPrinting`*",
+            "`ii3DScene`*, `iiMeshProcessing`*"
+          ],
+          [
+            "3D Print…",
+            "`ii3DPrinting`*",
+            "`ii3DScene`*, `iiMeshProcessing`*"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000053",
+        "columns": [
+          "기능",
+          "주 담당",
+          "협력 모듈"
+        ],
+        "rows": [
+          [
+            "도움말: 현재 `Help unavailable` 상태만 표시",
+            "`iiHelp`*",
+            "—"
+          ]
+        ]
+      },
+      {
+        "block_id": "b000057",
+        "columns": [
+          "기능과 현재 제한",
+          "주 담당",
+          "협력 모듈"
+        ],
+        "rows": [
+          [
+            "Edit > Copy / Copy Merged: 둘 다 선택 영역·선택 레이어가 아닌 프레임 0의 합성 이미지를 복사",
+            "`iiSharedCanvas`",
+            "`iiGUI`"
+          ],
+          [
+            "텍스트 입력이 포커스를 유지할 때 Edit > Undo / Redo / Copy / Copy Merged / Paste 메뉴 명령이 입력 대상으로 전달되지 않음",
+            "`iiGUI`",
+            "`iiSharedCanvas` (캔버스 명령 대상과의 구분)"
+          ],
+          [
+            "File > Export > Export…: 비트맵 내보내기가 현재 프레임 대신 프레임 0 사용",
+            "`iiSharedCanvas`",
+            "`iiVisualCodec::Image`, `iiFileProvider`"
+          ],
+          [
+            "iPad의 File > Save As… 및 첫 Save: 명시적 파일명 저장 경로 미지원",
+            "`iiGUI`",
+            "`iiFileProvider`, `iiSharedCanvas`"
+          ],
+          [
+            "iPad의 File > Export > Export…: 폴더 선택 후 파일명이 `Canvas.png`로 고정",
+            "`iiGUI`",
+            "`iiVisualCodec::Image`, `iiFileProvider`"
+          ],
+          [
+            "iPad·Android의 View > Screen Mode > Presentation 및 Window > Presentation: 호스트 전체 화면 전환 미지원",
+            "`iiGUI`",
+            "—"
+          ],
+          [
+            "Android의 New document…, Add canvas…, Open…, Save As…, 첫 Save, Export…, Place Embedded…, Image > Place image…, Edit > Preferences > Preferences…: 보조 창 또는 파일 선택기 미지원",
+            "`iiGUI`",
+            "`iiFileProvider`, `iiSharedCanvas` (파일·문서 처리 시)"
+          ]
+        ]
+      }
+    ]
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

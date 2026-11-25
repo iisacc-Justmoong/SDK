@@ -11,45 +11,43 @@ LVRS Rust CLI 25개, 검증 도구 회귀 15개, Network 설치 소비자 30개,
 
 ## 프로젝트별 결과
 
-| SDK | 통과 | 제외 | 구성별 테스트 |
-| --- | ---: | ---: | --- |
-| iiAccountManager | 6 | 0 | test: 6 |
-| iiActorObject | 34 | 0 | test: 34 |
-| iiAudioGen | 7 | 0 | test: 7 |
-| iiCalendar | 14 | 0 | test: 14 |
-| iiCameraIntegration | 26 | 0 | test: 26 |
-| iiColorManager | 6 | 0 | test: 6 |
-| iiCSMIDI | 4 | 0 | test: 4 |
-| iiDecision | 38 | 4 | test: 38 |
-| iiDeviceMultimedia | 6 | 0 | test: 6 |
-| iiFileProvider | 50 | 0 | test: 49, compatibility-test: 1 |
-| iiGeneralDocument | 31 | 0 | test: 31 |
-| iiGraphicAdjust | 202 | 0 | test: 202 |
-| iiGUI | 138 | 0 | test: 138 |
-| iiHtmlBlock | 13 | 0 | test: 13 |
-| iiJson | 2 | 0 | test: 2 |
-| iiLicenseManager | 2 | 0 | test: 2 |
-| iiLocalDiffusion | 111 | 0 | test: 111 |
-| iiLocalLLM | 11 | 0 | test: 11 |
-| iiPaintEngine | 49 | 0 | test: 49 |
-| iiPhotoLibrary | 8 | 0 | test: 8 |
-| iiSDKBuilder | 16 | 0 | test: 16 |
-| iiSDKCore | 58 | 0 | test: 58 |
-| iiWebServer | 16 | 0 | test: 16 |
-| iiSharedCanvas | 89 | 0 | test: 67, native-test: 21, native-consumer-test: 1 |
-| iiSocialPublish | 17 | 0 | test: 17 |
-| iiSocietyContainer | 21 | 0 | test: 21 |
-| iiSocietyHelper | 27 | 0 | test: 27 |
-| iiUpdateManager | 4 | 0 | test: 4 |
-| iiVoiceOver | 5 | 0 | test: 5 |
-| iiWhatsNew | 1 | 0 | test: 1 |
-| iiXml | 16 | 0 | test: 16 |
-| LVRS | 593 | 0 | test: 529, qt-test: 64 |
-| LVRS-Svelte | 6 | 0 | test: 6 |
-| iiMultimodalAgent | 68 | 0 | test: 68 |
-| iiNetwork | 46 | 0 | test: 46 |
-| LVUI | 45 | 0 | test: 45 |
-| iiImageCodec | 3 | 0 | test: 3 |
+- SDK: iiAccountManager; 통과: 6; 제외: 0; 구성별 테스트: test: 6
+- SDK: iiActorObject; 통과: 34; 제외: 0; 구성별 테스트: test: 34
+- SDK: iiAudioGen; 통과: 7; 제외: 0; 구성별 테스트: test: 7
+- SDK: iiCalendar; 통과: 14; 제외: 0; 구성별 테스트: test: 14
+- SDK: iiCameraIntegration; 통과: 26; 제외: 0; 구성별 테스트: test: 26
+- SDK: iiColorManager; 통과: 6; 제외: 0; 구성별 테스트: test: 6
+- SDK: iiCSMIDI; 통과: 4; 제외: 0; 구성별 테스트: test: 4
+- SDK: iiDecision; 통과: 38; 제외: 4; 구성별 테스트: test: 38
+- SDK: iiDeviceMultimedia; 통과: 6; 제외: 0; 구성별 테스트: test: 6
+- SDK: iiFileProvider; 통과: 50; 제외: 0; 구성별 테스트: test: 49, compatibility-test: 1
+- SDK: iiGeneralDocument; 통과: 31; 제외: 0; 구성별 테스트: test: 31
+- SDK: iiGraphicAdjust; 통과: 202; 제외: 0; 구성별 테스트: test: 202
+- SDK: iiGUI; 통과: 138; 제외: 0; 구성별 테스트: test: 138
+- SDK: iiHtmlBlock; 통과: 13; 제외: 0; 구성별 테스트: test: 13
+- SDK: iiJson; 통과: 2; 제외: 0; 구성별 테스트: test: 2
+- SDK: iiLicenseManager; 통과: 2; 제외: 0; 구성별 테스트: test: 2
+- SDK: iiLocalDiffusion; 통과: 111; 제외: 0; 구성별 테스트: test: 111
+- SDK: iiLocalLLM; 통과: 11; 제외: 0; 구성별 테스트: test: 11
+- SDK: iiPaintEngine; 통과: 49; 제외: 0; 구성별 테스트: test: 49
+- SDK: iiPhotoLibrary; 통과: 8; 제외: 0; 구성별 테스트: test: 8
+- SDK: iiSDKBuilder; 통과: 16; 제외: 0; 구성별 테스트: test: 16
+- SDK: iiSDKCore; 통과: 58; 제외: 0; 구성별 테스트: test: 58
+- SDK: iiWebServer; 통과: 16; 제외: 0; 구성별 테스트: test: 16
+- SDK: iiSharedCanvas; 통과: 89; 제외: 0; 구성별 테스트: test: 67, native-test: 21, native-consumer-test: 1
+- SDK: iiSocialPublish; 통과: 17; 제외: 0; 구성별 테스트: test: 17
+- SDK: iiSocietyContainer; 통과: 21; 제외: 0; 구성별 테스트: test: 21
+- SDK: iiSocietyHelper; 통과: 27; 제외: 0; 구성별 테스트: test: 27
+- SDK: iiUpdateManager; 통과: 4; 제외: 0; 구성별 테스트: test: 4
+- SDK: iiVoiceOver; 통과: 5; 제외: 0; 구성별 테스트: test: 5
+- SDK: iiWhatsNew; 통과: 1; 제외: 0; 구성별 테스트: test: 1
+- SDK: iiXml; 통과: 16; 제외: 0; 구성별 테스트: test: 16
+- SDK: LVRS; 통과: 593; 제외: 0; 구성별 테스트: test: 529, qt-test: 64
+- SDK: LVRS-Svelte; 통과: 6; 제외: 0; 구성별 테스트: test: 6
+- SDK: iiMultimodalAgent; 통과: 68; 제외: 0; 구성별 테스트: test: 68
+- SDK: iiNetwork; 통과: 46; 제외: 0; 구성별 테스트: test: 46
+- SDK: LVUI; 통과: 45; 제외: 0; 구성별 테스트: test: 45
+- SDK: iiImageCodec; 통과: 3; 제외: 0; 구성별 테스트: test: 3
 
 ## 수정 및 검증 내용
 

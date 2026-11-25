@@ -7,14 +7,12 @@
 
 Markdown is the maintained human source. Agent JSON is a structured, source-traceable projection.
 
-| Document | Agent JSON |
-| --- | --- |
-| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |
-| [`NOTICE.md`](../NOTICE.md) | [JSON](entrypoints/NOTICE.agent.json) |
-| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |
-| [`docs/DynamicLinking.md`](DynamicLinking.md) | [JSON](DynamicLinking.agent.json) |
-| [`docs/Gzip.md`](Gzip.md) | [JSON](Gzip.agent.json) |
-| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |
-| [`example/README.md`](../example/README.md) | [JSON](mirrors/example/README.agent.json) |
-| [`resources/README.md`](../resources/README.md) | [JSON](mirrors/resources/README.agent.json) |
+- Document: [`AGENT.md`](../AGENT.md); Agent JSON: [JSON](Entrypoints/AGENT.agent.json)
+- Document: [`NOTICE.md`](../NOTICE.md); Agent JSON: [JSON](Entrypoints/NOTICE.agent.json)
+- Document: [`README.md`](../README.md); Agent JSON: [JSON](Entrypoints/README.agent.json)
+- Document: [`docs/DynamicLinking.md`](DynamicLinking.md); Agent JSON: [JSON](DynamicLinking.agent.json)
+- Document: [`docs/Gzip.md`](Gzip.md); Agent JSON: [JSON](Gzip.agent.json)
+- Document: [`docs/documentation-structure.md`](documentation-structure.md); Agent JSON: [JSON](documentation-structure.agent.json)
+- Document: [`example/README.md`](../example/README.md); Agent JSON: [JSON](Mirrors/Example/README.agent.json)
+- Document: [`resources/README.md`](../resources/README.md); Agent JSON: [JSON](Mirrors/Resources/README.agent.json)
 <!-- workspace-docs:document-map:end -->

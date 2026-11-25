@@ -1,0 +1,24 @@
+{
+  "format": "iiAgentApplicationInterface.document-index.v1",
+  "project": "SDK/iiAgentApplicationInterface",
+  "documents": [
+    {
+      "source": "README.md",
+      "agent_json": "docs/Entrypoints/README.agent.json",
+      "role": "overview",
+      "sha256": "d65bd359883e3d18a0d80492ee70883a84495cec177fc0403c4ba608301122e1"
+    },
+    {
+      "source": "AGENT.md",
+      "agent_json": "docs/Entrypoints/AGENT.agent.json",
+      "role": "instructions",
+      "sha256": "a604bc3856db10f46cf4ff5d7f0a5fef292169e300886087641f4a49a6a68b43"
+    },
+    {
+      "source": "docs/Contract.md",
+      "agent_json": "docs/Contract.agent.json",
+      "role": "contract",
+      "sha256": "576b317607ad0afd5ade9f59ce0441b68756ca1bf1c556529842bafa018268c8"
+    }
+  ]
+}

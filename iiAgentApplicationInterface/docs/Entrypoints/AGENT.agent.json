@@ -1,0 +1,106 @@
+{
+  "format": "iiAgentApplicationInterface.document-projection.v1",
+  "role": "instructions",
+  "source": {
+    "path": "AGENT.md",
+    "sha256": "a604bc3856db10f46cf4ff5d7f0a5fef292169e300886087641f4a49a6a68b43",
+    "bytes": 5298,
+    "line_count": 17,
+    "language": "ko",
+    "encoding": "utf-8"
+  },
+  "headings": [
+    {
+      "line": 1,
+      "level": 1,
+      "title": "iiAgentApplicationInterface 작업 지침"
+    }
+  ],
+  "lines": [
+    {
+      "line": 1,
+      "kind": "heading",
+      "raw": "# iiAgentApplicationInterface 작업 지침\n"
+    },
+    {
+      "line": 2,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 3,
+      "kind": "text",
+      "raw": "iiAgentApplicationInterface는 신뢰된 애플리케이션 호스트가 객체, 명령과 상태 이벤트를 에이전트 어댑터에 연결하는 독립 C++23 모듈이다. 앱이 각각의 SDK를 조합하며 이 모듈은 다른 SDK나 Qt를 링크하지 않는다.\n"
+    },
+    {
+      "line": 4,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 5,
+      "kind": "text",
+      "raw": "- [계약 원문](docs/Contract.md)과 [에이전트 문서 색인](docs/agent-index.json)을 먼저 읽는다. Markdown이 원문이며 JSON의 해시가 다르면 Markdown을 따른다.\n"
+    },
+    {
+      "line": 6,
+      "kind": "text",
+      "raw": "- 등록과 상태 게시 인터페이스는 신뢰된 호스트 전용이다. 주체 인증과 권한 판단, 검증, 승인, 트랜잭션, Undo/Redo와 외부 전달은 호스트의 책임이다.\n"
+    },
+    {
+      "line": 7,
+      "kind": "text",
+      "raw": "- 인가 기본값은 거부이다. 스키마 문자열을 검증 결과나 권한 증거로 취급하지 않는다. 런타임 동시 호출, 비동기 작업, MCP 및 ABI 안정성은 현재 구현하지 않는다. 외부 연결은 앱이 전송과 인증을 조합한 경우에만 동작한다.\n"
+    },
+    {
+      "line": 8,
+      "kind": "text",
+      "raw": "- 런타임 호출은 소유 스레드에서 직렬화한다. 관리 객체의 마지막 참조가 다른 스레드에서 해제되면 호스트 디스패처로 소유 스레드에 전달하거나 `drain_lifecycle()`로 처리한다. 인가 및 입력 검증 콜백은 런타임에 재진입하지 않는다. 핸들러는 상태를 게시할 수 있다. 활성 호출이나 콜백 중 런타임을 파괴하지 않는다.\n"
+    },
+    {
+      "line": 9,
+      "kind": "text",
+      "raw": "- 소스 헤더와 구현은 `src/`에 함께 둔다. 새 기능은 테스트와 한국어 문서 및 JSON 쌍을 갱신한다. 빌드와 시험은 `build/`에서 수행한다.\n"
+    },
+    {
+      "line": 10,
+      "kind": "text",
+      "raw": "- `cmake -S . -B build -DBUILD_TESTING=ON`, `cmake --build build`, `ctest --test-dir build --output-on-failure`로 자동 검증한다. 실제 앱 실험은 별도 요청이 있어야 한다.\n"
+    },
+    {
+      "line": 11,
+      "kind": "text",
+      "raw": "- `install.sh`의 기본 설치 경로는 `build/install`이며 인자 또는 `INSTALL_PREFIX`가 지정되면 그 경로를 사용한다. SDK 일괄 설치기는 이 환경 변수를 전달한다. 구성은 캐시된 빌드 유형 또는 `IIAGENTAPPLICATIONINTERFACE_BUILD_CONFIG`를 따른다.\n"
+    },
+    {
+      "line": 12,
+      "kind": "text",
+      "raw": "- 이 체크아웃에서 지정된 Workspace 공통 문서 도구 경로를 찾지 못해 `src/sync_docs.py`가 임시로 프로젝트의 원문 해시와 줄별 JSON 투영을 유지한다. 원문을 바꾸면 이 도구를 실행하고 `--check`로 검증한다. 공통 도구가 복구되면 형식 호환을 먼저 확인한다.\n"
+    },
+    {
+      "line": 13,
+      "kind": "text",
+      "raw": "- 빌드 선언 발견은 `cmake/iiAgentApplicationInterfaceDiscovery.cmake`와 `src/python/iiagent_application_interface_discovery.py`에 있다. 실제 컴파일 명령과 소스 범위로 발견한 선언만 게시하며, 실제 객체 수명·멤버 호출·바이너리 전체를 자동으로 지원한다고 주장하지 않는다. 생성 런타임은 카탈로그를 자동 게시하고 기존 런타임은 생성된 게시 함수를 사용한다.\n"
+    },
+    {
+      "line": 14,
+      "kind": "text",
+      "raw": "- 네이티브 절차는 `Runtime::execute_procedure` 또는 `execute_source`와 `ProcedureContext`를 사용한다. `execute_source`는 호스트의 `SourceProcedureBackend`를 조정하며 컴파일·적재·실행을 각각 인가한다. C++ 호스트는 컴파일러·저장소·로더를 제공한다. Python은 clang++ 스타일 참조 백엔드를 제공하며 동일한 호스트 ABI, 빌드 플래그와 앱이 제공한 저장소가 필요하다. `example/python_source_storage.py`는 iiFileProvider를 앱에서 연결하는 예제이다. 모듈은 `NativeProcedureDescriptor`와 `iiagent_application_procedure_v1` 진입점을 제공한다. 적재 초기화 코드를 포함해 앱 권한으로 실행되며 샌드박스가 아니다.\n"
+    },
+    {
+      "line": 15,
+      "kind": "text",
+      "raw": "- `make_tracked_object<T>`를 이용해 만든 공유 객체만 생성과 소멸이 자동 등록된다. 기존 객체·스택 객체·별도 팩터리의 객체를 모두 추적한다고 주장하지 않는다. 절차에 넘긴 공유 참조는 객체 수명을 연장한다. 디스패처는 다른 스레드에서 호출될 수 있고 호스트 스레드에 실행을 게시해야 하며, 디스패처 없이 대기한 제거는 호스트가 직접 drain한다.\n"
+    },
+    {
+      "line": 16,
+      "kind": "text",
+      "raw": "- 에이전트 절차 작성은 `procedure_authoring_context`, `compose_procedure_source`, `build_procedure`, `execute_built`로 연결한다. 스냅샷은 기존 객체·명령별 인가를 그대로 적용하고 C++ API 서명과 자료형 설명을 포함한다. 빌드된 절차는 원래 백엔드보다 먼저 해제하며 실행마다 적재·실행 권한을 다시 확인한다. Python `CompiledProcedure`는 컨텍스트 관리자로 해제하고 자신의 활성 실행 도중에는 닫지 않는다. 이 모듈은 코드를 생성하는 모델을 제공하지 않는다.\n"
+    },
+    {
+      "line": 17,
+      "kind": "text",
+      "raw": "- 외부 에이전트는 `ExternalGateway`를 통해 호스트 인증기에서 검증한 주체로만 요청한다. 매 요청 재인증 후 기존 객체·명령·컴파일·적재·실행 권한을 다시 적용한다. `example/iiNetworkExternalBridge`는 앱이 iiNetwork·iiJson과 조합하는 선택 어댑터이며 설치 패키지의 `iiAgentApplicationInterface_EXAMPLE_DIR`에서 찾는다. Python CLI는 실행 중인 앱의 로컬 소켓에 연결한다. 앱의 실제 승인 정책·엔드포인트 보호·컴파일 백엔드가 필요하며 외부 구독과 지속 빌드 핸들은 아직 제공하지 않는다.\n"
+    }
+  ]
+}

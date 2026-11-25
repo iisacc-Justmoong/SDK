@@ -1,0 +1,4 @@
+auto application = context.write_object<native_procedure_fixture::Application>("application");
+if (!application) return {iiAgentApplicationInterface::Status::denied, "application unavailable"};
+application->rename(std::string(input));
+return context.invoke("application", "publish-title", application->title());

@@ -1,0 +1,522 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:ffaa5b4c156072a07e43f1c7694c3c606c152259c08185a735bdc091b91cd3bf",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiLocalizer",
+    "name": "iiLocalizer",
+    "root": "SDK/iiLocalizer",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "docs/Implementation.md",
+    "sha256": "e9c9c4903831c094fe0506ef5f4b8e5586f0c4ac1c3c1f6a49b15a6e63d8b219",
+    "bytes": 8621,
+    "line_count": 158,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "현재 구현과 사용 방법",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# 현재 구현과 사용 방법\n",
+      "level": 1,
+      "title": "현재 구현과 사용 방법"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "heading",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "## 구현 범위\n",
+      "level": 2,
+      "title": "구현 범위"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 4,
+      "end_line": 4,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 5,
+      "end_line": 9,
+      "raw": "iiLocalizer는 다른 SDK에 링크하지 않는 C++23 라이브러리이다. UTF-8 PO 바이트를\n받아 불변 카탈로그로 파싱하고 단수 원문과 선택적인 문맥으로 번역을 찾는다.\n결과에 `%1`, `%2` 등의 텍스트 인자를 치환한다. C ABI 및 이를 사용하는 Python\nAPI는 같은 네이티브 판독기와 치환기를 호출한다. 카탈로그 자체는 언어를 선택하거나\n파일을 열지 않으며, 같은 불변 카탈로그는 독립적으로 복사하거나 읽을 수 있다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 10,
+      "end_line": 10,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 11,
+      "end_line": 16,
+      "raw": "현재 복수 PO 항목은 오류로 거부한다. 도메인·복수형 수식·언어 선호 목록과 자동\n대체, 번역 추출, `.mo`, 시스템 로캘 감지, 변경 구독은 아직 구현되지 않았다.\n`Plural-Forms` 헤더는 단수 PO에서 무시하며 복수형 동작의 지원을 뜻하지 않는다.\nLVUI 예제의 언어별 카탈로그 선택과 바인딩 갱신은 앱 어댑터와 LVUI가 담당한다.\n예제 어댑터는 원문의 사용 위치와 PO 문맥을 독립적으로 지정하거나 생략하여\n게시한다. 언어 또는 인자가 바뀔 때 호스트가 해당 언어의 값을 다시 게시해야 한다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 17,
+      "end_line": 17,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 18,
+      "end_line": 23,
+      "raw": "PO는 8MiB 이하, 항목은 헤더를 제외하고 최대 10000개, 각 필드와 인자는 65536바이트\n이하, 인자는 최대 1024개, 치환 결과는 8MiB 이하여야 한다. UTF-8 이외의 인코딩,\nNUL, UTF-8 BOM, 중복 메시지 식별, 잘못된 문법과 미지원 지시어를 거부한다.\n`Content-Type`에 문자 집합이 선언되면 `UTF-8`이어야 한다. 헤더의 `Language`는\n그대로 제공하며 검증·언어 선택은 호스트가 한다. 주석과 `#,` 또는 `#=`의 `fuzzy`,\n`#~` obsolete 항목을 처리한다. 빈 번역은 미번역으로 취급한다.\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 24,
+      "end_line": 24,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "paragraph",
+      "start_line": 25,
+      "end_line": 28,
+      "raw": "인식하는 문자열 이스케이프는 `\\a`, `\\b`, `\\f`, `\\n`, `\\r`, `\\t`, `\\v`,\n`\\\\`, `\\\"`, 최대 세 자리의 8진수 및 한 바이트 범위의 16진수 `\\x`이다. 여러\n줄에 걸친 PO 문자열은 이어 붙인다. 지원하지 않는 이스케이프와 0 바이트는 거부한다.\nGNU PO의 모든 확장에 대한 호환성 주장은 아니다.\n"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 29,
+      "end_line": 29,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "heading",
+      "start_line": 30,
+      "end_line": 30,
+      "raw": "## C++와 C\n",
+      "level": 2,
+      "title": "C++와 C"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 31,
+      "end_line": 31,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 32,
+      "end_line": 35,
+      "raw": "설치된 모듈은 `#include <iiLocalizer>`와 CMake 타깃\n`iiLocalizer::iiLocalizer`를 제공한다. `IILOCALIZER_BUILD_TESTS`는 모듈 자체의\n테스트를 제어하며 설치된 `iilocalizer_link(소비자_타깃)`도 사용할 수 있다.\n파일 읽기와 언어 판단은 아래 `po_text`를 제공하는 호출자의 책임이다.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 36,
+      "end_line": 36,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "fenced_code",
+      "start_line": 37,
+      "end_line": 51,
+      "raw": "```cpp\n#include <iiLocalizer>\n#include <array>\n\nconst auto catalog = ii::localizer::Catalog::parse(po_text);\nif (catalog) {\n    const std::array<std::string, 1> args{\"지민\"};\n    const auto translated = catalog->translate(\"Hello, %1\", args);\n    if (translated) {\n        // translated->text와 translated->origin을 사용한다.\n    }\n} else {\n    // catalog.error().message와 line을 호스트 진단에 전달한다.\n}\n```\n",
+      "language": "cpp",
+      "code": "#include <iiLocalizer>\n#include <array>\n\nconst auto catalog = ii::localizer::Catalog::parse(po_text);\nif (catalog) {\n    const std::array<std::string, 1> args{\"지민\"};\n    const auto translated = catalog->translate(\"Hello, %1\", args);\n    if (translated) {\n        // translated->text와 translated->origin을 사용한다.\n    }\n} else {\n    // catalog.error().message와 line을 호스트 진단에 전달한다.\n}\n",
+      "closed": true
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 52,
+      "end_line": 52,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "paragraph",
+      "start_line": 53,
+      "end_line": 57,
+      "raw": "문맥은 `translate(\"Open\", {}, \"menu\")`처럼 전달한다. 문맥 생략과 빈 문맥은\n별개이다. 번역이 없으면 `Origin::source_missing`, 번역의 인자가 잘못되어 원문을\n사용하면 `Origin::source_invalid_translation`을 반환한다. 원문도 유효하지 않으면\n오류이다. 인자로 전달된 문자열은 다시 치환하지 않는다. `iiLocalizerC.h`는 C ABI와\n결과 문자열의 소유권·해제 방법을 정의한다.\n"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 58,
+      "end_line": 58,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "heading",
+      "start_line": 59,
+      "end_line": 59,
+      "raw": "## 같은 원문을 쓰는 레이블 선택\n",
+      "level": 2,
+      "title": "같은 원문을 쓰는 레이블 선택"
+    },
+    {
+      "id": "b000022",
+      "kind": "blank",
+      "start_line": 60,
+      "end_line": 60,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "paragraph",
+      "start_line": 61,
+      "end_line": 65,
+      "raw": "호스트는 각 레이블에 고유한 사용 위치, 원문, 문자열 키를 등록한다. 선택 위치를\n생략하면 해당 원문의 모든 등록 사용 인덱스를 반환하고, 위치를 전달하면 그 위치와\n원문이 모두 일치하는 인덱스만 반환한다. 일치 항목이 없으면 빈 목록이다. 빈 위치,\n중복 위치, 중복 문자열 키와 잘못된 UTF-8은 오류이다. 위치는 대소문자와 전체\n문자열이 정확히 일치해야 하며 상위 경로만으로 자식을 선택하지 않는다.\n"
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 66,
+      "end_line": 66,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
+      "kind": "fenced_code",
+      "start_line": 67,
+      "end_line": 79,
+      "raw": "```cpp\n#include <iiLocalizer>\n#include <vector>\n\nconst std::vector<ii::localizer::LabelUsage> uses{\n    {\"main/toolbar/toolbarGreeting\", \"Hello, %1\", \"toolbar.greeting\"},\n    {\"main/panel/panelGreeting\", \"Hello, %1\", \"panel.greeting\"},\n};\nconst auto all = ii::localizer::select_label_usages(uses, \"Hello, %1\");\nconst auto one = ii::localizer::select_label_usages(\n    uses, \"Hello, %1\", \"main/panel/panelGreeting\");\n// all은 [0, 1], one은 [1]에 해당한다.\n```\n",
+      "language": "cpp",
+      "code": "#include <iiLocalizer>\n#include <vector>\n\nconst std::vector<ii::localizer::LabelUsage> uses{\n    {\"main/toolbar/toolbarGreeting\", \"Hello, %1\", \"toolbar.greeting\"},\n    {\"main/panel/panelGreeting\", \"Hello, %1\", \"panel.greeting\"},\n};\nconst auto all = ii::localizer::select_label_usages(uses, \"Hello, %1\");\nconst auto one = ii::localizer::select_label_usages(\n    uses, \"Hello, %1\", \"main/panel/panelGreeting\");\n// all은 [0, 1], one은 [1]에 해당한다.\n",
+      "closed": true
+    },
+    {
+      "id": "b000026",
+      "kind": "blank",
+      "start_line": 80,
+      "end_line": 80,
+      "raw": "\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "paragraph",
+      "start_line": 81,
+      "end_line": 86,
+      "raw": "예제의 `LabelAdapter::publish`는 사용 위치를 네 번째 선택 인자로 받는다. 위치를\n생략하면 등록된 동일 원문 전체, 위치를 주면 해당 레이블만 `AppStrings`에서\n교체한다. 다섯 번째 선택 인자로 PO `msgctxt`를 별도로 지정할 수 있다. 예를 들어\n메뉴의 `Open`에 `publish(\"ko\", catalog, {}, \"main/toolbar/toolbarOpen\", \"menu\")`를\n호출하면 해당 위치에서 `menu` 문맥의 번역을 사용한다. 예제 어댑터는 선택 결과가\n없을 때 `not_found`를 반환하며 기존 값을 보존한다.\n"
+    },
+    {
+      "id": "b000028",
+      "kind": "blank",
+      "start_line": 87,
+      "end_line": 87,
+      "raw": "\n"
+    },
+    {
+      "id": "b000029",
+      "kind": "paragraph",
+      "start_line": 88,
+      "end_line": 95,
+      "raw": "LVUI는 각 레이블에서 등록된 고유 키를 `localized(...)`로 읽어야 한다. 모듈은\n등록되지 않은 뷰를 발견하거나 실제 키 사용을 검증하지 못하므로 앱은 등록을\n완전하게 유지하고 다른 레이블이 같은 키를 사용하지 않도록 보장해야 한다.\n위치를 생략한 전체 선택의 범위도 그 등록 목록이다. 기존 단일 공유 키 예제는\n위치 없는 호출을 유지하지만, 고유한 사용 위치가 없으므로 지정 호출은 거부한다.\n등록은 최대 10000개이며 각 필드는 65536바이트, 질의와 등록 필드를 합친 크기는\n8MiB를 넘을 수 없다. 사용 위치는 파일 시스템 경로가 아니라 호스트가 정한\n불투명한 식별자이다.\n"
+    },
+    {
+      "id": "b000030",
+      "kind": "blank",
+      "start_line": 96,
+      "end_line": 96,
+      "raw": "\n"
+    },
+    {
+      "id": "b000031",
+      "kind": "heading",
+      "start_line": 97,
+      "end_line": 97,
+      "raw": "## Python\n",
+      "level": 2,
+      "title": "Python"
+    },
+    {
+      "id": "b000032",
+      "kind": "blank",
+      "start_line": 98,
+      "end_line": 98,
+      "raw": "\n"
+    },
+    {
+      "id": "b000033",
+      "kind": "paragraph",
+      "start_line": 99,
+      "end_line": 100,
+      "raw": "설치된 `lib/python`을 Python 모듈 검색 경로에 추가한다. 공유 라이브러리는 설치된\n`lib`에서 찾으며 필요하면 `IILOCALIZER_LIBRARY`로 명시할 수 있다.\n"
+    },
+    {
+      "id": "b000034",
+      "kind": "blank",
+      "start_line": 101,
+      "end_line": 101,
+      "raw": "\n"
+    },
+    {
+      "id": "b000035",
+      "kind": "fenced_code",
+      "start_line": 102,
+      "end_line": 109,
+      "raw": "```python\nfrom iilocalizer import Catalog\n\nwith Catalog.from_po(po_text) as catalog:\n    text = catalog.translate(\"Hello, %1\", [\"지민\"])\n    detail = catalog.translate_info(\"Hello, %1\", [\"지민\"])\n    # detail.text와 detail.origin을 사용할 수 있다.\n```\n",
+      "language": "python",
+      "code": "from iilocalizer import Catalog\n\nwith Catalog.from_po(po_text) as catalog:\n    text = catalog.translate(\"Hello, %1\", [\"지민\"])\n    detail = catalog.translate_info(\"Hello, %1\", [\"지민\"])\n    # detail.text와 detail.origin을 사용할 수 있다.\n",
+      "closed": true
+    },
+    {
+      "id": "b000036",
+      "kind": "blank",
+      "start_line": 110,
+      "end_line": 110,
+      "raw": "\n"
+    },
+    {
+      "id": "b000037",
+      "kind": "fenced_code",
+      "start_line": 111,
+      "end_line": 121,
+      "raw": "```python\nfrom iilocalizer import LabelUsage, select_label_usages\n\nuses = [\n    LabelUsage(\"main/toolbar/toolbarGreeting\", \"Hello, %1\", \"toolbar.greeting\"),\n    LabelUsage(\"main/panel/panelGreeting\", \"Hello, %1\", \"panel.greeting\"),\n]\nall_uses = select_label_usages(uses, \"Hello, %1\")\npanel = select_label_usages(uses, \"Hello, %1\", \"main/panel/panelGreeting\")\n# all_uses는 [0, 1], panel은 [1]이다.\n```\n",
+      "language": "python",
+      "code": "from iilocalizer import LabelUsage, select_label_usages\n\nuses = [\n    LabelUsage(\"main/toolbar/toolbarGreeting\", \"Hello, %1\", \"toolbar.greeting\"),\n    LabelUsage(\"main/panel/panelGreeting\", \"Hello, %1\", \"panel.greeting\"),\n]\nall_uses = select_label_usages(uses, \"Hello, %1\")\npanel = select_label_usages(uses, \"Hello, %1\", \"main/panel/panelGreeting\")\n# all_uses는 [0, 1], panel은 [1]이다.\n",
+      "closed": true
+    },
+    {
+      "id": "b000038",
+      "kind": "blank",
+      "start_line": 122,
+      "end_line": 122,
+      "raw": "\n"
+    },
+    {
+      "id": "b000039",
+      "kind": "paragraph",
+      "start_line": 123,
+      "end_line": 125,
+      "raw": "잘못된 PO 또는 유효하지 않은 인자는 `LocalizationError`이다. `close()` 또는\n`with` 종료 후에는 더 조회할 수 없다. 여러 Python 호출과 `close()`는 같은 객체\n안에서 동기화된다.\n"
+    },
+    {
+      "id": "b000040",
+      "kind": "blank",
+      "start_line": 126,
+      "end_line": 126,
+      "raw": "\n"
+    },
+    {
+      "id": "b000041",
+      "kind": "heading",
+      "start_line": 127,
+      "end_line": 127,
+      "raw": "## 빌드와 검사\n",
+      "level": 2,
+      "title": "빌드와 검사"
+    },
+    {
+      "id": "b000042",
+      "kind": "blank",
+      "start_line": 128,
+      "end_line": 128,
+      "raw": "\n"
+    },
+    {
+      "id": "b000043",
+      "kind": "fenced_code",
+      "start_line": 129,
+      "end_line": 134,
+      "raw": "```sh\ncmake -S . -B build -DBUILD_TESTING=ON -DIILOCALIZER_BUILD_TESTS=ON\ncmake --build build\nctest --test-dir build --output-on-failure\ncmake --install build --prefix \"$PWD/build/stage\"\n```\n",
+      "language": "sh",
+      "code": "cmake -S . -B build -DBUILD_TESTING=ON -DIILOCALIZER_BUILD_TESTS=ON\ncmake --build build\nctest --test-dir build --output-on-failure\ncmake --install build --prefix \"$PWD/build/stage\"\n",
+      "closed": true
+    },
+    {
+      "id": "b000044",
+      "kind": "blank",
+      "start_line": 135,
+      "end_line": 135,
+      "raw": "\n"
+    },
+    {
+      "id": "b000045",
+      "kind": "paragraph",
+      "start_line": 136,
+      "end_line": 138,
+      "raw": "`install.sh`는 기본적으로 `~/.local/SDK/iiLocalizer`에 설치하며\n`IILOCALIZER_PREFIX`로 변경할 수 있다. 위 명령의 `build/stage/`는 사용자 설치를\n변경하지 않는 소비자 검증용 경로이다.\n"
+    },
+    {
+      "id": "b000046",
+      "kind": "blank",
+      "start_line": 139,
+      "end_line": 139,
+      "raw": "\n"
+    },
+    {
+      "id": "b000047",
+      "kind": "paragraph",
+      "start_line": 140,
+      "end_line": 143,
+      "raw": "`example/LVUILabel`은 별도의 앱 소비자 프로젝트이다. `iiLocalizer`, LVUI, iiGUI,\niiSDKCore와 그 의존성을 CMake에서 찾을 수 있도록 각 설치 접두 경로를 제공한 뒤\n아래처럼 구성한다. `IIGUI_SOURCE_DIR`은 창 없이 위젯 상태를 검사하는 테스트\n하네스가 사용하는 iiGUI 소스 경로이며 기본값은 형제 `SDK/iiGUI`이다.\n"
+    },
+    {
+      "id": "b000048",
+      "kind": "blank",
+      "start_line": 144,
+      "end_line": 144,
+      "raw": "\n"
+    },
+    {
+      "id": "b000049",
+      "kind": "fenced_code",
+      "start_line": 145,
+      "end_line": 151,
+      "raw": "```sh\ncmake -S example/LVUILabel -B build/lvui-label \\\n  -DiiLocalizer_DIR=\"$PWD/build/stage/lib/cmake/iiLocalizer\" \\\n  -DCMAKE_PREFIX_PATH=\"설치된 SDK 접두 경로 목록\"\ncmake --build build/lvui-label\nctest --test-dir build/lvui-label --output-on-failure\n```\n",
+      "language": "sh",
+      "code": "cmake -S example/LVUILabel -B build/lvui-label \\\n  -DiiLocalizer_DIR=\"$PWD/build/stage/lib/cmake/iiLocalizer\" \\\n  -DCMAKE_PREFIX_PATH=\"설치된 SDK 접두 경로 목록\"\ncmake --build build/lvui-label\nctest --test-dir build/lvui-label --output-on-failure\n",
+      "closed": true
+    },
+    {
+      "id": "b000050",
+      "kind": "blank",
+      "start_line": 152,
+      "end_line": 152,
+      "raw": "\n"
+    },
+    {
+      "id": "b000051",
+      "kind": "paragraph",
+      "start_line": 153,
+      "end_line": 158,
+      "raw": "2026-11-24 macOS Apple Silicon에서 C++·Python 계약 테스트와 별도 LVUI 소비자\n테스트가 통과했다. GNU `msgfmt`가 있으면 같은 PO의 단수·문맥·미번역 조회를 GNU\ngettext 결과와 비교하는 테스트도 실행하며, 이 환경에서 8개 조회가 일치했다.\n소비자는 `.lvui`를 실제 AOT 컴파일하고 iiGUI의 헤드리스\n레이블 상태에서 언어 전환과 인자 변경을 검사했다. 운영체제 창 표시, 실제 제품\n통합, 다른 운영체제 및 전체 현지화 계약의 완료는 검증하지 않았다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "현재 구현과 사용 방법",
+      "anchor": "현재-구현과-사용-방법",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000003",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "구현 범위",
+      "anchor": "구현-범위",
+      "start_line": 3
+    },
+    {
+      "block_id": "b000013",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "C++와 C",
+      "anchor": "c와-c",
+      "start_line": 30
+    },
+    {
+      "block_id": "b000021",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "같은 원문을 쓰는 레이블 선택",
+      "anchor": "같은-원문을-쓰는-레이블-선택",
+      "start_line": 59
+    },
+    {
+      "block_id": "b000031",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "Python",
+      "anchor": "python",
+      "start_line": 97
+    },
+    {
+      "block_id": "b000041",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "빌드와 검사",
+      "anchor": "빌드와-검사",
+      "start_line": 127
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000007",
+        "line": 13,
+        "text": "`Plural-Forms` 헤더는 단수 PO에서 무시하며 복수형 동작의 지원을 뜻하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000007",
+        "line": 16,
+        "text": "게시한다. 언어 또는 인자가 바뀔 때 호스트가 해당 언어의 값을 다시 게시해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000019",
+        "line": 56,
+        "text": "오류이다. 인자로 전달된 문자열은 다시 치환하지 않는다. `iiLocalizerC.h`는 C ABI와",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000023",
+        "line": 65,
+        "text": "문자열이 정확히 일치해야 하며 상위 경로만으로 자식을 선택하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000029",
+        "line": 90,
+        "text": "완전하게 유지하고 다른 레이블이 같은 키를 사용하지 않도록 보장해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [
+      {
+        "block_id": "b000043",
+        "language": "sh",
+        "code": "cmake -S . -B build -DBUILD_TESTING=ON -DIILOCALIZER_BUILD_TESTS=ON\ncmake --build build\nctest --test-dir build --output-on-failure\ncmake --install build --prefix \"$PWD/build/stage\"\n"
+      },
+      {
+        "block_id": "b000049",
+        "language": "sh",
+        "code": "cmake -S example/LVUILabel -B build/lvui-label \\\n  -DiiLocalizer_DIR=\"$PWD/build/stage/lib/cmake/iiLocalizer\" \\\n  -DCMAKE_PREFIX_PATH=\"설치된 SDK 접두 경로 목록\"\ncmake --build build/lvui-label\nctest --test-dir build/lvui-label --output-on-failure\n"
+      }
+    ],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

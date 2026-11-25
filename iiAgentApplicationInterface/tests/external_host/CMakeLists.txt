@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.24)
+project(ExternalAgentHost LANGUAGES CXX)
+find_package(iiAgentApplicationInterface CONFIG REQUIRED)
+find_package(iiNetwork CONFIG REQUIRED)
+add_executable(iiAgentExternalHost main.cpp "${iiAgentApplicationInterface_EXAMPLE_DIR}/iiNetworkExternalBridge.cpp")
+target_include_directories(iiAgentExternalHost PRIVATE "${iiAgentApplicationInterface_EXAMPLE_DIR}" "${MODULE_SOURCE}/resources/external_host")
+target_link_libraries(iiAgentExternalHost PRIVATE iiAgentApplicationInterface::iiAgentApplicationInterface iiNetwork::iiNetwork)
+target_compile_features(iiAgentExternalHost PRIVATE cxx_std_23)

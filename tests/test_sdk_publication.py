@@ -54,7 +54,7 @@ class SdkPublicationTests(unittest.TestCase):
 
     def test_shared_performance_sources_are_not_ignored(self):
         for name in ("tools/performance_audit.py", "tools/run_performance_benchmarks.py",
-                     "docs/PERFORMANCE_REVIEW.md", "docs/PERFORMANCE_REVIEW_20261020.md",
+                     "docs/Audits/PERFORMANCE_REVIEW.md", "docs/Audits/PERFORMANCE_REVIEW_20261020.md",
                      "benchmarks/performance/CMakeLists.txt"):
             with self.subTest(path=name):
                 result = subprocess.run(["git", "-C", str(SDK), "check-ignore", "--quiet",

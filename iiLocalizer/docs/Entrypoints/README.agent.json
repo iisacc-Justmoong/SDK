@@ -1,0 +1,193 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:cc5dc223f3ab0c32ef0191fd09c202729d274df6b4c66633dc17f2959291e275",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiLocalizer",
+    "name": "iiLocalizer",
+    "root": "SDK/iiLocalizer",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "README.md",
+    "sha256": "0321ab41d342eb6cdde37c4b1c148af98448e18ed9c325c294b5fdf04b937592",
+    "bytes": 1642,
+    "line_count": 37,
+    "encoding": "utf-8",
+    "language": "en"
+  },
+  "document": {
+    "title": "iiLocalizer",
+    "role": "overview",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# iiLocalizer\n",
+      "level": 1,
+      "title": "iiLocalizer"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 8,
+      "raw": "iiLocalizer is an independent C++23 iiSDK library for looking up messages in\nUTF-8 GNU gettext PO catalogs and substituting positional arguments. It also\nprovides a C ABI and Python API. The first implementation handles singular\nmessages and exact optional contexts; plural entries are explicitly rejected.\nThe broader localization design remains a target, not a claim that every\nfeature is implemented.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 9,
+      "end_line": 9,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 10,
+      "end_line": 14,
+      "raw": "A separate application-owned example connects a translated message to an LVUI\n`Label` through the existing `AppStrings` interface. Label usage selection\naccepts an optional exact application location; omitting it selects every\nregistered occurrence of the source message. The library itself does not link\nLVUI, iiGUI, Qt, KDE, or another iiSDK module.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 15,
+      "end_line": 15,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "fenced_code",
+      "start_line": 16,
+      "end_line": 26,
+      "raw": "```cpp\n#include <iiLocalizer>\n#include <array>\n\nconst auto catalog = ii::localizer::Catalog::parse(po_text);\nconst std::array<std::string, 1> arguments{\"Jimin\"};\nif (catalog) {\n    const auto result = catalog->translate(\"Hello, %1\", arguments);\n    // result->text contains the translated and substituted label text.\n}\n```\n",
+      "language": "cpp",
+      "code": "#include <iiLocalizer>\n#include <array>\n\nconst auto catalog = ii::localizer::Catalog::parse(po_text);\nconst std::array<std::string, 1> arguments{\"Jimin\"};\nif (catalog) {\n    const auto result = catalog->translate(\"Hello, %1\", arguments);\n    // result->text contains the translated and substituted label text.\n}\n",
+      "closed": true
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 27,
+      "end_line": 27,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 28,
+      "end_line": 31,
+      "raw": "Build and run the module's automatic tests with `cmake -S . -B build`,\n`cmake --build build`, and `ctest --test-dir build --output-on-failure`.\n`IILOCALIZER_BUILD_TESTS` controls its tests; consumers may link\n`iiLocalizer::iiLocalizer` or use the installed `iilocalizer_link` CMake helper.\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 32,
+      "end_line": 32,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "list",
+      "start_line": 33,
+      "end_line": 37,
+      "raw": "- [Documentation index](docs/README.md)\n- [Implemented API, limitations, and LVUI consumer verification](docs/Implementation.md)\n- [Localization contract](docs/LocalizationContract.md)\n- [PO workflow](docs/POWorkflow.md)\n- [Agent instructions](AGENT.md)\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "[Documentation index](docs/README.md)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[Implemented API, limitations, and LVUI consumer verification](docs/Implementation.md)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[Localization contract](docs/LocalizationContract.md)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[PO workflow](docs/POWorkflow.md)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[Agent instructions](AGENT.md)",
+          "checked": null
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "iiLocalizer",
+      "anchor": "iilocalizer",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000011",
+        "label": "Documentation index",
+        "target": "docs/README.md",
+        "kind": "relative",
+        "line": 33
+      },
+      {
+        "block_id": "b000011",
+        "label": "Implemented API, limitations, and LVUI consumer verification",
+        "target": "docs/Implementation.md",
+        "kind": "relative",
+        "line": 34
+      },
+      {
+        "block_id": "b000011",
+        "label": "Localization contract",
+        "target": "docs/LocalizationContract.md",
+        "kind": "relative",
+        "line": 35
+      },
+      {
+        "block_id": "b000011",
+        "label": "PO workflow",
+        "target": "docs/POWorkflow.md",
+        "kind": "relative",
+        "line": 36
+      },
+      {
+        "block_id": "b000011",
+        "label": "Agent instructions",
+        "target": "AGENT.md",
+        "kind": "relative",
+        "line": 37
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

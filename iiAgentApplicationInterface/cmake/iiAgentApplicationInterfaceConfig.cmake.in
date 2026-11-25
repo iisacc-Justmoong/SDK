@@ -1,0 +1,8 @@
+@PACKAGE_INIT@
+include(CMakeFindDependencyMacro)
+find_dependency(Threads)
+include("${CMAKE_CURRENT_LIST_DIR}/iiAgentApplicationInterfaceTargets.cmake")
+set_and_check(iiAgentApplicationInterface_DISCOVERY_SCRIPT "@PACKAGE_CMAKE_INSTALL_DATADIR@/iiAgentApplicationInterface/python/iiagent_application_interface_discovery.py")
+set_and_check(iiAgentApplicationInterface_EXAMPLE_DIR "@PACKAGE_CMAKE_INSTALL_DATADIR@/iiAgentApplicationInterface/example")
+include("${CMAKE_CURRENT_LIST_DIR}/iiAgentApplicationInterfaceDiscovery.cmake")
+check_required_components(iiAgentApplicationInterface)

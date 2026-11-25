@@ -427,6 +427,16 @@
   ],
   "bundledModules": [
     {
+      "path": "SDK/iiLocalizer",
+      "repositoryPath": "SDK",
+      "sourcePath": "iiLocalizer"
+    },
+    {
+      "path": "SDK/iiAgentApplicationInterface",
+      "repositoryPath": "SDK",
+      "sourcePath": "iiAgentApplicationInterface"
+    },
+    {
       "path": "SDK/iiGPU",
       "repositoryPath": "SDK",
       "sourcePath": "iiGPU"

@@ -1,0 +1,6 @@
+#pragma once
+// Public module entry; the CMake target supplies the corresponding header path.
+#include <iiAgentApplicationInterface/Agent.h>
+#include <iiAgentApplicationInterface/BuildCatalog.h>
+#include <iiAgentApplicationInterface/SourceProcedure.h>
+#include <iiAgentApplicationInterface/External.h>

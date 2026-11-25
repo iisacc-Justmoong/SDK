@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/README.md",
-    "sha256": "02d523e27642d79ca9a8f55a0e79b2e33b99655494e85a22e9a0e6b3f0b55696",
-    "bytes": 3957,
-    "line_count": 63,
+    "sha256": "f32d3015da5edfa5602ab70d5d65858700580b706cd53e57ea980981f19cb599",
+    "bytes": 4126,
+    "line_count": 61,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -163,66 +163,73 @@
     },
     {
       "id": "b000020",
-      "kind": "table",
       "start_line": 50,
-      "end_line": 62,
-      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`Publication-20261025.md`](../Publication-20261025.md) | [JSON](entrypoints/Publication-20261025.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`Verification-20261020.md`](../Verification-20261020.md) | [JSON](entrypoints/Verification-20261020.agent.json) |\n| [`Verification-20261024.md`](../Verification-20261024.md) | [JSON](entrypoints/Verification-20261024.agent.json) |\n| [`docs/GPU.md`](GPU.md) | [JSON](GPU.agent.json) |\n| [`docs/Publication-20261025.md`](Publication-20261025.md) | [JSON](Publication-20261025.agent.json) |\n| [`docs/RuntimeRetirement.md`](RuntimeRetirement.md) | [JSON](RuntimeRetirement.agent.json) |\n| [`docs/Verification-20261020.md`](Verification-20261020.md) | [JSON](Verification-20261020.agent.json) |\n| [`docs/Verification-20261024.md`](Verification-20261024.md) | [JSON](Verification-20261024.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n",
-      "columns": [
-        "Document",
-        "Agent JSON"
-      ],
-      "rows": [
-        [
-          "[`AGENT.md`](../AGENT.md)",
-          "[JSON](entrypoints/AGENT.agent.json)"
-        ],
-        [
-          "[`Publication-20261025.md`](../Publication-20261025.md)",
-          "[JSON](entrypoints/Publication-20261025.agent.json)"
-        ],
-        [
-          "[`README.md`](../README.md)",
-          "[JSON](entrypoints/README.agent.json)"
-        ],
-        [
-          "[`Verification-20261020.md`](../Verification-20261020.md)",
-          "[JSON](entrypoints/Verification-20261020.agent.json)"
-        ],
-        [
-          "[`Verification-20261024.md`](../Verification-20261024.md)",
-          "[JSON](entrypoints/Verification-20261024.agent.json)"
-        ],
-        [
-          "[`docs/GPU.md`](GPU.md)",
-          "[JSON](GPU.agent.json)"
-        ],
-        [
-          "[`docs/Publication-20261025.md`](Publication-20261025.md)",
-          "[JSON](Publication-20261025.agent.json)"
-        ],
-        [
-          "[`docs/RuntimeRetirement.md`](RuntimeRetirement.md)",
-          "[JSON](RuntimeRetirement.agent.json)"
-        ],
-        [
-          "[`docs/Verification-20261020.md`](Verification-20261020.md)",
-          "[JSON](Verification-20261020.agent.json)"
-        ],
-        [
-          "[`docs/Verification-20261024.md`](Verification-20261024.md)",
-          "[JSON](Verification-20261024.agent.json)"
-        ],
-        [
-          "[`docs/documentation-structure.md`](documentation-structure.md)",
-          "[JSON](documentation-structure.agent.json)"
-        ]
+      "end_line": 60,
+      "raw": "- Document: [`AGENT.md`](../AGENT.md); Agent JSON: [JSON](Entrypoints/AGENT.agent.json)\n- Document: [`Publication-20261025.md`](../Publication-20261025.md); Agent JSON: [JSON](Entrypoints/Publication-20261025.agent.json)\n- Document: [`README.md`](../README.md); Agent JSON: [JSON](Entrypoints/README.agent.json)\n- Document: [`Verification-20261020.md`](../Verification-20261020.md); Agent JSON: [JSON](Entrypoints/Verification-20261020.agent.json)\n- Document: [`Verification-20261024.md`](../Verification-20261024.md); Agent JSON: [JSON](Entrypoints/Verification-20261024.agent.json)\n- Document: [`docs/GPU.md`](GPU.md); Agent JSON: [JSON](GPU.agent.json)\n- Document: [`docs/Publication-20261025.md`](Publication-20261025.md); Agent JSON: [JSON](Publication-20261025.agent.json)\n- Document: [`docs/RuntimeRetirement.md`](RuntimeRetirement.md); Agent JSON: [JSON](RuntimeRetirement.agent.json)\n- Document: [`docs/Verification-20261020.md`](Verification-20261020.md); Agent JSON: [JSON](Verification-20261020.agent.json)\n- Document: [`docs/Verification-20261024.md`](Verification-20261024.md); Agent JSON: [JSON](Verification-20261024.agent.json)\n- Document: [`docs/documentation-structure.md`](documentation-structure.md); Agent JSON: [JSON](documentation-structure.agent.json)\n",
+      "kind": "list",
+      "items": [
+        {
+          "marker": "-",
+          "text": "Document: [`AGENT.md`](../AGENT.md); Agent JSON: [JSON](Entrypoints/AGENT.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`Publication-20261025.md`](../Publication-20261025.md); Agent JSON: [JSON](Entrypoints/Publication-20261025.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`README.md`](../README.md); Agent JSON: [JSON](Entrypoints/README.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`Verification-20261020.md`](../Verification-20261020.md); Agent JSON: [JSON](Entrypoints/Verification-20261020.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`Verification-20261024.md`](../Verification-20261024.md); Agent JSON: [JSON](Entrypoints/Verification-20261024.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/GPU.md`](GPU.md); Agent JSON: [JSON](GPU.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/Publication-20261025.md`](Publication-20261025.md); Agent JSON: [JSON](Publication-20261025.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/RuntimeRetirement.md`](RuntimeRetirement.md); Agent JSON: [JSON](RuntimeRetirement.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/Verification-20261020.md`](Verification-20261020.md); Agent JSON: [JSON](Verification-20261020.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/Verification-20261024.md`](Verification-20261024.md); Agent JSON: [JSON](Verification-20261024.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/documentation-structure.md`](documentation-structure.md); Agent JSON: [JSON](documentation-structure.agent.json)",
+          "checked": null
+        }
       ]
     },
     {
       "id": "b000021",
       "kind": "html",
-      "start_line": 63,
-      "end_line": 63,
+      "start_line": 61,
+      "end_line": 61,
       "raw": "<!-- workspace-docs:document-map:end -->\n"
     }
   ],
@@ -269,211 +276,157 @@
         "label": "`AGENT.md`",
         "target": "../AGENT.md",
         "kind": "relative",
-        "line": 52
+        "line": 50
       },
       {
         "block_id": "b000020",
         "label": "JSON",
-        "target": "entrypoints/AGENT.agent.json",
+        "target": "Entrypoints/AGENT.agent.json",
         "kind": "relative",
-        "line": 52
+        "line": 50
       },
       {
         "block_id": "b000020",
         "label": "`Publication-20261025.md`",
         "target": "../Publication-20261025.md",
         "kind": "relative",
-        "line": 53
+        "line": 51
       },
       {
         "block_id": "b000020",
         "label": "JSON",
-        "target": "entrypoints/Publication-20261025.agent.json",
+        "target": "Entrypoints/Publication-20261025.agent.json",
         "kind": "relative",
-        "line": 53
+        "line": 51
       },
       {
         "block_id": "b000020",
         "label": "`README.md`",
         "target": "../README.md",
         "kind": "relative",
-        "line": 54
+        "line": 52
       },
       {
         "block_id": "b000020",
         "label": "JSON",
-        "target": "entrypoints/README.agent.json",
+        "target": "Entrypoints/README.agent.json",
         "kind": "relative",
-        "line": 54
+        "line": 52
       },
       {
         "block_id": "b000020",
         "label": "`Verification-20261020.md`",
         "target": "../Verification-20261020.md",
         "kind": "relative",
-        "line": 55
+        "line": 53
       },
       {
         "block_id": "b000020",
         "label": "JSON",
-        "target": "entrypoints/Verification-20261020.agent.json",
+        "target": "Entrypoints/Verification-20261020.agent.json",
         "kind": "relative",
-        "line": 55
+        "line": 53
       },
       {
         "block_id": "b000020",
         "label": "`Verification-20261024.md`",
         "target": "../Verification-20261024.md",
         "kind": "relative",
-        "line": 56
+        "line": 54
       },
       {
         "block_id": "b000020",
         "label": "JSON",
-        "target": "entrypoints/Verification-20261024.agent.json",
+        "target": "Entrypoints/Verification-20261024.agent.json",
         "kind": "relative",
-        "line": 56
+        "line": 54
       },
       {
         "block_id": "b000020",
         "label": "`docs/GPU.md`",
         "target": "GPU.md",
         "kind": "relative",
-        "line": 57
+        "line": 55
       },
       {
         "block_id": "b000020",
         "label": "JSON",
         "target": "GPU.agent.json",
         "kind": "relative",
-        "line": 57
+        "line": 55
       },
       {
         "block_id": "b000020",
         "label": "`docs/Publication-20261025.md`",
         "target": "Publication-20261025.md",
         "kind": "relative",
-        "line": 58
+        "line": 56
       },
       {
         "block_id": "b000020",
         "label": "JSON",
         "target": "Publication-20261025.agent.json",
         "kind": "relative",
-        "line": 58
+        "line": 56
       },
       {
         "block_id": "b000020",
         "label": "`docs/RuntimeRetirement.md`",
         "target": "RuntimeRetirement.md",
         "kind": "relative",
-        "line": 59
+        "line": 57
       },
       {
         "block_id": "b000020",
         "label": "JSON",
         "target": "RuntimeRetirement.agent.json",
         "kind": "relative",
-        "line": 59
+        "line": 57
       },
       {
         "block_id": "b000020",
         "label": "`docs/Verification-20261020.md`",
         "target": "Verification-20261020.md",
         "kind": "relative",
-        "line": 60
+        "line": 58
       },
       {
         "block_id": "b000020",
         "label": "JSON",
         "target": "Verification-20261020.agent.json",
         "kind": "relative",
-        "line": 60
+        "line": 58
       },
       {
         "block_id": "b000020",
         "label": "`docs/Verification-20261024.md`",
         "target": "Verification-20261024.md",
         "kind": "relative",
-        "line": 61
+        "line": 59
       },
       {
         "block_id": "b000020",
         "label": "JSON",
         "target": "Verification-20261024.agent.json",
         "kind": "relative",
-        "line": 61
+        "line": 59
       },
       {
         "block_id": "b000020",
         "label": "`docs/documentation-structure.md`",
         "target": "documentation-structure.md",
         "kind": "relative",
-        "line": 62
+        "line": 60
       },
       {
         "block_id": "b000020",
         "label": "JSON",
         "target": "documentation-structure.agent.json",
         "kind": "relative",
-        "line": 62
+        "line": 60
       }
     ],
-    "tables": [
-      {
-        "block_id": "b000020",
-        "columns": [
-          "Document",
-          "Agent JSON"
-        ],
-        "rows": [
-          [
-            "[`AGENT.md`](../AGENT.md)",
-            "[JSON](entrypoints/AGENT.agent.json)"
-          ],
-          [
-            "[`Publication-20261025.md`](../Publication-20261025.md)",
-            "[JSON](entrypoints/Publication-20261025.agent.json)"
-          ],
-          [
-            "[`README.md`](../README.md)",
-            "[JSON](entrypoints/README.agent.json)"
-          ],
-          [
-            "[`Verification-20261020.md`](../Verification-20261020.md)",
-            "[JSON](entrypoints/Verification-20261020.agent.json)"
-          ],
-          [
-            "[`Verification-20261024.md`](../Verification-20261024.md)",
-            "[JSON](entrypoints/Verification-20261024.agent.json)"
-          ],
-          [
-            "[`docs/GPU.md`](GPU.md)",
-            "[JSON](GPU.agent.json)"
-          ],
-          [
-            "[`docs/Publication-20261025.md`](Publication-20261025.md)",
-            "[JSON](Publication-20261025.agent.json)"
-          ],
-          [
-            "[`docs/RuntimeRetirement.md`](RuntimeRetirement.md)",
-            "[JSON](RuntimeRetirement.agent.json)"
-          ],
-          [
-            "[`docs/Verification-20261020.md`](Verification-20261020.md)",
-            "[JSON](Verification-20261020.agent.json)"
-          ],
-          [
-            "[`docs/Verification-20261024.md`](Verification-20261024.md)",
-            "[JSON](Verification-20261024.agent.json)"
-          ],
-          [
-            "[`docs/documentation-structure.md`](documentation-structure.md)",
-            "[JSON](documentation-structure.agent.json)"
-          ]
-        ]
-      }
-    ]
+    "tables": []
   },
   "provenance": {
     "generator": "workspace-docs",

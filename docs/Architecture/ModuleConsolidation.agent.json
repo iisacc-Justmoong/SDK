@@ -1,0 +1,241 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:d4ac661f1c09124a3e1ff37e739083e09f6a684e0824f54a1a7862becd684d9f",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "docs/Architecture/ModuleConsolidation.md",
+    "sha256": "c22260d96d77b542470c38c5f3dcc0f954a004e9b80da9e41a073d28c521ba6c",
+    "bytes": 2583,
+    "line_count": 33,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "SDK 모듈 통합과 경계",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# SDK 모듈 통합과 경계\n",
+      "level": 1,
+      "title": "SDK 모듈 통합과 경계"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "heading",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "## 구성요소 소유권\n",
+      "level": 2,
+      "title": "구성요소 소유권"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 4,
+      "end_line": 4,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "start_line": 5,
+      "end_line": 7,
+      "raw": "- 기존 모듈: iiWebGPU; 소유 모듈: iiGPU; 새 대상: `iiGPU::WebGPU`; 이전 패키지와 헤더: `iiWebGPU::iiWebGPU`, `<iiWebGPU/...>` 호환\n- 기존 모듈: iiHtmlBlock; 소유 모듈: iiXml; 새 대상: `iiXml::HtmlBlock`; 이전 패키지와 헤더: `iiHtmlBlock::iiHtmlBlock`, `<iiHtmlBlock>`, `<Src/...>` 호환\n- 기존 모듈: iiBrushTools; 소유 모듈: iiPaintEngine; 새 대상: `iiPaintEngine::BrushTools`; 이전 패키지와 헤더: `iiBrushTools::iiBrushTools`, `<iiBrushTools/...>` 호환\n",
+      "kind": "list",
+      "items": [
+        {
+          "marker": "-",
+          "text": "기존 모듈: iiWebGPU; 소유 모듈: iiGPU; 새 대상: `iiGPU::WebGPU`; 이전 패키지와 헤더: `iiWebGPU::iiWebGPU`, `<iiWebGPU/...>` 호환",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "기존 모듈: iiHtmlBlock; 소유 모듈: iiXml; 새 대상: `iiXml::HtmlBlock`; 이전 패키지와 헤더: `iiHtmlBlock::iiHtmlBlock`, `<iiHtmlBlock>`, `<Src/...>` 호환",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "기존 모듈: iiBrushTools; 소유 모듈: iiPaintEngine; 새 대상: `iiPaintEngine::BrushTools`; 이전 패키지와 헤더: `iiBrushTools::iiBrushTools`, `<iiBrushTools/...>` 호환",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 9,
+      "end_line": 12,
+      "raw": "세 구성요소는 각각 선택할 수 있다. 기본 GPU 대상은 Dawn을, XML Native는 Qt를,\n그림 엔진의 기본 스트리밍 계층은 전체 획 작성 계층을 요구하지 않는다. 기존\n설치 위치가 컴파일러 `CPATH`나 CMake 캐시에 명시된 경우 새 패키지를 우선하도록\n소비자의 경로를 갱신해야 한다. 기존 기능의 이전 이름은 제거하지 않았다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 13,
+      "end_line": 13,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "heading",
+      "start_line": 14,
+      "end_line": 14,
+      "raw": "## 구분해야 할 계층과 추가 중복\n",
+      "level": 2,
+      "title": "구분해야 할 계층과 추가 중복"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 15,
+      "end_line": 15,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "list",
+      "start_line": 16,
+      "end_line": 25,
+      "raw": "- iiNetwork는 소켓·TLS·HTTP 전송, iiWebServer는 라우팅·파일 공유·릴레이와\n  세션 정책을 소유한다. iiWebServer의 HTTP 객체도 iiNetwork 서버를 조합한다.\n- iiCSMIDI는 MIDI 파일 문서이고 iiDeviceMultimedia의 MIDI UMP는 실제 장치 통신이다.\n- iiGraphicAdjust의 이미지 연산과 iiPaintEngine의 입력·획·편집 이력은 독립적으로\n  소비되므로 서로에게 의존시키지 않는다.\n- iiGeneralDocument의 XML·HTML 소스 범위 파서 복사본은 제거하고 Qt 없는\n  `iiXml::Markup`을 사용한다. 공개 문서 모델과 독립 PDF 구성요소는 유지한다.\n- iiFileProvider는 파일 메타데이터의 메모리 `FileSearchIndex`를 소유한다.\n  iiGlobalSearch는 Society 경로 검증, 비동기 작업 및 결과 재검사를 맡고,\n  웹 검색은 독립적으로 유지한다. 제공자에서 Society로 향하는 역참조는 없다.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "iiNetwork는 소켓·TLS·HTTP 전송, iiWebServer는 라우팅·파일 공유·릴레이와",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "iiCSMIDI는 MIDI 파일 문서이고 iiDeviceMultimedia의 MIDI UMP는 실제 장치 통신이다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "iiGraphicAdjust의 이미지 연산과 iiPaintEngine의 입력·획·편집 이력은 독립적으로",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "iiGeneralDocument의 XML·HTML 소스 범위 파서 복사본은 제거하고 Qt 없는",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "iiFileProvider는 파일 메타데이터의 메모리 `FileSearchIndex`를 소유한다.",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 26,
+      "end_line": 26,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "paragraph",
+      "start_line": 27,
+      "end_line": 28,
+      "raw": "각 구성요소의 빌드·설치 소비자 검증과 운영체제별 범위는 소유 모듈의 문서와\n`build/` 테스트 로그를 따른다. macOS 검사는 Windows·Linux 실기기 실행을 대신하지 않는다.\n"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 29,
+      "end_line": 29,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 30,
+      "end_line": 33,
+      "raw": "iiXml 0.1.2 설치본에서 두 CMake 이름은 같은 타깃 내보내기를 사용한다. XML 파서는\n단독으로 사용할 수 있고 HTML 블록은 그 파서를 사용한다. 기존 iiHtmlBlock 이름으로도\n같이 설치된 컴포넌트를 찾을 수 있다. 별도 접두사에 구형 독립 iiHtmlBlock이 남아 있으면\n새 iiXml 설치본을 검색 경로로 지정한다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "SDK 모듈 통합과 경계",
+      "anchor": "sdk-모듈-통합과-경계",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000003",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "구성요소 소유권",
+      "anchor": "구성요소-소유권",
+      "start_line": 3
+    },
+    {
+      "block_id": "b000009",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "구분해야 할 계층과 추가 중복",
+      "anchor": "구분해야-할-계층과-추가-중복",
+      "start_line": 14
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000007",
+        "line": 10,
+        "text": "그림 엔진의 기본 스트리밍 계층은 전체 획 작성 계층을 요구하지 않는다. 기존",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000007",
+        "line": 12,
+        "text": "소비자의 경로를 갱신해야 한다. 기존 기능의 이전 이름은 제거하지 않았다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000013",
+        "line": 28,
+        "text": "`build/` 테스트 로그를 따른다. macOS 검사는 Windows·Linux 실기기 실행을 대신하지 않는다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      }
+    ],
+    "commands": [],
+    "links": [],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

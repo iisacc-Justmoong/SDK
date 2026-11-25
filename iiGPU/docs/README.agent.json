@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/README.md",
-    "sha256": "c5201c702816901af1df541969eae761195a7e4cf45df8b389117d9b1443a84e",
-    "bytes": 1454,
-    "line_count": 27,
+    "sha256": "b62e7d9b56f9e75bc16115d723654c62d558e131580027ae0b3f1c8459b4c568",
+    "bytes": 1585,
+    "line_count": 25,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -127,58 +127,63 @@
     },
     {
       "id": "b000012",
-      "kind": "table",
       "start_line": 16,
-      "end_line": 26,
-      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/Contracts.md`](Contracts.md) | [JSON](Contracts.agent.json) |\n| [`docs/ComputeManager.md`](ComputeManager.md) | [JSON](ComputeManager.agent.json) |\n| [`docs/DynamicLinking.md`](DynamicLinking.md) | [JSON](DynamicLinking.agent.json) |\n| [`docs/Verification.md`](Verification.md) | [JSON](Verification.agent.json) |\n| [`docs/WebGPUContract.md`](WebGPUContract.md) | [JSON](WebGPUContract.agent.json) |\n| [`docs/WebGPUVerification.md`](WebGPUVerification.md) | [JSON](WebGPUVerification.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n",
-      "columns": [
-        "Document",
-        "Agent JSON"
-      ],
-      "rows": [
-        [
-          "[`AGENT.md`](../AGENT.md)",
-          "[JSON](entrypoints/AGENT.agent.json)"
-        ],
-        [
-          "[`README.md`](../README.md)",
-          "[JSON](entrypoints/README.agent.json)"
-        ],
-        [
-          "[`docs/Contracts.md`](Contracts.md)",
-          "[JSON](Contracts.agent.json)"
-        ],
-        [
-          "[`docs/ComputeManager.md`](ComputeManager.md)",
-          "[JSON](ComputeManager.agent.json)"
-        ],
-        [
-          "[`docs/DynamicLinking.md`](DynamicLinking.md)",
-          "[JSON](DynamicLinking.agent.json)"
-        ],
-        [
-          "[`docs/Verification.md`](Verification.md)",
-          "[JSON](Verification.agent.json)"
-        ],
-        [
-          "[`docs/WebGPUContract.md`](WebGPUContract.md)",
-          "[JSON](WebGPUContract.agent.json)"
-        ],
-        [
-          "[`docs/WebGPUVerification.md`](WebGPUVerification.md)",
-          "[JSON](WebGPUVerification.agent.json)"
-        ],
-        [
-          "[`docs/documentation-structure.md`](documentation-structure.md)",
-          "[JSON](documentation-structure.agent.json)"
-        ]
+      "end_line": 24,
+      "raw": "- Document: [`AGENT.md`](../AGENT.md); Agent JSON: [JSON](Entrypoints/AGENT.agent.json)\n- Document: [`README.md`](../README.md); Agent JSON: [JSON](Entrypoints/README.agent.json)\n- Document: [`docs/Contracts.md`](Contracts.md); Agent JSON: [JSON](Contracts.agent.json)\n- Document: [`docs/ComputeManager.md`](ComputeManager.md); Agent JSON: [JSON](ComputeManager.agent.json)\n- Document: [`docs/DynamicLinking.md`](DynamicLinking.md); Agent JSON: [JSON](DynamicLinking.agent.json)\n- Document: [`docs/Verification.md`](Verification.md); Agent JSON: [JSON](Verification.agent.json)\n- Document: [`docs/WebGPUContract.md`](WebGPUContract.md); Agent JSON: [JSON](WebGPUContract.agent.json)\n- Document: [`docs/WebGPUVerification.md`](WebGPUVerification.md); Agent JSON: [JSON](WebGPUVerification.agent.json)\n- Document: [`docs/documentation-structure.md`](documentation-structure.md); Agent JSON: [JSON](documentation-structure.agent.json)\n",
+      "kind": "list",
+      "items": [
+        {
+          "marker": "-",
+          "text": "Document: [`AGENT.md`](../AGENT.md); Agent JSON: [JSON](Entrypoints/AGENT.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`README.md`](../README.md); Agent JSON: [JSON](Entrypoints/README.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/Contracts.md`](Contracts.md); Agent JSON: [JSON](Contracts.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/ComputeManager.md`](ComputeManager.md); Agent JSON: [JSON](ComputeManager.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/DynamicLinking.md`](DynamicLinking.md); Agent JSON: [JSON](DynamicLinking.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/Verification.md`](Verification.md); Agent JSON: [JSON](Verification.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/WebGPUContract.md`](WebGPUContract.md); Agent JSON: [JSON](WebGPUContract.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/WebGPUVerification.md`](WebGPUVerification.md); Agent JSON: [JSON](WebGPUVerification.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/documentation-structure.md`](documentation-structure.md); Agent JSON: [JSON](documentation-structure.agent.json)",
+          "checked": null
+        }
       ]
     },
     {
       "id": "b000013",
       "kind": "html",
-      "start_line": 27,
-      "end_line": 27,
+      "start_line": 25,
+      "end_line": 25,
       "raw": "<!-- workspace-docs:document-map:end -->\n"
     }
   ],
@@ -237,175 +242,129 @@
         "label": "`AGENT.md`",
         "target": "../AGENT.md",
         "kind": "relative",
-        "line": 18
+        "line": 16
       },
       {
         "block_id": "b000012",
         "label": "JSON",
-        "target": "entrypoints/AGENT.agent.json",
+        "target": "Entrypoints/AGENT.agent.json",
         "kind": "relative",
-        "line": 18
+        "line": 16
       },
       {
         "block_id": "b000012",
         "label": "`README.md`",
         "target": "../README.md",
         "kind": "relative",
-        "line": 19
+        "line": 17
       },
       {
         "block_id": "b000012",
         "label": "JSON",
-        "target": "entrypoints/README.agent.json",
+        "target": "Entrypoints/README.agent.json",
         "kind": "relative",
-        "line": 19
+        "line": 17
       },
       {
         "block_id": "b000012",
         "label": "`docs/Contracts.md`",
         "target": "Contracts.md",
         "kind": "relative",
-        "line": 20
+        "line": 18
       },
       {
         "block_id": "b000012",
         "label": "JSON",
         "target": "Contracts.agent.json",
         "kind": "relative",
-        "line": 20
+        "line": 18
       },
       {
         "block_id": "b000012",
         "label": "`docs/ComputeManager.md`",
         "target": "ComputeManager.md",
         "kind": "relative",
-        "line": 21
+        "line": 19
       },
       {
         "block_id": "b000012",
         "label": "JSON",
         "target": "ComputeManager.agent.json",
         "kind": "relative",
-        "line": 21
+        "line": 19
       },
       {
         "block_id": "b000012",
         "label": "`docs/DynamicLinking.md`",
         "target": "DynamicLinking.md",
         "kind": "relative",
-        "line": 22
+        "line": 20
       },
       {
         "block_id": "b000012",
         "label": "JSON",
         "target": "DynamicLinking.agent.json",
         "kind": "relative",
-        "line": 22
+        "line": 20
       },
       {
         "block_id": "b000012",
         "label": "`docs/Verification.md`",
         "target": "Verification.md",
         "kind": "relative",
-        "line": 23
+        "line": 21
       },
       {
         "block_id": "b000012",
         "label": "JSON",
         "target": "Verification.agent.json",
         "kind": "relative",
-        "line": 23
+        "line": 21
       },
       {
         "block_id": "b000012",
         "label": "`docs/WebGPUContract.md`",
         "target": "WebGPUContract.md",
         "kind": "relative",
-        "line": 24
+        "line": 22
       },
       {
         "block_id": "b000012",
         "label": "JSON",
         "target": "WebGPUContract.agent.json",
         "kind": "relative",
-        "line": 24
+        "line": 22
       },
       {
         "block_id": "b000012",
         "label": "`docs/WebGPUVerification.md`",
         "target": "WebGPUVerification.md",
         "kind": "relative",
-        "line": 25
+        "line": 23
       },
       {
         "block_id": "b000012",
         "label": "JSON",
         "target": "WebGPUVerification.agent.json",
         "kind": "relative",
-        "line": 25
+        "line": 23
       },
       {
         "block_id": "b000012",
         "label": "`docs/documentation-structure.md`",
         "target": "documentation-structure.md",
         "kind": "relative",
-        "line": 26
+        "line": 24
       },
       {
         "block_id": "b000012",
         "label": "JSON",
         "target": "documentation-structure.agent.json",
         "kind": "relative",
-        "line": 26
+        "line": 24
       }
     ],
-    "tables": [
-      {
-        "block_id": "b000012",
-        "columns": [
-          "Document",
-          "Agent JSON"
-        ],
-        "rows": [
-          [
-            "[`AGENT.md`](../AGENT.md)",
-            "[JSON](entrypoints/AGENT.agent.json)"
-          ],
-          [
-            "[`README.md`](../README.md)",
-            "[JSON](entrypoints/README.agent.json)"
-          ],
-          [
-            "[`docs/Contracts.md`](Contracts.md)",
-            "[JSON](Contracts.agent.json)"
-          ],
-          [
-            "[`docs/ComputeManager.md`](ComputeManager.md)",
-            "[JSON](ComputeManager.agent.json)"
-          ],
-          [
-            "[`docs/DynamicLinking.md`](DynamicLinking.md)",
-            "[JSON](DynamicLinking.agent.json)"
-          ],
-          [
-            "[`docs/Verification.md`](Verification.md)",
-            "[JSON](Verification.agent.json)"
-          ],
-          [
-            "[`docs/WebGPUContract.md`](WebGPUContract.md)",
-            "[JSON](WebGPUContract.agent.json)"
-          ],
-          [
-            "[`docs/WebGPUVerification.md`](WebGPUVerification.md)",
-            "[JSON](WebGPUVerification.agent.json)"
-          ],
-          [
-            "[`docs/documentation-structure.md`](documentation-structure.md)",
-            "[JSON](documentation-structure.agent.json)"
-          ]
-        ]
-      }
-    ]
+    "tables": []
   },
   "provenance": {
     "generator": "workspace-docs",

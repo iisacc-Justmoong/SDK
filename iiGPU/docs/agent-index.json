@@ -13,14 +13,14 @@
     {
       "document_id": "urn:iisacc:document:15dc1fd75ef8a4dc9df8b91ba25ae8327a8b57a306a545eea1cb081cd1da05e1",
       "source": "AGENT.md",
-      "agent_json": "docs/entrypoints/AGENT.agent.json",
+      "agent_json": "docs/Entrypoints/AGENT.agent.json",
       "source_sha256": "3cc7ad0e36b9cfbdd86d647af70e90aabbab970b7702952dfeccd0fbc00332e7",
       "role": "instructions"
     },
     {
       "document_id": "urn:iisacc:document:043106b2ae142cf05818726e839d9f961d32bd06b81bddf6dd56951e2e7b444c",
       "source": "README.md",
-      "agent_json": "docs/entrypoints/README.agent.json",
+      "agent_json": "docs/Entrypoints/README.agent.json",
       "source_sha256": "d08288383d147eec22069511be6a6323adb3f03c4c53633e082a3b42ee0dba35",
       "role": "overview"
     },
@@ -49,14 +49,14 @@
       "document_id": "urn:iisacc:document:4ac475614635725a7ccd279a088788e2be4011eb6459e2e221c7bdd5cfda19bc",
       "source": "docs/README.md",
       "agent_json": "docs/README.agent.json",
-      "source_sha256": "c5201c702816901af1df541969eae761195a7e4cf45df8b389117d9b1443a84e",
+      "source_sha256": "b62e7d9b56f9e75bc16115d723654c62d558e131580027ae0b3f1c8459b4c568",
       "role": "overview"
     },
     {
       "document_id": "urn:iisacc:document:72a42addd9d9e081c50c8945a3a3a669af4f1ec7e2ab1f0879d7d03146036f67",
       "source": "docs/Verification.md",
       "agent_json": "docs/Verification.agent.json",
-      "source_sha256": "a67123710b30f49d9c952dfdb6ad2509f28cfb6a67dcdb04415171cb8ac38028",
+      "source_sha256": "d26193a8b4aefd805d7df79e8bfb37c41a000df78b69005652f75946a4e5e766",
       "role": "evidence"
     },
     {
@@ -70,14 +70,14 @@
       "document_id": "urn:iisacc:document:fc87b8b74132f9b8d13a1dd39355373a979022be8b4167bd81591fd770917de8",
       "source": "docs/WebGPUVerification.md",
       "agent_json": "docs/WebGPUVerification.agent.json",
-      "source_sha256": "361fabfcb9481d67b116f9b27f8aae6afb2aa5b17a82fde290f713933d76e986",
+      "source_sha256": "d291576053e25fe1a5cb5a979b58d133a06aa15bc4c24971e9791e6b89068205",
       "role": "evidence"
     },
     {
       "document_id": "urn:iisacc:document:bb482222d11e02c5b1fe4d4c157a3481d5ae6f08412f1086956c1ca9e5397030",
       "source": "docs/documentation-structure.md",
       "agent_json": "docs/documentation-structure.agent.json",
-      "source_sha256": "529380547df1557f6b449f62f445754092a9e8bef09706e9fb584c1bd1706b15",
+      "source_sha256": "361317d68e21a8c9413a58ac510b8d482747844a768cfe4505b46d4a707079fd",
       "role": "guide"
     }
   ],

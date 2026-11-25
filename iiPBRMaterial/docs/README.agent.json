@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/README.md",
-    "sha256": "b9f6e1ab3c65bae57eaa244f3bd5d7eeeadab06ab9c01ddff3ec19c4a6507356",
-    "bytes": 781,
-    "line_count": 16,
+    "sha256": "7699ca036df46e692ccce86735fa0abfbd8e4ce2b1459a3e4461fe58a51521de",
+    "bytes": 855,
+    "line_count": 14,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -77,46 +77,48 @@
     },
     {
       "id": "b000008",
-      "kind": "table",
       "start_line": 8,
-      "end_line": 15,
-      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/DynamicLinking.md`](DynamicLinking.md) | [JSON](DynamicLinking.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n| [`docs/materials.md`](materials.md) | [JSON](materials.agent.json) |\n| [`docs/molecular-map.md`](molecular-map.md) | [JSON](molecular-map.agent.json) |\n",
-      "columns": [
-        "Document",
-        "Agent JSON"
-      ],
-      "rows": [
-        [
-          "[`AGENT.md`](../AGENT.md)",
-          "[JSON](entrypoints/AGENT.agent.json)"
-        ],
-        [
-          "[`README.md`](../README.md)",
-          "[JSON](entrypoints/README.agent.json)"
-        ],
-        [
-          "[`docs/DynamicLinking.md`](DynamicLinking.md)",
-          "[JSON](DynamicLinking.agent.json)"
-        ],
-        [
-          "[`docs/documentation-structure.md`](documentation-structure.md)",
-          "[JSON](documentation-structure.agent.json)"
-        ],
-        [
-          "[`docs/materials.md`](materials.md)",
-          "[JSON](materials.agent.json)"
-        ],
-        [
-          "[`docs/molecular-map.md`](molecular-map.md)",
-          "[JSON](molecular-map.agent.json)"
-        ]
+      "end_line": 13,
+      "raw": "- Document: [`AGENT.md`](../AGENT.md); Agent JSON: [JSON](Entrypoints/AGENT.agent.json)\n- Document: [`README.md`](../README.md); Agent JSON: [JSON](Entrypoints/README.agent.json)\n- Document: [`docs/DynamicLinking.md`](DynamicLinking.md); Agent JSON: [JSON](DynamicLinking.agent.json)\n- Document: [`docs/documentation-structure.md`](documentation-structure.md); Agent JSON: [JSON](documentation-structure.agent.json)\n- Document: [`docs/materials.md`](materials.md); Agent JSON: [JSON](materials.agent.json)\n- Document: [`docs/molecular-map.md`](molecular-map.md); Agent JSON: [JSON](molecular-map.agent.json)\n",
+      "kind": "list",
+      "items": [
+        {
+          "marker": "-",
+          "text": "Document: [`AGENT.md`](../AGENT.md); Agent JSON: [JSON](Entrypoints/AGENT.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`README.md`](../README.md); Agent JSON: [JSON](Entrypoints/README.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/DynamicLinking.md`](DynamicLinking.md); Agent JSON: [JSON](DynamicLinking.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/documentation-structure.md`](documentation-structure.md); Agent JSON: [JSON](documentation-structure.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/materials.md`](materials.md); Agent JSON: [JSON](materials.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/molecular-map.md`](molecular-map.md); Agent JSON: [JSON](molecular-map.agent.json)",
+          "checked": null
+        }
       ]
     },
     {
       "id": "b000009",
       "kind": "html",
-      "start_line": 16,
-      "end_line": 16,
+      "start_line": 14,
+      "end_line": 14,
       "raw": "<!-- workspace-docs:document-map:end -->\n"
     }
   ],
@@ -147,121 +149,87 @@
         "label": "`AGENT.md`",
         "target": "../AGENT.md",
         "kind": "relative",
-        "line": 10
+        "line": 8
       },
       {
         "block_id": "b000008",
         "label": "JSON",
-        "target": "entrypoints/AGENT.agent.json",
+        "target": "Entrypoints/AGENT.agent.json",
         "kind": "relative",
-        "line": 10
+        "line": 8
       },
       {
         "block_id": "b000008",
         "label": "`README.md`",
         "target": "../README.md",
         "kind": "relative",
-        "line": 11
+        "line": 9
       },
       {
         "block_id": "b000008",
         "label": "JSON",
-        "target": "entrypoints/README.agent.json",
+        "target": "Entrypoints/README.agent.json",
         "kind": "relative",
-        "line": 11
+        "line": 9
       },
       {
         "block_id": "b000008",
         "label": "`docs/DynamicLinking.md`",
         "target": "DynamicLinking.md",
         "kind": "relative",
-        "line": 12
+        "line": 10
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "DynamicLinking.agent.json",
         "kind": "relative",
-        "line": 12
+        "line": 10
       },
       {
         "block_id": "b000008",
         "label": "`docs/documentation-structure.md`",
         "target": "documentation-structure.md",
         "kind": "relative",
-        "line": 13
+        "line": 11
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "documentation-structure.agent.json",
         "kind": "relative",
-        "line": 13
+        "line": 11
       },
       {
         "block_id": "b000008",
         "label": "`docs/materials.md`",
         "target": "materials.md",
         "kind": "relative",
-        "line": 14
+        "line": 12
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "materials.agent.json",
         "kind": "relative",
-        "line": 14
+        "line": 12
       },
       {
         "block_id": "b000008",
         "label": "`docs/molecular-map.md`",
         "target": "molecular-map.md",
         "kind": "relative",
-        "line": 15
+        "line": 13
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "molecular-map.agent.json",
         "kind": "relative",
-        "line": 15
+        "line": 13
       }
     ],
-    "tables": [
-      {
-        "block_id": "b000008",
-        "columns": [
-          "Document",
-          "Agent JSON"
-        ],
-        "rows": [
-          [
-            "[`AGENT.md`](../AGENT.md)",
-            "[JSON](entrypoints/AGENT.agent.json)"
-          ],
-          [
-            "[`README.md`](../README.md)",
-            "[JSON](entrypoints/README.agent.json)"
-          ],
-          [
-            "[`docs/DynamicLinking.md`](DynamicLinking.md)",
-            "[JSON](DynamicLinking.agent.json)"
-          ],
-          [
-            "[`docs/documentation-structure.md`](documentation-structure.md)",
-            "[JSON](documentation-structure.agent.json)"
-          ],
-          [
-            "[`docs/materials.md`](materials.md)",
-            "[JSON](materials.agent.json)"
-          ],
-          [
-            "[`docs/molecular-map.md`](molecular-map.md)",
-            "[JSON](molecular-map.agent.json)"
-          ]
-        ]
-      }
-    ]
+    "tables": []
   },
   "provenance": {
     "generator": "workspace-docs",

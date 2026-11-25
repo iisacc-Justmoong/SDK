@@ -9,6 +9,8 @@
 !/iiGPU/
 !/iiGlobalSearch/
 !/iiJob/
+!/iiAgentApplicationInterface/
+!/iiLocalizer/
 !/iiPBRMaterial/
 !/iiVolumetricSolidMesh/
 !/iiCompression/
@@ -21,3 +23,5 @@ __pycache__/
 **/.*.iisacc-preview
 **/*.iisacc.json
 resources/
+!/iiAgentApplicationInterface/resources/
+!/iiLocalizer/resources/

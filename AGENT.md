@@ -8,17 +8,17 @@ SDK 모듈은 다른 SDK 모듈을 찾거나 링크하거나 그 공개 타입�
 앱이 각 SDK를 별도로 소비하고 인터페이스·콜백으로 결합한다. 파일 생성의
 책임은 iiFileProvider에 남기고, 다른 SDK가 직접 의존하지 않도록 앱이 공급하는
 저장 인터페이스로 연결한다. CTest·GNUInstallDirs 같은 일반 CMake 기능은 허용한다.
-전환 중인 실제 참조와 점검의 한계는 [SDKIndependence.md](docs/SDKIndependence.md)를 따른다.
+전환 중인 실제 참조와 점검의 한계는 [SDKIndependence.md](docs/Architecture/SDKIndependence.md)를 따른다.
 
 ## 모듈 구성과 개발 표준
 
 iiSDK의 최우선 과제는 단일 코드베이스로 모든 크로스 플랫폼 애플리케이션을
 네이티브로 구축하는 것이며, 장기적으로 Qt 의존성을 제거한다. 전환 현황과 점검
-범위는 [QtIndependence.md](docs/QtIndependence.md)를 따른다.
+범위는 [QtIndependence.md](docs/Migrations/QtIndependence.md)를 따른다.
 
 각 모듈은 `src/`, `example/`, `docs/`, `tests/`, `cmake/`, `resources/`,
 `README.md`, `AGENT.md`, `LICENSE`, `.gitignore`, `install.sh` 또는 `install.py`,
-`CMakeLists.txt`를 갖춘다. 헤더 배치는 [HeaderLayout.md](docs/HeaderLayout.md)를 따른다.
+`CMakeLists.txt`를 갖춘다. 헤더 배치는 [HeaderLayout.md](docs/Architecture/HeaderLayout.md)를 따른다.
 
 각 모듈은 앱에서 사용하는 API, 다른 모듈과 병행하기 위한 인터페이스와 Python API를
 제공한다. 여기서 병행은 앱이 독립 인터페이스를 조합하는 방식이며 SDK 간 직접 의존을
@@ -26,7 +26,7 @@ iiSDK의 최우선 과제는 단일 코드베이스로 모든 크로스 플랫�
 
 GUI를 그리는 모듈은 LVUI로 iiGUI 네이티브 위젯을 그린다. `LVRS/`는 레거시이며 새 뷰에
 사용하지 않는다. 기술 스택, TDD 순서, 설계 원칙과 디자인 규칙은 상위
-[Workspace 지침](../AGENT.md)과 [개발·디자인 표준](../docs/company/iisacc_dev_standard_2026-11-18.md)을 따른다.
+[Workspace 지침](../AGENT.md)과 [개발·디자인 표준](../Docs/Company/iisacc_dev_standard_2026-11-18.md)을 따른다.
 
 ## 반응형 런타임
 
@@ -37,7 +37,7 @@ iiSDK와 이를 사용하는 모든 앱은 이벤트와 쿼리로 반응한다. 
 명시적으로 요청한 폴링, 실제 기한·만료·재시도, 프로토콜 heartbeat와
 활성 애니메이션·게임의 프레임 주기는 각각의 계약에 따라 허용한다. 모듈 간 직접
 의존성을 추가하지 않으며 독립 인터페이스를 앱이 조합한다. 현재 구현과 명세의
-점검 근거와 미해결 범위는 [반응형 런타임 감사](docs/ReactiveRuntimeAudit.md)를 따른다.
+점검 근거와 미해결 범위는 [반응형 런타임 감사](docs/Audits/ReactiveRuntimeAudit.md)를 따른다.
 
 Linux GUI의 기본 대상은 직접 Wayland이다. X11은 폐기 예정이며 명시적 레거시
 선택으로만 유지한다. Wayland 의존성이 없다는 이유로 X11에 자동 전환하지 않는다.

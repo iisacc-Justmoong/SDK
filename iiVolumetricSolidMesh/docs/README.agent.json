@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/README.md",
-    "sha256": "e0ab4d436e43ea2b01282568c9c3a4bc778516bb96fb653937b7e479b06cdd2d",
-    "bytes": 715,
-    "line_count": 15,
+    "sha256": "5963e2df449e5f0fef91df3e019a4dafeb7733cfd601bac28a5d6f5738ce8fc6",
+    "bytes": 770,
+    "line_count": 13,
     "encoding": "utf-8",
     "language": "en"
   },
@@ -77,42 +77,43 @@
     },
     {
       "id": "b000008",
-      "kind": "table",
       "start_line": 8,
-      "end_line": 14,
-      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/DynamicLinking.md`](DynamicLinking.md) | [JSON](DynamicLinking.agent.json) |\n| [`docs/architecture.md`](architecture.md) | [JSON](architecture.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n",
-      "columns": [
-        "Document",
-        "Agent JSON"
-      ],
-      "rows": [
-        [
-          "[`AGENT.md`](../AGENT.md)",
-          "[JSON](entrypoints/AGENT.agent.json)"
-        ],
-        [
-          "[`README.md`](../README.md)",
-          "[JSON](entrypoints/README.agent.json)"
-        ],
-        [
-          "[`docs/DynamicLinking.md`](DynamicLinking.md)",
-          "[JSON](DynamicLinking.agent.json)"
-        ],
-        [
-          "[`docs/architecture.md`](architecture.md)",
-          "[JSON](architecture.agent.json)"
-        ],
-        [
-          "[`docs/documentation-structure.md`](documentation-structure.md)",
-          "[JSON](documentation-structure.agent.json)"
-        ]
+      "end_line": 12,
+      "raw": "- Document: [`AGENT.md`](../AGENT.md); Agent JSON: [JSON](Entrypoints/AGENT.agent.json)\n- Document: [`README.md`](../README.md); Agent JSON: [JSON](Entrypoints/README.agent.json)\n- Document: [`docs/DynamicLinking.md`](DynamicLinking.md); Agent JSON: [JSON](DynamicLinking.agent.json)\n- Document: [`docs/architecture.md`](architecture.md); Agent JSON: [JSON](architecture.agent.json)\n- Document: [`docs/documentation-structure.md`](documentation-structure.md); Agent JSON: [JSON](documentation-structure.agent.json)\n",
+      "kind": "list",
+      "items": [
+        {
+          "marker": "-",
+          "text": "Document: [`AGENT.md`](../AGENT.md); Agent JSON: [JSON](Entrypoints/AGENT.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`README.md`](../README.md); Agent JSON: [JSON](Entrypoints/README.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/DynamicLinking.md`](DynamicLinking.md); Agent JSON: [JSON](DynamicLinking.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/architecture.md`](architecture.md); Agent JSON: [JSON](architecture.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/documentation-structure.md`](documentation-structure.md); Agent JSON: [JSON](documentation-structure.agent.json)",
+          "checked": null
+        }
       ]
     },
     {
       "id": "b000009",
       "kind": "html",
-      "start_line": 15,
-      "end_line": 15,
+      "start_line": 13,
+      "end_line": 13,
       "raw": "<!-- workspace-docs:document-map:end -->\n"
     }
   ],
@@ -143,103 +144,73 @@
         "label": "`AGENT.md`",
         "target": "../AGENT.md",
         "kind": "relative",
-        "line": 10
+        "line": 8
       },
       {
         "block_id": "b000008",
         "label": "JSON",
-        "target": "entrypoints/AGENT.agent.json",
+        "target": "Entrypoints/AGENT.agent.json",
         "kind": "relative",
-        "line": 10
+        "line": 8
       },
       {
         "block_id": "b000008",
         "label": "`README.md`",
         "target": "../README.md",
         "kind": "relative",
-        "line": 11
+        "line": 9
       },
       {
         "block_id": "b000008",
         "label": "JSON",
-        "target": "entrypoints/README.agent.json",
+        "target": "Entrypoints/README.agent.json",
         "kind": "relative",
-        "line": 11
+        "line": 9
       },
       {
         "block_id": "b000008",
         "label": "`docs/DynamicLinking.md`",
         "target": "DynamicLinking.md",
         "kind": "relative",
-        "line": 12
+        "line": 10
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "DynamicLinking.agent.json",
         "kind": "relative",
-        "line": 12
+        "line": 10
       },
       {
         "block_id": "b000008",
         "label": "`docs/architecture.md`",
         "target": "architecture.md",
         "kind": "relative",
-        "line": 13
+        "line": 11
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "architecture.agent.json",
         "kind": "relative",
-        "line": 13
+        "line": 11
       },
       {
         "block_id": "b000008",
         "label": "`docs/documentation-structure.md`",
         "target": "documentation-structure.md",
         "kind": "relative",
-        "line": 14
+        "line": 12
       },
       {
         "block_id": "b000008",
         "label": "JSON",
         "target": "documentation-structure.agent.json",
         "kind": "relative",
-        "line": 14
+        "line": 12
       }
     ],
-    "tables": [
-      {
-        "block_id": "b000008",
-        "columns": [
-          "Document",
-          "Agent JSON"
-        ],
-        "rows": [
-          [
-            "[`AGENT.md`](../AGENT.md)",
-            "[JSON](entrypoints/AGENT.agent.json)"
-          ],
-          [
-            "[`README.md`](../README.md)",
-            "[JSON](entrypoints/README.agent.json)"
-          ],
-          [
-            "[`docs/DynamicLinking.md`](DynamicLinking.md)",
-            "[JSON](DynamicLinking.agent.json)"
-          ],
-          [
-            "[`docs/architecture.md`](architecture.md)",
-            "[JSON](architecture.agent.json)"
-          ],
-          [
-            "[`docs/documentation-structure.md`](documentation-structure.md)",
-            "[JSON](documentation-structure.agent.json)"
-          ]
-        ]
-      }
-    ]
+    "tables": []
   },
   "provenance": {
     "generator": "workspace-docs",

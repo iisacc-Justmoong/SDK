@@ -13,15 +13,13 @@
 
 Markdown is the maintained human source. Agent JSON is a structured, source-traceable projection.
 
-| Document | Agent JSON |
-| --- | --- |
-| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |
-| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |
-| [`docs/Contracts.md`](Contracts.md) | [JSON](Contracts.agent.json) |
-| [`docs/ComputeManager.md`](ComputeManager.md) | [JSON](ComputeManager.agent.json) |
-| [`docs/DynamicLinking.md`](DynamicLinking.md) | [JSON](DynamicLinking.agent.json) |
-| [`docs/Verification.md`](Verification.md) | [JSON](Verification.agent.json) |
-| [`docs/WebGPUContract.md`](WebGPUContract.md) | [JSON](WebGPUContract.agent.json) |
-| [`docs/WebGPUVerification.md`](WebGPUVerification.md) | [JSON](WebGPUVerification.agent.json) |
-| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |
+- Document: [`AGENT.md`](../AGENT.md); Agent JSON: [JSON](Entrypoints/AGENT.agent.json)
+- Document: [`README.md`](../README.md); Agent JSON: [JSON](Entrypoints/README.agent.json)
+- Document: [`docs/Contracts.md`](Contracts.md); Agent JSON: [JSON](Contracts.agent.json)
+- Document: [`docs/ComputeManager.md`](ComputeManager.md); Agent JSON: [JSON](ComputeManager.agent.json)
+- Document: [`docs/DynamicLinking.md`](DynamicLinking.md); Agent JSON: [JSON](DynamicLinking.agent.json)
+- Document: [`docs/Verification.md`](Verification.md); Agent JSON: [JSON](Verification.agent.json)
+- Document: [`docs/WebGPUContract.md`](WebGPUContract.md); Agent JSON: [JSON](WebGPUContract.agent.json)
+- Document: [`docs/WebGPUVerification.md`](WebGPUVerification.md); Agent JSON: [JSON](WebGPUVerification.agent.json)
+- Document: [`docs/documentation-structure.md`](documentation-structure.md); Agent JSON: [JSON](documentation-structure.agent.json)
 <!-- workspace-docs:document-map:end -->

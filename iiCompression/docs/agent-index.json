@@ -13,21 +13,21 @@
     {
       "document_id": "urn:iisacc:document:c9e1854e5c289ab25ab4e5cf462c5a6611562d28b80d9868c4bc4b88e8424495",
       "source": "AGENT.md",
-      "agent_json": "docs/entrypoints/AGENT.agent.json",
+      "agent_json": "docs/Entrypoints/AGENT.agent.json",
       "source_sha256": "1828212d2f831b8f13d7d316fba4ec5322c049c5682f5fdb3c990bb04adac9c3",
       "role": "instructions"
     },
     {
       "document_id": "urn:iisacc:document:c3a14b2ffdde30c191b38c6b008cace389b2412fc733250b7f98ec7a6168e21e",
       "source": "NOTICE.md",
-      "agent_json": "docs/entrypoints/NOTICE.agent.json",
+      "agent_json": "docs/Entrypoints/NOTICE.agent.json",
       "source_sha256": "ec31188739cbb7125d6b839cc75cf21d11d64b9d386732ad2f8992c3d9685a3e",
       "role": "guide"
     },
     {
       "document_id": "urn:iisacc:document:0d755806880c6596dbdfd5046224df39bea98933f60e277bc60318d3f76eae78",
       "source": "README.md",
-      "agent_json": "docs/entrypoints/README.agent.json",
+      "agent_json": "docs/Entrypoints/README.agent.json",
       "source_sha256": "5a7453ba9468b29e9544be435f7fb83783d35259c4c96a95a57f3215b433a7f3",
       "role": "overview"
     },
@@ -49,27 +49,27 @@
       "document_id": "urn:iisacc:document:54e6dfd882ac0ec3f5738ba1393b74d1d52f794cb50e757b31cc63e1e00eed19",
       "source": "docs/README.md",
       "agent_json": "docs/README.agent.json",
-      "source_sha256": "cef84ed12c9212a6d3c6e8b4e635520708b8a6cb44a9490d6c308b1073eb1989",
+      "source_sha256": "ce40c915ff01af4df00c22ed5eb01e67015b5886e69685fe1f31d84e121af787",
       "role": "overview"
     },
     {
       "document_id": "urn:iisacc:document:119387eede162f29af561ad4d1bbfea2f3e5eb5f8e35449913d774764b66e8ba",
       "source": "docs/documentation-structure.md",
       "agent_json": "docs/documentation-structure.agent.json",
-      "source_sha256": "5f1a725b15ab03a16986504bca7aaaec65ae305374de877c486a521d4fae0888",
+      "source_sha256": "a81139710baad2ccb3a83bc69764e969edc780c6eeeba10769cdafd99f9d2882",
       "role": "guide"
     },
     {
       "document_id": "urn:iisacc:document:a9d0aa85c41f2623067ca487fdd68f47d65728d9c201fb6a6ea50dfdf6ad9060",
       "source": "example/README.md",
-      "agent_json": "docs/mirrors/example/README.agent.json",
+      "agent_json": "docs/Mirrors/Example/README.agent.json",
       "source_sha256": "64b95865aa07c64dd36a4dffcde0860547c588a2086dda339883366c98a18ba9",
       "role": "overview"
     },
     {
       "document_id": "urn:iisacc:document:354b57e89a77c1b0a7130627df3e5a8d3aba5f371c5bfc65ef5ae61e8ba2fbea",
       "source": "resources/README.md",
-      "agent_json": "docs/mirrors/resources/README.agent.json",
+      "agent_json": "docs/Mirrors/Resources/README.agent.json",
       "source_sha256": "5426dc4b9d977b3b5162243f8cde1aab85508d8ddedfb95edc18e23001c91c0c",
       "role": "overview"
     }

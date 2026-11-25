@@ -1,0 +1,13 @@
+Window {
+    VStack(id: "main") {
+        HStack(id: "toolbar") {
+            Label(id: "toolbarGreeting", text: localized("toolbar.greeting"))
+            Label(id: "toolbarOpen", text: localized("toolbar.open"))
+        }
+        VStack(id: "panel") {
+            Label(id: "panelGreeting", text: localized("panel.greeting"))
+            Label(id: "panelOpen", text: localized("panel.open"))
+            Label(id: "other", text: localized("other.label"))
+        }
+    }
+}

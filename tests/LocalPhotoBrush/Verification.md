@@ -6,13 +6,11 @@ between these SDKs; this upper-level consumer composes public installed APIs.
 
 ## Implemented scope
 
-| Owner | Functionality |
-|---|---|
-| iiPaintEngine/Core | Detached normalized float PixelMask storage and validation |
-| iiPaintEngine/Brush | Local size/feather/flow/density/stroke-opacity/Add/Erase/AutoMask options, optional pressure size/opacity, recovered pure feather/radius math |
-| iiPaintEngine/Application | Immediate pointer-to-mask preview, commit/cancel, dirty-rectangle pixel undo/redo |
-| iiGraphicAdjust/LocalCorrections | Already-computed RGB correction through borrowed mask, amount/inversion, encoded/linear sRGB interpolation, original alpha/hiddenRGB preservation |
-| iiGraphicAdjust/SampleFilters | Evidence-bound Average8/16/Float32 and integer Solarize8/16 sample kernels |
+- Owner: iiPaintEngine/Core; Functionality: Detached normalized float PixelMask storage and validation
+- Owner: iiPaintEngine/Brush; Functionality: Local size/feather/flow/density/stroke-opacity/Add/Erase/AutoMask options, optional pressure size/opacity, recovered pure feather/radius math
+- Owner: iiPaintEngine/Application; Functionality: Immediate pointer-to-mask preview, commit/cancel, dirty-rectangle pixel undo/redo
+- Owner: iiGraphicAdjust/LocalCorrections; Functionality: Already-computed RGB correction through borrowed mask, amount/inversion, encoded/linear sRGB interpolation, original alpha/hiddenRGB preservation
+- Owner: iiGraphicAdjust/SampleFilters; Functionality: Evidence-bound Average8/16/Float32 and integer Solarize8/16 sample kernels
 
 Existing painting density remains dab placement density. The new local mask's
 density is an absolute Add coverage ceiling. Existing Photoshop-style tone/color
@@ -22,20 +20,18 @@ and other same-sized correction results can now use the same mask composition.
 
 ## Results
 
-| Check | Result |
-|---|---|
-| iiPaintEngine Release |45/45 passed |
-| iiPaintEngine ASan/UBSan/float-cast-overflow |45/45 passed |
-| iiGraphicAdjust Release |163/163 passed |
-| iiGraphicAdjust ASan/UBSan |163/163 passed |
-| Temporary installed-package consumer |3/3 passed |
-| Actual host installed-package consumer |3/3 passed |
-| Lightroom original numeric prototypes |21 vectors, output radius/weight/profile float64 bits match |
-| Photoshop original arm64 kernel replay against new SDK |78 Average + 26 Solarize cases,1,730,775 active samples,1,291,286 assertions passed |
-| Separate pinned C++ reconstruction comparison |170 cases,4,147,431 checks passed |
-| Product compile language |iiPaintEngine 109 units / iiGraphicAdjust 59 units, all C++23 |
-| Library sources |iiPaintEngine 64 / iiGraphicAdjust 30, all `.cpp` |
-| Direct library dependencies |libc++ and libSystem only |
+- Check: iiPaintEngine Release; Result: 45/45 passed
+- Check: iiPaintEngine ASan/UBSan/float-cast-overflow; Result: 45/45 passed
+- Check: iiGraphicAdjust Release; Result: 163/163 passed
+- Check: iiGraphicAdjust ASan/UBSan; Result: 163/163 passed
+- Check: Temporary installed-package consumer; Result: 3/3 passed
+- Check: Actual host installed-package consumer; Result: 3/3 passed
+- Check: Lightroom original numeric prototypes; Result: 21 vectors, output radius/weight/profile float64 bits match
+- Check: Photoshop original arm64 kernel replay against new SDK; Result: 78 Average + 26 Solarize cases,1,730,775 active samples,1,291,286 assertions passed
+- Check: Separate pinned C++ reconstruction comparison; Result: 170 cases,4,147,431 checks passed
+- Check: Product compile language; Result: iiPaintEngine 109 units / iiGraphicAdjust 59 units, all C++23
+- Check: Library sources; Result: iiPaintEngine 64 / iiGraphicAdjust 30, all `.cpp`
+- Check: Direct library dependencies; Result: libc++ and libSystem only
 
 The example uses a synthetic 256x144 image. At float pixel precision it changed
 14,046 selected pixels, preserved 22,818 unselected pixels exactly, preserved source
@@ -77,10 +73,8 @@ consumer to prove the selected package independently. Global shell settings are
 unchanged. The actual host and mirror were then updated and normal login-shell
 execution succeeded, with both loaded library paths/UUIDs matching the new files:
 
-| Library | Verified SHA-256 |
-|---|---|
-| iiPaintEngine host and mirror |`88a8a28b2020fd3aff3ef6e4bec6f0e1847a9bf22caba2a8704970c80bef8e4c` |
-| iiGraphicAdjust 0.5.1 |`7a8c59ef5671dcfa6dbafbdb0ffdd3c70ef87ce564388104c966f758400a08f6` |
+- Library: iiPaintEngine host and mirror; Verified SHA-256: `88a8a28b2020fd3aff3ef6e4bec6f0e1847a9bf22caba2a8704970c80bef8e4c`
+- Library: iiGraphicAdjust 0.5.1; Verified SHA-256: `7a8c59ef5671dcfa6dbafbdb0ffdd3c70ef87ce564388104c966f758400a08f6`
 
 The painting package explicitly fixes its install name to `@rpath`. No app was
 restarted. Source build, staged package, actual installed package, and normal

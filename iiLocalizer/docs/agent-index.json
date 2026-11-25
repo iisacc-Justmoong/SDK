@@ -1,0 +1,76 @@
+{
+  "format": "iisacc.agent-document-index",
+  "schema_version": 1,
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiLocalizer",
+    "name": "iiLocalizer",
+    "root": "SDK/iiLocalizer",
+    "kind": "sdk"
+  },
+  "documentation_root": "docs",
+  "agent_schema": "docs/agent-document.schema.json",
+  "documents": [
+    {
+      "document_id": "urn:iisacc:document:18ebd748cb98c1807e7a3e9c2fed4ea08edfd69f446f31811575583e97708548",
+      "source": "AGENT.md",
+      "agent_json": "docs/Entrypoints/AGENT.agent.json",
+      "source_sha256": "2ed6a62cd060932f5692e9bd8f80f86b26aac54c5fcb0b5c0d9a046e9c586f7d",
+      "role": "instructions"
+    },
+    {
+      "document_id": "urn:iisacc:document:cc5dc223f3ab0c32ef0191fd09c202729d274df6b4c66633dc17f2959291e275",
+      "source": "README.md",
+      "agent_json": "docs/Entrypoints/README.agent.json",
+      "source_sha256": "0321ab41d342eb6cdde37c4b1c148af98448e18ed9c325c294b5fdf04b937592",
+      "role": "overview"
+    },
+    {
+      "document_id": "urn:iisacc:document:ffaa5b4c156072a07e43f1c7694c3c606c152259c08185a735bdc091b91cd3bf",
+      "source": "docs/Implementation.md",
+      "agent_json": "docs/Implementation.agent.json",
+      "source_sha256": "e9c9c4903831c094fe0506ef5f4b8e5586f0c4ac1c3c1f6a49b15a6e63d8b219",
+      "role": "guide"
+    },
+    {
+      "document_id": "urn:iisacc:document:0195106e3ebc9149360c1d5fb3c36af25f911c41d3486d44b7b98709c5cfa431",
+      "source": "docs/LVUILabelIntegration.md",
+      "agent_json": "docs/LVUILabelIntegration.agent.json",
+      "source_sha256": "caa2943139313d39ad4babe2117603a8f46730550609a03e70a31c2941322548",
+      "role": "guide"
+    },
+    {
+      "document_id": "urn:iisacc:document:4b294118f1b7b49c107ce3552e873d5046e55e0d0816c98dfa932d2a42e5139d",
+      "source": "docs/LocalizationContract.md",
+      "agent_json": "docs/LocalizationContract.agent.json",
+      "source_sha256": "d7116034d823729542030a3f6c11a264992a84137518c6a706bd2533585b66f2",
+      "role": "reference"
+    },
+    {
+      "document_id": "urn:iisacc:document:c150484d7ced97c72023d55b1ee188fd2e89ed422d17689522a447dcf335223d",
+      "source": "docs/POWorkflow.md",
+      "agent_json": "docs/POWorkflow.agent.json",
+      "source_sha256": "03821de53350196867aa5281c7aaad2fc47fe0e80e481b37215cfae62a9addb1",
+      "role": "guide"
+    },
+    {
+      "document_id": "urn:iisacc:document:81b9228e9e94a2eaf1afa052600d1ffb44196d8d270b075dd07a9ba12b35ed15",
+      "source": "docs/README.md",
+      "agent_json": "docs/README.agent.json",
+      "source_sha256": "ddc6e1e63e83c6f9b58f230058d216b6f2f0933b6ac7e482d2b8966c3ab4efe5",
+      "role": "overview"
+    }
+  ],
+  "layout": {
+    "human_entry": "README.md",
+    "agent_entry": "AGENT.md",
+    "human_format": "markdown",
+    "agent_format": "structured_json",
+    "source_authority": "markdown"
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

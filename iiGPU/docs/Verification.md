@@ -29,14 +29,12 @@ iiGPU와 현재 iiSDKCore를 앱 소비자가 독립적으로 링크해 CPU 워�
 
 ## 대상과 증거의 구분
 
-| 플랫폼 | 구현 경로 | 현재 검증 범위 |
-| --- | --- | --- |
-| macOS | Metal, 선택적 Vulkan/MoltenVK | Apple GPU의 네이티브 전송·정수 커널·동기화 실행 |
-| iOS | Metal | Apple SDK 교차 컴파일 대상이며 실기기 실행은 별도 검증 |
-| Windows | Vulkan 1.1 | 같은 C++23 소스·공개 API, 실기기 실행 미검증 |
-| Linux | Vulkan 1.1 | 같은 C++23 소스·공개 API, 실기기 실행 미검증 |
-| Android | Vulkan 1.1 | NDK 교차 컴파일 대상, 이번 모듈의 실기기 실행 미검증 |
-| Web/WASM | 없음 | 장치 생성은 unsupported, WebGPU 지원을 선언하지 않음 |
+- 플랫폼: macOS; 구현 경로: Metal, 선택적 Vulkan/MoltenVK; 현재 검증 범위: Apple GPU의 네이티브 전송·정수 커널·동기화 실행
+- 플랫폼: iOS; 구현 경로: Metal; 현재 검증 범위: Apple SDK 교차 컴파일 대상이며 실기기 실행은 별도 검증
+- 플랫폼: Windows; 구현 경로: Vulkan 1.1; 현재 검증 범위: 같은 C++23 소스·공개 API, 실기기 실행 미검증
+- 플랫폼: Linux; 구현 경로: Vulkan 1.1; 현재 검증 범위: 같은 C++23 소스·공개 API, 실기기 실행 미검증
+- 플랫폼: Android; 구현 경로: Vulkan 1.1; 현재 검증 범위: NDK 교차 컴파일 대상, 이번 모듈의 실기기 실행 미검증
+- 플랫폼: Web/WASM; 구현 경로: 없음; 현재 검증 범위: 장치 생성은 unsupported, WebGPU 지원을 선언하지 않음
 
 CPU·소프트웨어 Vulkan은 `require_hardware=false`로 명시한 경우에만 선택할 수
 있으며 하드웨어 검증으로 집계하지 않는다. 이번 모듈의 검증을 이전 Android
@@ -107,19 +105,17 @@ Apple M1 Max에서 Metal과 Vulkan/MoltenVK가 모두 hardware=true로 표시되
 각각 257개 정수의 `value * 7 + 13` 결과를 비교했다. 첫 값 13, 마지막 값
 1805가 일치했다. 테스트·소비자 실행은 창을 생성하지 않았다.
 
-| 구성 | 통과 | skip | 실패 |
-| --- | --- | --- | --- |
-| iiGPU 정적 + Core 연결 | 15 | 0 | 0 |
-| iiGPU 공유 | 14 | 0 | 0 |
-| iiGPU ASan + UBSan | 14 | 0 | 0 |
-| 백엔드 비활성 구성 | 3 | 12 | 0 |
-| iiDecision Metal·Vulkan 구성 | 32 | 12 | 0 |
-| iiDecision CPU 전용 구성 | 28 | 16 | 0 |
-| iiGPU 설치 소비자 | 3 | 0 | 0 |
-| Core 연결 설치 소비자 | 1 | 0 | 0 |
-| 다른 경로로 옮긴 공유 iiGPU 소비자 | 3 | 0 | 0 |
-| 정적 iiDecision 설치 소비자 | 3 | 0 | 0 |
-| 공유 iiDecision 설치 소비자 | 3 | 0 | 0 |
+- 구성: iiGPU 정적 + Core 연결; 통과: 15; skip: 0; 실패: 0
+- 구성: iiGPU 공유; 통과: 14; skip: 0; 실패: 0
+- 구성: iiGPU ASan + UBSan; 통과: 14; skip: 0; 실패: 0
+- 구성: 백엔드 비활성 구성; 통과: 3; skip: 12; 실패: 0
+- 구성: iiDecision Metal·Vulkan 구성; 통과: 32; skip: 12; 실패: 0
+- 구성: iiDecision CPU 전용 구성; 통과: 28; skip: 16; 실패: 0
+- 구성: iiGPU 설치 소비자; 통과: 3; skip: 0; 실패: 0
+- 구성: Core 연결 설치 소비자; 통과: 1; skip: 0; 실패: 0
+- 구성: 다른 경로로 옮긴 공유 iiGPU 소비자; 통과: 3; skip: 0; 실패: 0
+- 구성: 정적 iiDecision 설치 소비자; 통과: 3; skip: 0; 실패: 0
+- 구성: 공유 iiDecision 설치 소비자; 통과: 3; skip: 0; 실패: 0
 
 구성별로 겹치는 검사가 있으므로 위 숫자를 합쳐 고유 검사 수로 해석하지
 않는다. iiDecision의 Laya·MLX·OpenCL·ONNX는 이 구성에서 명시적으로 OFF로

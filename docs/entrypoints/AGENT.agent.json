@@ -10,8 +10,8 @@
   },
   "source": {
     "path": "AGENT.md",
-    "sha256": "a7dc609ef6015a24d9fd6f71c471aafd583dedfecb750a4de8fee6bc50bc6402",
-    "bytes": 5200,
+    "sha256": "f6f4f0fbbc31a5f7d83ab02282a305175461c709b8f837b45a982dce4f925954",
+    "bytes": 5244,
     "line_count": 71,
     "encoding": "utf-8",
     "language": "ko"
@@ -73,7 +73,7 @@
       "kind": "paragraph",
       "start_line": 7,
       "end_line": 11,
-      "raw": "SDK 모듈은 다른 SDK 모듈을 찾거나 링크하거나 그 공개 타입에 의존하지 않는다.\n앱이 각 SDK를 별도로 소비하고 인터페이스·콜백으로 결합한다. 파일 생성의\n책임은 iiFileProvider에 남기고, 다른 SDK가 직접 의존하지 않도록 앱이 공급하는\n저장 인터페이스로 연결한다. CTest·GNUInstallDirs 같은 일반 CMake 기능은 허용한다.\n전환 중인 실제 참조와 점검의 한계는 [SDKIndependence.md](docs/SDKIndependence.md)를 따른다.\n"
+      "raw": "SDK 모듈은 다른 SDK 모듈을 찾거나 링크하거나 그 공개 타입에 의존하지 않는다.\n앱이 각 SDK를 별도로 소비하고 인터페이스·콜백으로 결합한다. 파일 생성의\n책임은 iiFileProvider에 남기고, 다른 SDK가 직접 의존하지 않도록 앱이 공급하는\n저장 인터페이스로 연결한다. CTest·GNUInstallDirs 같은 일반 CMake 기능은 허용한다.\n전환 중인 실제 참조와 점검의 한계는 [SDKIndependence.md](docs/Architecture/SDKIndependence.md)를 따른다.\n"
     },
     {
       "id": "b000008",
@@ -103,7 +103,7 @@
       "kind": "paragraph",
       "start_line": 15,
       "end_line": 17,
-      "raw": "iiSDK의 최우선 과제는 단일 코드베이스로 모든 크로스 플랫폼 애플리케이션을\n네이티브로 구축하는 것이며, 장기적으로 Qt 의존성을 제거한다. 전환 현황과 점검\n범위는 [QtIndependence.md](docs/QtIndependence.md)를 따른다.\n"
+      "raw": "iiSDK의 최우선 과제는 단일 코드베이스로 모든 크로스 플랫폼 애플리케이션을\n네이티브로 구축하는 것이며, 장기적으로 Qt 의존성을 제거한다. 전환 현황과 점검\n범위는 [QtIndependence.md](docs/Migrations/QtIndependence.md)를 따른다.\n"
     },
     {
       "id": "b000012",
@@ -117,7 +117,7 @@
       "kind": "paragraph",
       "start_line": 19,
       "end_line": 21,
-      "raw": "각 모듈은 `src/`, `example/`, `docs/`, `tests/`, `cmake/`, `resources/`,\n`README.md`, `AGENT.md`, `LICENSE`, `.gitignore`, `install.sh` 또는 `install.py`,\n`CMakeLists.txt`를 갖춘다. 헤더 배치는 [HeaderLayout.md](docs/HeaderLayout.md)를 따른다.\n"
+      "raw": "각 모듈은 `src/`, `example/`, `docs/`, `tests/`, `cmake/`, `resources/`,\n`README.md`, `AGENT.md`, `LICENSE`, `.gitignore`, `install.sh` 또는 `install.py`,\n`CMakeLists.txt`를 갖춘다. 헤더 배치는 [HeaderLayout.md](docs/Architecture/HeaderLayout.md)를 따른다.\n"
     },
     {
       "id": "b000014",
@@ -145,7 +145,7 @@
       "kind": "paragraph",
       "start_line": 27,
       "end_line": 29,
-      "raw": "GUI를 그리는 모듈은 LVUI로 iiGUI 네이티브 위젯을 그린다. `LVRS/`는 레거시이며 새 뷰에\n사용하지 않는다. 기술 스택, TDD 순서, 설계 원칙과 디자인 규칙은 상위\n[Workspace 지침](../AGENT.md)과 [개발·디자인 표준](../docs/company/iisacc_dev_standard_2026-11-18.md)을 따른다.\n"
+      "raw": "GUI를 그리는 모듈은 LVUI로 iiGUI 네이티브 위젯을 그린다. `LVRS/`는 레거시이며 새 뷰에\n사용하지 않는다. 기술 스택, TDD 순서, 설계 원칙과 디자인 규칙은 상위\n[Workspace 지침](../AGENT.md)과 [개발·디자인 표준](../Docs/Company/iisacc_dev_standard_2026-11-18.md)을 따른다.\n"
     },
     {
       "id": "b000018",
@@ -175,7 +175,7 @@
       "kind": "paragraph",
       "start_line": 33,
       "end_line": 40,
-      "raw": "iiSDK와 이를 사용하는 모든 앱은 이벤트와 쿼리로 반응한다. 전체 상태 로딩과\n뷰 구성은 데이터 범위의 초기화에서 수행한다. 이후에는 변경된 자원·필드와\n리비전을 수명에 묶인 이벤트로 전달하고 필요한 범위만 갱신한다. 이벤트가\n누락되면 해당 자원의 리비전부터 복구하고, 원본 연결이 교체되면 새 수명으로 초기화한다.\n명시적으로 요청한 폴링, 실제 기한·만료·재시도, 프로토콜 heartbeat와\n활성 애니메이션·게임의 프레임 주기는 각각의 계약에 따라 허용한다. 모듈 간 직접\n의존성을 추가하지 않으며 독립 인터페이스를 앱이 조합한다. 현재 구현과 명세의\n점검 근거와 미해결 범위는 [반응형 런타임 감사](docs/ReactiveRuntimeAudit.md)를 따른다.\n"
+      "raw": "iiSDK와 이를 사용하는 모든 앱은 이벤트와 쿼리로 반응한다. 전체 상태 로딩과\n뷰 구성은 데이터 범위의 초기화에서 수행한다. 이후에는 변경된 자원·필드와\n리비전을 수명에 묶인 이벤트로 전달하고 필요한 범위만 갱신한다. 이벤트가\n누락되면 해당 자원의 리비전부터 복구하고, 원본 연결이 교체되면 새 수명으로 초기화한다.\n명시적으로 요청한 폴링, 실제 기한·만료·재시도, 프로토콜 heartbeat와\n활성 애니메이션·게임의 프레임 주기는 각각의 계약에 따라 허용한다. 모듈 간 직접\n의존성을 추가하지 않으며 독립 인터페이스를 앱이 조합한다. 현재 구현과 명세의\n점검 근거와 미해결 범위는 [반응형 런타임 감사](docs/Audits/ReactiveRuntimeAudit.md)를 따른다.\n"
     },
     {
       "id": "b000022",
@@ -468,21 +468,21 @@
       {
         "block_id": "b000007",
         "label": "SDKIndependence.md",
-        "target": "docs/SDKIndependence.md",
+        "target": "docs/Architecture/SDKIndependence.md",
         "kind": "relative",
         "line": 11
       },
       {
         "block_id": "b000011",
         "label": "QtIndependence.md",
-        "target": "docs/QtIndependence.md",
+        "target": "docs/Migrations/QtIndependence.md",
         "kind": "relative",
         "line": 17
       },
       {
         "block_id": "b000013",
         "label": "HeaderLayout.md",
-        "target": "docs/HeaderLayout.md",
+        "target": "docs/Architecture/HeaderLayout.md",
         "kind": "relative",
         "line": 21
       },
@@ -496,14 +496,14 @@
       {
         "block_id": "b000017",
         "label": "개발·디자인 표준",
-        "target": "../docs/company/iisacc_dev_standard_2026-11-18.md",
+        "target": "../Docs/Company/iisacc_dev_standard_2026-11-18.md",
         "kind": "relative",
         "line": 29
       },
       {
         "block_id": "b000021",
         "label": "반응형 런타임 감사",
-        "target": "docs/ReactiveRuntimeAudit.md",
+        "target": "docs/Audits/ReactiveRuntimeAudit.md",
         "kind": "relative",
         "line": 40
       },

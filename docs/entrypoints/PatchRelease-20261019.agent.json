@@ -10,8 +10,8 @@
   },
   "source": {
     "path": "PatchRelease-20261019.md",
-    "sha256": "817287fa829e9b17113a89eb796083a0c0c6b12f180e0e40f8f31bc54a9b284a",
-    "bytes": 745,
+    "sha256": "c95581319572b8d2a989fb88b55e51e2ac29b08dcbfdbfa3b21a4f68a3746d85",
+    "bytes": 799,
     "line_count": 20,
     "encoding": "utf-8",
     "language": "en"
@@ -57,7 +57,7 @@
       "kind": "paragraph",
       "start_line": 5,
       "end_line": 5,
-      "raw": "The maintained document is [PatchRelease-20261019.md](docs/PatchRelease-20261019.md).\n"
+      "raw": "The maintained document is [PatchRelease-20261019.md](docs/Releases/PatchRelease-20261019.md).\n"
     },
     {
       "id": "b000006",
@@ -71,7 +71,7 @@
       "kind": "html",
       "start_line": 7,
       "end_line": 8,
-      "raw": "<a id=\"sdk-patch-release--2026-10-19\"></a>\n[Continue to this section](docs/PatchRelease-20261019.md#sdk-patch-release--2026-10-19).\n"
+      "raw": "<a id=\"sdk-patch-release--2026-10-19\"></a>\n[Continue to this section](docs/Releases/PatchRelease-20261019.md#sdk-patch-release--2026-10-19).\n"
     },
     {
       "id": "b000008",
@@ -85,7 +85,7 @@
       "kind": "html",
       "start_line": 10,
       "end_line": 11,
-      "raw": "<a id=\"package-versions\"></a>\n[Continue to this section](docs/PatchRelease-20261019.md#package-versions).\n"
+      "raw": "<a id=\"package-versions\"></a>\n[Continue to this section](docs/Releases/PatchRelease-20261019.md#package-versions).\n"
     },
     {
       "id": "b000010",
@@ -99,7 +99,7 @@
       "kind": "html",
       "start_line": 13,
       "end_line": 14,
-      "raw": "<a id=\"installation-and-verification\"></a>\n[Continue to this section](docs/PatchRelease-20261019.md#installation-and-verification).\n"
+      "raw": "<a id=\"installation-and-verification\"></a>\n[Continue to this section](docs/Releases/PatchRelease-20261019.md#installation-and-verification).\n"
     },
     {
       "id": "b000012",
@@ -113,7 +113,7 @@
       "kind": "html",
       "start_line": 16,
       "end_line": 17,
-      "raw": "<a id=\"compatibility-repairs\"></a>\n[Continue to this section](docs/PatchRelease-20261019.md#compatibility-repairs).\n"
+      "raw": "<a id=\"compatibility-repairs\"></a>\n[Continue to this section](docs/Releases/PatchRelease-20261019.md#compatibility-repairs).\n"
     },
     {
       "id": "b000014",
@@ -127,7 +127,7 @@
       "kind": "html",
       "start_line": 19,
       "end_line": 20,
-      "raw": "<a id=\"verified-sdk-delivery\"></a>\n[Continue to this section](docs/PatchRelease-20261019.md#verified-sdk-delivery).\n"
+      "raw": "<a id=\"verified-sdk-delivery\"></a>\n[Continue to this section](docs/Releases/PatchRelease-20261019.md#verified-sdk-delivery).\n"
     }
   ],
   "outline": [
@@ -147,42 +147,42 @@
       {
         "block_id": "b000005",
         "label": "PatchRelease-20261019.md",
-        "target": "docs/PatchRelease-20261019.md",
+        "target": "docs/Releases/PatchRelease-20261019.md",
         "kind": "relative",
         "line": 5
       },
       {
         "block_id": "b000007",
         "label": "Continue to this section",
-        "target": "docs/PatchRelease-20261019.md#sdk-patch-release--2026-10-19",
+        "target": "docs/Releases/PatchRelease-20261019.md#sdk-patch-release--2026-10-19",
         "kind": "relative",
         "line": 8
       },
       {
         "block_id": "b000009",
         "label": "Continue to this section",
-        "target": "docs/PatchRelease-20261019.md#package-versions",
+        "target": "docs/Releases/PatchRelease-20261019.md#package-versions",
         "kind": "relative",
         "line": 11
       },
       {
         "block_id": "b000011",
         "label": "Continue to this section",
-        "target": "docs/PatchRelease-20261019.md#installation-and-verification",
+        "target": "docs/Releases/PatchRelease-20261019.md#installation-and-verification",
         "kind": "relative",
         "line": 14
       },
       {
         "block_id": "b000013",
         "label": "Continue to this section",
-        "target": "docs/PatchRelease-20261019.md#compatibility-repairs",
+        "target": "docs/Releases/PatchRelease-20261019.md#compatibility-repairs",
         "kind": "relative",
         "line": 17
       },
       {
         "block_id": "b000015",
         "label": "Continue to this section",
-        "target": "docs/PatchRelease-20261019.md#verified-sdk-delivery",
+        "target": "docs/Releases/PatchRelease-20261019.md#verified-sdk-delivery",
         "kind": "relative",
         "line": 20
       }

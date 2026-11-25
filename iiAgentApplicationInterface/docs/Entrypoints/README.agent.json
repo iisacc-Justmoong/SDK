@@ -1,0 +1,696 @@
+{
+  "format": "iiAgentApplicationInterface.document-projection.v1",
+  "role": "overview",
+  "source": {
+    "path": "README.md",
+    "sha256": "d65bd359883e3d18a0d80492ee70883a84495cec177fc0403c4ba608301122e1",
+    "bytes": 14306,
+    "line_count": 128,
+    "language": "en",
+    "encoding": "utf-8"
+  },
+  "headings": [
+    {
+      "line": 1,
+      "level": 1,
+      "title": "iiAgentApplicationInterface"
+    },
+    {
+      "line": 9,
+      "level": 2,
+      "title": "Build and test"
+    },
+    {
+      "line": 22,
+      "level": 2,
+      "title": "Native application procedures"
+    },
+    {
+      "line": 35,
+      "level": 2,
+      "title": "Agent-authored procedures"
+    },
+    {
+      "line": 53,
+      "level": 2,
+      "title": "External agents in a running application"
+    },
+    {
+      "line": 86,
+      "level": 2,
+      "title": "Build-time application discovery"
+    },
+    {
+      "line": 107,
+      "level": 2,
+      "title": "C++ and C"
+    },
+    {
+      "line": 116,
+      "level": 2,
+      "title": "Python"
+    }
+  ],
+  "lines": [
+    {
+      "line": 1,
+      "kind": "heading",
+      "raw": "# iiAgentApplicationInterface\n"
+    },
+    {
+      "line": 2,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 3,
+      "kind": "text",
+      "raw": "iiAgentApplicationInterface is a small in-process foundation for agent-accessible application objects, semantic commands, and state events. A trusted application registers its own objects, validators, handlers, authorization policy, and subscriptions. UI and agent adapters can invoke the same application command.\n"
+    },
+    {
+      "line": 4,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 5,
+      "kind": "text",
+      "raw": "The initial local prototype was named `iiAgent`. Its public names have been replaced: update CMake package and target names, C++ includes and namespace, C symbols, Python imports, and configuration variables, then rebuild consumers. No compatibility aliases are provided.\n"
+    },
+    {
+      "line": 6,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 7,
+      "kind": "text",
+      "raw": "The current API is synchronous and serialized on a host thread; tracked object destruction can be handed back from other threads. Authorization defaults to deny. The host authenticates principals and owns the side effects, transaction and undo semantics, approval, and output validation. Schema descriptions are opaque metadata; a host validator is required for every command. The C++ core does not own a transport, credential store, MCP adapter, or sandbox. Applications can compose its external gateway with an app-owned local transport and verifier.\n"
+    },
+    {
+      "line": 8,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 9,
+      "kind": "heading",
+      "raw": "## Build and test\n"
+    },
+    {
+      "line": 10,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 11,
+      "kind": "fence",
+      "raw": "```sh\n"
+    },
+    {
+      "line": 12,
+      "kind": "code",
+      "raw": "cmake -S . -B build -DBUILD_TESTING=ON\n"
+    },
+    {
+      "line": 13,
+      "kind": "code",
+      "raw": "cmake --build build\n"
+    },
+    {
+      "line": 14,
+      "kind": "code",
+      "raw": "ctest --test-dir build --output-on-failure\n"
+    },
+    {
+      "line": 15,
+      "kind": "code",
+      "raw": "./install.sh                          # stages to build/install\n"
+    },
+    {
+      "line": 16,
+      "kind": "code",
+      "raw": "# ./install.sh /chosen/install/prefix # optional explicit prefix\n"
+    },
+    {
+      "line": 17,
+      "kind": "code",
+      "raw": "# INSTALL_PREFIX=/chosen/prefix ./install.sh # also supported by the SDK batch installer\n"
+    },
+    {
+      "line": 18,
+      "kind": "fence",
+      "raw": "```\n"
+    },
+    {
+      "line": 19,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 20,
+      "kind": "text",
+      "raw": "The installer uses the cached CMake build type, or Release if unset; set `IIAGENTAPPLICATIONINTERFACE_BUILD_CONFIG` to override it. CMake options are `BUILD_SHARED_LIBS`, `BUILD_TESTING`, `IIAGENTAPPLICATIONINTERFACE_BUILD_PYTHON`, and `IIAGENTAPPLICATIONINTERFACE_BUILD_EXAMPLES`. Python requires a shared build. No other SDK or Qt is required.\n"
+    },
+    {
+      "line": 21,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 22,
+      "kind": "heading",
+      "raw": "## Native application procedures\n"
+    },
+    {
+      "line": 23,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 24,
+      "kind": "text",
+      "raw": "A trusted host can associate an existing registry object with a `std::shared_ptr<T>` using `Runtime::bind_live_object`. `Runtime::execute_procedure` passes an authorized `ProcedureContext` to a C++ procedure. The procedure can query application objects, invoke the same command bus, or obtain a type-checked shared reference to the live object and use its ordinary C++ API. Native reads, native writes, and procedure execution have separate host-policy actions. The runtime retains only a weak reference to the application object.\n"
+    },
+    {
+      "line": 25,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 26,
+      "kind": "text",
+      "raw": "A procedure exports `iiagent_application_procedure_v1`, returning a `NativeProcedureDescriptor`. `Runtime::execute_source` authorizes compilation, loading and execution separately, coordinates the host's `SourceProcedureBackend`, checks the descriptor, and keeps the loaded module and its artifact alive until the procedure returns. A C host can provide equivalent backend callbacks. The native C++ runtime defines the backend port; the application supplies compiler, storage and loader implementations. `tests/source_runtime_native.cpp` demonstrates an actual host adapter and compiles a source string at runtime to modify a tracked C++ application object. The descriptor version checks layout; it does not guarantee C++ ABI compatibility.\n"
+    },
+    {
+      "line": 27,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 28,
+      "kind": "text",
+      "raw": "The Python host binding also provides `Runtime.execute_source`, and `iiagent_application_interface_native.NativeSourceBackend` supplies a clang++-style compiler/loader adapter. The host supplies a storage adapter, an existing `build/` directory, compiler, application-compatible compile and link flags, and the policy. `example/python_source_storage.py` shows an application wiring the storage adapter to iiFileProvider; the module does not import another SDK. Source is passed through standard input without a shell. By default loaded modules remain alive until the host explicitly closes the backend; unloading is safe only after the host has ensured that procedure code, callbacks, threads and references cannot outlive the module. Python procedures see object snapshots and commands, not typed C++ object references.\n"
+    },
+    {
+      "line": 29,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 30,
+      "kind": "text",
+      "raw": "`Runtime::make_tracked_object<T>` constructs a shared object, registers its live binding, and removes its registry entry and commands after its last shared reference is released. For a last release on another thread, configure `set_lifecycle_dispatcher` with a thread-safe host event-loop post function; it schedules removal on the runtime's owner thread. Without a dispatcher, call `drain_lifecycle()` on that thread to process queued removals. Existing unmanaged objects, stack objects and objects created outside this factory are not automatically tracked: bind them explicitly or adapt the application's creation path. See `example/native_procedure.cpp` and `docs/Contract.md` for ownership and threading details.\n"
+    },
+    {
+      "line": 31,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 32,
+      "kind": "text",
+      "raw": "Compiler and loaded native code execute with the application's process privileges; loading can execute module initializers before the procedure entry. Grant compilation and loading only to code trusted by the host. Direct object mutation does not automatically create transactions, undo records, or state events; the application must provide those behaviors.\n"
+    },
+    {
+      "line": 33,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 34,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 35,
+      "kind": "heading",
+      "raw": "## Agent-authored procedures\n"
+    },
+    {
+      "line": 36,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 37,
+      "kind": "text",
+      "raw": "`Runtime::procedure_authoring_context` returns the procedure ABI, available `ProcedureContext` signatures and data types, plus a point-in-time view of objects, commands and native access allowed to the principal. When available and authorized, `application.build_catalog` appears in that view as source-declaration metadata. Discovery and native-access flags do not guarantee that a particular C++ member is public, callable, or ABI-compatible.\n"
+    },
+    {
+      "line": 38,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 39,
+      "kind": "text",
+      "raw": "An agent can write a procedure body and optional C++ preamble itself. The host configures a `SourceProcedureBackend`, authorizes compilation, loading and execution, and supplies compatible application headers and build flags. Building does not run the procedure. Each later execution rechecks load and execution permissions, and the same compiled artifact can be reused. The following Python example assumes `runtime`, `backend` and the application's `document` command have already been configured by the host:\n"
+    },
+    {
+      "line": 40,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 41,
+      "kind": "fence",
+      "raw": "```python\n"
+    },
+    {
+      "line": 42,
+      "kind": "code",
+      "raw": "contract = runtime.procedure_authoring_context(\"local-agent\")\n"
+    },
+    {
+      "line": 43,
+      "kind": "code",
+      "raw": "# The agent reads contract and authors the C++ body.\n"
+    },
+    {
+      "line": 44,
+      "kind": "code",
+      "raw": "body = 'return context.invoke(\"document\", \"rename\", input);'\n"
+    },
+    {
+      "line": 45,
+      "kind": "code",
+      "raw": "source = runtime.compose_procedure_source(\"agent.rename\", body)\n"
+    },
+    {
+      "line": 46,
+      "kind": "code",
+      "raw": "with runtime.build_procedure(\"local-agent\", \"agent.rename\", body, backend) as procedure:\n"
+    },
+    {
+      "line": 47,
+      "kind": "code",
+      "raw": "    result = procedure.execute(\"local-agent\", \"New title\")\n"
+    },
+    {
+      "line": 48,
+      "kind": "fence",
+      "raw": "```\n"
+    },
+    {
+      "line": 49,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 50,
+      "kind": "text",
+      "raw": "C++ hosts use `ProcedureDraft`, `compose_procedure_source`, `Runtime::build_procedure` and `Runtime::execute_built`. The backend must outlive its compiled artifact. C hosts have equivalent JSON, assembly and opaque artifact APIs. Python retains backend callbacks with the compiled handle, which must be closed when no longer needed. The module exposes an interface for an agent; it does not supply a model that writes the code. Native procedures run with process privileges and require trusted code.\n"
+    },
+    {
+      "line": 51,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 52,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 53,
+      "kind": "heading",
+      "raw": "## External agents in a running application\n"
+    },
+    {
+      "line": 54,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 55,
+      "kind": "text",
+      "raw": "An application can expose its existing runtime to an approved external agent without MCP. Construct `ExternalGateway` with the live `Runtime`, a host authenticator and an optional native source backend. The authenticator receives the local transport's peer attributes and the presented credential, and returns the authenticated `AgentContext`; an absent, failing or rejecting authenticator denies access. Each request is authenticated again and existing per-object, command and procedure policies are enforced. The gateway rejects calls on a thread other than the runtime owner.\n"
+    },
+    {
+      "line": 56,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 57,
+      "kind": "text",
+      "raw": "The application-side adapter in `example/iiNetworkExternalBridge.h` and `.cpp` composes `ExternalGateway` with iiNetwork local sockets and iiJson. Compile those files into the application and link the independent SDK modules there; the iiAgentApplicationInterface library itself does not link them. Construct the runtime, gateway and bridge on the same iiSDKCore event loop thread, provision an app-owned endpoint, implement the real approval verifier, and keep them alive while serving. The reference adapter accepts one bounded newline-delimited JSON request per connection. It does not implement an approval store, an external event stream or persistent compiled-procedure handles.\n"
+    },
+    {
+      "line": 58,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 59,
+      "kind": "text",
+      "raw": "After installing the packages, an application's CMake project can compile the installed adapter as application code:\n"
+    },
+    {
+      "line": 60,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 61,
+      "kind": "fence",
+      "raw": "```cmake\n"
+    },
+    {
+      "line": 62,
+      "kind": "code",
+      "raw": "find_package(iiAgentApplicationInterface CONFIG REQUIRED)\n"
+    },
+    {
+      "line": 63,
+      "kind": "code",
+      "raw": "find_package(iiNetwork CONFIG REQUIRED)\n"
+    },
+    {
+      "line": 64,
+      "kind": "code",
+      "raw": "find_package(iiJson CONFIG REQUIRED)\n"
+    },
+    {
+      "line": 65,
+      "kind": "code",
+      "raw": "find_package(iiSDKCore CONFIG REQUIRED COMPONENTS Runtime)\n"
+    },
+    {
+      "line": 66,
+      "kind": "code",
+      "raw": "target_sources(MyApp PRIVATE \"${iiAgentApplicationInterface_EXAMPLE_DIR}/iiNetworkExternalBridge.cpp\")\n"
+    },
+    {
+      "line": 67,
+      "kind": "code",
+      "raw": "target_include_directories(MyApp PRIVATE \"${iiAgentApplicationInterface_EXAMPLE_DIR}\")\n"
+    },
+    {
+      "line": 68,
+      "kind": "code",
+      "raw": "target_link_libraries(MyApp PRIVATE iiAgentApplicationInterface::iiAgentApplicationInterface\n"
+    },
+    {
+      "line": 69,
+      "kind": "code",
+      "raw": "    iiNetwork::iiNetwork iiJson::iiJson iiSDKCore::Runtime)\n"
+    },
+    {
+      "line": 70,
+      "kind": "fence",
+      "raw": "```\n"
+    },
+    {
+      "line": 71,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 72,
+      "kind": "text",
+      "raw": "The app must still start the bridge and pass its own live runtime and verifier; CMake linkage does not do this automatically.\n"
+    },
+    {
+      "line": 73,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 74,
+      "kind": "text",
+      "raw": "The installed Python client and CLI can then connect to that running application. The app or its trusted launcher supplies the endpoint and host-issued credential; the CLI reads the credential from `IIAGENT_APPLICATION_CREDENTIAL` by default rather than a command argument. For example, after setting `PYTHONPATH` to the installed Python directory and receiving an endpoint and credential from the app:\n"
+    },
+    {
+      "line": 75,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 76,
+      "kind": "fence",
+      "raw": "```sh\n"
+    },
+    {
+      "line": 77,
+      "kind": "code",
+      "raw": "printf '%s' '{\"operation\":\"describe\"}' | python3 -m iiagent_application_interface_cli --endpoint /app/owned/agent.sock\n"
+    },
+    {
+      "line": 78,
+      "kind": "code",
+      "raw": "printf '%s' '{\"operation\":\"list_objects\",\"limit\":20}' | python3 -m iiagent_application_interface_cli --endpoint /app/owned/agent.sock\n"
+    },
+    {
+      "line": 79,
+      "kind": "code",
+      "raw": "printf '%s' '{\"operation\":\"invoke\",\"object_id\":\"document\",\"capability_id\":\"rename\",\"input\":\"New title\"}' | python3 -m iiagent_application_interface_cli --endpoint /app/owned/agent.sock\n"
+    },
+    {
+      "line": 80,
+      "kind": "fence",
+      "raw": "```\n"
+    },
+    {
+      "line": 81,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 82,
+      "kind": "text",
+      "raw": "`describe` provides compact operation names and fields. Object pages omit state; `read_object` fetches one selected object's host-published snapshot and `list_capabilities` pages through its commands. The app must publish state changes; the snapshot is not an automatic serialization of arbitrary live memory. `execute_source` and `execute_draft` are available only if the host supplies a source backend; they run synchronously on the app owner thread. Code executes with the application's privileges. A same-user socket, peer UID, environment variable or caller-provided name alone is not agent approval: use a host-controlled verifier, provision a trusted endpoint and treat credentials as secrets. The local transport is not encrypted. If a connection ends before its response, the command may already have run; the protocol does not provide automatic deduplication. The supplied test host uses a fixture verifier, not a production approval system.\n"
+    },
+    {
+      "line": 83,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 84,
+      "kind": "text",
+      "raw": "To exercise the optional multi-process composition test against installed iiNetwork, iiSDKCore and iiJson, configure `IIAGENTAPPLICATIONINTERFACE_TEST_IISDK_INTEGRATION=ON`, `IIAGENTAPPLICATIONINTERFACE_SDK_ROOT` and, if needed, `IIAGENTAPPLICATIONINTERFACE_OPENSSL_ROOT`, then build and run CTest. The test connects separate CLI processes to a live C++ app; it does not exercise an actual Codex or Claude Code session.\n"
+    },
+    {
+      "line": 85,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 86,
+      "kind": "heading",
+      "raw": "## Build-time application discovery\n"
+    },
+    {
+      "line": 87,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 88,
+      "kind": "text",
+      "raw": "Install the package, then connect discovery after defining the application's local link dependencies:\n"
+    },
+    {
+      "line": 89,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 90,
+      "kind": "fence",
+      "raw": "```cmake\n"
+    },
+    {
+      "line": 91,
+      "kind": "code",
+      "raw": "find_package(iiAgentApplicationInterface CONFIG REQUIRED)\n"
+    },
+    {
+      "line": 92,
+      "kind": "code",
+      "raw": "add_executable(MyApp App/main.cpp)\n"
+    },
+    {
+      "line": 93,
+      "kind": "code",
+      "raw": "# Add the application's local libraries before enabling discovery.\n"
+    },
+    {
+      "line": 94,
+      "kind": "code",
+      "raw": "iiAgentApplicationInterface_enable_discovery(MyApp ROOTS \"${CMAKE_SOURCE_DIR}\")\n"
+    },
+    {
+      "line": 95,
+      "kind": "fence",
+      "raw": "```\n"
+    },
+    {
+      "line": 96,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 97,
+      "kind": "text",
+      "raw": "Create the application runtime with its authorization policy; the generated catalog is published automatically:\n"
+    },
+    {
+      "line": 98,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 99,
+      "kind": "fence",
+      "raw": "```cpp\n"
+    },
+    {
+      "line": 100,
+      "kind": "code",
+      "raw": "#include <iiAgentApplicationInterface>\n"
+    },
+    {
+      "line": 101,
+      "kind": "code",
+      "raw": "\n"
+    },
+    {
+      "line": 102,
+      "kind": "code",
+      "raw": "auto runtime = iiAgentApplicationInterface::generated::create_application_runtime(policy);\n"
+    },
+    {
+      "line": 103,
+      "kind": "fence",
+      "raw": "```\n"
+    },
+    {
+      "line": 104,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 105,
+      "kind": "text",
+      "raw": "For an existing runtime, call `generated::publish_build_catalog(runtime)` once. Authorized consumers can read `application.build_catalog` through `Runtime::object` or `objects`. Its state is JSON containing source declarations, their recognized documentation comments, and private member descriptions; it is not a live-object bridge. A Python host can use `iiagent_application_interface_discovery.discover_compilation_database` and `publish_catalog` with its native runtime. The build step needs Python and libclang and currently supports single-configuration CMake Ninja or Makefiles compilation databases. It scans the app and recognizable linked local source targets within the chosen roots. Prebuilt binaries, unrecognized conditional link expressions, uninstantiated template details, live objects, member values, and callable bindings are not comprehensively discovered. The host must still bind execution to actual objects and enforce authorization. See `docs/Contract.md` for the precise limits.\n"
+    },
+    {
+      "line": 106,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 107,
+      "kind": "heading",
+      "raw": "## C++ and C\n"
+    },
+    {
+      "line": 108,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 109,
+      "kind": "fence",
+      "raw": "```cmake\n"
+    },
+    {
+      "line": 110,
+      "kind": "code",
+      "raw": "find_package(iiAgentApplicationInterface CONFIG REQUIRED)\n"
+    },
+    {
+      "line": 111,
+      "kind": "code",
+      "raw": "target_link_libraries(MyApp PRIVATE iiAgentApplicationInterface::iiAgentApplicationInterface)\n"
+    },
+    {
+      "line": 112,
+      "kind": "fence",
+      "raw": "```\n"
+    },
+    {
+      "line": 113,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 114,
+      "kind": "text",
+      "raw": "Include `<iiAgentApplicationInterface>` for C++23. The target also defines `IISDK_IMPORT_IIAGENTAPPLICATIONINTERFACE=1`. `<iiAgentApplicationInterface/AgentC.h>` supplies the C interface, whose allocated output is released with `iiagent_application_interface_free`. See `example/host.cpp` for UI and agent calls sharing a command and `docs/Contract.md` for the host's responsibilities.\n"
+    },
+    {
+      "line": 115,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 116,
+      "kind": "heading",
+      "raw": "## Python\n"
+    },
+    {
+      "line": 117,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 118,
+      "kind": "text",
+      "raw": "The binding calls the same native runtime through its C ABI. Add `<prefix>/share/iiAgentApplicationInterface/python` to `PYTHONPATH`; its sibling library is located automatically. Set `IIAGENTAPPLICATIONINTERFACE_LIBRARY` to an explicit library path when needed.\n"
+    },
+    {
+      "line": 119,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 120,
+      "kind": "fence",
+      "raw": "```python\n"
+    },
+    {
+      "line": 121,
+      "kind": "code",
+      "raw": "from iiagent_application_interface import Runtime\n"
+    },
+    {
+      "line": 122,
+      "kind": "code",
+      "raw": "\n"
+    },
+    {
+      "line": 123,
+      "kind": "code",
+      "raw": "with Runtime(lambda principal, action, obj, cap, permissions: principal == \"local\") as runtime:\n"
+    },
+    {
+      "line": 124,
+      "kind": "code",
+      "raw": "    runtime.add_object(\"document.1\", \"document\", state=\"Draft\")\n"
+    },
+    {
+      "line": 125,
+      "kind": "code",
+      "raw": "    print(runtime.objects(\"local\"))\n"
+    },
+    {
+      "line": 126,
+      "kind": "fence",
+      "raw": "```\n"
+    },
+    {
+      "line": 127,
+      "kind": "blank",
+      "raw": "\n"
+    },
+    {
+      "line": 128,
+      "kind": "text",
+      "raw": "The example policy is only a local demonstration, not authentication. Host code must keep callbacks and policy within its trust boundary. See [the contract](docs/Contract.md) for event ordering, object lifetimes, schema, and limitations.\n"
+    }
+  ]
+}

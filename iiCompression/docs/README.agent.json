@@ -10,9 +10,9 @@
   },
   "source": {
     "path": "docs/README.md",
-    "sha256": "cef84ed12c9212a6d3c6e8b4e635520708b8a6cb44a9490d6c308b1073eb1989",
-    "bytes": 1034,
-    "line_count": 20,
+    "sha256": "ce40c915ff01af4df00c22ed5eb01e67015b5886e69685fe1f31d84e121af787",
+    "bytes": 1146,
+    "line_count": 18,
     "encoding": "utf-8",
     "language": "ko"
   },
@@ -91,54 +91,58 @@
     },
     {
       "id": "b000010",
-      "kind": "table",
       "start_line": 10,
-      "end_line": 19,
-      "raw": "| Document | Agent JSON |\n| --- | --- |\n| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |\n| [`NOTICE.md`](../NOTICE.md) | [JSON](entrypoints/NOTICE.agent.json) |\n| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |\n| [`docs/DynamicLinking.md`](DynamicLinking.md) | [JSON](DynamicLinking.agent.json) |\n| [`docs/Gzip.md`](Gzip.md) | [JSON](Gzip.agent.json) |\n| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |\n| [`example/README.md`](../example/README.md) | [JSON](mirrors/example/README.agent.json) |\n| [`resources/README.md`](../resources/README.md) | [JSON](mirrors/resources/README.agent.json) |\n",
-      "columns": [
-        "Document",
-        "Agent JSON"
-      ],
-      "rows": [
-        [
-          "[`AGENT.md`](../AGENT.md)",
-          "[JSON](entrypoints/AGENT.agent.json)"
-        ],
-        [
-          "[`NOTICE.md`](../NOTICE.md)",
-          "[JSON](entrypoints/NOTICE.agent.json)"
-        ],
-        [
-          "[`README.md`](../README.md)",
-          "[JSON](entrypoints/README.agent.json)"
-        ],
-        [
-          "[`docs/DynamicLinking.md`](DynamicLinking.md)",
-          "[JSON](DynamicLinking.agent.json)"
-        ],
-        [
-          "[`docs/Gzip.md`](Gzip.md)",
-          "[JSON](Gzip.agent.json)"
-        ],
-        [
-          "[`docs/documentation-structure.md`](documentation-structure.md)",
-          "[JSON](documentation-structure.agent.json)"
-        ],
-        [
-          "[`example/README.md`](../example/README.md)",
-          "[JSON](mirrors/example/README.agent.json)"
-        ],
-        [
-          "[`resources/README.md`](../resources/README.md)",
-          "[JSON](mirrors/resources/README.agent.json)"
-        ]
+      "end_line": 17,
+      "raw": "- Document: [`AGENT.md`](../AGENT.md); Agent JSON: [JSON](Entrypoints/AGENT.agent.json)\n- Document: [`NOTICE.md`](../NOTICE.md); Agent JSON: [JSON](Entrypoints/NOTICE.agent.json)\n- Document: [`README.md`](../README.md); Agent JSON: [JSON](Entrypoints/README.agent.json)\n- Document: [`docs/DynamicLinking.md`](DynamicLinking.md); Agent JSON: [JSON](DynamicLinking.agent.json)\n- Document: [`docs/Gzip.md`](Gzip.md); Agent JSON: [JSON](Gzip.agent.json)\n- Document: [`docs/documentation-structure.md`](documentation-structure.md); Agent JSON: [JSON](documentation-structure.agent.json)\n- Document: [`example/README.md`](../example/README.md); Agent JSON: [JSON](Mirrors/Example/README.agent.json)\n- Document: [`resources/README.md`](../resources/README.md); Agent JSON: [JSON](Mirrors/Resources/README.agent.json)\n",
+      "kind": "list",
+      "items": [
+        {
+          "marker": "-",
+          "text": "Document: [`AGENT.md`](../AGENT.md); Agent JSON: [JSON](Entrypoints/AGENT.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`NOTICE.md`](../NOTICE.md); Agent JSON: [JSON](Entrypoints/NOTICE.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`README.md`](../README.md); Agent JSON: [JSON](Entrypoints/README.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/DynamicLinking.md`](DynamicLinking.md); Agent JSON: [JSON](DynamicLinking.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/Gzip.md`](Gzip.md); Agent JSON: [JSON](Gzip.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`docs/documentation-structure.md`](documentation-structure.md); Agent JSON: [JSON](documentation-structure.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`example/README.md`](../example/README.md); Agent JSON: [JSON](Mirrors/Example/README.agent.json)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "Document: [`resources/README.md`](../resources/README.md); Agent JSON: [JSON](Mirrors/Resources/README.agent.json)",
+          "checked": null
+        }
       ]
     },
     {
       "id": "b000011",
       "kind": "html",
-      "start_line": 20,
-      "end_line": 20,
+      "start_line": 18,
+      "end_line": 18,
       "raw": "<!-- workspace-docs:document-map:end -->\n"
     }
   ],
@@ -176,157 +180,115 @@
         "label": "`AGENT.md`",
         "target": "../AGENT.md",
         "kind": "relative",
-        "line": 12
+        "line": 10
       },
       {
         "block_id": "b000010",
         "label": "JSON",
-        "target": "entrypoints/AGENT.agent.json",
+        "target": "Entrypoints/AGENT.agent.json",
         "kind": "relative",
-        "line": 12
+        "line": 10
       },
       {
         "block_id": "b000010",
         "label": "`NOTICE.md`",
         "target": "../NOTICE.md",
         "kind": "relative",
-        "line": 13
+        "line": 11
       },
       {
         "block_id": "b000010",
         "label": "JSON",
-        "target": "entrypoints/NOTICE.agent.json",
+        "target": "Entrypoints/NOTICE.agent.json",
         "kind": "relative",
-        "line": 13
+        "line": 11
       },
       {
         "block_id": "b000010",
         "label": "`README.md`",
         "target": "../README.md",
         "kind": "relative",
-        "line": 14
+        "line": 12
       },
       {
         "block_id": "b000010",
         "label": "JSON",
-        "target": "entrypoints/README.agent.json",
+        "target": "Entrypoints/README.agent.json",
         "kind": "relative",
-        "line": 14
+        "line": 12
       },
       {
         "block_id": "b000010",
         "label": "`docs/DynamicLinking.md`",
         "target": "DynamicLinking.md",
         "kind": "relative",
-        "line": 15
+        "line": 13
       },
       {
         "block_id": "b000010",
         "label": "JSON",
         "target": "DynamicLinking.agent.json",
         "kind": "relative",
-        "line": 15
+        "line": 13
       },
       {
         "block_id": "b000010",
         "label": "`docs/Gzip.md`",
         "target": "Gzip.md",
         "kind": "relative",
-        "line": 16
+        "line": 14
       },
       {
         "block_id": "b000010",
         "label": "JSON",
         "target": "Gzip.agent.json",
         "kind": "relative",
-        "line": 16
+        "line": 14
       },
       {
         "block_id": "b000010",
         "label": "`docs/documentation-structure.md`",
         "target": "documentation-structure.md",
         "kind": "relative",
-        "line": 17
+        "line": 15
       },
       {
         "block_id": "b000010",
         "label": "JSON",
         "target": "documentation-structure.agent.json",
         "kind": "relative",
-        "line": 17
+        "line": 15
       },
       {
         "block_id": "b000010",
         "label": "`example/README.md`",
         "target": "../example/README.md",
         "kind": "relative",
-        "line": 18
+        "line": 16
       },
       {
         "block_id": "b000010",
         "label": "JSON",
-        "target": "mirrors/example/README.agent.json",
+        "target": "Mirrors/Example/README.agent.json",
         "kind": "relative",
-        "line": 18
+        "line": 16
       },
       {
         "block_id": "b000010",
         "label": "`resources/README.md`",
         "target": "../resources/README.md",
         "kind": "relative",
-        "line": 19
+        "line": 17
       },
       {
         "block_id": "b000010",
         "label": "JSON",
-        "target": "mirrors/resources/README.agent.json",
+        "target": "Mirrors/Resources/README.agent.json",
         "kind": "relative",
-        "line": 19
+        "line": 17
       }
     ],
-    "tables": [
-      {
-        "block_id": "b000010",
-        "columns": [
-          "Document",
-          "Agent JSON"
-        ],
-        "rows": [
-          [
-            "[`AGENT.md`](../AGENT.md)",
-            "[JSON](entrypoints/AGENT.agent.json)"
-          ],
-          [
-            "[`NOTICE.md`](../NOTICE.md)",
-            "[JSON](entrypoints/NOTICE.agent.json)"
-          ],
-          [
-            "[`README.md`](../README.md)",
-            "[JSON](entrypoints/README.agent.json)"
-          ],
-          [
-            "[`docs/DynamicLinking.md`](DynamicLinking.md)",
-            "[JSON](DynamicLinking.agent.json)"
-          ],
-          [
-            "[`docs/Gzip.md`](Gzip.md)",
-            "[JSON](Gzip.agent.json)"
-          ],
-          [
-            "[`docs/documentation-structure.md`](documentation-structure.md)",
-            "[JSON](documentation-structure.agent.json)"
-          ],
-          [
-            "[`example/README.md`](../example/README.md)",
-            "[JSON](mirrors/example/README.agent.json)"
-          ],
-          [
-            "[`resources/README.md`](../resources/README.md)",
-            "[JSON](mirrors/resources/README.agent.json)"
-          ]
-        ]
-      }
-    ]
+    "tables": []
   },
   "provenance": {
     "generator": "workspace-docs",

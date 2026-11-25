@@ -16,7 +16,7 @@ Metal and Vulkan share this contract; the optional `iiGPU::Runtime` target
 observes completion using a scheduler supplied by the application. Applications
 may compose it with iiSDKCore's EventLoop. Applications compose iiDecision's
 GPU evidence adapter with iiGPU independently. See
-[the GPU ownership boundary](docs/GPU.md).
+[the GPU ownership boundary](docs/Architecture/GPU.md).
 
 [`iiCompression`](iiCompression/README.md) provides bounded in-memory gzip
 compression and single-member decompression without Qt or other SDK
@@ -42,9 +42,9 @@ are being migrated; their installed include names remain stable.
 SDK modules are being migrated to independently built packages. Applications
 compose them through caller-owned interfaces and link each selected module
 directly; the transition and remaining dependency audit are documented in
-[SDK independence](docs/SDKIndependence.md).
+[SDK independence](docs/Architecture/SDKIndependence.md).
 Separate authored `include/` trees are prohibited; public include names and
-installed package layouts remain compatible. See [the source layout contract](docs/HeaderLayout.md)
+installed package layouts remain compatible. See [the source layout contract](docs/Architecture/HeaderLayout.md)
 and run `python3 -B tests/test_source_header_layout.py` from this directory.
 
 Follow [Windows SDK verification](Windows/README.md) for dependency-ordered Windows builds, complete execution checks and installation. Each SDK README links to that project's Windows build and execution instructions.
@@ -117,9 +117,9 @@ size taper, bounded post correction, generated bristle tips and final pixel tile
 The lower engine and canvas document keep their streaming/pixel contracts. It is
 an optional component in the iiPaintEngine repository; the legacy iiBrushTools
 package name remains available as a compatibility alias.
-See [the authoring boundary and delivery contract](docs/BRUSH_AUTHORING.md).
+See [the authoring boundary and delivery contract](docs/Guides/BRUSH_AUTHORING.md).
 
-The [module consolidation guide](docs/ModuleConsolidation.md) records component
+The [module consolidation guide](docs/Architecture/ModuleConsolidation.md) records component
 ownership, compatibility aliases, remaining overlap and validation boundaries.
 
 Iterate through the SDK in this directory with `./install.sh --qt-prefix /Volumes/Storage/Qt/6.8.3/macos` to update the host installation. Python 3 standard libraries and existing SDK installer, CMake /CTest are reused, and SDK name or installation order arrays are not embedded in code.
@@ -153,7 +153,7 @@ tree may be partially changed if an install fails; keep a backup before an
 in-place refresh. The report is saved before each operation with `pending` and
 `running` states, so interrupted runs can be identified and retried. Discovery
 is a static approximation of remaining legacy dependencies, not proof that SDKs
-are independent. See [Installation operations](docs/Installation.md).
+are independent. See [Installation operations](docs/Operations/Installation.md).
 
 ## 2026-10-19 patch release
 

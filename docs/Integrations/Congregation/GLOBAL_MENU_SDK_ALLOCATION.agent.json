@@ -1,0 +1,2877 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:4cabbc6d38353d5d50e8d7fd366f770301dc04573728fd7116cba3270421d711",
+  "project": {
+    "id": "urn:iisacc:project:Product%2FCongregation",
+    "name": "Congregation",
+    "root": "Product/Congregation",
+    "kind": "application"
+  },
+  "source": {
+    "path": "docs/Integrations/Congregation/GLOBAL_MENU_SDK_ALLOCATION.md",
+    "sha256": "146182ec5baa91ed7d00549d6980930518a88e7b83f9bcebb048d8222a8874c8",
+    "bytes": 16756,
+    "line_count": 370,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "Congregation 글로벌 메뉴의 iiSDK 모듈 배정",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# Congregation 글로벌 메뉴의 iiSDK 모듈 배정\n",
+      "level": 1,
+      "title": "Congregation 글로벌 메뉴의 iiSDK 모듈 배정"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 3,
+      "raw": "기준일: 2026-11-25. [글로벌 메뉴 정의](../../../../Product/Congregation/App/Application/AppMenu.h)의 현재 작업 트리와 관련 SDK 소스를 정적으로 검토한 배정 제안이다. 앱을 실행하여 메뉴를 조작한 결과는 아니며, 설치된 빌드와 현재 작업 트리는 다를 수 있다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 4,
+      "end_line": 4,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 5,
+      "end_line": 5,
+      "raw": "현재 메뉴 정의의 비활성 명령 162개와 빈 하위 메뉴 49개, 합계 211개를 각각 한 번씩 주 담당 모듈에 배정한다. 기존 모듈에는 137개, 신규 제안 모듈에는 74개를 배정한다. Help의 `Help unavailable`은 기능이 아닌 상태 행이므로 211개에 포함하지 않고 별도로 기록한다. 메뉴 항목 뒤의 **†**는 하위 명령 없이 `No commands available`만 있는 분류이다. 분류의 세부 기능은 아직 정의되지 않았으므로 해당 배정은 잠정적이다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 6,
+      "end_line": 6,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "기존 모듈에 배정했다는 것은 해당 모듈이 존재한다는 뜻이며, 그 명령의 API가 완성되었거나 Congregation에 연결되었다는 뜻은 아니다. 신규 모듈의 이름과 책임은 이번 배정을 위한 제안이며 실제 모듈을 생성하거나 구현한 것은 아니다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 8,
+      "end_line": 8,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 9,
+      "end_line": 9,
+      "raw": "주 담당 외에도 Congregation이 문서·선택·현재 프레임을 전달하고 명령, 변경 이력, LVUI 뷰모델, 파일 접근과 오류 처리를 연결한다. SDK 간 직접 참조를 새로 추가하지 않고 앱이 독립 인터페이스와 콜백을 조합한다. 파일 생성과 게시는 iiFileProvider를 사용한다. 이 원칙은 기존 구현의 모든 의존성 전환이 완료되었다는 주장이 아니다. [SDK 독립성 지침](../../../AGENT.md)\n"
+    },
+    {
+      "id": "b000010",
+      "kind": "blank",
+      "start_line": 10,
+      "end_line": 10,
+      "raw": "\n"
+    },
+    {
+      "id": "b000011",
+      "kind": "heading",
+      "start_line": 11,
+      "end_line": 11,
+      "raw": "## 1. 기존 모듈에 배정한 기능\n",
+      "level": 2,
+      "title": "1. 기존 모듈에 배정한 기능"
+    },
+    {
+      "id": "b000012",
+      "kind": "blank",
+      "start_line": 12,
+      "end_line": 12,
+      "raw": "\n"
+    },
+    {
+      "id": "b000013",
+      "kind": "heading",
+      "start_line": 13,
+      "end_line": 13,
+      "raw": "### iiSharedCanvas\n",
+      "level": 3,
+      "title": "iiSharedCanvas"
+    },
+    {
+      "id": "b000014",
+      "kind": "blank",
+      "start_line": 14,
+      "end_line": 14,
+      "raw": "\n"
+    },
+    {
+      "id": "b000015",
+      "kind": "paragraph",
+      "start_line": 15,
+      "end_line": 15,
+      "raw": "문서·레이어·마스크와 저장할 선택 정보, 변경 이력 및 영상 편집 타임라인 모델을 담당한다. 필요하면 기존 API를 확장한다.\n"
+    },
+    {
+      "id": "b000016",
+      "kind": "blank",
+      "start_line": 16,
+      "end_line": 16,
+      "raw": "\n"
+    },
+    {
+      "id": "b000017",
+      "kind": "list",
+      "start_line": 17,
+      "end_line": 81,
+      "raw": "- **File > Place Linked…**\n- **File > File Info…**\n- **Edit > Toggle Last State**\n- **Select > All Layers**\n- **Select > Deselect Layers**\n- **Select > Find Layers**\n- **Select > Isolate Layers**\n- **Select > Load Selection…**\n- **Select > Save Selection…**\n- **View > Pixel Aspect Ratio** †\n- **Layer > Copy CSS**\n- **Layer > Copy SVG**\n- **Layer > Rename Layer…**\n- **Layer > Layer Style** †\n- **Layer > New Fill Layer** †\n- **Layer > New Adjustment Layer** †\n- **Layer > Layer Content Options…**\n- **Layer > Layer Mask** †\n- **Layer > Vector Mask** †\n- **Layer > Video Layers** †\n- **Layer > Rasterize** †\n- **Layer > New Layer-Based Slice**\n- **Layer > Group Layers**\n- **Layer > Ungroup Layers**\n- **Layer > Arrange** †\n- **Layer > Combine Shapes** †\n- **Layer > Align** †\n- **Layer > Distribute** †\n- **Layer > Lock Layers…**\n- **Layer > Link Layers**\n- **Layer > Select Linked Layers**\n- **Layer > Merge Layers**\n- **Layer > Merge Visible**\n- **Layer > Flatten Image**\n- **Image > Image Size…**\n- **Image > Canvas Size…**\n- **Image > Image Rotation** †\n- **Image > Crop**\n- **Image > Trim…**\n- **Image > Reveal All**\n- **Image > Duplicate…**\n- **Image > Apply Image…**\n- **Image > Calculations…**\n- **Sequence > Sequence Settings…**\n- **Sequence > Match Frame**\n- **Sequence > Reverse Match Frame**\n- **Sequence > Add Edit**\n- **Sequence > Add Edit to All Tracks**\n- **Sequence > Trim Edit**\n- **Sequence > Extend Selected Edit to Playhead**\n- **Sequence > Apply Video Transition**\n- **Sequence > Apply Audio Transition**\n- **Sequence > Apply Default Transitions to Selection**\n- **Sequence > Lift**\n- **Sequence > Extract**\n- **Sequence > Close Gap**\n- **Sequence > Go to Gap** †\n- **Sequence > Linked Selection**\n- **Sequence > Make Subsequence**\n- **Sequence > Simplify Sequence…**\n- **Sequence > Add Tracks…**\n- **Sequence > Delete Tracks…**\n- **Sequence > Captions** †\n- **Sequence > Selection Follows Playhead**\n- **Sequence > Show Through Edits**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**File > Place Linked…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**File > File Info…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Toggle Last State**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > All Layers**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Deselect Layers**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Find Layers**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Isolate Layers**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Load Selection…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Save Selection…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Pixel Aspect Ratio** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Copy CSS**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Copy SVG**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Rename Layer…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Layer Style** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > New Fill Layer** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > New Adjustment Layer** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Layer Content Options…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Layer Mask** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Vector Mask** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Video Layers** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Rasterize** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > New Layer-Based Slice**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Group Layers**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Ungroup Layers**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Arrange** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Combine Shapes** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Align** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Distribute** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Lock Layers…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Link Layers**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Select Linked Layers**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Merge Layers**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Merge Visible**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Flatten Image**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Image Size…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Canvas Size…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Image Rotation** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Crop**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Trim…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Reveal All**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Duplicate…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Apply Image…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Calculations…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Sequence Settings…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Match Frame**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Reverse Match Frame**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Add Edit**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Add Edit to All Tracks**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Trim Edit**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Extend Selected Edit to Playhead**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Apply Video Transition**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Apply Audio Transition**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Apply Default Transitions to Selection**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Lift**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Extract**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Close Gap**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Go to Gap** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Linked Selection**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Make Subsequence**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Simplify Sequence…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Add Tracks…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Delete Tracks…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Captions** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Selection Follows Playhead**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Show Through Edits**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000018",
+      "kind": "blank",
+      "start_line": 82,
+      "end_line": 82,
+      "raw": "\n"
+    },
+    {
+      "id": "b000019",
+      "kind": "heading",
+      "start_line": 83,
+      "end_line": 83,
+      "raw": "### iiPaintEngine\n",
+      "level": 3,
+      "title": "iiPaintEngine"
+    },
+    {
+      "id": "b000020",
+      "kind": "blank",
+      "start_line": 84,
+      "end_line": 84,
+      "raw": "\n"
+    },
+    {
+      "id": "b000021",
+      "kind": "paragraph",
+      "start_line": 85,
+      "end_line": 85,
+      "raw": "비트맵 선택·변형·획·채우기와 브러시 프리셋의 계산을 담당한다.\n"
+    },
+    {
+      "id": "b000022",
+      "kind": "blank",
+      "start_line": 86,
+      "end_line": 86,
+      "raw": "\n"
+    },
+    {
+      "id": "b000023",
+      "kind": "list",
+      "start_line": 87,
+      "end_line": 102,
+      "raw": "- **Edit > Fade…**\n- **Edit > Cut**\n- **Edit > Paste Special** †\n- **Edit > Clear**\n- **Edit > Fill…**\n- **Edit > Stroke…**\n- **Edit > Free Transform**\n- **Edit > Transform** †\n- **Edit > Define Brush Preset…**\n- **Select > All**\n- **Select > Reselect**\n- **Select > Select and Mask…**\n- **Select > Modify** †\n- **Select > Grow**\n- **Select > Similar**\n- **Select > Transform Selection**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**Edit > Fade…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Cut**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Paste Special** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Clear**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Fill…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Stroke…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Free Transform**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Transform** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Define Brush Preset…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > All**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Reselect**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Select and Mask…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Modify** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Grow**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Similar**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Transform Selection**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000024",
+      "kind": "blank",
+      "start_line": 103,
+      "end_line": 103,
+      "raw": "\n"
+    },
+    {
+      "id": "b000025",
+      "kind": "heading",
+      "start_line": 104,
+      "end_line": 104,
+      "raw": "### iiGraphicAdjust\n",
+      "level": 3,
+      "title": "iiGraphicAdjust"
+    },
+    {
+      "id": "b000026",
+      "kind": "blank",
+      "start_line": 105,
+      "end_line": 105,
+      "raw": "\n"
+    },
+    {
+      "id": "b000027",
+      "kind": "paragraph",
+      "start_line": 106,
+      "end_line": 106,
+      "raw": "이미지 조정·효과와 변형 알고리즘을 담당한다. 일부 명령은 새 알고리즘이나 앱 연결이 필요하다.\n"
+    },
+    {
+      "id": "b000028",
+      "kind": "blank",
+      "start_line": 107,
+      "end_line": 107,
+      "raw": "\n"
+    },
+    {
+      "id": "b000029",
+      "kind": "list",
+      "start_line": 108,
+      "end_line": 138,
+      "raw": "- **Edit > Content-Aware Fill…**\n- **Edit > Content-Aware Scale**\n- **Edit > Puppet Warp**\n- **Edit > Perspective Warp**\n- **Edit > Auto-Align Layers…**\n- **Edit > Auto-Blend Layers…**\n- **Edit > Sky Replacement…**\n- **Select > Color Range…**\n- **View > 32-bit Preview Options…**\n- **Layer > Matting** †\n- **Image > Adjustments** †\n- **Image > Auto Tone**\n- **Image > Auto Contrast**\n- **Image > Auto Color**\n- **Image > Analysis** †\n- **Filter > Gaussian Blur**\n- **Filter > Filter Gallery…**\n- **Filter > Adaptive Wide Angle…**\n- **Filter > Lens Correction…**\n- **Filter > Liquify…**\n- **Filter > Vanishing Point…**\n- **Filter > Noise** †\n- **Filter > Render** †\n- **Filter > Video** †\n- **Filter > Sharpen** †\n- **Filter > Stylize** †\n- **Filter > Distort** †\n- **Filter > Pixelate** †\n- **Filter > Blur** †\n- **Filter > Blur Gallery** †\n- **Filter > Other** †\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**Edit > Content-Aware Fill…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Content-Aware Scale**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Puppet Warp**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Perspective Warp**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Auto-Align Layers…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Auto-Blend Layers…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Sky Replacement…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Color Range…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > 32-bit Preview Options…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Matting** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Adjustments** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Auto Tone**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Auto Contrast**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Auto Color**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Analysis** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Gaussian Blur**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Filter Gallery…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Adaptive Wide Angle…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Lens Correction…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Liquify…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Vanishing Point…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Noise** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Render** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Video** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Sharpen** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Stylize** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Distort** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Pixelate** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Blur** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Blur Gallery** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Filter > Other** †",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000030",
+      "kind": "blank",
+      "start_line": 139,
+      "end_line": 139,
+      "raw": "\n"
+    },
+    {
+      "id": "b000031",
+      "kind": "heading",
+      "start_line": 140,
+      "end_line": 140,
+      "raw": "### iiColorManager\n",
+      "level": 3,
+      "title": "iiColorManager"
+    },
+    {
+      "id": "b000032",
+      "kind": "blank",
+      "start_line": 141,
+      "end_line": 141,
+      "raw": "\n"
+    },
+    {
+      "id": "b000033",
+      "kind": "paragraph",
+      "start_line": 142,
+      "end_line": 142,
+      "raw": "문서 색상 모드, 프로파일·교정 설정과 색상 관리 계약을 담당한다. 임의의 ICC 프로파일 변환과 교정은 현재 제공 범위에 맞춰 확장해야 한다.\n"
+    },
+    {
+      "id": "b000034",
+      "kind": "blank",
+      "start_line": 143,
+      "end_line": 143,
+      "raw": "\n"
+    },
+    {
+      "id": "b000035",
+      "kind": "list",
+      "start_line": 144,
+      "end_line": 150,
+      "raw": "- **Edit > Color Settings…**\n- **Edit > Assign Profile…**\n- **Edit > Convert to Profile…**\n- **View > Proof Setup** †\n- **View > Proof Colors**\n- **View > Gamut Warning**\n- **Image > Mode** †\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**Edit > Color Settings…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Assign Profile…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Convert to Profile…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Proof Setup** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Proof Colors**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Gamut Warning**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Mode** †",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000036",
+      "kind": "blank",
+      "start_line": 151,
+      "end_line": 151,
+      "raw": "\n"
+    },
+    {
+      "id": "b000037",
+      "kind": "heading",
+      "start_line": 152,
+      "end_line": 152,
+      "raw": "### iiVisualCodec\n",
+      "level": 3,
+      "title": "iiVisualCodec"
+    },
+    {
+      "id": "b000038",
+      "kind": "blank",
+      "start_line": 153,
+      "end_line": 153,
+      "raw": "\n"
+    },
+    {
+      "id": "b000039",
+      "kind": "paragraph",
+      "start_line": 154,
+      "end_line": 154,
+      "raw": "이미지·영상·Vision·공간 영상·3D 자산 및 CAD의 해당 구성요소를 담당한다. 기능별 모델, 알고리즘, 플랫폼 지원은 별도 확인이 필요하다.\n"
+    },
+    {
+      "id": "b000040",
+      "kind": "blank",
+      "start_line": 155,
+      "end_line": 155,
+      "raw": "\n"
+    },
+    {
+      "id": "b000041",
+      "kind": "list",
+      "start_line": 156,
+      "end_line": 170,
+      "raw": "- **File > Import** †\n- **Select > Focus Area…** — `iiVisualCodec::OpenCV`\n- **Select > Subject** — `iiVisualCodec::Vision`\n- **Select > Sky** — `iiVisualCodec::Vision`\n- **Select > New 3D Extrusion** — `iiVisualCodec::CAD`\n- **Layer > Quick Export as JPG** — `iiVisualCodec::Image`\n- **Layer > Export As…** — `iiVisualCodec::Image`\n- **Layer > Mask All Objects** — `iiVisualCodec::Vision`\n- **Sequence > Auto Reframe Sequence…** — `iiVisualCodec::Vision`\n- **3D > New 3D Layer from File…** — `iiVisualCodec::Asset3D`\n- **3D > Export 3D Layer…** — `iiVisualCodec::Asset3D`\n- **3D > Spherical Panorama** † — `iiVisualCodec::Spatial`\n- **3D > New 3D Extrusion from Selected Layer** — `iiVisualCodec::CAD`\n- **3D > New 3D Extrusion from Selected Path** — `iiVisualCodec::CAD`\n- **3D > New 3D Extrusion from Current Selection** — `iiVisualCodec::CAD`\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**File > Import** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Focus Area…** — `iiVisualCodec::OpenCV`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Subject** — `iiVisualCodec::Vision`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > Sky** — `iiVisualCodec::Vision`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Select > New 3D Extrusion** — `iiVisualCodec::CAD`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Quick Export as JPG** — `iiVisualCodec::Image`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Export As…** — `iiVisualCodec::Image`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Layer > Mask All Objects** — `iiVisualCodec::Vision`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Auto Reframe Sequence…** — `iiVisualCodec::Vision`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > New 3D Layer from File…** — `iiVisualCodec::Asset3D`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Export 3D Layer…** — `iiVisualCodec::Asset3D`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Spherical Panorama** † — `iiVisualCodec::Spatial`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > New 3D Extrusion from Selected Layer** — `iiVisualCodec::CAD`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > New 3D Extrusion from Selected Path** — `iiVisualCodec::CAD`",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > New 3D Extrusion from Current Selection** — `iiVisualCodec::CAD`",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000042",
+      "kind": "blank",
+      "start_line": 171,
+      "end_line": 171,
+      "raw": "\n"
+    },
+    {
+      "id": "b000043",
+      "kind": "heading",
+      "start_line": 172,
+      "end_line": 172,
+      "raw": "### iiResource\n",
+      "level": 3,
+      "title": "iiResource"
+    },
+    {
+      "id": "b000044",
+      "kind": "blank",
+      "start_line": 173,
+      "end_line": 173,
+      "raw": "\n"
+    },
+    {
+      "id": "b000045",
+      "kind": "paragraph",
+      "start_line": 174,
+      "end_line": 174,
+      "raw": "정리할 자원의 식별과 계약을 담당한다. 실제 캐시 삭제는 자원을 소유한 모듈이 수행한다.\n"
+    },
+    {
+      "id": "b000046",
+      "kind": "blank",
+      "start_line": 175,
+      "end_line": 175,
+      "raw": "\n"
+    },
+    {
+      "id": "b000047",
+      "kind": "list",
+      "start_line": 176,
+      "end_line": 176,
+      "raw": "- **Edit > Purge** †\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**Edit > Purge** †",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000048",
+      "kind": "blank",
+      "start_line": 177,
+      "end_line": 177,
+      "raw": "\n"
+    },
+    {
+      "id": "b000049",
+      "kind": "heading",
+      "start_line": 178,
+      "end_line": 178,
+      "raw": "### iiNetwork\n",
+      "level": 3,
+      "title": "iiNetwork"
+    },
+    {
+      "id": "b000050",
+      "kind": "blank",
+      "start_line": 179,
+      "end_line": 179,
+      "raw": "\n"
+    },
+    {
+      "id": "b000051",
+      "kind": "paragraph",
+      "start_line": 180,
+      "end_line": 180,
+      "raw": "콘텐츠 다운로드의 네트워크 전송을 담당한다. 저장은 앱이 iiFileProvider와 연결한다.\n"
+    },
+    {
+      "id": "b000052",
+      "kind": "blank",
+      "start_line": 181,
+      "end_line": 181,
+      "raw": "\n"
+    },
+    {
+      "id": "b000053",
+      "kind": "list",
+      "start_line": 182,
+      "end_line": 182,
+      "raw": "- **3D > Download Content…**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**3D > Download Content…**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000054",
+      "kind": "blank",
+      "start_line": 183,
+      "end_line": 183,
+      "raw": "\n"
+    },
+    {
+      "id": "b000055",
+      "kind": "heading",
+      "start_line": 184,
+      "end_line": 184,
+      "raw": "### iiLocalDiffusion\n",
+      "level": 3,
+      "title": "iiLocalDiffusion"
+    },
+    {
+      "id": "b000056",
+      "kind": "blank",
+      "start_line": 185,
+      "end_line": 185,
+      "raw": "\n"
+    },
+    {
+      "id": "b000057",
+      "kind": "paragraph",
+      "start_line": 186,
+      "end_line": 186,
+      "raw": "사용자가 선택한 지원 백엔드를 통한 생성형 이미지 처리 인터페이스를 담당한다.\n"
+    },
+    {
+      "id": "b000058",
+      "kind": "blank",
+      "start_line": 187,
+      "end_line": 187,
+      "raw": "\n"
+    },
+    {
+      "id": "b000059",
+      "kind": "list",
+      "start_line": 188,
+      "end_line": 188,
+      "raw": "- **Filter > Generative filter**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**Filter > Generative filter**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000060",
+      "kind": "blank",
+      "start_line": 189,
+      "end_line": 189,
+      "raw": "\n"
+    },
+    {
+      "id": "b000061",
+      "kind": "heading",
+      "start_line": 190,
+      "end_line": 190,
+      "raw": "### 활성화되어 있지만 불완전한 메뉴 경로\n",
+      "level": 3,
+      "title": "활성화되어 있지만 불완전한 메뉴 경로"
+    },
+    {
+      "id": "b000062",
+      "kind": "blank",
+      "start_line": 191,
+      "end_line": 191,
+      "raw": "\n"
+    },
+    {
+      "id": "b000063",
+      "kind": "paragraph",
+      "start_line": 192,
+      "end_line": 192,
+      "raw": "아래 항목은 위의 211개 비활성 명령·빈 하위 메뉴와 별도로 관리한다. 기능을 실제 수정할 때에는 주 담당 SDK뿐 아니라 Congregation의 연결도 함께 확인해야 한다.\n"
+    },
+    {
+      "id": "b000064",
+      "kind": "blank",
+      "start_line": 193,
+      "end_line": 193,
+      "raw": "\n"
+    },
+    {
+      "id": "b000065",
+      "kind": "list",
+      "start_line": 194,
+      "end_line": 200,
+      "raw": "- **iiSharedCanvas · iiGUI — Edit > Copy / Copy Merged:** 현재는 동일한 액션으로 연결되어 선택 영역과 선택 레이어를 사용하지 않고 프레임 0의 합성 이미지를 복사한다. 현재 프레임과 복사 대상을 구분해 생성하고 클립보드로 전달하도록 배정한다. [명령 연결](../../../../Product/Congregation/App/Application/AppMenu.h) · [복사 처리](../../../../Product/Congregation/App/Application/Application.cpp)\n- **iiGUI — Edit > Undo / Redo / Copy / Copy Merged / Paste:** 텍스트 입력 위젯이 포커스를 유지한 채 메뉴 명령이 전달되면 현재 처리기는 명령을 텍스트 입력으로 전달하지 않고 반환한다. 앱이 입력 대상과 캔버스 대상을 구분하고 iiGUI가 해당 입력 대상으로 전달하는 경계를 담당한다. 키보드 입력 경로와 구분한다. [명령 처리](../../../../Product/Congregation/App/Application/Application.cpp)\n- **iiSharedCanvas · iiVisualCodec — File > Export > Export…:** 현재 비트맵 내보내기는 프레임 0을 사용한다. Congregation이 현재 프레임을 지정하고 렌더와 인코딩을 연결하도록 배정한다. [내보내기 구현](../../../../Product/Congregation/App/Canvas/Artwork.cpp)\n- **iiGUI · iiFileProvider — iPad의 File > Save As… 및 첫 Save:** 현재 명시적 파일명 저장 경로가 중단된다. 파일 선택과 저장 연결을 배정한다. 이미 저장 가능한 경로가 있는 Save는 별도 경로이다. [파일 대화상자 처리](../../../../Product/Congregation/App/Application/Application.cpp)\n- **iiGUI · iiVisualCodec — iPad의 File > Export > Export…:** 현재 폴더 선택 뒤 `Canvas.png`라는 고정 이름을 사용한다. 파일명과 형식 선택 및 선택한 형식의 인코딩을 배정한다. [앱의 기본 파일명](../../../../Product/Congregation/App/Application/Application.cpp) · [UIKit 파일 선택기](../../../iiGUI/src/Platform/HostIOS.mm)\n- **iiGUI — iPad·Android의 View > Screen Mode > Presentation 및 Window > Presentation:** 현재 앱은 상태를 변경한 뒤 호스트 전체 화면 전환을 요청하나, 해당 호스트는 전환을 지원하지 않는다. 앱이 플랫폼의 지원 범위에 따라 UI 상태와 창 동작을 조합하도록 배정한다. [앱 명령](../../../../Product/Congregation/App/Application/Application.cpp) · [iPad 호스트](../../../iiGUI/src/Platform/HostIOS.mm) · [Android 호스트](../../../iiGUI/src/Platform/HostAndroid.cpp)\n- **iiGUI · iiFileProvider — Android의 New document…, Add canvas…, Open…, Save As…, 첫 Save, Export…, Place Embedded…, Image > Place image…, Edit > Preferences > Preferences…:** 현재 Android 호스트의 보조 창과 문서 선택기가 미지원이므로 이 경로를 완료할 수 없다. 플랫폼 화면·선택기와 파일 처리를 배정한다. 앱은 필요에 맞게 화면을 연결한다. [Android 호스트](../../../iiGUI/src/Platform/HostAndroid.cpp) · [앱의 창과 파일 연결](../../../../Product/Congregation/App/Application/Application.cpp)\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**iiSharedCanvas · iiGUI — Edit > Copy / Copy Merged:** 현재는 동일한 액션으로 연결되어 선택 영역과 선택 레이어를 사용하지 않고 프레임 0의 합성 이미지를 복사한다. 현재 프레임과 복사 대상을 구분해 생성하고 클립보드로 전달하도록 배정한다. [명령 연결](../../../../Product/Congregation/App/Application/AppMenu.h) · [복사 처리](../../../../Product/Congregation/App/Application/Application.cpp)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**iiGUI — Edit > Undo / Redo / Copy / Copy Merged / Paste:** 텍스트 입력 위젯이 포커스를 유지한 채 메뉴 명령이 전달되면 현재 처리기는 명령을 텍스트 입력으로 전달하지 않고 반환한다. 앱이 입력 대상과 캔버스 대상을 구분하고 iiGUI가 해당 입력 대상으로 전달하는 경계를 담당한다. 키보드 입력 경로와 구분한다. [명령 처리](../../../../Product/Congregation/App/Application/Application.cpp)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**iiSharedCanvas · iiVisualCodec — File > Export > Export…:** 현재 비트맵 내보내기는 프레임 0을 사용한다. Congregation이 현재 프레임을 지정하고 렌더와 인코딩을 연결하도록 배정한다. [내보내기 구현](../../../../Product/Congregation/App/Canvas/Artwork.cpp)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**iiGUI · iiFileProvider — iPad의 File > Save As… 및 첫 Save:** 현재 명시적 파일명 저장 경로가 중단된다. 파일 선택과 저장 연결을 배정한다. 이미 저장 가능한 경로가 있는 Save는 별도 경로이다. [파일 대화상자 처리](../../../../Product/Congregation/App/Application/Application.cpp)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**iiGUI · iiVisualCodec — iPad의 File > Export > Export…:** 현재 폴더 선택 뒤 `Canvas.png`라는 고정 이름을 사용한다. 파일명과 형식 선택 및 선택한 형식의 인코딩을 배정한다. [앱의 기본 파일명](../../../../Product/Congregation/App/Application/Application.cpp) · [UIKit 파일 선택기](../../../iiGUI/src/Platform/HostIOS.mm)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**iiGUI — iPad·Android의 View > Screen Mode > Presentation 및 Window > Presentation:** 현재 앱은 상태를 변경한 뒤 호스트 전체 화면 전환을 요청하나, 해당 호스트는 전환을 지원하지 않는다. 앱이 플랫폼의 지원 범위에 따라 UI 상태와 창 동작을 조합하도록 배정한다. [앱 명령](../../../../Product/Congregation/App/Application/Application.cpp) · [iPad 호스트](../../../iiGUI/src/Platform/HostIOS.mm) · [Android 호스트](../../../iiGUI/src/Platform/HostAndroid.cpp)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**iiGUI · iiFileProvider — Android의 New document…, Add canvas…, Open…, Save As…, 첫 Save, Export…, Place Embedded…, Image > Place image…, Edit > Preferences > Preferences…:** 현재 Android 호스트의 보조 창과 문서 선택기가 미지원이므로 이 경로를 완료할 수 없다. 플랫폼 화면·선택기와 파일 처리를 배정한다. 앱은 필요에 맞게 화면을 연결한다. [Android 호스트](../../../iiGUI/src/Platform/HostAndroid.cpp) · [앱의 창과 파일 연결](../../../../Product/Congregation/App/Application/Application.cpp)",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000066",
+      "kind": "blank",
+      "start_line": 201,
+      "end_line": 201,
+      "raw": "\n"
+    },
+    {
+      "id": "b000067",
+      "kind": "heading",
+      "start_line": 202,
+      "end_line": 202,
+      "raw": "## 2. 신규 제안 모듈에 배정한 기능\n",
+      "level": 2,
+      "title": "2. 신규 제안 모듈에 배정한 기능"
+    },
+    {
+      "id": "b000068",
+      "kind": "blank",
+      "start_line": 203,
+      "end_line": 203,
+      "raw": "\n"
+    },
+    {
+      "id": "b000069",
+      "kind": "paragraph",
+      "start_line": 204,
+      "end_line": 204,
+      "raw": "아래는 기존 작업 공간에서 해당 이름의 모듈을 확인하지 못해 새로 제안한 책임이다. 각 모듈이 독립 API를 제공하도록 설계하며, 실제 생성·구현·테스트·설치는 아직 이루어지지 않았다.\n"
+    },
+    {
+      "id": "b000070",
+      "kind": "blank",
+      "start_line": 205,
+      "end_line": 205,
+      "raw": "\n"
+    },
+    {
+      "id": "b000071",
+      "kind": "heading",
+      "start_line": 206,
+      "end_line": 206,
+      "raw": "### iiDocumentSession\n",
+      "level": 3,
+      "title": "iiDocumentSession"
+    },
+    {
+      "id": "b000072",
+      "kind": "blank",
+      "start_line": 207,
+      "end_line": 207,
+      "raw": "\n"
+    },
+    {
+      "id": "b000073",
+      "kind": "paragraph",
+      "start_line": 208,
+      "end_line": 208,
+      "raw": "열린 문서 집합, 최근 문서와 저장·닫기 절차의 공통 계약을 담당한다.\n"
+    },
+    {
+      "id": "b000074",
+      "kind": "blank",
+      "start_line": 209,
+      "end_line": 209,
+      "raw": "\n"
+    },
+    {
+      "id": "b000075",
+      "kind": "list",
+      "start_line": 210,
+      "end_line": 216,
+      "raw": "- **File > Open As…**\n- **File > Open Recent** †\n- **File > Close**\n- **File > Close All**\n- **File > Close Others**\n- **File > Save a Copy…**\n- **File > Revert**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**File > Open As…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**File > Open Recent** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**File > Close**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**File > Close All**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**File > Close Others**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**File > Save a Copy…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**File > Revert**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000076",
+      "kind": "blank",
+      "start_line": 217,
+      "end_line": 217,
+      "raw": "\n"
+    },
+    {
+      "id": "b000077",
+      "kind": "heading",
+      "start_line": 218,
+      "end_line": 218,
+      "raw": "### iiAutomation\n",
+      "level": 3,
+      "title": "iiAutomation"
+    },
+    {
+      "id": "b000078",
+      "kind": "blank",
+      "start_line": 219,
+      "end_line": 219,
+      "raw": "\n"
+    },
+    {
+      "id": "b000079",
+      "kind": "paragraph",
+      "start_line": 220,
+      "end_line": 220,
+      "raw": "명령 시퀀스, 일괄 실행과 교체 가능한 스크립트 실행 인터페이스를 담당한다.\n"
+    },
+    {
+      "id": "b000080",
+      "kind": "blank",
+      "start_line": 221,
+      "end_line": 221,
+      "raw": "\n"
+    },
+    {
+      "id": "b000081",
+      "kind": "list",
+      "start_line": 222,
+      "end_line": 223,
+      "raw": "- **File > Automate** †\n- **File > Scripts** †\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**File > Automate** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**File > Scripts** †",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000082",
+      "kind": "blank",
+      "start_line": 224,
+      "end_line": 224,
+      "raw": "\n"
+    },
+    {
+      "id": "b000083",
+      "kind": "heading",
+      "start_line": 225,
+      "end_line": 225,
+      "raw": "### iiPrint\n",
+      "level": 3,
+      "title": "iiPrint"
+    },
+    {
+      "id": "b000084",
+      "kind": "blank",
+      "start_line": 226,
+      "end_line": 226,
+      "raw": "\n"
+    },
+    {
+      "id": "b000085",
+      "kind": "paragraph",
+      "start_line": 227,
+      "end_line": 227,
+      "raw": "2D 인쇄 설정, 출력 작업과 인쇄 준비를 담당한다.\n"
+    },
+    {
+      "id": "b000086",
+      "kind": "blank",
+      "start_line": 228,
+      "end_line": 228,
+      "raw": "\n"
+    },
+    {
+      "id": "b000087",
+      "kind": "list",
+      "start_line": 229,
+      "end_line": 231,
+      "raw": "- **File > Print…**\n- **File > Print One Copy**\n- **Image > Trap…**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**File > Print…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**File > Print One Copy**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Trap…**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000088",
+      "kind": "blank",
+      "start_line": 232,
+      "end_line": 232,
+      "raw": "\n"
+    },
+    {
+      "id": "b000089",
+      "kind": "heading",
+      "start_line": 233,
+      "end_line": 233,
+      "raw": "### iiCommandRegistry\n",
+      "level": 3,
+      "title": "iiCommandRegistry"
+    },
+    {
+      "id": "b000090",
+      "kind": "blank",
+      "start_line": 234,
+      "end_line": 234,
+      "raw": "\n"
+    },
+    {
+      "id": "b000091",
+      "kind": "paragraph",
+      "start_line": 235,
+      "end_line": 235,
+      "raw": "명령 검색, 단축키와 메뉴·도구 모음 구성을 담당한다.\n"
+    },
+    {
+      "id": "b000092",
+      "kind": "blank",
+      "start_line": 236,
+      "end_line": 236,
+      "raw": "\n"
+    },
+    {
+      "id": "b000093",
+      "kind": "list",
+      "start_line": 237,
+      "end_line": 240,
+      "raw": "- **Edit > Search** — 명령 검색으로 잠정 해석; 문서 텍스트 검색은 iiTextServices에 배정\n- **Edit > Keyboard Shortcuts…**\n- **Edit > Menus…**\n- **Edit > Toolbar…**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**Edit > Search** — 명령 검색으로 잠정 해석; 문서 텍스트 검색은 iiTextServices에 배정",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Keyboard Shortcuts…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Menus…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Toolbar…**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000094",
+      "kind": "blank",
+      "start_line": 241,
+      "end_line": 241,
+      "raw": "\n"
+    },
+    {
+      "id": "b000095",
+      "kind": "heading",
+      "start_line": 242,
+      "end_line": 242,
+      "raw": "### iiTextServices\n",
+      "level": 3,
+      "title": "iiTextServices"
+    },
+    {
+      "id": "b000096",
+      "kind": "blank",
+      "start_line": 243,
+      "end_line": 243,
+      "raw": "\n"
+    },
+    {
+      "id": "b000097",
+      "kind": "paragraph",
+      "start_line": 244,
+      "end_line": 244,
+      "raw": "맞춤법 검사와 텍스트 검색·치환을 담당한다.\n"
+    },
+    {
+      "id": "b000098",
+      "kind": "blank",
+      "start_line": 245,
+      "end_line": 245,
+      "raw": "\n"
+    },
+    {
+      "id": "b000099",
+      "kind": "list",
+      "start_line": 246,
+      "end_line": 247,
+      "raw": "- **Edit > Check Spelling…**\n- **Edit > Find and Replace Text…**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**Edit > Check Spelling…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Find and Replace Text…**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000100",
+      "kind": "blank",
+      "start_line": 248,
+      "end_line": 248,
+      "raw": "\n"
+    },
+    {
+      "id": "b000101",
+      "kind": "heading",
+      "start_line": 249,
+      "end_line": 249,
+      "raw": "### iiPresetManager\n",
+      "level": 3,
+      "title": "iiPresetManager"
+    },
+    {
+      "id": "b000102",
+      "kind": "blank",
+      "start_line": 250,
+      "end_line": 250,
+      "raw": "\n"
+    },
+    {
+      "id": "b000103",
+      "kind": "paragraph",
+      "start_line": 251,
+      "end_line": 251,
+      "raw": "종류에 종속되지 않는 프리셋 식별, 분류와 버전 관리를 담당한다.\n"
+    },
+    {
+      "id": "b000104",
+      "kind": "blank",
+      "start_line": 252,
+      "end_line": 252,
+      "raw": "\n"
+    },
+    {
+      "id": "b000105",
+      "kind": "list",
+      "start_line": 253,
+      "end_line": 255,
+      "raw": "- **Edit > Define Pattern…**\n- **Edit > Define Custom Shape…**\n- **Edit > Presets** †\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**Edit > Define Pattern…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Define Custom Shape…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Edit > Presets** †",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000106",
+      "kind": "blank",
+      "start_line": 256,
+      "end_line": 256,
+      "raw": "\n"
+    },
+    {
+      "id": "b000107",
+      "kind": "heading",
+      "start_line": 257,
+      "end_line": 257,
+      "raw": "### iiViewport\n",
+      "level": 3,
+      "title": "iiViewport"
+    },
+    {
+      "id": "b000108",
+      "kind": "blank",
+      "start_line": 258,
+      "end_line": 258,
+      "raw": "\n"
+    },
+    {
+      "id": "b000109",
+      "kind": "paragraph",
+      "start_line": 259,
+      "end_line": 259,
+      "raw": "캔버스·타임라인의 좌표 변환, 배율, 표시 범위와 스냅 계산을 담당한다.\n"
+    },
+    {
+      "id": "b000110",
+      "kind": "blank",
+      "start_line": 260,
+      "end_line": 260,
+      "raw": "\n"
+    },
+    {
+      "id": "b000111",
+      "kind": "list",
+      "start_line": 261,
+      "end_line": 279,
+      "raw": "- **View > Pixel Aspect Ratio Correction**\n- **View > Fit Layer on Screen**\n- **View > Fit Artboard on Screen**\n- **View > 100%**\n- **View > 200%**\n- **View > Print Size**\n- **View > Actual Size**\n- **View > Flip Horizontal**\n- **View > Pattern Preview**\n- **View > Extras**\n- **View > Show** †\n- **View > Snap**\n- **View > Snap To** †\n- **View > Guides** †\n- **View > Lock Slices**\n- **View > Clear Slices**\n- **Sequence > Zoom In**\n- **Sequence > Zoom Out**\n- **Sequence > Snap in Timeline**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**View > Pixel Aspect Ratio Correction**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Fit Layer on Screen**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Fit Artboard on Screen**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > 100%**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > 200%**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Print Size**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Actual Size**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Flip Horizontal**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Pattern Preview**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Extras**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Show** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Snap**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Snap To** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Guides** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Lock Slices**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**View > Clear Slices**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Zoom In**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Zoom Out**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Snap in Timeline**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000112",
+      "kind": "blank",
+      "start_line": 280,
+      "end_line": 280,
+      "raw": "\n"
+    },
+    {
+      "id": "b000113",
+      "kind": "heading",
+      "start_line": 281,
+      "end_line": 281,
+      "raw": "### iiDocumentVariables\n",
+      "level": 3,
+      "title": "iiDocumentVariables"
+    },
+    {
+      "id": "b000114",
+      "kind": "blank",
+      "start_line": 282,
+      "end_line": 282,
+      "raw": "\n"
+    },
+    {
+      "id": "b000115",
+      "kind": "paragraph",
+      "start_line": 283,
+      "end_line": 283,
+      "raw": "문서 변수, 데이터 집합과 반복 출력용 값 결합을 담당한다.\n"
+    },
+    {
+      "id": "b000116",
+      "kind": "blank",
+      "start_line": 284,
+      "end_line": 284,
+      "raw": "\n"
+    },
+    {
+      "id": "b000117",
+      "kind": "list",
+      "start_line": 285,
+      "end_line": 286,
+      "raw": "- **Image > Variables** †\n- **Image > Apply Data Set…**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**Image > Variables** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Image > Apply Data Set…**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000118",
+      "kind": "blank",
+      "start_line": 287,
+      "end_line": 287,
+      "raw": "\n"
+    },
+    {
+      "id": "b000119",
+      "kind": "heading",
+      "start_line": 288,
+      "end_line": 288,
+      "raw": "### iiTimelineRender\n",
+      "level": 3,
+      "title": "iiTimelineRender"
+    },
+    {
+      "id": "b000120",
+      "kind": "blank",
+      "start_line": 289,
+      "end_line": 289,
+      "raw": "\n"
+    },
+    {
+      "id": "b000121",
+      "kind": "paragraph",
+      "start_line": 290,
+      "end_line": 290,
+      "raw": "시퀀스의 범위별 렌더 작업과 렌더 결과 관리를 담당한다.\n"
+    },
+    {
+      "id": "b000122",
+      "kind": "blank",
+      "start_line": 291,
+      "end_line": 291,
+      "raw": "\n"
+    },
+    {
+      "id": "b000123",
+      "kind": "list",
+      "start_line": 292,
+      "end_line": 296,
+      "raw": "- **Sequence > Render Effects in Work Area**\n- **Sequence > Render Entire Work Area**\n- **Sequence > Render Selection**\n- **Sequence > Delete Render Files**\n- **Sequence > Delete Work Area Render Files**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**Sequence > Render Effects in Work Area**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Render Entire Work Area**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Render Selection**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Delete Render Files**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Delete Work Area Render Files**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000124",
+      "kind": "blank",
+      "start_line": 297,
+      "end_line": 297,
+      "raw": "\n"
+    },
+    {
+      "id": "b000125",
+      "kind": "heading",
+      "start_line": 298,
+      "end_line": 298,
+      "raw": "### iiAudioProcessing\n",
+      "level": 3,
+      "title": "iiAudioProcessing"
+    },
+    {
+      "id": "b000126",
+      "kind": "blank",
+      "start_line": 299,
+      "end_line": 299,
+      "raw": "\n"
+    },
+    {
+      "id": "b000127",
+      "kind": "paragraph",
+      "start_line": 300,
+      "end_line": 300,
+      "raw": "오디오 믹싱, 전환 처리와 정규화를 담당한다.\n"
+    },
+    {
+      "id": "b000128",
+      "kind": "blank",
+      "start_line": 301,
+      "end_line": 301,
+      "raw": "\n"
+    },
+    {
+      "id": "b000129",
+      "kind": "list",
+      "start_line": 302,
+      "end_line": 303,
+      "raw": "- **Sequence > Render Audio**\n- **Sequence > Normalize Mix Track…**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**Sequence > Render Audio**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**Sequence > Normalize Mix Track…**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000130",
+      "kind": "blank",
+      "start_line": 304,
+      "end_line": 304,
+      "raw": "\n"
+    },
+    {
+      "id": "b000131",
+      "kind": "heading",
+      "start_line": 305,
+      "end_line": 305,
+      "raw": "### iiSpeechRecognition\n",
+      "level": 3,
+      "title": "iiSpeechRecognition"
+    },
+    {
+      "id": "b000132",
+      "kind": "blank",
+      "start_line": 306,
+      "end_line": 306,
+      "raw": "\n"
+    },
+    {
+      "id": "b000133",
+      "kind": "paragraph",
+      "start_line": 307,
+      "end_line": 307,
+      "raw": "교체 가능한 음성 인식 백엔드와 시간 정보가 있는 전사 결과를 담당한다.\n"
+    },
+    {
+      "id": "b000134",
+      "kind": "blank",
+      "start_line": 308,
+      "end_line": 308,
+      "raw": "\n"
+    },
+    {
+      "id": "b000135",
+      "kind": "list",
+      "start_line": 309,
+      "end_line": 309,
+      "raw": "- **Sequence > Transcribe Sequence…**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**Sequence > Transcribe Sequence…**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000136",
+      "kind": "blank",
+      "start_line": 310,
+      "end_line": 310,
+      "raw": "\n"
+    },
+    {
+      "id": "b000137",
+      "kind": "heading",
+      "start_line": 311,
+      "end_line": 311,
+      "raw": "### ii3DScene\n",
+      "level": 3,
+      "title": "ii3DScene"
+    },
+    {
+      "id": "b000138",
+      "kind": "blank",
+      "start_line": 312,
+      "end_line": 312,
+      "raw": "\n"
+    },
+    {
+      "id": "b000139",
+      "kind": "paragraph",
+      "start_line": 313,
+      "end_line": 313,
+      "raw": "장면 객체, 계층, 배치와 표면 페인팅 대상을 담당한다.\n"
+    },
+    {
+      "id": "b000140",
+      "kind": "blank",
+      "start_line": 314,
+      "end_line": 314,
+      "raw": "\n"
+    },
+    {
+      "id": "b000141",
+      "kind": "list",
+      "start_line": 315,
+      "end_line": 326,
+      "raw": "- **3D > Merge 3D Layers**\n- **3D > Group Objects**\n- **3D > Group All Objects in Scene**\n- **3D > Move Objects to Ground Plane**\n- **3D > Pack Objects on Ground Plane**\n- **3D > New Tiled Painting from Layer**\n- **3D > Paint Falloff…**\n- **3D > Paint System** †\n- **3D > Paint on Target Texture** †\n- **3D > Select Paintable Areas**\n- **3D > Create Painting Overlay** †\n- **3D > Sketch with Current Brush**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**3D > Merge 3D Layers**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Group Objects**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Group All Objects in Scene**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Move Objects to Ground Plane**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Pack Objects on Ground Plane**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > New Tiled Painting from Layer**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Paint Falloff…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Paint System** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Paint on Target Texture** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Select Paintable Areas**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Create Painting Overlay** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Sketch with Current Brush**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000142",
+      "kind": "blank",
+      "start_line": 327,
+      "end_line": 327,
+      "raw": "\n"
+    },
+    {
+      "id": "b000143",
+      "kind": "heading",
+      "start_line": 328,
+      "end_line": 328,
+      "raw": "### iiMeshProcessing\n",
+      "level": 3,
+      "title": "iiMeshProcessing"
+    },
+    {
+      "id": "b000144",
+      "kind": "blank",
+      "start_line": 329,
+      "end_line": 329,
+      "raw": "\n"
+    },
+    {
+      "id": "b000145",
+      "kind": "paragraph",
+      "start_line": 330,
+      "end_line": 330,
+      "raw": "메시 생성·편집, UV, 단면과 단순화를 담당한다.\n"
+    },
+    {
+      "id": "b000146",
+      "kind": "blank",
+      "start_line": 331,
+      "end_line": 331,
+      "raw": "\n"
+    },
+    {
+      "id": "b000147",
+      "kind": "list",
+      "start_line": 332,
+      "end_line": 338,
+      "raw": "- **3D > New Mesh from Layer** †\n- **3D > Generate UVs…**\n- **3D > Split Extrusion**\n- **3D > Apply Cross Section to Scene**\n- **3D > Unify Scene for 3D Printing**\n- **3D > Simplify Mesh…**\n- **3D > Make Work Path from 3D Layer**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**3D > New Mesh from Layer** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Generate UVs…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Split Extrusion**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Apply Cross Section to Scene**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Unify Scene for 3D Printing**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Simplify Mesh…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Make Work Path from 3D Layer**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000148",
+      "kind": "blank",
+      "start_line": 339,
+      "end_line": 339,
+      "raw": "\n"
+    },
+    {
+      "id": "b000149",
+      "kind": "heading",
+      "start_line": 340,
+      "end_line": 340,
+      "raw": "### ii3DRender\n",
+      "level": 3,
+      "title": "ii3DRender"
+    },
+    {
+      "id": "b000150",
+      "kind": "blank",
+      "start_line": 341,
+      "end_line": 341,
+      "raw": "\n"
+    },
+    {
+      "id": "b000151",
+      "kind": "paragraph",
+      "start_line": 342,
+      "end_line": 342,
+      "raw": "장면 렌더링과 렌더 결과 생성을 담당한다.\n"
+    },
+    {
+      "id": "b000152",
+      "kind": "blank",
+      "start_line": 343,
+      "end_line": 343,
+      "raw": "\n"
+    },
+    {
+      "id": "b000153",
+      "kind": "list",
+      "start_line": 344,
+      "end_line": 346,
+      "raw": "- **Filter > 3D** †\n- **3D > Render 3D Layer**\n- **3D > Render Document to File…**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**Filter > 3D** †",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Render 3D Layer**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > Render Document to File…**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000154",
+      "kind": "blank",
+      "start_line": 347,
+      "end_line": 347,
+      "raw": "\n"
+    },
+    {
+      "id": "b000155",
+      "kind": "heading",
+      "start_line": 348,
+      "end_line": 348,
+      "raw": "### ii3DPrinting\n",
+      "level": 3,
+      "title": "ii3DPrinting"
+    },
+    {
+      "id": "b000156",
+      "kind": "blank",
+      "start_line": 349,
+      "end_line": 349,
+      "raw": "\n"
+    },
+    {
+      "id": "b000157",
+      "kind": "paragraph",
+      "start_line": 350,
+      "end_line": 350,
+      "raw": "3D 인쇄 설정, 출력 데이터 준비와 장치 전달을 담당한다.\n"
+    },
+    {
+      "id": "b000158",
+      "kind": "blank",
+      "start_line": 351,
+      "end_line": 351,
+      "raw": "\n"
+    },
+    {
+      "id": "b000159",
+      "kind": "list",
+      "start_line": 352,
+      "end_line": 353,
+      "raw": "- **3D > 3D Print Settings…**\n- **3D > 3D Print…**\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**3D > 3D Print Settings…**",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "**3D > 3D Print…**",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000160",
+      "kind": "blank",
+      "start_line": 354,
+      "end_line": 354,
+      "raw": "\n"
+    },
+    {
+      "id": "b000161",
+      "kind": "heading",
+      "start_line": 355,
+      "end_line": 355,
+      "raw": "### iiHelp\n",
+      "level": 3,
+      "title": "iiHelp"
+    },
+    {
+      "id": "b000162",
+      "kind": "blank",
+      "start_line": 356,
+      "end_line": 356,
+      "raw": "\n"
+    },
+    {
+      "id": "b000163",
+      "kind": "paragraph",
+      "start_line": 357,
+      "end_line": 357,
+      "raw": "문맥별 도움말 문서의 탐색과 연결을 담당한다. 실제 도움말 내용은 Congregation이 제공한다.\n"
+    },
+    {
+      "id": "b000164",
+      "kind": "blank",
+      "start_line": 358,
+      "end_line": 358,
+      "raw": "\n"
+    },
+    {
+      "id": "b000165",
+      "kind": "list",
+      "start_line": 359,
+      "end_line": 359,
+      "raw": "- **Help > 도움말** — 현재는 `Help unavailable` 상태 행만 있으며 세부 명령은 없다.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "**Help > 도움말** — 현재는 `Help unavailable` 상태 행만 있으며 세부 명령은 없다.",
+          "checked": null
+        }
+      ]
+    },
+    {
+      "id": "b000166",
+      "kind": "blank",
+      "start_line": 360,
+      "end_line": 360,
+      "raw": "\n"
+    },
+    {
+      "id": "b000167",
+      "kind": "heading",
+      "start_line": 361,
+      "end_line": 361,
+      "raw": "## 관련 근거와 확인 범위\n",
+      "level": 2,
+      "title": "관련 근거와 확인 범위"
+    },
+    {
+      "id": "b000168",
+      "kind": "blank",
+      "start_line": 362,
+      "end_line": 362,
+      "raw": "\n"
+    },
+    {
+      "id": "b000169",
+      "kind": "list",
+      "start_line": 363,
+      "end_line": 370,
+      "raw": "- [Congregation 글로벌 메뉴 표시 계약](../../../../Product/Congregation/docs/GlobalApplicationToolbar.md)\n- [iiSharedCanvas의 영상 편집 타임라인](../../../iiSharedCanvas/README.md): 모델은 시퀀스 렌더러나 오디오 믹서가 아니며, 해당 `TimelineProject`의 `.iisc` 영속화도 별도이다.\n- [iiGraphicAdjust의 필터·변형 범위](../../../iiGraphicAdjust/README.md): 기존 계산 기반의 재사용 가능 범위를 확인한다.\n- [iiVisualCodec의 구성요소](../../../iiVisualCodec/README.md): Image, Video, Vision, OpenCV, Geometry, Asset3D, CAD 등의 분리를 확인한다.\n- [iiColorManager의 현재 색상 관리 범위](../../../iiColorManager/README.md): 임의 문서·ICC 프로파일 변환 전체가 이미 지원된다고 전제하지 않는다.\n- [iiPaintEngine 브러시 구성요소](../../../iiPaintEngine/README.md): `iiBrushTools`는 별도 신규 모듈 대신 `iiPaintEngine::BrushTools`와 기존 호환 패키지를 기준으로 한다.\n- [레이어 마스크 작업 계약](../../../../Product/Congregation/docs/MASK_WORKFLOW.md): Layer > Layer Mask 하위 메뉴는 비어 있지만 타임라인에는 별도 마스크 경로가 있다.\n- 생성형 기능은 폐기된 ONNX 및 ONNX Runtime을 다시 도입하지 않고 지원 중인 백엔드와 명시적으로 제공된 모델을 사용하도록 설계한다.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "[Congregation 글로벌 메뉴 표시 계약](../../../../Product/Congregation/docs/GlobalApplicationToolbar.md)",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[iiSharedCanvas의 영상 편집 타임라인](../../../iiSharedCanvas/README.md): 모델은 시퀀스 렌더러나 오디오 믹서가 아니며, 해당 `TimelineProject`의 `.iisc` 영속화도 별도이다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[iiGraphicAdjust의 필터·변형 범위](../../../iiGraphicAdjust/README.md): 기존 계산 기반의 재사용 가능 범위를 확인한다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[iiVisualCodec의 구성요소](../../../iiVisualCodec/README.md): Image, Video, Vision, OpenCV, Geometry, Asset3D, CAD 등의 분리를 확인한다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[iiColorManager의 현재 색상 관리 범위](../../../iiColorManager/README.md): 임의 문서·ICC 프로파일 변환 전체가 이미 지원된다고 전제하지 않는다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[iiPaintEngine 브러시 구성요소](../../../iiPaintEngine/README.md): `iiBrushTools`는 별도 신규 모듈 대신 `iiPaintEngine::BrushTools`와 기존 호환 패키지를 기준으로 한다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "[레이어 마스크 작업 계약](../../../../Product/Congregation/docs/MASK_WORKFLOW.md): Layer > Layer Mask 하위 메뉴는 비어 있지만 타임라인에는 별도 마스크 경로가 있다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "생성형 기능은 폐기된 ONNX 및 ONNX Runtime을 다시 도입하지 않고 지원 중인 백엔드와 명시적으로 제공된 모델을 사용하도록 설계한다.",
+          "checked": null
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "Congregation 글로벌 메뉴의 iiSDK 모듈 배정",
+      "anchor": "congregation-글로벌-메뉴의-iisdk-모듈-배정",
+      "start_line": 1
+    },
+    {
+      "block_id": "b000011",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "1. 기존 모듈에 배정한 기능",
+      "anchor": "1-기존-모듈에-배정한-기능",
+      "start_line": 11
+    },
+    {
+      "block_id": "b000013",
+      "parent_id": "b000011",
+      "level": 3,
+      "title": "iiSharedCanvas",
+      "anchor": "iisharedcanvas",
+      "start_line": 13
+    },
+    {
+      "block_id": "b000019",
+      "parent_id": "b000011",
+      "level": 3,
+      "title": "iiPaintEngine",
+      "anchor": "iipaintengine",
+      "start_line": 83
+    },
+    {
+      "block_id": "b000025",
+      "parent_id": "b000011",
+      "level": 3,
+      "title": "iiGraphicAdjust",
+      "anchor": "iigraphicadjust",
+      "start_line": 104
+    },
+    {
+      "block_id": "b000031",
+      "parent_id": "b000011",
+      "level": 3,
+      "title": "iiColorManager",
+      "anchor": "iicolormanager",
+      "start_line": 140
+    },
+    {
+      "block_id": "b000037",
+      "parent_id": "b000011",
+      "level": 3,
+      "title": "iiVisualCodec",
+      "anchor": "iivisualcodec",
+      "start_line": 152
+    },
+    {
+      "block_id": "b000043",
+      "parent_id": "b000011",
+      "level": 3,
+      "title": "iiResource",
+      "anchor": "iiresource",
+      "start_line": 172
+    },
+    {
+      "block_id": "b000049",
+      "parent_id": "b000011",
+      "level": 3,
+      "title": "iiNetwork",
+      "anchor": "iinetwork",
+      "start_line": 178
+    },
+    {
+      "block_id": "b000055",
+      "parent_id": "b000011",
+      "level": 3,
+      "title": "iiLocalDiffusion",
+      "anchor": "iilocaldiffusion",
+      "start_line": 184
+    },
+    {
+      "block_id": "b000061",
+      "parent_id": "b000011",
+      "level": 3,
+      "title": "활성화되어 있지만 불완전한 메뉴 경로",
+      "anchor": "활성화되어-있지만-불완전한-메뉴-경로",
+      "start_line": 190
+    },
+    {
+      "block_id": "b000067",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "2. 신규 제안 모듈에 배정한 기능",
+      "anchor": "2-신규-제안-모듈에-배정한-기능",
+      "start_line": 202
+    },
+    {
+      "block_id": "b000071",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "iiDocumentSession",
+      "anchor": "iidocumentsession",
+      "start_line": 206
+    },
+    {
+      "block_id": "b000077",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "iiAutomation",
+      "anchor": "iiautomation",
+      "start_line": 218
+    },
+    {
+      "block_id": "b000083",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "iiPrint",
+      "anchor": "iiprint",
+      "start_line": 225
+    },
+    {
+      "block_id": "b000089",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "iiCommandRegistry",
+      "anchor": "iicommandregistry",
+      "start_line": 233
+    },
+    {
+      "block_id": "b000095",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "iiTextServices",
+      "anchor": "iitextservices",
+      "start_line": 242
+    },
+    {
+      "block_id": "b000101",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "iiPresetManager",
+      "anchor": "iipresetmanager",
+      "start_line": 249
+    },
+    {
+      "block_id": "b000107",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "iiViewport",
+      "anchor": "iiviewport",
+      "start_line": 257
+    },
+    {
+      "block_id": "b000113",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "iiDocumentVariables",
+      "anchor": "iidocumentvariables",
+      "start_line": 281
+    },
+    {
+      "block_id": "b000119",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "iiTimelineRender",
+      "anchor": "iitimelinerender",
+      "start_line": 288
+    },
+    {
+      "block_id": "b000125",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "iiAudioProcessing",
+      "anchor": "iiaudioprocessing",
+      "start_line": 298
+    },
+    {
+      "block_id": "b000131",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "iiSpeechRecognition",
+      "anchor": "iispeechrecognition",
+      "start_line": 305
+    },
+    {
+      "block_id": "b000137",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "ii3DScene",
+      "anchor": "ii3dscene",
+      "start_line": 311
+    },
+    {
+      "block_id": "b000143",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "iiMeshProcessing",
+      "anchor": "iimeshprocessing",
+      "start_line": 328
+    },
+    {
+      "block_id": "b000149",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "ii3DRender",
+      "anchor": "ii3drender",
+      "start_line": 340
+    },
+    {
+      "block_id": "b000155",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "ii3DPrinting",
+      "anchor": "ii3dprinting",
+      "start_line": 348
+    },
+    {
+      "block_id": "b000161",
+      "parent_id": "b000067",
+      "level": 3,
+      "title": "iiHelp",
+      "anchor": "iihelp",
+      "start_line": 355
+    },
+    {
+      "block_id": "b000167",
+      "parent_id": "b000001",
+      "level": 2,
+      "title": "관련 근거와 확인 범위",
+      "anchor": "관련-근거와-확인-범위",
+      "start_line": 361
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000033",
+        "line": 142,
+        "text": "문서 색상 모드, 프로파일·교정 설정과 색상 관리 계약을 담당한다. 임의의 ICC 프로파일 변환과 교정은 현재 제공 범위에 맞춰 확장해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000063",
+        "line": 192,
+        "text": "아래 항목은 위의 211개 비활성 명령·빈 하위 메뉴와 별도로 관리한다. 기능을 실제 수정할 때에는 주 담당 SDK뿐 아니라 Congregation의 연결도 함께 확인해야 한다.",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000065",
+        "line": 199,
+        "text": "- **iiGUI — iPad·Android의 View > Screen Mode > Presentation 및 Window > Presentation:** 현재 앱은 상태를 변경한 뒤 호스트 전체 화면 전환을 요청하나, 해당 호스트는 전환을 지원하지 않는다. 앱이 플랫폼의 지원 범위에 따라 UI 상태와 창 동작을 조합하도록 배정한다. [앱 명령](../../../../Product/Congregation/App/Application/Application.cpp) · [iPad 호스트](../../../iiGUI/src/Platform/HostIOS.mm) · [Android 호스트](../../../iiGUI/src/Platform/HostAndroid.cpp)",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000169",
+        "line": 367,
+        "text": "- [iiColorManager의 현재 색상 관리 범위](../../../iiColorManager/README.md): 임의 문서·ICC 프로파일 변환 전체가 이미 지원된다고 전제하지 않는다.",
+        "basis": "lexical_match",
+        "context": "list"
+      }
+    ],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000003",
+        "label": "글로벌 메뉴 정의",
+        "target": "../../../../Product/Congregation/App/Application/AppMenu.h",
+        "kind": "relative",
+        "line": 3
+      },
+      {
+        "block_id": "b000009",
+        "label": "SDK 독립성 지침",
+        "target": "../../../AGENT.md",
+        "kind": "relative",
+        "line": 9
+      },
+      {
+        "block_id": "b000065",
+        "label": "명령 연결",
+        "target": "../../../../Product/Congregation/App/Application/AppMenu.h",
+        "kind": "relative",
+        "line": 194
+      },
+      {
+        "block_id": "b000065",
+        "label": "복사 처리",
+        "target": "../../../../Product/Congregation/App/Application/Application.cpp",
+        "kind": "relative",
+        "line": 194
+      },
+      {
+        "block_id": "b000065",
+        "label": "명령 처리",
+        "target": "../../../../Product/Congregation/App/Application/Application.cpp",
+        "kind": "relative",
+        "line": 195
+      },
+      {
+        "block_id": "b000065",
+        "label": "내보내기 구현",
+        "target": "../../../../Product/Congregation/App/Canvas/Artwork.cpp",
+        "kind": "relative",
+        "line": 196
+      },
+      {
+        "block_id": "b000065",
+        "label": "파일 대화상자 처리",
+        "target": "../../../../Product/Congregation/App/Application/Application.cpp",
+        "kind": "relative",
+        "line": 197
+      },
+      {
+        "block_id": "b000065",
+        "label": "앱의 기본 파일명",
+        "target": "../../../../Product/Congregation/App/Application/Application.cpp",
+        "kind": "relative",
+        "line": 198
+      },
+      {
+        "block_id": "b000065",
+        "label": "UIKit 파일 선택기",
+        "target": "../../../iiGUI/src/Platform/HostIOS.mm",
+        "kind": "relative",
+        "line": 198
+      },
+      {
+        "block_id": "b000065",
+        "label": "앱 명령",
+        "target": "../../../../Product/Congregation/App/Application/Application.cpp",
+        "kind": "relative",
+        "line": 199
+      },
+      {
+        "block_id": "b000065",
+        "label": "iPad 호스트",
+        "target": "../../../iiGUI/src/Platform/HostIOS.mm",
+        "kind": "relative",
+        "line": 199
+      },
+      {
+        "block_id": "b000065",
+        "label": "Android 호스트",
+        "target": "../../../iiGUI/src/Platform/HostAndroid.cpp",
+        "kind": "relative",
+        "line": 199
+      },
+      {
+        "block_id": "b000065",
+        "label": "Android 호스트",
+        "target": "../../../iiGUI/src/Platform/HostAndroid.cpp",
+        "kind": "relative",
+        "line": 200
+      },
+      {
+        "block_id": "b000065",
+        "label": "앱의 창과 파일 연결",
+        "target": "../../../../Product/Congregation/App/Application/Application.cpp",
+        "kind": "relative",
+        "line": 200
+      },
+      {
+        "block_id": "b000169",
+        "label": "Congregation 글로벌 메뉴 표시 계약",
+        "target": "../../../../Product/Congregation/docs/GlobalApplicationToolbar.md",
+        "kind": "relative",
+        "line": 363
+      },
+      {
+        "block_id": "b000169",
+        "label": "iiSharedCanvas의 영상 편집 타임라인",
+        "target": "../../../iiSharedCanvas/README.md",
+        "kind": "relative",
+        "line": 364
+      },
+      {
+        "block_id": "b000169",
+        "label": "iiGraphicAdjust의 필터·변형 범위",
+        "target": "../../../iiGraphicAdjust/README.md",
+        "kind": "relative",
+        "line": 365
+      },
+      {
+        "block_id": "b000169",
+        "label": "iiVisualCodec의 구성요소",
+        "target": "../../../iiVisualCodec/README.md",
+        "kind": "relative",
+        "line": 366
+      },
+      {
+        "block_id": "b000169",
+        "label": "iiColorManager의 현재 색상 관리 범위",
+        "target": "../../../iiColorManager/README.md",
+        "kind": "relative",
+        "line": 367
+      },
+      {
+        "block_id": "b000169",
+        "label": "iiPaintEngine 브러시 구성요소",
+        "target": "../../../iiPaintEngine/README.md",
+        "kind": "relative",
+        "line": 368
+      },
+      {
+        "block_id": "b000169",
+        "label": "레이어 마스크 작업 계약",
+        "target": "../../../../Product/Congregation/docs/MASK_WORKFLOW.md",
+        "kind": "relative",
+        "line": 369
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

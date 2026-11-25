@@ -5,15 +5,13 @@
 
 Markdown is the maintained human source. Agent JSON is a structured, source-traceable projection.
 
-| Document | Agent JSON |
-| --- | --- |
-| [`AGENT.md`](../AGENT.md) | [JSON](entrypoints/AGENT.agent.json) |
-| [`README.md`](../README.md) | [JSON](entrypoints/README.agent.json) |
-| [`docs/Answers.md`](Answers.md) | [JSON](Answers.agent.json) |
-| [`docs/DynamicLinking.md`](DynamicLinking.md) | [JSON](DynamicLinking.agent.json) |
-| [`docs/Indexing.md`](Indexing.md) | [JSON](Indexing.agent.json) |
-| [`docs/ObjectSessions.md`](ObjectSessions.md) | [JSON](ObjectSessions.agent.json) |
-| [`docs/SourceLayout.md`](SourceLayout.md) | [JSON](SourceLayout.agent.json) |
-| [`docs/WebSearch.md`](WebSearch.md) | [JSON](WebSearch.agent.json) |
-| [`docs/documentation-structure.md`](documentation-structure.md) | [JSON](documentation-structure.agent.json) |
+- Document: [`AGENT.md`](../AGENT.md); Agent JSON: [JSON](Entrypoints/AGENT.agent.json)
+- Document: [`README.md`](../README.md); Agent JSON: [JSON](Entrypoints/README.agent.json)
+- Document: [`docs/Answers.md`](Answers.md); Agent JSON: [JSON](Answers.agent.json)
+- Document: [`docs/DynamicLinking.md`](DynamicLinking.md); Agent JSON: [JSON](DynamicLinking.agent.json)
+- Document: [`docs/Indexing.md`](Indexing.md); Agent JSON: [JSON](Indexing.agent.json)
+- Document: [`docs/ObjectSessions.md`](ObjectSessions.md); Agent JSON: [JSON](ObjectSessions.agent.json)
+- Document: [`docs/SourceLayout.md`](SourceLayout.md); Agent JSON: [JSON](SourceLayout.agent.json)
+- Document: [`docs/WebSearch.md`](WebSearch.md); Agent JSON: [JSON](WebSearch.agent.json)
+- Document: [`docs/documentation-structure.md`](documentation-structure.md); Agent JSON: [JSON](documentation-structure.agent.json)
 <!-- workspace-docs:document-map:end -->

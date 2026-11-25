@@ -13,14 +13,14 @@
     {
       "document_id": "urn:iisacc:document:5a7fc99a0f6af56888249bea65ebf614bb57c33df555ad3f72c352419a1024f9",
       "source": "AGENT.md",
-      "agent_json": "docs/entrypoints/AGENT.agent.json",
+      "agent_json": "docs/Entrypoints/AGENT.agent.json",
       "source_sha256": "cb1874455671e07290d443b9cf545ddafc187a94fab2687c224dc0bc2f4d7ee8",
       "role": "instructions"
     },
     {
       "document_id": "urn:iisacc:document:d66e9ac7bd7c3aec8bb4f3ee2849d0549412e1dca3b11df26f63556492579d1e",
       "source": "README.md",
-      "agent_json": "docs/entrypoints/README.agent.json",
+      "agent_json": "docs/Entrypoints/README.agent.json",
       "source_sha256": "ddb5eb398d47fc72f372085bc09ce09cb7f6c19081fc2eeabc3a5cac7fd5079c",
       "role": "overview"
     },
@@ -28,7 +28,7 @@
       "document_id": "urn:iisacc:document:42d7ef70712400a7762c22a639e9d94131a9b00034cf6eb1aba563a049be50e6",
       "source": "docs/Answers.md",
       "agent_json": "docs/Answers.agent.json",
-      "source_sha256": "23fb70f909fd4928c7f9a60fc7feeef1edc2d7e0490df882aea22afa9514d3da",
+      "source_sha256": "b2b1b53793050f46357d2b69daf3ed98cb02cc1f383d4b9826608cc131f73dee",
       "role": "guide"
     },
     {
@@ -56,7 +56,7 @@
       "document_id": "urn:iisacc:document:c53020658f1bc0c3ea0af64154df692066fbcd660e87e271899d306f0fcd0468",
       "source": "docs/README.md",
       "agent_json": "docs/README.agent.json",
-      "source_sha256": "8ee0c249b632fc6c8a0482f1c2824974a33a722ed8a2512da4448e7746f12a8c",
+      "source_sha256": "60c8e2ba04333c195cf5b502143a86239090cf85fd27dea991dcfe5585f2815b",
       "role": "overview"
     },
     {
@@ -77,7 +77,7 @@
       "document_id": "urn:iisacc:document:3349b6b7bd025cf9611f6b4752683229a1f6b28c5e0dfec481ed4170c56c81af",
       "source": "docs/documentation-structure.md",
       "agent_json": "docs/documentation-structure.agent.json",
-      "source_sha256": "28eeaa3ffb48ab1d2fe871b8df0af204ddec4cab0c1f093e766aaa1cbfdd338a",
+      "source_sha256": "9e6374f1bc65d464467c7e08b7bb31bf8a66911b5444fd612b047fc7b233dec0",
       "role": "guide"
     }
   ],

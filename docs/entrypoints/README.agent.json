@@ -10,8 +10,8 @@
   },
   "source": {
     "path": "README.md",
-    "sha256": "55b6c4a1f8ccbd4d93fdd53a233a9ddb18e7e010d8176876227e1d907c5ee87d",
-    "bytes": 18206,
+    "sha256": "d01a1931533d6283e872fe805e0d6c594efb9bcda70794e6a3091cc49b299493",
+    "bytes": 18276,
     "line_count": 266,
     "encoding": "utf-8",
     "language": "ko"
@@ -85,7 +85,7 @@
       "kind": "paragraph",
       "start_line": 13,
       "end_line": 19,
-      "raw": "[`iiGPU`](iiGPU/README.md) provides Qt-free C++23 native GPU buffers, compute\npipelines, command lists, explicit barriers and observable submission completion.\nMetal and Vulkan share this contract; the optional `iiGPU::Runtime` target\nobserves completion using a scheduler supplied by the application. Applications\nmay compose it with iiSDKCore's EventLoop. Applications compose iiDecision's\nGPU evidence adapter with iiGPU independently. See\n[the GPU ownership boundary](docs/GPU.md).\n"
+      "raw": "[`iiGPU`](iiGPU/README.md) provides Qt-free C++23 native GPU buffers, compute\npipelines, command lists, explicit barriers and observable submission completion.\nMetal and Vulkan share this contract; the optional `iiGPU::Runtime` target\nobserves completion using a scheduler supplied by the application. Applications\nmay compose it with iiSDKCore's EventLoop. Applications compose iiDecision's\nGPU evidence adapter with iiGPU independently. See\n[the GPU ownership boundary](docs/Architecture/GPU.md).\n"
     },
     {
       "id": "b000010",
@@ -169,7 +169,7 @@
       "kind": "paragraph",
       "start_line": 42,
       "end_line": 48,
-      "raw": "SDK modules are being migrated to independently built packages. Applications\ncompose them through caller-owned interfaces and link each selected module\ndirectly; the transition and remaining dependency audit are documented in\n[SDK independence](docs/SDKIndependence.md).\nSeparate authored `include/` trees are prohibited; public include names and\ninstalled package layouts remain compatible. See [the source layout contract](docs/HeaderLayout.md)\nand run `python3 -B tests/test_source_header_layout.py` from this directory.\n"
+      "raw": "SDK modules are being migrated to independently built packages. Applications\ncompose them through caller-owned interfaces and link each selected module\ndirectly; the transition and remaining dependency audit are documented in\n[SDK independence](docs/Architecture/SDKIndependence.md).\nSeparate authored `include/` trees are prohibited; public include names and\ninstalled package layouts remain compatible. See [the source layout contract](docs/Architecture/HeaderLayout.md)\nand run `python3 -B tests/test_source_header_layout.py` from this directory.\n"
     },
     {
       "id": "b000022",
@@ -309,7 +309,7 @@
       "kind": "paragraph",
       "start_line": 114,
       "end_line": 120,
-      "raw": "[`iiPaintEngine::BrushTools`](iiPaintEngine/README.md) is the C++23 brush authoring layer above\niiPaintEngine. It defines 22 controls and their tool availability, whole-gesture\nsize taper, bounded post correction, generated bristle tips and final pixel tiles.\nThe lower engine and canvas document keep their streaming/pixel contracts. It is\nan optional component in the iiPaintEngine repository; the legacy iiBrushTools\npackage name remains available as a compatibility alias.\nSee [the authoring boundary and delivery contract](docs/BRUSH_AUTHORING.md).\n"
+      "raw": "[`iiPaintEngine::BrushTools`](iiPaintEngine/README.md) is the C++23 brush authoring layer above\niiPaintEngine. It defines 22 controls and their tool availability, whole-gesture\nsize taper, bounded post correction, generated bristle tips and final pixel tiles.\nThe lower engine and canvas document keep their streaming/pixel contracts. It is\nan optional component in the iiPaintEngine repository; the legacy iiBrushTools\npackage name remains available as a compatibility alias.\nSee [the authoring boundary and delivery contract](docs/Guides/BRUSH_AUTHORING.md).\n"
     },
     {
       "id": "b000042",
@@ -323,7 +323,7 @@
       "kind": "paragraph",
       "start_line": 122,
       "end_line": 123,
-      "raw": "The [module consolidation guide](docs/ModuleConsolidation.md) records component\nownership, compatibility aliases, remaining overlap and validation boundaries.\n"
+      "raw": "The [module consolidation guide](docs/Architecture/ModuleConsolidation.md) records component\nownership, compatibility aliases, remaining overlap and validation boundaries.\n"
     },
     {
       "id": "b000044",
@@ -438,7 +438,7 @@
       "kind": "paragraph",
       "start_line": 144,
       "end_line": 156,
-      "raw": "For a host refresh without starting CTest executables or custom native installers,\nuse `./install.sh --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos`.\nThis uses CMake for each native project, including LVRS, disables CMake's\ntest targets and recognized example, benchmark and demo options, and records\n`tests: not_run`; it is build and installation evidence only. Non-CMake\ninstallers cannot be controlled by this switch and are reported as failures;\nrun them separately after reviewing their behavior. A manifest proves that its\nlisted files exist, not that every consumer is ABI-compatible. The installed\ntree may be partially changed if an install fails; keep a backup before an\nin-place refresh. The report is saved before each operation with `pending` and\n`running` states, so interrupted runs can be identified and retried. Discovery\nis a static approximation of remaining legacy dependencies, not proof that SDKs\nare independent. See [Installation operations](docs/Installation.md).\n"
+      "raw": "For a host refresh without starting CTest executables or custom native installers,\nuse `./install.sh --no-tests --qt-prefix /Volumes/Storage/Qt/6.8.3/macos`.\nThis uses CMake for each native project, including LVRS, disables CMake's\ntest targets and recognized example, benchmark and demo options, and records\n`tests: not_run`; it is build and installation evidence only. Non-CMake\ninstallers cannot be controlled by this switch and are reported as failures;\nrun them separately after reviewing their behavior. A manifest proves that its\nlisted files exist, not that every consumer is ABI-compatible. The installed\ntree may be partially changed if an install fails; keep a backup before an\nin-place refresh. The report is saved before each operation with `pending` and\n`running` states, so interrupted runs can be identified and retried. Discovery\nis a static approximation of remaining legacy dependencies, not proof that SDKs\nare independent. See [Installation operations](docs/Operations/Installation.md).\n"
     },
     {
       "id": "b000060",
@@ -1125,7 +1125,7 @@
       {
         "block_id": "b000009",
         "label": "the GPU ownership boundary",
-        "target": "docs/GPU.md",
+        "target": "docs/Architecture/GPU.md",
         "kind": "relative",
         "line": 19
       },
@@ -1160,14 +1160,14 @@
       {
         "block_id": "b000021",
         "label": "SDK independence",
-        "target": "docs/SDKIndependence.md",
+        "target": "docs/Architecture/SDKIndependence.md",
         "kind": "relative",
         "line": 45
       },
       {
         "block_id": "b000021",
         "label": "the source layout contract",
-        "target": "docs/HeaderLayout.md",
+        "target": "docs/Architecture/HeaderLayout.md",
         "kind": "relative",
         "line": 47
       },
@@ -1272,21 +1272,21 @@
       {
         "block_id": "b000041",
         "label": "the authoring boundary and delivery contract",
-        "target": "docs/BRUSH_AUTHORING.md",
+        "target": "docs/Guides/BRUSH_AUTHORING.md",
         "kind": "relative",
         "line": 120
       },
       {
         "block_id": "b000043",
         "label": "module consolidation guide",
-        "target": "docs/ModuleConsolidation.md",
+        "target": "docs/Architecture/ModuleConsolidation.md",
         "kind": "relative",
         "line": 122
       },
       {
         "block_id": "b000059",
         "label": "Installation operations",
-        "target": "docs/Installation.md",
+        "target": "docs/Operations/Installation.md",
         "kind": "relative",
         "line": 156
       },

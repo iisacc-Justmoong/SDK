@@ -1,0 +1,175 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:18ebd748cb98c1807e7a3e9c2fed4ea08edfd69f446f31811575583e97708548",
+  "project": {
+    "id": "urn:iisacc:project:SDK%2FiiLocalizer",
+    "name": "iiLocalizer",
+    "root": "SDK/iiLocalizer",
+    "kind": "sdk"
+  },
+  "source": {
+    "path": "AGENT.md",
+    "sha256": "2ed6a62cd060932f5692e9bd8f80f86b26aac54c5fcb0b5c0d9a046e9c586f7d",
+    "bytes": 2060,
+    "line_count": 25,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "iiLocalizer 에이전트 지침",
+    "role": "instructions",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# iiLocalizer 에이전트 지침\n",
+      "level": 1,
+      "title": "iiLocalizer 에이전트 지침"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 9,
+      "raw": "현재 구현은 UTF-8 PO 단수 메시지의 조회, 치환 인자와 레이블 사용 위치 선택,\nC ABI, Python API 및 LVUI 레이블 소비 예제를 제공한다. 전체 현지화 계약은 목표이며 복수형 등 미구현\n기능을 완료된 것으로 해석하지 않는다. [문서 색인](docs/README.md),\n[현재 구현](docs/Implementation.md), [현지화 계약](docs/LocalizationContract.md),\n[PO 작업 흐름](docs/POWorkflow.md)을 읽는다. `docs/agent-index.json`은 Markdown\n원문과 대응 JSON 및 원문 해시를 가리킨다. Markdown이 원본이며 해시가 다르면\n원문을 우선하고 JSON을 갱신한다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 10,
+      "end_line": 10,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "list",
+      "start_line": 11,
+      "end_line": 25,
+      "raw": "- Workspace와 SDK의 상위 `AGENT.md`를 따른다. 다른 SDK, Qt 및 KDE에 직접\n  의존하지 않는다. 호스트가 다른 SDK와 이 모듈을 인터페이스로 결합한다.\n- 현재 PO 지원 범위와 거부하는 입력은 구현 문서를 따른다. 복수형을 비롯한\n  미구현 계약은 명세·실패하는 테스트를 먼저 갖춘 뒤 구현한다.\n- 실제 제품 UI, 언어 선택, 파일 저장소 및 서식화는 호스트의 책임이다.\n  `example/LVUILabel`은 앱 소유 어댑터로 두 SDK를 조합하며, 라이브러리의\n  CMake 타깃과 공개 헤더에 다른 SDK를 추가하지 않는다.\n- 소스 변경 시 `build/`에서 빌드와 관련 자동 테스트를 실행한다. LVUI 소비자\n  검사의 빌드 산출물은 `build/lvui-label/`, 설치 검증은 `build/stage/`에 둔다.\n  실제 앱 실행 검증은 별도 명시적 요청이 있을 때만 한다.\n- `src/`에 구현 및 같은 이름의 헤더를 함께 둔다. 정적 시험 입력과 자원은\n  `resources/`에 두며 `build/`를 필수 입력의 원본으로 사용하지 않는다.\n- 인간용 Markdown을 수정하면 짝을 이루는 구조화 JSON과 색인을 함께 갱신하고\n  원문 해시·줄 범위·링크를 확인한다. 타인의 라이선스와 번역 자료는 별도로\n  확인하며, 출처 확인 없이 가져오지 않는다.\n",
+      "items": [
+        {
+          "marker": "-",
+          "text": "Workspace와 SDK의 상위 `AGENT.md`를 따른다. 다른 SDK, Qt 및 KDE에 직접",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "현재 PO 지원 범위와 거부하는 입력은 구현 문서를 따른다. 복수형을 비롯한",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "실제 제품 UI, 언어 선택, 파일 저장소 및 서식화는 호스트의 책임이다.",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "소스 변경 시 `build/`에서 빌드와 관련 자동 테스트를 실행한다. LVUI 소비자",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "`src/`에 구현 및 같은 이름의 헤더를 함께 둔다. 정적 시험 입력과 자원은",
+          "checked": null
+        },
+        {
+          "marker": "-",
+          "text": "인간용 Markdown을 수정하면 짝을 이루는 구조화 JSON과 색인을 함께 갱신하고",
+          "checked": null
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "iiLocalizer 에이전트 지침",
+      "anchor": "iilocalizer-에이전트-지침",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [
+      {
+        "block_id": "b000003",
+        "line": 5,
+        "text": "기능을 완료된 것으로 해석하지 않는다. [문서 색인](docs/README.md),",
+        "basis": "lexical_match",
+        "context": "paragraph"
+      },
+      {
+        "block_id": "b000005",
+        "line": 12,
+        "text": "의존하지 않는다. 호스트가 다른 SDK와 이 모듈을 인터페이스로 결합한다.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000005",
+        "line": 17,
+        "text": "CMake 타깃과 공개 헤더에 다른 SDK를 추가하지 않는다.",
+        "basis": "lexical_match",
+        "context": "list"
+      },
+      {
+        "block_id": "b000005",
+        "line": 22,
+        "text": "`resources/`에 두며 `build/`를 필수 입력의 원본으로 사용하지 않는다.",
+        "basis": "lexical_match",
+        "context": "list"
+      }
+    ],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000003",
+        "label": "문서 색인",
+        "target": "docs/README.md",
+        "kind": "relative",
+        "line": 5
+      },
+      {
+        "block_id": "b000003",
+        "label": "현재 구현",
+        "target": "docs/Implementation.md",
+        "kind": "relative",
+        "line": 6
+      },
+      {
+        "block_id": "b000003",
+        "label": "현지화 계약",
+        "target": "docs/LocalizationContract.md",
+        "kind": "relative",
+        "line": 6
+      },
+      {
+        "block_id": "b000003",
+        "label": "PO 작업 흐름",
+        "target": "docs/POWorkflow.md",
+        "kind": "relative",
+        "line": 7
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

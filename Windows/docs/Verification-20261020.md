@@ -17,44 +17,42 @@
 
 ## 프로젝트별 결과와 원격 commit
 
-| SDK | 실행 통과 | skip | 빌드·설치 | 원격에서 확인한 commit |
-|---|---:|---:|---|---|
-| iiSDKCore | 43 | 0 | 성공 | [8b0d4c2bc1](https://github.com/iisacc-Justmoong/iiSDKCore/commit/8b0d4c2bc13138de2f629abb14230c33e27bd1db) |
-| LVRS-Svelte | 5 | 0 | 성공 | [4b39edb4e8](https://github.com/iisacc-Justmoong/LVRS-Svelte/commit/4b39edb4e853f8c42ebd05ac8f123cffd43c98d4) |
-| iiActorObject | 1 | 0 | 성공 | [72f6bc8534](https://github.com/iisacc-Justmoong/iiActorObject/commit/72f6bc853416828302d707c40f9f1d38df794a4c) |
-| iiColorManager | 6 | 0 | 성공 | [64f76abe80](https://github.com/iisacc-Justmoong/iiColorManager/commit/64f76abe80977fc7c7a4103d4850f89bf3bb75ee) |
-| iiDeviceMultimedia | 6 | 0 | 성공 | [43f48d5802](https://github.com/iisacc-Justmoong/iiDeviceMultimedia/commit/43f48d5802fda5859c8c7f0cae40e4179462f655) |
-| iiSocialPublish | 13 | 0 | 성공 | [44aad3cc69](https://github.com/iisacc-Justmoong/iiSocialPublish/commit/44aad3cc69975837cf234e213c744f1651f77202) |
-| iiWhatsNew | 1 | 0 | 성공 | [1d687d7b0b](https://github.com/iisacc-Justmoong/iiWhatsNew/commit/1d687d7b0b6034eb87bd60916e9b9489af97ef44) |
-| iiDecision | 27 | 4 | 성공 | [3986ab211c](https://github.com/iisacc-Justmoong/iiDecision/commit/3986ab211cd223b5e1f76af97545356086377ac3) |
-| iiFileProvider | 37 | 0 | 성공 | [e352478ff8](https://github.com/iisacc-Justmoong/iiFileProvider/commit/e352478ff8e94e3c8131f67c6c58cab6076a56ee) |
-| iiGUI | 19 | 0 | 성공 | [8f441fb151](https://github.com/iisacc-Justmoong/iiGUI/commit/8f441fb151e1f65a55ba7a350a7cabf6c57deac2) |
-| iiJson | 2 | 0 | 성공 | [6241f772ca](https://github.com/iisacc-Justmoong/iiJson/commit/6241f772ca38f5b2edadf37e9a48a30578ae17cb) |
-| LVRS | 59 | 0 | 성공 | [8a43d08337](https://github.com/iisacc-Justmoong/LVRS/commit/8a43d0833762bcd06bd5ad0c91add1623d3c69f8) |
-| iiAudioGen | 7 | 0 | 성공 | [5937c36081](https://github.com/iisacc-Justmoong/iiAudioGen/commit/5937c360812a23d05b2b5068d0bb7bc0fbc38a10) |
-| iiCSMIDI | 4 | 0 | 성공 | [d8e43e709d](https://github.com/iisacc-Justmoong/iiCSMIDI/commit/d8e43e709d98c32f43e2d1022524c440fe5d084f) |
-| iiCalendar | 14 | 0 | 성공 | [99abe44fd1](https://github.com/iisacc-Justmoong/iiCalendar/commit/99abe44fd16fc362675db91f8ca5257e5eb0930c) |
-| iiGeneralDocument | 30 | 0 | 성공 | [8c6f39949f](https://github.com/iisacc-Justmoong/iiGeneralDocument/commit/8c6f39949fccbe925e13a8eda3418e84ea870bfe) |
-| iiGraphicAdjust | 202 | 0 | 성공 | [fd4aba0430](https://github.com/iisacc-Justmoong/iiGraphicAdjust/commit/fd4aba043026fd472429a39718b75957b91df4eb) |
-| iiLocalDiffusion | 108 | 0 | 성공 | [8dfd987326](https://github.com/iisacc-Justmoong/iiLocalDiffusion/commit/8dfd987326d2853f61d939902deaa1dfb2671b29) |
-| iiLocalLLM | 73 | 0 | 성공 | [2dac6095de](https://github.com/iisacc-Justmoong/iiLocalLLM/commit/2dac6095de8ccd7d18c1ed7c1100c8ef1d4b82ea) |
-| iiPaintEngine | 48 | 0 | 성공 | [671518df9a](https://github.com/iisacc-Justmoong/iiPaintEngine/commit/671518df9a14fe923851ab37dd629dfbe3c78c04) |
-| iiSDKBuilder | 14 | 0 | 성공 | [3ff70ba352](https://github.com/iisacc-Justmoong/iiSDKBuilder/commit/3ff70ba352a574d935e423378882b511503ee43c) |
-| iiWebServer | 12 | 0 | 성공 | [b664c0e851](https://github.com/iisacc-Justmoong/iiWebServer/commit/b664c0e8515a0eae2e4c9fc553640096b7929749) |
-| iiSocietyContainer | 19 | 0 | 성공 | [cc58fa0ee2](https://github.com/iisacc-Justmoong/iiSocietyContainer/commit/cc58fa0ee23232a09c786a616eae1662fd87a95a) |
-| iiUpdateManager | 4 | 0 | 성공 | [5cb478584c](https://github.com/iisacc-Justmoong/iiUpdateManager/commit/5cb478584cb010f35c40159a0c055885c3371a0a) |
-| iiVoiceOver | 5 | 0 | 성공 | [3295a89854](https://github.com/iisacc-Justmoong/iiVoiceOver/commit/3295a898546387f7f381986b4263ebf7908a90fe) |
-| iiXml | 15 | 0 | 성공 | [c8fe80f6a8](https://github.com/iisacc-Justmoong/iiXml/commit/c8fe80f6a8fa449e33001d897658bc0065fafc4e) |
-| iiAccountManager | 6 | 0 | 성공 | [85916f215a](https://github.com/iisacc-Justmoong/iiAccountManager/commit/85916f215af097fb56b7ba9693d47f559d63b97e) |
-| iiCameraIntegration | 26 | 0 | 성공 | [ce960f269b](https://github.com/iisacc-Justmoong/iiCameraIntegration/commit/ce960f269b528ef35f0da8937afc6cf859a6a7ef) |
-| iiHtmlBlock | 13 | 0 | 성공 | [1d8b1b367c](https://github.com/iisacc-Justmoong/iiHtmlBlock/commit/1d8b1b367c94dc97c6b9bc843507193579bd53b4) |
-| iiSharedCanvas | 62 | 0 | 성공 | [0d55bfedd7](https://github.com/iisacc-Justmoong/iiSharedCanvas/commit/0d55bfedd7d4e9ed48d270fb04e8a2ead1f5b516) |
-| iiSocietyGeneration | 1 | 0 | 성공 | [12d3a8b524](https://github.com/iisacc-Justmoong/iiSocietyGeneration/commit/12d3a8b524484a8e3dbd834656ffe40309c8c480) |
-| iiSocietyMonitor | 2 | 0 | 성공 | [39d3d76688](https://github.com/iisacc-Justmoong/iiSocietyMonitor/commit/39d3d7668810739329da63466b118625c743cdf3) |
-| iiSocietySync | 12 | 0 | 성공 | [22a1c73008](https://github.com/iisacc-Justmoong/iiSocietySync/commit/22a1c730088ad8b96832724f9eeb8e9835a9ee61) |
-| iiLicenseManager | 2 | 0 | 성공 | [66c06ccc65](https://github.com/iisacc-Justmoong/iiLicenseManager/commit/66c06ccc65ad88c02abf856f88047cab342a6989) |
-| iiPhotoLibrary | 8 | 0 | 성공 | [ca5f8f1812](https://github.com/iisacc-Justmoong/iiPhotoLibrary/commit/ca5f8f1812e595dc6e945a96233398d8aca3b4b2) |
-| iiSocietyHelper | 10 | 0 | 성공 | [eca7b1eec3](https://github.com/iisacc-Justmoong/iiSocietyHelper/commit/eca7b1eec34c066ea169c503a137e3b5010ab2c6) |
+- SDK: iiSDKCore; 실행 통과: 43; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [8b0d4c2bc1](https://github.com/iisacc-Justmoong/iiSDKCore/commit/8b0d4c2bc13138de2f629abb14230c33e27bd1db)
+- SDK: LVRS-Svelte; 실행 통과: 5; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [4b39edb4e8](https://github.com/iisacc-Justmoong/LVRS-Svelte/commit/4b39edb4e853f8c42ebd05ac8f123cffd43c98d4)
+- SDK: iiActorObject; 실행 통과: 1; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [72f6bc8534](https://github.com/iisacc-Justmoong/iiActorObject/commit/72f6bc853416828302d707c40f9f1d38df794a4c)
+- SDK: iiColorManager; 실행 통과: 6; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [64f76abe80](https://github.com/iisacc-Justmoong/iiColorManager/commit/64f76abe80977fc7c7a4103d4850f89bf3bb75ee)
+- SDK: iiDeviceMultimedia; 실행 통과: 6; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [43f48d5802](https://github.com/iisacc-Justmoong/iiDeviceMultimedia/commit/43f48d5802fda5859c8c7f0cae40e4179462f655)
+- SDK: iiSocialPublish; 실행 통과: 13; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [44aad3cc69](https://github.com/iisacc-Justmoong/iiSocialPublish/commit/44aad3cc69975837cf234e213c744f1651f77202)
+- SDK: iiWhatsNew; 실행 통과: 1; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [1d687d7b0b](https://github.com/iisacc-Justmoong/iiWhatsNew/commit/1d687d7b0b6034eb87bd60916e9b9489af97ef44)
+- SDK: iiDecision; 실행 통과: 27; skip: 4; 빌드·설치: 성공; 원격에서 확인한 commit: [3986ab211c](https://github.com/iisacc-Justmoong/iiDecision/commit/3986ab211cd223b5e1f76af97545356086377ac3)
+- SDK: iiFileProvider; 실행 통과: 37; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [e352478ff8](https://github.com/iisacc-Justmoong/iiFileProvider/commit/e352478ff8e94e3c8131f67c6c58cab6076a56ee)
+- SDK: iiGUI; 실행 통과: 19; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [8f441fb151](https://github.com/iisacc-Justmoong/iiGUI/commit/8f441fb151e1f65a55ba7a350a7cabf6c57deac2)
+- SDK: iiJson; 실행 통과: 2; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [6241f772ca](https://github.com/iisacc-Justmoong/iiJson/commit/6241f772ca38f5b2edadf37e9a48a30578ae17cb)
+- SDK: LVRS; 실행 통과: 59; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [8a43d08337](https://github.com/iisacc-Justmoong/LVRS/commit/8a43d0833762bcd06bd5ad0c91add1623d3c69f8)
+- SDK: iiAudioGen; 실행 통과: 7; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [5937c36081](https://github.com/iisacc-Justmoong/iiAudioGen/commit/5937c360812a23d05b2b5068d0bb7bc0fbc38a10)
+- SDK: iiCSMIDI; 실행 통과: 4; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [d8e43e709d](https://github.com/iisacc-Justmoong/iiCSMIDI/commit/d8e43e709d98c32f43e2d1022524c440fe5d084f)
+- SDK: iiCalendar; 실행 통과: 14; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [99abe44fd1](https://github.com/iisacc-Justmoong/iiCalendar/commit/99abe44fd16fc362675db91f8ca5257e5eb0930c)
+- SDK: iiGeneralDocument; 실행 통과: 30; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [8c6f39949f](https://github.com/iisacc-Justmoong/iiGeneralDocument/commit/8c6f39949fccbe925e13a8eda3418e84ea870bfe)
+- SDK: iiGraphicAdjust; 실행 통과: 202; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [fd4aba0430](https://github.com/iisacc-Justmoong/iiGraphicAdjust/commit/fd4aba043026fd472429a39718b75957b91df4eb)
+- SDK: iiLocalDiffusion; 실행 통과: 108; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [8dfd987326](https://github.com/iisacc-Justmoong/iiLocalDiffusion/commit/8dfd987326d2853f61d939902deaa1dfb2671b29)
+- SDK: iiLocalLLM; 실행 통과: 73; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [2dac6095de](https://github.com/iisacc-Justmoong/iiLocalLLM/commit/2dac6095de8ccd7d18c1ed7c1100c8ef1d4b82ea)
+- SDK: iiPaintEngine; 실행 통과: 48; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [671518df9a](https://github.com/iisacc-Justmoong/iiPaintEngine/commit/671518df9a14fe923851ab37dd629dfbe3c78c04)
+- SDK: iiSDKBuilder; 실행 통과: 14; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [3ff70ba352](https://github.com/iisacc-Justmoong/iiSDKBuilder/commit/3ff70ba352a574d935e423378882b511503ee43c)
+- SDK: iiWebServer; 실행 통과: 12; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [b664c0e851](https://github.com/iisacc-Justmoong/iiWebServer/commit/b664c0e8515a0eae2e4c9fc553640096b7929749)
+- SDK: iiSocietyContainer; 실행 통과: 19; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [cc58fa0ee2](https://github.com/iisacc-Justmoong/iiSocietyContainer/commit/cc58fa0ee23232a09c786a616eae1662fd87a95a)
+- SDK: iiUpdateManager; 실행 통과: 4; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [5cb478584c](https://github.com/iisacc-Justmoong/iiUpdateManager/commit/5cb478584cb010f35c40159a0c055885c3371a0a)
+- SDK: iiVoiceOver; 실행 통과: 5; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [3295a89854](https://github.com/iisacc-Justmoong/iiVoiceOver/commit/3295a898546387f7f381986b4263ebf7908a90fe)
+- SDK: iiXml; 실행 통과: 15; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [c8fe80f6a8](https://github.com/iisacc-Justmoong/iiXml/commit/c8fe80f6a8fa449e33001d897658bc0065fafc4e)
+- SDK: iiAccountManager; 실행 통과: 6; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [85916f215a](https://github.com/iisacc-Justmoong/iiAccountManager/commit/85916f215af097fb56b7ba9693d47f559d63b97e)
+- SDK: iiCameraIntegration; 실행 통과: 26; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [ce960f269b](https://github.com/iisacc-Justmoong/iiCameraIntegration/commit/ce960f269b528ef35f0da8937afc6cf859a6a7ef)
+- SDK: iiHtmlBlock; 실행 통과: 13; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [1d8b1b367c](https://github.com/iisacc-Justmoong/iiHtmlBlock/commit/1d8b1b367c94dc97c6b9bc843507193579bd53b4)
+- SDK: iiSharedCanvas; 실행 통과: 62; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [0d55bfedd7](https://github.com/iisacc-Justmoong/iiSharedCanvas/commit/0d55bfedd7d4e9ed48d270fb04e8a2ead1f5b516)
+- SDK: iiSocietyGeneration; 실행 통과: 1; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [12d3a8b524](https://github.com/iisacc-Justmoong/iiSocietyGeneration/commit/12d3a8b524484a8e3dbd834656ffe40309c8c480)
+- SDK: iiSocietyMonitor; 실행 통과: 2; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [39d3d76688](https://github.com/iisacc-Justmoong/iiSocietyMonitor/commit/39d3d7668810739329da63466b118625c743cdf3)
+- SDK: iiSocietySync; 실행 통과: 12; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [22a1c73008](https://github.com/iisacc-Justmoong/iiSocietySync/commit/22a1c730088ad8b96832724f9eeb8e9835a9ee61)
+- SDK: iiLicenseManager; 실행 통과: 2; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [66c06ccc65](https://github.com/iisacc-Justmoong/iiLicenseManager/commit/66c06ccc65ad88c02abf856f88047cab342a6989)
+- SDK: iiPhotoLibrary; 실행 통과: 8; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [ca5f8f1812](https://github.com/iisacc-Justmoong/iiPhotoLibrary/commit/ca5f8f1812e595dc6e945a96233398d8aca3b4b2)
+- SDK: iiSocietyHelper; 실행 통과: 10; skip: 0; 빌드·설치: 성공; 원격에서 확인한 commit: [eca7b1eec3](https://github.com/iisacc-Justmoong/iiSocietyHelper/commit/eca7b1eec34c066ea169c503a137e3b5010ab2c6)
 
 ## Windows 복구 사항
 
