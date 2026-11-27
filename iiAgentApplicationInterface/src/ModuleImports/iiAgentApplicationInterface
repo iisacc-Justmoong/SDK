@@ -4,3 +4,4 @@
 #include <iiAgentApplicationInterface/BuildCatalog.h>
 #include <iiAgentApplicationInterface/SourceProcedure.h>
 #include <iiAgentApplicationInterface/External.h>
+#include <iiAgentApplicationInterface/Command.h>

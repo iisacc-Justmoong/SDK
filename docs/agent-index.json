@@ -46,6 +46,13 @@
       "role": "guide"
     },
     {
+      "document_id": "urn:iisacc:document:48300e05d59c7fe10e1d88f3948567e4c500668bbe2ef44031c4beba8b664ac5",
+      "source": "docs/Architecture/FileDocumentWorkflows.md",
+      "agent_json": "docs/Architecture/FileDocumentWorkflows.agent.json",
+      "source_sha256": "a50ae0eaf7cb9117de49a331478125ec22ddc614c67aec3551e03872552adf2e",
+      "role": "guide"
+    },
+    {
       "document_id": "urn:iisacc:document:4edb656091cd0e9105e245031c9f43aa2f32cb554620a1e31af5d32562220834",
       "source": "docs/Architecture/GPU.md",
       "agent_json": "docs/Architecture/GPU.agent.json",
@@ -57,6 +64,13 @@
       "source": "docs/Architecture/HeaderLayout.md",
       "agent_json": "docs/Architecture/HeaderLayout.agent.json",
       "source_sha256": "e61a0b0ce8f5df1887db95ca58559e212436579dcae75680a86828d0d5ccdaf9",
+      "role": "guide"
+    },
+    {
+      "document_id": "urn:iisacc:document:2f3145c8ff55f33341037a8bb90a6903dc7ba937ab66787a9d95c3d72140e140",
+      "source": "docs/Architecture/MaterialExchange.md",
+      "agent_json": "docs/Architecture/MaterialExchange.agent.json",
+      "source_sha256": "024cef90b5c7ad85f2612c9c1f251f73a777c7c0525fff1b4dccd49860becda0",
       "role": "guide"
     },
     {
@@ -161,7 +175,7 @@
       "document_id": "urn:iisacc:document:870db892a5a3bfec40106a67ee98fa281ee77f744057bb2aa5983ef7feb7bfb9",
       "source": "docs/README.md",
       "agent_json": "docs/README.agent.json",
-      "source_sha256": "86a7309c5795fcd81b5e471ce248012ea6d0299ff6537ecf6135d3b446f8296f",
+      "source_sha256": "45e599d65ba10f1d1e8fbe27d6d5a8e58e44138d405eedd1baf19d955b546427",
       "role": "overview"
     },
     {
@@ -223,7 +237,7 @@
   },
   "provenance": {
     "generator": "workspace-docs",
-    "version": "1.0.0",
+    "version": "1.0.0-manual-projection-2026-11-26",
     "profile": "lossless-blocks-v1",
     "derived": true
   }

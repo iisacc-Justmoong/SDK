@@ -5,6 +5,7 @@
 #include <memory>
 #include <optional>
 #include <span>
+#include <stop_token>
 #include <string>
 #include <string_view>
 #include <typeindex>
@@ -17,7 +18,7 @@ namespace iiAgentApplicationInterface {
 /// Stable result categories for the first in-process API. They do not imply rollback.
 enum class Status : int {
     ok = 0, invalid_argument, not_found, already_exists, denied,
-    validation_failed, handler_failed, internal_error
+    validation_failed, handler_failed, internal_error, cancelled
 };
 
 /// Result of a command: value is the output on success and a host diagnostic on failure.
@@ -25,6 +26,17 @@ struct Result {
     Status status = Status::ok;
     std::string value;
 };
+
+/// Progress owned by the caller; tokens are transport metadata, not authority.
+/// A host emits increasing values while the associated invocation is active.
+struct CommandProgressEvent final {
+    std::string request_id, token_json;
+    double progress = 0;
+    std::optional<double> total;
+    std::string message;
+};
+/// Synchronous host callback; the invocation owner controls callback lifetime.
+using CommandProgressCallback = std::function<void(const CommandProgressEvent&)>;
 
 /// Host-authenticated identity; the runtime does not authenticate this string.
 struct AgentContext {
@@ -110,6 +122,10 @@ using Authorizer = std::function<bool(const AccessRequest&)>;
 using Validator = std::function<bool(std::string_view, std::string& reason)>;
 /// Host command. It can publish state and is called at most once per invocation.
 using Handler = std::function<Result(const AgentContext&, std::string_view)>;
+/// A host handler that may check the explicit stop token and publish progress.
+/// It still runs on the runtime owner thread and must cooperate to stop safely.
+using CancellableHandler = std::function<Result(const AgentContext&, std::string_view,
+                                                std::stop_token, const CommandProgressCallback&)>;
 /// Host callback for a change notification. Exceptions are isolated.
 using Observer = std::function<void(const Event&)>;
 /// A nonzero token identifies a subscription for the lifetime of one runtime.
@@ -172,7 +188,7 @@ inline constexpr ProcedureApiItem procedure_context_api[] = {
 /// Data types agents can use with the generated C++ procedure entry.
 inline constexpr ProcedureApiItem procedure_type_api[] = {
     {"Result", "struct Result { Status status; std::string value; }", "On success value is output; on failure it is a diagnostic. Failure does not imply rollback."},
-    {"Status", "enum class Status { ok, invalid_argument, not_found, already_exists, denied, validation_failed, handler_failed, internal_error }", "Compare command results with iiAgentApplicationInterface::Status::ok."},
+    {"Status", "enum class Status { ok, invalid_argument, not_found, already_exists, denied, validation_failed, handler_failed, internal_error, cancelled }", "Compare command results with iiAgentApplicationInterface::Status::ok."},
     {"Object", "struct Object { std::string id, type, description, state; std::uint64_t instance, revision; }", "An authorized application snapshot; type is host metadata, not necessarily a C++ type name."},
     {"Capability", "struct Capability { std::string object_id, id, description, input_schema, output_schema; std::vector<std::string> permissions; }", "A discoverable command; schemas are opaque host-provided descriptions."},
     {"AgentContext", "struct AgentContext { std::string principal; }", "Identity supplied and authenticated by the application host."}
@@ -243,6 +259,9 @@ public:
     Status update_state(std::string_view object_id, std::string state);
     /// Registers a command with mandatory validator and handler on an existing object.
     Status add_capability(Capability capability, Validator validator, Handler handler);
+    /// Register an otherwise identical command with explicit cancellation and
+    /// progress inputs. Host policy and validation still run on every invocation.
+    Status add_cancellable_capability(Capability capability, Validator validator, CancellableHandler handler);
     /// Removes one command without altering its object.
     Status remove_capability(std::string_view object_id, std::string_view capability_id);
 
@@ -264,7 +283,8 @@ public:
     [[nodiscard]] ProcedureAuthoringContext procedure_authoring_context(const AgentContext& context) const;
     /// Reauthorizes, validates and calls the registered host command at most once.
     [[nodiscard]] Result invoke(const AgentContext& context, std::string_view object_id,
-                                std::string_view capability_id, std::string_view input);
+                                std::string_view capability_id, std::string_view input,
+                                std::stop_token cancellation = {}, const CommandProgressCallback& progress = {});
     /// Associates a host-owned, shared-lifetime native object with an existing object ID.
     /// The registration is weak: the application retains ownership and exact static type.
     template<class T>

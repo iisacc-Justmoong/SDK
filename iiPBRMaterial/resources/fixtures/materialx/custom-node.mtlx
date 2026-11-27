@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<materialx version="1.39">
+  <iisacc_example_color name="custom" type="color3" version="1.0">
+    <input name="value" type="color3" value="0.1, 0.2, 0.3" />
+  </iisacc_example_color>
+</materialx>

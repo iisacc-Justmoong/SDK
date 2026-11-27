@@ -1,6 +1,24 @@
 @PACKAGE_INIT@
 include(CMakeFindDependencyMacro)
 find_dependency(Threads)
+find_dependency(iiSDKCore 0.20 CONFIG COMPONENTS Contracts Runtime HINTS "$ENV{HOME}/.local/SDK/iiSDKCore")
+if(NOT @BUILD_SHARED_LIBS@)
+    find_dependency(corvus_json_schema 0.1.7 CONFIG PATHS "${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@/cmake/corvus_json_schema" NO_DEFAULT_PATH)
+    if(NOT TARGET iiagent_precision_backend)
+        add_library(iiagent_precision_backend SHARED IMPORTED)
+        if(WIN32)
+            set_target_properties(iiagent_precision_backend PROPERTIES
+                IMPORTED_LOCATION "${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_BINDIR@/iiagent_precision_schema.dll"
+                IMPORTED_IMPLIB "${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@/iiagent_precision_schema.dll.lib")
+        elseif(APPLE)
+            set_target_properties(iiagent_precision_backend PROPERTIES
+                IMPORTED_LOCATION "${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@/libiiagent_precision_schema.dylib")
+        else()
+            set_target_properties(iiagent_precision_backend PROPERTIES
+                IMPORTED_LOCATION "${PACKAGE_PREFIX_DIR}/@CMAKE_INSTALL_LIBDIR@/libiiagent_precision_schema.so")
+        endif()
+    endif()
+endif()
 include("${CMAKE_CURRENT_LIST_DIR}/iiAgentApplicationInterfaceTargets.cmake")
 set_and_check(iiAgentApplicationInterface_DISCOVERY_SCRIPT "@PACKAGE_CMAKE_INSTALL_DATADIR@/iiAgentApplicationInterface/python/iiagent_application_interface_discovery.py")
 set_and_check(iiAgentApplicationInterface_EXAMPLE_DIR "@PACKAGE_CMAKE_INSTALL_DATADIR@/iiAgentApplicationInterface/example")

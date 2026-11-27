@@ -1,0 +1,15 @@
+{
+  "asset": "paint-reference.ppm",
+  "sha256": "401b6de3eccba0f9ebc8749dcb3d256ff155c59805e29ff599394344e10e1e13",
+  "encoding": "PPM P6",
+  "width": 2,
+  "height": 2,
+  "component_type": "uint8",
+  "channels": ["red", "green", "blue"],
+  "channel_semantics": "base_color",
+  "color_space": "srgb_texture",
+  "alpha": "none",
+  "row_order": "top_to_bottom",
+  "materialx_working_color_space": "lin_rec709",
+  "provenance": "Synthetic fixture; not an iiPaintEngine render."
+}

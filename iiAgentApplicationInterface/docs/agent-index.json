@@ -6,19 +6,25 @@
       "source": "README.md",
       "agent_json": "docs/Entrypoints/README.agent.json",
       "role": "overview",
-      "sha256": "d65bd359883e3d18a0d80492ee70883a84495cec177fc0403c4ba608301122e1"
+      "sha256": "8a1f8a24398657f0daa5b623e6568287112f17a3c597bd379be7941d3784539d"
     },
     {
       "source": "AGENT.md",
       "agent_json": "docs/Entrypoints/AGENT.agent.json",
       "role": "instructions",
-      "sha256": "a604bc3856db10f46cf4ff5d7f0a5fef292169e300886087641f4a49a6a68b43"
+      "sha256": "744f19077e2370f172fe51d757d83ea20fb73d206f2eab45778e160d834c7061"
     },
     {
       "source": "docs/Contract.md",
       "agent_json": "docs/Contract.agent.json",
       "role": "contract",
-      "sha256": "576b317607ad0afd5ade9f59ce0441b68756ca1bf1c556529842bafa018268c8"
+      "sha256": "4465332c6aa34ed64ac852215c44f89586ab8f5b5adc4920b4e2287a92d89848"
+    },
+    {
+      "source": "docs/Commands.md",
+      "agent_json": "docs/Commands.agent.json",
+      "role": "contract",
+      "sha256": "4e3143dcb2cb15f4c6b49014d42579ee4366c656f785457458fd4c93543cbeca"
     }
   ]
 }

@@ -1,0 +1,108 @@
+# 재질 교환 경계와 MaterialX 평가
+
+작성일: 2026-11-26. 이 문서는 현재 코드에서 확인한 사실, 구현한 재질 교환 범위와 앞으로 필요한 설계를 구분한다. 전체 재질 변환이나 렌더링의 완성을 선언하지 않는다.
+
+## 구현한 계약
+
+- 기존 호환 판독 함수의 동작은 보존한다. `inspectMaterialXStrict`와 Python의 `inspect_materialx_strict`는 전달받은 라이브러리 바이트와 SHA-256을 대조하고, 동일 부모의 중복 이름으로 MaterialX가 요소를 건너뛰는 문서를 오류로 반환한다.
+- [텍스처 변환 인터페이스](../../iiPBRMaterial/src/TextureBinding.h)는 명시적 색·작업 색 공간, 알파, 채널, 의미, 샘플러, 텍스처 바이트·해시와 URI를 받는다. `MaterialXTextureConverter`는 불투명 RGB의 `color3` 이미지 노드와 straight RGBA8 PNG의 `color4` 이미지 노드를 생성한다. 지원하지 않는 알파·채널·색 정보는 원본과 진단을 반환한다.
+- 변환 결과는 원본 텍스처와 메타데이터, 신규 MaterialX 문서, 진단을 소유한다. 생성한 노드를 표면 재질·UV에 연결하는 일은 호스트가 담당한다. 텍스처 픽셀 변환이나 기존 그래프의 수정을 암묵적으로 수행하지 않는다. C++과 Python은 같은 네이티브 결과 계약을 제공한다.
+
+## 결정과 현재 범위
+
+- MaterialX 1.39.5를 iiPBRMaterial의 **선택적** C++ 의존성으로 평가한다. `IIPBR_WITH_MATERIALX` 기본값은 `OFF`이고, `ON`이면 CMake가 정확히 1.39.5의 패키지를 요구한다. 다른 버전은 명시적 갱신과 재검증이 필요하다.
+- [MaterialExchange.h](../../iiPBRMaterial/src/MaterialExchange.h)의 `inspectMaterialX`는 원본 문서와 호출자가 제공한 정의 라이브러리의 바이트·식별자·버전·SHA-256 표기를 입력받는다. 결과에는 원본, 라이브러리 식별 정보, MaterialX 자체의 판독·검증 상태, 노드별 해석 정보와 진단이 들어간다. MaterialX 객체나 파일 핸들은 공개 API를 통과하지 않는다.
+- 기존 `inspectMaterialX`의 `requestConversion=true`는 계속 `conversion_unsupported`를 반환한다. 텍스처 이미지 노드 생성은 별도의 `convertTextureToMaterialX`를 사용한다. 일반 재질 그래프의 양방향 변환, 재질 렌더링, 색 변환과 텍스처 베이킹은 구현하지 않았다.
+- [Python API](../../iiPBRMaterial/src/Python/material_exchange.py)는 호출자가 지정한 네이티브 라이브러리를 통해 같은 C++ 연산과 결과를 사용한다. Python이 별도의 재질 판독기를 구현하거나 표준 라이브러리를 자동 탐색하지 않는다. Python 3.10 이상과 공유 라이브러리 빌드가 필요하다.
+- `MaterialExchangeResult`에 텍스처 메타데이터가 추가되어 C++ ABI가 바뀌었다. 소비자는 헤더와 라이브러리를 함께 재빌드하고, Python 바인딩도 같은 빌드의 공유 라이브러리와 사용한다.
+- C++ `TextureConverter`와 Python `TextureConverter` 프로토콜은 공통 텍스처 입력과 결과로 대체 변환기를 제공한다. 호스트가 구현체를 선택하고 실행하며 SDK가 다른 SDK를 링크하거나 변환기를 자동 탐색하지 않는다. 제품에 실제로 연결한 것은 아니다.
+- iiSDK 모듈 간 직접 링크를 추가하지 않았다. iiPaintEngine, iiActorObject와 제품은 장차 애플리케이션이 독립 인터페이스와 소유한 데이터로 조합한다. 해당 모듈이나 제품에 이 경계를 연결한 것은 아니다.
+
+## 의존성과 라이선스
+
+[MaterialX 공식 저장소](https://github.com/AcademySoftwareFoundation/MaterialX/tree/v1.39.5)의 코드는 Apache-2.0이다. 이번 로컬 평가에는 [PyPI의 1.39.5 소스 배포본](https://pypi.org/project/MaterialX/1.39.5/) SHA-256 `e6d4da032bce6fd782ec91fe898866b80cf988103c7d70e7d530404f45f5644c`를 사용했다. [라이선스 원문](https://github.com/AcademySoftwareFoundation/MaterialX/blob/v1.39.5/LICENSE)과 [제3자 고지](https://github.com/AcademySoftwareFoundation/MaterialX/blob/v1.39.5/THIRD-PARTY.md)를 배포 구성에 맞춰 검토해야 한다. 예를 들어 이 평가에서 빌드한 XML 판독 경로에는 MIT 라이선스 PugiXML이 포함된다.
+
+SHA-256 계산에는 원본을 보존한 MIT 라이선스 [PicoSHA2 1.0.1](../../iiPBRMaterial/third_party/PicoSHA2/provenance.json)을 사용한다. 공개 헤더에 외부 타입을 노출하지 않으며, 패키지 설치 시 해당 라이선스도 함께 제공한다.
+
+Apache-2.0은 소스 공개 의무가 없는 의존성 후보이며, GNU는 Apache-2.0과 GNU 라이선스 버전 3 이상의 호환성을 설명한다. AGPL 제품에 조합할 때도 제품의 AGPL 의무와 Apache 라이선스·저작권·변경 및 해당되는 NOTICE 고지를 각각 지켜야 한다. 이는 라이선스의 적용 방향에 관한 기술적 평가이며 개별 배포물의 권리 검토를 대체하지 않는다. [GNU 호환성 설명](https://www.gnu.org/licenses/license-compatibility.en.html), [GNU FAQ](https://www.gnu.org/licenses/gpl-faq.html)를 참고한다.
+
+MaterialX의 문서 버전, 개별 NodeDef 버전, MaterialX 소프트웨어 버전과 표준·사용자 라이브러리의 해시는 서로 다른 정보이다. 예를 들어 평가한 `standard_surface` 정의는 1.0.1과 1.0.0을 포함하지만 `image` 정의는 명시적 NodeDef 버전이 없을 수 있다. 빈 노드 버전을 임의의 라이브러리 버전으로 채우지 않는다. 노드별 요청 버전·해석 버전과 해당 정의를 공급한 라이브러리 식별자·버전·해시를 결과에 별도로 돌려준다.
+
+## 입력·출력과 실패 계약
+
+호출자는 `MaterialExchangeRequest`의 `original`, `libraries`, `requestConversion`을 채운다. 라이브러리마다 고유 ID, 비어 있지 않은 버전, 64자리 16진 SHA-256 표기와 XML 바이트가 필요하다. 기존 호환 `inspectMaterialX`는 전달된 표기만 보존하고 `library_hash_unverified` 경고를 반환한다. 엄격 판독과 텍스처 변환은 실제 바이트를 계산해 비교하며 불일치 시 원본과 `library_hash_mismatch`를 반환한다. `sha256Hex`와 Python `sha256_bytes`는 임베디드 NUL을 포함한 정확한 바이트를 해시한다.
+
+문서 원본은 최대 16 MiB, 라이브러리 합계와 변환 텍스처는 각각 최대 64 MiB, 라이브러리는 최대 128개이다. 엄격 경로는 백엔드가 꺼져 있어도 입력·해시·중복 이름을 검사하고, 그 뒤 백엔드가 없으면 `backend_unavailable`을 반환한다. 기존 호환 경로의 백엔드 비활성 동작은 유지한다. 서로 다른 라이브러리에 같은 이름의 NodeDef가 있으면 `duplicate_node_definition`으로 거부한다. 통상적인 오류에서 원본은 보존하며 메모리 고갈은 C++의 할당 예외 또는 Python의 `MemoryError`가 될 수 있다.
+
+라이브러리와 문서의 바이트는 호출자가 전달한다. MaterialX의 기본 XInclude 파일 접근을 사용하지 않고 자동 문서 버전 업그레이드를 끈다. 원본이나 라이브러리에 `<xi:include`라는 리터럴이 있으면 중첩 여부와 무관하게 보수적으로 `xinclude_unsupported`를 반환한다. 따라서 주석에 같은 문자열이 있는 문서도 거부할 수 있다. 원격 경로, 상대 경로와 포함 파일의 접근·검증은 호스트의 별도 정책이다.
+
+`parsed`는 MaterialX 파싱 결과이고 `nativeValid`는 MaterialX 자신의 `validate()` 결과이다. 둘 다 교환 가능성이나 렌더러의 지원을 인증하지 않는다. MaterialX 1.39.5의 구현은 미등록 노드 분류를 자체 유효성 검사에서 허용할 수 있으므로 노드 정의가 해석되지 않을 때 별도로 `unresolved_node` 오류를 돌려준다. MaterialX XML 판독기가 같은 이름의 요소를 건너뛸 수 있어 엄격 경로는 판독 전에 같은 부모의 중복 `name`을 거부한다. DTD, 이스케이프되거나 공백 정규화가 필요한 `name`은 안전하게 분석할 수 없어 `strict_xml_unsupported`로 거부한다. 이 사전 검사는 완전한 XML 검증기가 아니며 MaterialX 자체 검증과 타깃 구현 검증을 대체하지 않는다. 원본과 `validation_scope_limited`도 계속 반환한다.
+
+`MaterialNode`의 경로·카테고리·출력 유형·요청 버전·해석된 NodeDef·정의 버전과 라이브러리 정보는 값이다. 사용자 NodeDef가 해석되더라도 해당 타깃의 셰이더 구현이 있다는 보장은 없다. 병렬 호출의 안전성은 이 버전에서 검증하지 않았으므로 호스트가 직렬화한다. C++과 Python의 API는 [소스](../../iiPBRMaterial/src/MaterialExchange.h)와 [바인딩](../../iiPBRMaterial/src/Python/material_exchange.py)을 기준으로 한다.
+
+## Python 사용
+
+다음 예제의 `native_library`, `texture_bytes`, `stdlib_bytes`는 호스트가 명시적으로 확보한 값이다. 라이브러리는 파일을 탐색하거나 게시하지 않는다. `converted`가 있더라도 진단과 `texture` 메타데이터를 함께 보존하고 실제 재질의 UV와 입력 연결을 호스트에서 처리한다.
+
+```python
+from material_exchange import LibraryDocument, MaterialXTextureConverter, TextureBinding, sha256_bytes
+
+node_library = LibraryDocument("stdlib", "1.39.5", sha256_bytes(native_library, stdlib_bytes), stdlib_bytes)
+texture = TextureBinding(
+    original=texture_bytes, sha256=sha256_bytes(native_library, texture_bytes),
+    uri="textures/paint.png", color_space="srgb_texture", working_color_space="lin_rec709",
+    alpha="straight", channels=("red", "green", "blue", "alpha"), semantic="base_color",
+    node_name="paint_color", u_address="clamp", v_address="clamp", filtering="linear",
+)
+result = MaterialXTextureConverter(native_library, [node_library]).execute(texture)
+```
+
+## 기준 자산과 평가 방법
+
+[기준 자산 디렉터리](../../iiPBRMaterial/resources/fixtures/materialx)에는 표준 `image`와 `standard_surface`, 사용자 정의 노드, 미등록 노드, 이름 중복, XInclude 입력과 작은 텍스처가 있다. `standard-image.mtlx`는 작업 색 공간 `lin_rec709`에서 `srgb_texture` 이미지 파일을 참조한다. [RGB 메타데이터](../../iiPBRMaterial/resources/fixtures/materialx/paint-reference.json)는 2×2 PPM P6의 알파 없음과 SHA-256을, [RGBA 메타데이터](../../iiPBRMaterial/resources/fixtures/materialx/paint-reference-rgba.json)는 2×2 PNG의 straight alpha와 SHA-256을 명시한다. 이는 합성한 기준 자산이며 iiPaintEngine이 그린 이미지나 색 변환·셰이딩의 시각적 정답이 아니다.
+
+평가에 공급한 MaterialX 1.39.5 표준 정의 파일의 SHA-256은 다음과 같다.
+
+- `stdlib/stdlib_defs.mtlx`: `47c6c0e7f4a3c140925f29d4bc5fc977950e1be95e1a2c3f62b40f412b234678`
+- `bxdf/standard_surface.mtlx`: `2211a94bc37644cd420d0ee5de0359db2bc30f7823965676e511287a9fcd487d`
+- `paint-reference.ppm`: `401b6de3eccba0f9ebc8749dcb3d256ff155c59805e29ff599394344e10e1e13`
+- `paint-reference-rgba.png`: `73a4bbc708e01ec5fe90c47888f4cab6385cc1d4f5edb26a72b0484292037975`
+
+자동 검사에는 백엔드 비활성 결과, 표준·사용자 정의와 버전·라이브러리 해시 반환, 해시 불일치와 중복 이름 거부, 미등록 노드의 원본과 진단, 잘못된 XML·NUL·XInclude, Python `hashlib` 대조, RGB·RGBA 이미지 노드, 교체 가능한 변환기, 기준 이미지 바이트와 메타데이터의 일치가 포함된다. 사용자 노드 자산에는 셰이더 구현이 없으므로 정의 해석만 시험한다. 타 렌더러와의 왕복, 픽셀 동등성, 모든 표준 노드 지원은 아직 검증하지 않았다.
+
+재현 시 MaterialX 1.39.5를 대상 플랫폼용으로 별도 준비하고, iiSDKBuilder 라이브러리 매니페스트의 `project.cache`에 `BUILD_TESTING=ON`, `BUILD_SHARED_LIBS=ON`, `IIPBR_WITH_MATERIALX=ON`을 지정한다. `kits[].prefixes`에는 MaterialX의 명시적 설치 prefix를 넣는다. 백엔드 미사용 검사는 `IIPBR_WITH_MATERIALX=OFF`로 별도 빌드한다. 빌드 후 각 Builder 출력의 프로젝트 `isolated/build`에서 CTest를 실행한다. 기준 자산은 빌드 디렉터리에 복사하지 않고 모듈의 `resources/fixtures/materialx/`를 참조한다.
+
+## 후속 구현 검증 결과
+
+- macOS arm64에서 iiSDKBuilder의 MaterialX 활성·비활성 공유 라이브러리 빌드가 성공했고, 각 구성의 자동 검사 11개가 통과했다. 기존 검사는 유지했다.
+- Python 확장 계약 검사 9개에서 SHA-256을 `hashlib`와 빈 입력부터 1 MiB까지 여러 블록 경계의 바이너리 입력으로 비교했다. 라이브러리·텍스처 해시 불일치, 중복 XML 이름, 지원하지 않는 메타데이터, RGB·RGBA 노드 생성, 알파 충돌 PNG, 사용자 제공 변환기 교체와 원본 보존을 확인했다.
+- Builder의 로컬 설치 산출물에 있는 공유 라이브러리와 Python 모듈로도 동일한 Python 확장 검사를 통과했고, `<iiPBRMaterial>`을 포함하는 설치 헤더 소비 코드를 컴파일했다. 이는 작업 공간 `build/`의 검증이며 `~/.local` 설치나 실제 제품 실행을 뜻하지 않는다.
+
+## 첫 판독 구현의 검증 기록
+
+- macOS arm64에서 iiSDKBuilder로 MaterialX `ON`과 `OFF`의 C++ 공유 라이브러리를 각각 빌드했고, 각 구성의 CTest 9개가 모두 통과했다. 표준 `image`·`standard_surface` 및 사용자 NodeDef의 해석은 1.39.5 라이브러리 바이트를 직접 전달해 확인했다.
+- Builder의 로컬 설치 검증 산출물에서 `<iiPBRMaterial>` 헤더를 컴파일했고, 설치된 Python 모듈과 공유 라이브러리의 세 계약 검사도 통과했다. 이는 작업 공간의 `build/`에 대한 검증이며 `~/.local`에 새 버전을 설치한 것은 아니다.
+- 외부 MaterialX 평가에서는 셰이더 생성 백엔드를 모두 끈 설정의 CMake 설치 패키지가 여전히 표준 라이브러리 디렉터리를 요구하는 것을 확인했다. 시험에서는 원본 `resources/`의 표준 정의에 링크해 패키지 구성을 마쳤다. 다른 패키지와 플랫폼도 같은 문제가 있는지는 확인하지 않았다.
+- Workspace 지침에 명시된 `Engineering/WorkspaceDocumentation/App/workspace_docs.py`가 현재 경로에 없어, Markdown 원문·줄 범위·SHA-256을 보존하는 JSON 투영과 두 색인을 수동 생성하고 저장된 iiJson.Schema와 원문 재구성으로 검증했다. 투영의 provenance 버전에는 수동 생성 사실을 표기했다.
+
+## iiPaintEngine과 재질 연결 제안
+
+현재 [레이어 합성 계약](../../iiPaintEngine/docs/LAYER_COMPOSITING.md)은 straight ARGB32의 인코딩된 RGB 채널에서 합성하며 선형 광량 또는 ICC 변환을 수행하지 않는다. [비트맵 API](../../iiPaintEngine/README.md)는 ICC 프로필을 보존하거나 적용하지 않는다고 밝힌다. 색 공간 형식과 GPU 저장 열거형이 존재하는 사실만으로 GPU 합성 또는 색 관리가 구현되었다고 보지 않는다. 2D 브러시·레이어 합성 그래프와 3D 표면 재질 그래프는 별도 의미를 유지한다.
+
+텍스처 연결 입력은 바이트 해시, 채널 의미, 색 공간, 알파의 유무와 straight/premultiplied, 주소·필터를 명시한다. 첫 구현은 베이스 컬러의 불투명 RGB 및 straight RGBA8 PNG만 다룬다. 인식한 PNG는 IHDR과 청크의 바이트 경계를 살펴 RGB8 또는 RGBA8 선언이 메타데이터와 맞는지 확인하며, RGB에 `tRNS`가 있거나 파일이 잘렸으면 거부한다. IDAT·CRC·프로필은 검증하거나 픽셀을 디코딩하지 않으므로 `texture_content_unverified` 경고를 반환한다. PNG가 아닌 RGB 자료의 실제 형식과 채널도 확인하지 않는다. straight alpha의 결합 방식은 생성된 `color4` 노드만으로 보장되지 않아 `alpha_association_external` 경고와 반환된 메타데이터를 호스트가 함께 보존해야 한다. 크기·성분 형식의 완전한 디코딩 검증, UV 세트·방향, 채널 추출 및 premultiplied 입력 처리는 아직 구현하지 않았다. 실제 표면 재질과 UV에 노드를 연결하는 일도 호스트의 후속 작업이다.
+
+CPU/GPU 비교의 후속 실험은 같은 고정 입력 픽셀, 브러시 설정, 좌표, 난수 시드, 색·알파 규칙과 출력 해상도를 각 백엔드에 전달한다. 결과는 변환 단계와 출력 형식을 맞춘 뒤 채널별 최대 절대오차, 평균·RMS 오차, 허용치를 넘는 픽셀 비율을 기록하고, 0 알파 RGB와 비유한 값을 별도로 다룬다. 장치·OS·드라이버·백엔드·버전과 기준 이미지 해시도 기록한다. 허용치는 실제 출력 정밀도와 용도에 따라 사전에 정하고 결과를 보고 임의로 완화하지 않는다. 이번 작업에서는 같은 입력에 대한 GPU 실행이나 차이 측정은 수행하지 않았다.
+
+## iiActorObject와 `.nscharacter` 제안
+
+현재 [`.nscharacter` v1](../../iiActorObject/docs/NSCharacterFile.md)은 36바이트 헤더 뒤에 `.ii3dproject` 액터 바이트와 UTF-8 JSON 시트를 담는다. 시트에 CRC-32를 사용하고 원본 시트 바이트를 보존하지만, 이 외피 자체가 재질 그래프·텍스처의 암호학적 해시나 라이브러리 버전을 검증한다는 뜻은 아니다. [프로젝트 직렬화 코드](../../iiActorObject/src/Project/Object3DProjectCodec.cpp)는 기본 재질 계수, 이미지, UV 선택, 법선 맵과 알파 설정을 저장하며, [메시](../../iiActorObject/src/Geometry/Object3DMesh.h)는 재질과 삼각형별 슬롯 및 복수 UV 표현을 가진다. 이는 MaterialX 그래프 보존의 증거가 아니다.
+
+후속 포맷 설계는 본체의 형상·골격·스킨·모프와 별도의 재질 참조를 갖게 한다. 재질 참조에는 형식과 스키마 버전, 원본 바이트 해시와 길이, 노드 정의 라이브러리의 ID·버전·해시, 각 텍스처의 해시·버전·색·알파·채널 의미, 슬롯과 UV 세트 연결을 명시한다. 참조 파일의 수명·접근 권한과 무결성 확인은 호스트가 관리한다. 원본 보존이 불가능하거나 파일이 없으면 이를 진단하고 성공한 대체물로 속이지 않는다.
+
+기존 v1을 조용히 재해석하지 않는다. 이 정보를 v1의 별도 확장 시트로 표현할지, 새 외피 버전이나 외부 매니페스트를 정의할지는 기존 소비자·원본·마이그레이션 시험 후 결정한다. 아직 파일 형식이나 코드를 변경하지 않았다. LOD 생성기는 재질 슬롯의 대응과 각 슬롯에서 사용하는 UV 세트·심·삼각형 대응을 검사해야 한다. 텍스처 베이킹 시 절차적·시간 의존·시점 의존·고주파·투명도·변위 등 사라지거나 근사되는 표현을 항목별로 보고하고 원본 그래프를 남긴다. 현재 코드의 기존 메시·UV·재질 필드를 확인했지만 이런 LOD 생성과 손실 보고의 완성은 확인하지 않았다.
+
+## 제품 조합과 남은 작업
+
+AGPL 제품은 SDK의 값과 진단 계약을 사용하고, 파일 제공자·변환기 선택·출력 게시를 앱에서 명시적으로 조합한다. 엄격 경로와 MaterialX 텍스처 변환은 라이브러리 해시를 검증한다. 변환 불가 시 원본과 진단을 함께 반환한다. 이번 작업에서 제품 코드는 수정하거나 실행하지 않았다.
+
+다음 단계는 이미지 콘텐츠와 색 프로필 검증, premultiplied alpha와 비색 채널의 명시적 변환, 라이브러리 타깃별 구현 가용성 판정, 실제 재질에의 연결과 일반 그래프의 양방향 변환, 앱의 변환기 연결이다. 그 뒤 iiPaintEngine의 실제 CPU/GPU 비교와 `.nscharacter` 슬롯·UV·베이킹 호환성 시험을 수행한다. Windows·Linux·모바일 빌드와 실제 응용프로그램 사용은 별도 증거가 필요하다.

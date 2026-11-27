@@ -1,4 +1,8 @@
 @PACKAGE_INIT@
+if(@IIPBR_WITH_MATERIALX@ AND NOT @BUILD_SHARED_LIBS@)
+    include(CMakeFindDependencyMacro)
+    find_dependency(MaterialX 1.39.5 EXACT CONFIG)
+endif()
 if(EMSCRIPTEN AND @BUILD_SHARED_LIBS@)
     # Emscripten's CMake toolchain defaults to static libraries even when the
     # installed SDK was deliberately built as a WebAssembly side module.

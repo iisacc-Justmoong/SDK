@@ -25,3 +25,4 @@ __pycache__/
 resources/
 !/iiAgentApplicationInterface/resources/
 !/iiLocalizer/resources/
+!/iiPBRMaterial/resources/

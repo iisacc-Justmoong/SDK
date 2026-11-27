@@ -12,7 +12,7 @@ namespace iiAgentApplicationInterface {
 /// Private host registrations and ordered, reentrant-safe event dispatch state.
 struct Runtime::Impl {
     /// A command's callbacks and immutable metadata, identified across replacement.
-    struct Entry { Capability capability; Validator validator; Handler handler; std::uint64_t generation; };
+    struct Entry { Capability capability; Validator validator; CancellableHandler handler; std::uint64_t generation; };
     /// Shared cross-thread handoff, invalidated before the runtime implementation is destroyed.
     struct TrackedBridge {
         std::mutex mutex;
@@ -153,6 +153,16 @@ Status Runtime::update_state(std::string_view object_id, std::string state) {
 
 /// Bind a complete host command to an existing object without replacing a registration.
 Status Runtime::add_capability(Capability capability, Validator validator, Handler handler) {
+    if (!handler) return Status::invalid_argument;
+    return add_cancellable_capability(std::move(capability), std::move(validator),
+        [handler = std::move(handler)](const AgentContext& context, std::string_view input,
+                                       std::stop_token, const CommandProgressCallback&) {
+            return handler(context, input);
+        });
+}
+
+/// Registration shares the legacy authorization, validation and lifecycle path.
+Status Runtime::add_cancellable_capability(Capability capability, Validator validator, CancellableHandler handler) {
     if (capability.object_id.empty() || capability.id.empty() || !validator || !handler) return Status::invalid_argument;
     const auto object = impl_->objects.find(capability.object_id);
     if (object == impl_->objects.end()) return Status::not_found;
@@ -264,13 +274,15 @@ ProcedureAuthoringContext Runtime::procedure_authoring_context(const AgentContex
 
 /// Reauthorize and validate before calling one host handler and publishing its outcome.
 Result Runtime::invoke(const AgentContext& context, std::string_view object_id,
-                       std::string_view capability_id, std::string_view input) {
+                       std::string_view capability_id, std::string_view input,
+                       std::stop_token cancellation, const CommandProgressCallback& progress) {
     const auto key = std::make_pair(std::string(object_id), std::string(capability_id));
     const auto found = impl_->commands.find(key);
     if (found == impl_->commands.end()) return {Status::denied, "command unavailable"};
     const auto entry = found->second;
     if (!impl_->allow(context, Action::execute, key.first, key.second, entry.capability.permissions))
         return {Status::denied, "command unavailable"};
+    if (cancellation.stop_requested()) return {Status::cancelled, "command cancelled"};
     std::string reason;
     try {
         if (!entry.validator(input, reason)) return {Status::validation_failed, reason};
@@ -280,9 +292,10 @@ Result Runtime::invoke(const AgentContext& context, std::string_view object_id,
         return {Status::not_found, "command registration changed"};
     if (!impl_->allow(context, Action::execute, key.first, key.second, entry.capability.permissions))
         return {Status::denied, "command unavailable"};
+    if (cancellation.stop_requested()) return {Status::cancelled, "command cancelled"};
     const auto object = impl_->objects.at(key.first);
     Result result;
-    try { result = entry.handler(context, input); }
+    try { result = entry.handler(context, input, cancellation, progress); }
     catch (...) { result = {Status::handler_failed, "handler failed"}; }
     const auto updated = impl_->objects.find(key.first);
     const auto revision = updated != impl_->objects.end() && updated->second.instance == object.instance

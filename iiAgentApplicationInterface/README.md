@@ -4,20 +4,32 @@ iiAgentApplicationInterface is a small in-process foundation for agent-accessibl
 
 The initial local prototype was named `iiAgent`. Its public names have been replaced: update CMake package and target names, C++ includes and namespace, C symbols, Python imports, and configuration variables, then rebuild consumers. No compatibility aliases are provided.
 
-The current API is synchronous and serialized on a host thread; tracked object destruction can be handed back from other threads. Authorization defaults to deny. The host authenticates principals and owns the side effects, transaction and undo semantics, approval, and output validation. Schema descriptions are opaque metadata; a host validator is required for every command. The C++ core does not own a transport, credential store, MCP adapter, or sandbox. Applications can compose its external gateway with an app-owned local transport and verifier.
+The existing runtime is serialized on a host thread; tracked object destruction can be handed back from other threads. Authorization defaults to deny. The host authenticates principals and owns side effects, transaction and undo semantics, and approval. Runtime capability schemas remain metadata and each capability still requires a host validator. The command API adds explicit JSON Schema validation, command discovery and resolution, progress and cancellation, and MCP and CLI adapters. Host-composed Python transports serve MCP over standard input/output or Streamable HTTP. See [the command contract](docs/Commands.md) for validation coverage and transport limits.
 
 ## Build and test
 
 ```sh
-cmake -S . -B build -DBUILD_TESTING=ON
-cmake --build build
+iisdk-builder build --mode library --project . --project-build-directory --platform host
 ctest --test-dir build --output-on-failure
 ./install.sh                          # stages to build/install
 # ./install.sh /chosen/install/prefix # optional explicit prefix
 # INSTALL_PREFIX=/chosen/prefix ./install.sh # also supported by the SDK batch installer
 ```
 
-The installer uses the cached CMake build type, or Release if unset; set `IIAGENTAPPLICATIONINTERFACE_BUILD_CONFIG` to override it. CMake options are `BUILD_SHARED_LIBS`, `BUILD_TESTING`, `IIAGENTAPPLICATIONINTERFACE_BUILD_PYTHON`, and `IIAGENTAPPLICATIONINTERFACE_BUILD_EXAMPLES`. Python requires a shared build. No other SDK or Qt is required.
+The direct build option reuses `build/` for one host kit; other builder modes place their configured build in a kit directory beneath `build/`. The installer uses the cached CMake build type, or Release if unset; set `IIAGENTAPPLICATIONINTERFACE_BUILD_CONFIG` to override it. CMake options include `BUILD_SHARED_LIBS`, `BUILD_TESTING`, `IIAGENTAPPLICATIONINTERFACE_BUILD_PYTHON`, and `IIAGENTAPPLICATIONINTERFACE_BUILD_EXAMPLES`. Python requires a shared build. iiSDKCore Contracts and Runtime are required; Qt is not. JSON Schema builds also require Rust and Cargo for the native exact-number backend. The pinned Corvus schema engine uses platform packages, or a target-native package supplied with `IIAGENTAPPLICATIONINTERFACE_CORVUS_PREFIX`. Cross-builds also need a matching `IIAGENTAPPLICATIONINTERFACE_RUST_TARGET`. See the command contract for platform and JSON Schema coverage.
+
+## Commands and MCP
+
+Include `<iiAgentApplicationInterface>` for the command values, `CommandSchemaValidator`, cancellation handle, resolver, scope policy and adapters. The Python extension is imported as `iiagent_application_commands`. The host supplies grants and schema reference documents explicitly; a schema or published tool does not authorize execution. `Runtime::add_cancellable_capability` supplies a stop token and progress callback to a host-thread handler. An isolated process job can be terminated on cancellation; its prior side effects are not rolled back.
+
+The installed `iiagent-command` calls an application-owned local gateway. `iiagent-mcp` can expose it over stdio or Streamable HTTP, for example after the host supplies an endpoint and sets `IIAGENT_APPLICATION_CREDENTIAL`:
+
+```sh
+iiagent-command --endpoint /app/owned/agent.sock --target document --command rename --arguments '{"name":"New"}'
+iiagent-mcp --endpoint /app/owned/agent.sock --transport stdio
+```
+
+For HTTP use `--transport http`, an explicit `--host` and `--port`, and `--allow-origin` for trusted browser origins. TLS and the credential verifier belong to the host. `McpCommandServer` also accepts a host backend for discovery, execution, progress, and cooperative cancellation. The existing synchronous gateway proxy cannot forward progress or cancellation to a running application command; applications that need them must supply a backend that integrates those callbacks. The transports implement the 2025-11-25 protocol version. They do not automatically attach to a running application.
 
 ## Native application procedures
 

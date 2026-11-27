@@ -10,9 +10,10 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCUMENTS = (
-    ("README.md", "docs/entrypoints/README.agent.json", "overview", "en"),
-    ("AGENT.md", "docs/entrypoints/AGENT.agent.json", "instructions", "ko"),
+    ("README.md", "docs/Entrypoints/README.agent.json", "overview", "en"),
+    ("AGENT.md", "docs/Entrypoints/AGENT.agent.json", "instructions", "ko"),
     ("docs/Contract.md", "docs/Contract.agent.json", "contract", "ko"),
+    ("docs/Commands.md", "docs/Commands.agent.json", "contract", "ko"),
 )
 
 

@@ -5,11 +5,17 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CTest)
 option(BUILD_SHARED_LIBS "Build SDK libraries as shared libraries" ON)
+option(IIPBR_WITH_MATERIALX "Enable the optional MaterialX exchange backend" OFF)
 if(EMSCRIPTEN AND BUILD_SHARED_LIBS)
   set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS TRUE)
 endif()
-add_library(iiPBRMaterial src/CustomAtom.cpp src/CustomBond.cpp src/MolecularFormula.cpp src/Molecule.cpp src/MolecularMap.cpp src/Texture.cpp src/PBRMaterial.cpp src/OrganicMaterial.cpp)
+add_library(iiPBRMaterial src/CustomAtom.cpp src/CustomBond.cpp src/MolecularFormula.cpp src/Molecule.cpp src/MolecularMap.cpp src/Texture.cpp src/PBRMaterial.cpp src/OrganicMaterial.cpp src/MaterialExchange.cpp src/MaterialExchangeC.cpp src/StrictMaterialXml.cpp src/TextureBinding.cpp)
 add_library(iiPBRMaterial::iiPBRMaterial ALIAS iiPBRMaterial)
+if(IIPBR_WITH_MATERIALX)
+  find_package(MaterialX 1.39.5 EXACT CONFIG REQUIRED)
+  target_link_libraries(iiPBRMaterial PRIVATE MaterialXFormat MaterialXCore)
+  target_compile_definitions(iiPBRMaterial PRIVATE IIPBR_HAS_MATERIALX=1)
+endif()
 target_compile_features(iiPBRMaterial PUBLIC cxx_std_23)
 target_include_directories(iiPBRMaterial PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
@@ -34,6 +40,23 @@ else()
   target_compile_options(iiPBRMaterial PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 if(BUILD_TESTING)
+  add_executable(iiPBRTextureConverterInterfaceTest tests/TextureConverterInterfaceTest.cpp)
+  target_link_libraries(iiPBRTextureConverterInterfaceTest PRIVATE iiPBRMaterial::iiPBRMaterial)
+  add_test(NAME iiPBRTextureConverterInterfaceTest COMMAND iiPBRTextureConverterInterfaceTest)
+  add_executable(iiPBRMaterialExchangeTests tests/MaterialExchangeTests.cpp)
+  target_link_libraries(iiPBRMaterialExchangeTests PRIVATE iiPBRMaterial::iiPBRMaterial)
+  target_compile_definitions(iiPBRMaterialExchangeTests PRIVATE
+    IIPBR_MATERIALX_ENABLED=$<BOOL:${IIPBR_WITH_MATERIALX}>
+    IIPBR_MATERIALX_FIXTURES="${CMAKE_CURRENT_SOURCE_DIR}/resources/fixtures/materialx")
+  if(IIPBR_WITH_MATERIALX)
+    file(SHA256 "${MATERIALX_STDLIB_DIR}/stdlib/stdlib_defs.mtlx" IIPBR_STDLIB_SHA256)
+    file(SHA256 "${MATERIALX_STDLIB_DIR}/bxdf/standard_surface.mtlx" IIPBR_SURFACE_SHA256)
+    target_compile_definitions(iiPBRMaterialExchangeTests PRIVATE
+      IIPBR_MATERIALX_STDLIB="${MATERIALX_STDLIB_DIR}"
+      IIPBR_STDLIB_SHA256="${IIPBR_STDLIB_SHA256}"
+      IIPBR_SURFACE_SHA256="${IIPBR_SURFACE_SHA256}")
+  endif()
+  add_test(NAME iiPBRMaterialExchangeTests COMMAND iiPBRMaterialExchangeTests)
   add_executable(iiPBRMaterialTests tests/PBRMaterialTests.cpp)
   target_link_libraries(iiPBRMaterialTests PRIVATE iiPBRMaterial::iiPBRMaterial)
   target_compile_definitions(iiPBRMaterialTests PRIVATE IIPBR_FIXTURE="${CMAKE_CURRENT_SOURCE_DIR}/resources/fixtures/material-id.ppm")
@@ -58,6 +81,22 @@ if(BUILD_TESTING)
   if(NOT CMAKE_CROSSCOMPILING)
     find_package(Python3 COMPONENTS Interpreter QUIET)
     if(Python3_Interpreter_FOUND)
+      if(BUILD_SHARED_LIBS)
+        add_test(NAME iiPBRMaterialExchangePython COMMAND ${Python3_EXECUTABLE}
+          ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_material_exchange.py
+          $<TARGET_FILE:iiPBRMaterial> ${CMAKE_CURRENT_SOURCE_DIR}/src/Python
+          ${CMAKE_CURRENT_SOURCE_DIR}/resources/fixtures/materialx $<BOOL:${IIPBR_WITH_MATERIALX}>)
+        if(IIPBR_WITH_MATERIALX)
+          set(IIPBR_PYTHON_MATERIALX_STDLIB "${MATERIALX_STDLIB_DIR}")
+        else()
+          set(IIPBR_PYTHON_MATERIALX_STDLIB "-")
+        endif()
+        add_test(NAME iiPBRMaterialExchangeExtendedPython COMMAND ${Python3_EXECUTABLE} -B
+          ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_material_exchange_extended.py
+          $<TARGET_FILE:iiPBRMaterial> ${CMAKE_CURRENT_SOURCE_DIR}/src/Python
+          ${CMAKE_CURRENT_SOURCE_DIR}/resources/fixtures/materialx $<BOOL:${IIPBR_WITH_MATERIALX}>
+          "${IIPBR_PYTHON_MATERIALX_STDLIB}")
+      endif()
       add_test(NAME iiPBRMolecularSvgXml COMMAND ${Python3_EXECUTABLE}
         ${CMAKE_CURRENT_SOURCE_DIR}/tests/verify_molecular_svg.py $<TARGET_FILE:iiPBRMoleculeTests> $<TARGET_FILE:iiPBRCustomAtomTests> $<TARGET_FILE:iiPBRCustomBondTests>)
     endif()
@@ -73,7 +112,9 @@ endif()
 install(TARGETS iiPBRMaterial EXPORT iiPBRMaterialTargets
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(FILES src/CustomAtom.h src/CustomBond.h src/MolecularFormula.h src/Molecule.h src/MolecularMap.h src/Texture.h src/PBRMaterial.h src/OrganicMaterial.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/iiPBRMaterial)
+install(FILES src/CustomAtom.h src/CustomBond.h src/MolecularFormula.h src/Molecule.h src/MolecularMap.h src/Texture.h src/PBRMaterial.h src/OrganicMaterial.h src/MaterialExchange.h src/MaterialExchangeC.h src/TextureBinding.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/iiPBRMaterial)
+install(FILES src/Python/material_exchange.py DESTINATION ${CMAKE_INSTALL_DATADIR}/iiPBRMaterial/python)
+install(FILES third_party/PicoSHA2/LICENSE DESTINATION ${CMAKE_INSTALL_DATADIR}/iiPBRMaterial/licenses RENAME PicoSHA2-LICENSE)
 install(EXPORT iiPBRMaterialTargets NAMESPACE iiPBRMaterial:: DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/iiPBRMaterial)
 configure_package_config_file(cmake/iiPBRMaterialConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/iiPBRMaterialConfig.cmake
   INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/iiPBRMaterial)

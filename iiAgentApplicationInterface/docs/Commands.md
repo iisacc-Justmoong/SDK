@@ -1,0 +1,71 @@
+# 애플리케이션 명령 계약
+
+애플리케이션은 명령 기술자와 호출자·대상·입력의 소유권을 명시한다. 명령의 검색과 실행은
+서로 다른 권한이며, 발행된 스키마와 이름은 인증이나 실행 권한의 증거가 아니다. 호스트가
+인증한 주체, 허용된 대상과 범위를 전달하고 기존 런타임의 실행 인가도 매번 적용한다.
+대상이 없거나 둘 이상 일치하면 자동으로 다른 대상을 선택하지 않는다.
+
+`ApplicationCommandDescriptor`, `ApplicationCommandInvocation`,
+`ApplicationCommandResult`, `CommandProgressEvent`는 값으로 전달하는 계약이다.
+`CommandTargetResolver`, `CommandScopePolicy`, `CommandCapabilityPublisher`는 호출자가
+제공한 스냅샷과 인가 결과를 사용한다. 등록, 생명주기, 실행 순서와 변경된 권한의 재확인은
+호스트가 관리한다.
+
+`CommandSchemaValidator`는 Draft 4, 6, 7, 2019-09 및 2020-12를 처리한다. Draft 0~3은
+초기 버전의 제약을 Draft 4 제약으로 변환하여 검증하며 Draft 5 식별자는 Draft 4로
+처리한다. 일반 정수는 Corvus 검증기를 사용하고 소수와 큰 정수는 임의 정밀도 검증기에
+전달하여 숫자를 반올림하지 않고 비교한다. 외부 참조 문서는 호출자가 URI와 JSON을
+명시적으로 공급한다. CLI와 MCP 게이트웨이는 앱이 발행한 스키마와 명령 인자의
+숫자 표기를 보존하므로 Python의 부동소수점이나 정수 자릿수 제한으로 바뀌지 않는다.
+Draft 0~3의 표준 메타스키마는 내장하며 네트워크나 파일에서 임의로 문서를 가져오지 않는다.
+스키마와 입력이 잘못되거나 참조를 찾지 못하면 검증에 실패한다. JSON 문서 한 개당 크기는
+2 MiB, JSON 중첩 깊이는 128, 숫자 유효 자릿수와 지수는 각각 10,000으로 제한한다.
+기본 버전은 2020-12이며 명시된 `$schema`를 우선한다. `format` 검증은 기본적으로
+주석으로 취급하며 호출자가 검증을 요청할 수 있다.
+
+자동 검증에는 JSON Schema Test Suite의 Draft 3, 4, 6, 7, 2019-09, 2020-12 필수·선택
+사례를 사용한다. 큰 수 사례는 테스트 자료의 숫자를 Python 부동소수점으로 바꾸지 않고
+읽는다. Draft 0~3의 `color` 형식은 CSS3 이름, 세 자리·여섯 자리 16진수,
+`rgb`·`rgba`·`hsl`·`hsla`를 검증한다. 공식 모음이 제공하지 않는 Draft 0~2는 별도의
+계약 사례를 검사한다. 사용자 정의 메타스키마도 호출자가 참조 문서로 제공하면 임의
+정밀도 경로에서 확인할 수 있다. 이 검증은 모든 사용자 정의 어휘와 Hyper-Schema의
+하이퍼미디어 실행을 제공한다는 뜻이 아니다.
+테스트 모음은 공식 저장소의 커밋
+`5b0ee1613e45fcc2bddac00e07c19cd49b00d8a8`을 `resources/`에 고정한다.
+
+`CommandCancellationHandle`은 실행을 시작하기 전부터 사용할 수 있는 협력적 취소 신호이다.
+호스트가 소유한 앱 내부 객체를 변경하는 명령은 해당 신호를 확인하고 안전한 지점에서
+멈춘다. 격리된 자식 프로세스는 호스트가 제공한 실행 권한 안에서 별도로 시작하며 취소 시
+소유 프로세스 트리를 종료할 수 있다. 강제 종료는 이미 발생한 외부 효과의 되돌림을
+보장하지 않는다. 명령과 자식 프로세스의 수명 및 백그라운드 일정은 호스트가 제어한다.
+`Runtime::add_cancellable_capability`와 `invoke`의 중지 토큰 및 진행 콜백은 소유 스레드
+직렬화 규칙을 유지한다. 프로세스 실행에는 절대 실행 파일 경로와 작업 디렉터리가 필요하며
+환경과 표준 스트림을 암묵적으로 상속하지 않는다.
+
+`McpCommandAdapter`와 `CliCommandAdapter`는 인증된 호스트가 제공한 명령 스냅샷을
+해석한다. MCP 도구의 입력은 JSON 객체이며 요청 식별자와 진행 토큰은 전송 간 혼동하지
+않는다. `iiagent_application_mcp.McpCommandServer`는 호스트가 주입한 인증·발견·실행
+콜백을 백그라운드에서 조정하고 표준 입출력 및 MCP 2025-11-25 Streamable HTTP를 제공한다.
+HTTP는 Origin 허용 목록과 요청별 Bearer 인증을 확인하고 응답에 SSE를 사용한다. TLS와
+인증 저장소는 호스트가 제공한다. 핸들러는 앱 객체 접근을 소유 스레드로 전달하고 실행 시
+인가를 다시 확인해야 한다. `iiagent-command`는 기존 로컬 게이트웨이로 명령을 전달한다.
+
+`GatewayBackend`는 기존 동기식 `ExternalGateway`를 사용할 수 있게 한다. 이 경로에서 이미
+시작된 앱 명령에 진행률과 취소를 전달하는 프로토콜은 아직 없으며, 이를 사용하려면 취소
+핸들과 진행 콜백을 앱에 전달하는 호스트 백엔드를 직접 주입해야 한다. 이는 이미 실행된
+앱 핸들러를 강제로 종료하지 않는다. Python 명령 객체는 네이티브 C++ 확장으로 제공하고
+MCP 전송 및 CLI의 프로세스 조정은 Python에서 수행한다.
+
+빌드에는 iiSDKCore, 고정된 Apache-2.0 Corvus 0.1.7 네이티브 패키지, Rust 1.88 이상과 Cargo가
+필요하다. 임의 정밀도 엔진은 MIT 라이선스 `jsonschema` 0.63.1이며 Rust로 빌드한 네이티브
+동적 라이브러리로 분리한다. 실행 중 Rust 빌드 도구는 필요하지 않다. 외부 참조는 명시된
+메모리 리소스만 사용하며 네트워크·파일 검색 기능은 빌드에서 끈다. Cargo 패키지의 잠금
+정보와 라이선스 고지는 함께 배포한다.
+
+Corvus 기본 패키지는 macOS, Linux와 Windows의 일부 아키텍처를 대상으로 하며 다른
+대상은 `IIAGENTAPPLICATIONINTERFACE_CORVUS_PREFIX`로 대상용 패키지를 명시한다.
+교차 컴파일은 `IIAGENTAPPLICATIONINTERFACE_RUST_TARGET`과 해당 Rust 표준 라이브러리·
+링커를 준비해야 한다. `IIAGENTAPPLICATIONINTERFACE_PRECISION_PROFILE`은 기본 `release`이며
+개발용 `debug`를 선택할 수 있고 `IIAGENTAPPLICATIONINTERFACE_PRECISION_JOBS`로 Cargo의
+병렬 빌드 수를 조절할 수 있다. jsoncons, pybind11과 색상 구문 분석기 ColorM도 라이선스를
+함께 배포한다. 현재 자동 빌드와 통합 검증을 수행한 플랫폼은 macOS이다.

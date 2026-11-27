@@ -10,6 +10,7 @@ Markdown is the maintained source. Agent JSON is a structured projection.
 - [`AccountManagerName.md`](Architecture/AccountManagerName.md) · [JSON](Architecture/AccountManagerName.agent.json)
 - [`GPU.md`](Architecture/GPU.md) · [JSON](Architecture/GPU.agent.json)
 - [`HeaderLayout.md`](Architecture/HeaderLayout.md) · [JSON](Architecture/HeaderLayout.agent.json)
+- [`MaterialExchange.md`](Architecture/MaterialExchange.md) · [JSON](Architecture/MaterialExchange.agent.json)
 - [`ModuleConsolidation.md`](Architecture/ModuleConsolidation.md) · [JSON](Architecture/ModuleConsolidation.agent.json)
 - [`ModuleNames.md`](Architecture/ModuleNames.md) · [JSON](Architecture/ModuleNames.agent.json)
 - [`SDKIndependence.md`](Architecture/SDKIndependence.md) · [JSON](Architecture/SDKIndependence.agent.json)

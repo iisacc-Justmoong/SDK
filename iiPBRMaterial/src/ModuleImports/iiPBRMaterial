@@ -9,3 +9,5 @@
 #include <Texture.h>
 #include <PBRMaterial.h>
 #include <OrganicMaterial.h>
+#include <MaterialExchange.h>
+#include <TextureBinding.h>

@@ -3,8 +3,8 @@
   "role": "contract",
   "source": {
     "path": "docs/Contract.md",
-    "sha256": "576b317607ad0afd5ade9f59ce0441b68756ca1bf1c556529842bafa018268c8",
-    "bytes": 26082,
+    "sha256": "4465332c6aa34ed64ac852215c44f89586ab8f5b5adc4920b4e2287a92d89848",
+    "bytes": 26191,
     "line_count": 89,
     "language": "ko",
     "encoding": "utf-8"
@@ -110,7 +110,7 @@
     {
       "line": 7,
       "kind": "text",
-      "raw": "C++ 런타임은 다른 SDK, GUI, 모델, 파일 시스템, 네트워크 및 Qt에 의존하지 않는다. 빌드 시 선언 발견 도구는 소스와 컴파일 명령을 읽고 컴파일러와 libclang을 사용한다. 앱이 필요한 모듈들을 조합한다. C++ 코어는 전송 구현, 독립 에이전트, 인증 서비스 또는 샌드박스가 아니다. 앱은 별도 어댑터를 조합해 로컬 IPC를 제공할 수 있다. 런타임의 등록·상태 게시 API와 콜백은 신뢰된 앱 코드에서만 사용한다. 외부에 직접 넘길 수 있는 보안 경계가 아니다.\n"
+      "raw": "C++ 모듈은 공통 기반 iiSDKCore와 JSON Schema 엔진에 의존하며 Qt, GUI 또는 모델은 요구하지 않는다. 앱이 필요한 모듈들을 조합한다. 빌드 시 선언 발견 도구는 소스와 컴파일 명령을 읽고 컴파일러와 libclang을 사용한다. 명령 계층은 앱이 명시한 프로세스와 스키마 리소스를 사용하고 Python 전송 계층은 호스트가 지정한 표준 입출력 또는 HTTP 엔드포인트를 사용한다. 인증 서비스나 샌드박스는 포함하지 않는다. 런타임의 등록·상태 게시 API와 콜백은 신뢰된 앱 코드에서만 사용한다. 외부에 직접 넘길 수 있는 보안 경계가 아니다.\n"
     },
     {
       "line": 8,
@@ -140,7 +140,7 @@
     {
       "line": 13,
       "kind": "text",
-      "raw": "명령 기능은 등록된 객체에 속하며 객체 안에서 고유한 식별자, 설명, 입력·출력 스키마 설명 문자열 및 권한 이름 목록을 갖는다. 스키마는 발견을 위한 불투명한 기술이며 모듈은 특정 스키마 언어를 해석하지 않는다. 각 기능은 앱이 제공하는 입력 검증기와 실행 핸들러를 반드시 가진다. 출력 스키마 검증은 호스트의 책임이다. 객체 제거는 그 객체의 기능도 제거한다.\n"
+      "raw": "명령 기능은 등록된 객체에 속하며 객체 안에서 고유한 식별자, 설명, 입력·출력 스키마 설명 문자열 및 권한 이름 목록을 갖는다. 기존 런타임은 이 문자열을 발견용 메타데이터로 취급하며 각 기능에는 앱이 제공하는 입력 검증기와 실행 핸들러가 반드시 필요하다. 별도의 `CommandSchemaValidator`는 명시적으로 제공된 JSON Schema를 검증하고 MCP 명령 서버는 입출력에 이를 적용한다. 객체 제거는 그 객체의 기능도 제거한다. 구체적인 버전과 한계는 [명령 계약](Commands.md)을 따른다.\n"
     },
     {
       "line": 14,
@@ -220,7 +220,7 @@
     {
       "line": 29,
       "kind": "text",
-      "raw": "공개 C++23 API는 `<iiAgentApplicationInterface>`와 CMake 타깃 `iiAgentApplicationInterface::iiAgentApplicationInterface`로 제공한다. C ABI 헤더는 `<iiAgentApplicationInterface/AgentC.h>`로 사용한다. C ABI의 텍스트는 NUL을 포함하지 않는 UTF-8이며, 호스트 콜백이 반환한 포인터는 해당 외부 API 호출이 돌아올 때까지 유효해야 한다. C ABI가 반환한 출력은 `iiagent_application_interface_free`로 해제한다. Python은 콜백을 런타임이 닫힐 때까지 보관한다. Python API는 같은 네이티브 런타임의 C ABI를 사용하며 별도의 Python 구현이나 다른 SDK를 요구하지 않는다. Python 바인딩은 공유 라이브러리가 필요하다. 빌드 옵션으로 테스트, 예제, Python 바인딩을 선택할 수 있다. 설치 스크립트는 명시적 경로 또는 `INSTALL_PREFIX`를 우선하며 그 외에는 `build/install`에 배치한다. C++ ABI 안정성, 런타임 멀티스레드 동시 접근, 비동기·취소·분산·MCP 연결은 현재 계약에 포함되지 않는다.\n"
+      "raw": "공개 C++23 API는 `<iiAgentApplicationInterface>`와 CMake 타깃 `iiAgentApplicationInterface::iiAgentApplicationInterface`로 제공한다. C ABI 헤더는 `<iiAgentApplicationInterface/AgentC.h>`로 사용한다. C ABI의 텍스트는 NUL을 포함하지 않는 UTF-8이며, 호스트 콜백이 반환한 포인터는 해당 외부 API 호출이 돌아올 때까지 유효해야 한다. C ABI가 반환한 출력은 `iiagent_application_interface_free`로 해제한다. Python 런타임 바인딩은 같은 네이티브 런타임의 C ABI를 사용하며 콜백을 런타임이 닫힐 때까지 보관한다. 명령 객체는 별도 네이티브 Python 확장으로 제공하고 전송 조정은 Python으로 구현한다. Python 바인딩은 공유 라이브러리가 필요하다. 빌드 옵션으로 테스트, 예제, Python 바인딩을 선택할 수 있다. 설치 스크립트는 명시적 경로 또는 `INSTALL_PREFIX`를 우선하며 그 외에는 `build/install`에 배치한다. C++ ABI 안정성과 기존 런타임의 멀티스레드 동시 접근은 보장하지 않는다.\n"
     },
     {
       "line": 30,
@@ -380,7 +380,7 @@
     {
       "line": 61,
       "kind": "text",
-      "raw": "C++ 호스트는 `SourceProcedureBackend`에 컴파일과 적재를 구현한다. 앱의 다른 SDK와 파일 저장소는 호스트가 이 포트에 조합하며 C++ 런타임은 다른 SDK를 링크하지 않는다. 컴파일러, 앱의 헤더·매크로·링크 설정과 ABI의 호환성은 호스트의 책임이다. C 호스트는 콜백 테이블로 같은 포트를 제공한다. Python의 `Runtime.execute_source`는 이를 호출하고 `iiagent_application_interface_native.NativeSourceBackend`는 호스트가 지정한 clang++ 스타일 컴파일러와 플래그를 사용하는 참조 백엔드이다. 앱이 제공한 저장소의 `create_artifact`, `open_diagnostics`, `remove_artifact`로 기존 `build/`의 실행 라이브러리와 임시 진단을 관리하며, 산출물 경로가 해당 디렉터리 바로 아래가 아니면 컴파일하지 않는다. `example/python_source_storage.py`는 앱이 iiFileProvider를 주입하는 어댑터이며 모듈이 다른 SDK를 직접 가져오지 않는다. 소스는 셸을 거치지 않고 표준 입력으로 전달한다. 백엔드는 기본적으로 모듈을 유지하며 호스트가 명시적으로 `close()`를 호출할 때 해제한다. 즉시 적재 해제 옵션은 반환 이후 실행 코드, 콜백, 스레드, 함수 포인터 등 모듈에 대한 참조가 없다고 호스트가 보장할 때만 안전하다. 컴파일러가 성공을 보고해도 산출물이 없거나 비어 있으면 실패로 취급한다. 컴파일 실패나 인가 거부 후 사용하지 않는 산출물은 제거한다. 컴파일러 제한 시간은 직접 실행한 프로세스에 적용되며 그 자식 프로세스 전체의 종료까지 보장하지 않는다.\n"
+      "raw": "C++ 호스트는 `SourceProcedureBackend`에 컴파일과 적재를 구현한다. 앱의 파일 저장소는 호스트가 이 포트에 조합한다. 컴파일러, 앱의 헤더·매크로·링크 설정과 ABI의 호환성은 호스트의 책임이다. C 호스트는 콜백 테이블로 같은 포트를 제공한다. Python의 `Runtime.execute_source`는 이를 호출하고 `iiagent_application_interface_native.NativeSourceBackend`는 호스트가 지정한 clang++ 스타일 컴파일러와 플래그를 사용하는 참조 백엔드이다. 앱이 제공한 저장소의 `create_artifact`, `open_diagnostics`, `remove_artifact`로 기존 `build/`의 실행 라이브러리와 임시 진단을 관리하며, 산출물 경로가 해당 디렉터리 바로 아래가 아니면 컴파일하지 않는다. `example/python_source_storage.py`는 앱이 iiFileProvider를 주입하는 어댑터이다. 소스는 셸을 거치지 않고 표준 입력으로 전달한다. 백엔드는 기본적으로 모듈을 유지하며 호스트가 명시적으로 `close()`를 호출할 때 해제한다. 즉시 적재 해제 옵션은 반환 이후 실행 코드, 콜백, 스레드, 함수 포인터 등 모듈에 대한 참조가 없다고 호스트가 보장할 때만 안전하다. 컴파일러가 성공을 보고해도 산출물이 없거나 비어 있으면 실패로 취급한다. 컴파일 실패나 인가 거부 후 사용하지 않는 산출물은 제거한다. 컴파일러 제한 시간은 직접 실행한 프로세스에 적용되며 그 자식 프로세스 전체의 종료까지 보장하지 않는다.\n"
     },
     {
       "line": 62,
@@ -500,7 +500,7 @@
     {
       "line": 85,
       "kind": "text",
-      "raw": "표준 모듈은 iiNetwork·iiJson 등 다른 SDK를 직접 링크하지 않는다. 설치 패키지가 알려 주는 `iiAgentApplicationInterface_EXAMPLE_DIR`의 별도 호스트 어댑터는 앱에서 iiNetwork의 로컬 소켓과 iiJson을 조합해 한 줄 JSON 요청과 응답을 처리하며, 보조 Python 클라이언트와 CLI는 별도 프로세스에서 이 소켓에 연결한다. 자격 증명을 주체라고 취급하지 않고, 호스트 인증기가 토큰과 선택적으로 운영체제 피어 자격을 검증해야 한다. 데모 인증은 테스트에만 사용하며 자동 승인 저장소나 신뢰 정책을 제공하지 않는다. 실행 중인 앱에 어댑터를 연결하지 않으면 에이전트는 그 앱에 접근할 수 없다. 외부 이벤트 구독과 원격 컴파일 산출물의 지속 재사용은 이 초기 연결 범위에 포함되지 않는다.\n"
+      "raw": "표준 모듈은 iiNetwork와 iiJson을 직접 링크하지 않는다. 설치 패키지가 알려 주는 `iiAgentApplicationInterface_EXAMPLE_DIR`의 별도 호스트 어댑터는 앱에서 iiNetwork의 로컬 소켓과 iiJson을 조합해 한 줄 JSON 요청과 응답을 처리하며, 보조 Python 클라이언트와 CLI는 별도 프로세스에서 이 소켓에 연결한다. 자격 증명을 주체라고 취급하지 않고, 호스트 인증기가 토큰과 선택적으로 운영체제 피어 자격을 검증해야 한다. 데모 인증은 테스트에만 사용하며 자동 승인 저장소나 신뢰 정책을 제공하지 않는다. 실행 중인 앱에 어댑터를 연결하지 않으면 에이전트는 그 앱에 접근할 수 없다. 외부 이벤트 구독과 원격 컴파일 산출물의 지속 재사용은 이 초기 연결 범위에 포함되지 않는다.\n"
     },
     {
       "line": 86,

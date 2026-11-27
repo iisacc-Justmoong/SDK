@@ -23,6 +23,17 @@ Texture colors likewise require an explicit material-ID palette; appearance
 alone does not establish composition. The application composes this module with
 other iiSDK modules using their separate APIs.
 
+The optional MaterialX 1.39.5 backend accepts explicit document and node-library
+bytes, and its strict inspection verifies library hashes. A replaceable texture
+converter creates RGB or straight-alpha RGBA8 PNG image-node documents while
+retaining original bytes, metadata, and diagnostics in C++ and Python. The host
+must connect the node and preserve alpha metadata; full material conversion,
+pixel decoding, and rendering remain outside this implementation. See the
+[material exchange evaluation](../docs/Architecture/MaterialExchange.md) for
+the build option, reference fixtures, limitations, and integration proposals.
+The result layout changed; rebuild C++ consumers and use the matching Python
+binding and native library together.
+
 ```sh
 cmake -S . -B build -DBUILD_TESTING=ON
 cmake --build build

@@ -1,0 +1,12 @@
+[package]
+name = "iiagent-precision-schema"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+jsonschema = { version = "=0.63.1", default-features = false, features = ["arbitrary-precision", "idna"] }
+serde_json = { version = "=1.0.145", features = ["arbitrary_precision"] }

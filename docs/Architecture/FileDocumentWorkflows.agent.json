@@ -1,0 +1,121 @@
+{
+  "format": "iisacc.agent-document",
+  "schema_version": 1,
+  "document_id": "urn:iisacc:document:48300e05d59c7fe10e1d88f3948567e4c500668bbe2ef44031c4beba8b664ac5",
+  "project": {
+    "id": "urn:iisacc:project:SDK",
+    "name": "SDK",
+    "root": "SDK",
+    "kind": "collection"
+  },
+  "source": {
+    "path": "docs/Architecture/FileDocumentWorkflows.md",
+    "sha256": "a50ae0eaf7cb9117de49a331478125ec22ddc614c67aec3551e03872552adf2e",
+    "bytes": 1711,
+    "line_count": 22,
+    "encoding": "utf-8",
+    "language": "ko"
+  },
+  "document": {
+    "title": "iiFileProvider 문서 작업 경계",
+    "role": "guide",
+    "authority": "markdown_source"
+  },
+  "blocks": [
+    {
+      "id": "b000001",
+      "kind": "heading",
+      "start_line": 1,
+      "end_line": 1,
+      "raw": "# iiFileProvider 문서 작업 경계\n",
+      "level": 1,
+      "title": "iiFileProvider 문서 작업 경계"
+    },
+    {
+      "id": "b000002",
+      "kind": "blank",
+      "start_line": 2,
+      "end_line": 2,
+      "raw": "\n"
+    },
+    {
+      "id": "b000003",
+      "kind": "paragraph",
+      "start_line": 3,
+      "end_line": 6,
+      "raw": "`iiFileProvider::Native`는 앱이 선택한 문서와 파일의 접근, 저장 대상, 스트림 쓰기,\n원자적 게시, 링크 자산 확인 및 프리셋 저장을 각각 독립적으로 제공한다. 각 SDK가\n파일 제공자를 직접 참조하는 대신 앱이 필요한 인터페이스와 자원, 실행 순서를 연결한다.\n자세한 계약과 형식은 [모듈 문서](../../iiFileProvider/docs/DOCUMENT_WORKFLOWS.md)에 있다.\n"
+    },
+    {
+      "id": "b000004",
+      "kind": "blank",
+      "start_line": 7,
+      "end_line": 7,
+      "raw": "\n"
+    },
+    {
+      "id": "b000005",
+      "kind": "paragraph",
+      "start_line": 8,
+      "end_line": 12,
+      "raw": "`ScopedDocumentAccessLease`는 명시된 문서 접근과 별도 잠금 파일의 공유·배타 잠금을\n묶는다. macOS와 iOS 보안 범위 북마크, Android 문서 URI, Windows FutureAccessList\n토큰, Linux 포털 등에서 받은 기술자를 입력받는다. 앱이 소유한 영구 URI 권한과 Windows\n토큰은 리스 종료 시 제거하지 않는다. 잠금은 같은 잠금 파일을 사용하는 참여자 사이에서만\n성립한다.\n"
+    },
+    {
+      "id": "b000006",
+      "kind": "blank",
+      "start_line": 13,
+      "end_line": 13,
+      "raw": "\n"
+    },
+    {
+      "id": "b000007",
+      "kind": "paragraph",
+      "start_line": 14,
+      "end_line": 18,
+      "raw": "`NamedSaveDestination`과 `NamedExportDestination`은 이름과 경로를 확인한다.\n`StreamedFilePublication`은 호출자가 소유한 열린 기술자에 청크를 쓰고,\n`AtomicOutputCommit`은 호출자가 완성한 임시 파일을 원자적으로 게시한다.\n`LinkedAssetFileProbe`는 제한된 입력의 SHA-256을 계산한다.\n`PresetFileStore`는 원본 바이트와 버전 1 공통 봉투를 모두 지원한다.\n"
+    },
+    {
+      "id": "b000008",
+      "kind": "blank",
+      "start_line": 19,
+      "end_line": 19,
+      "raw": "\n"
+    },
+    {
+      "id": "b000009",
+      "kind": "paragraph",
+      "start_line": 20,
+      "end_line": 22,
+      "raw": "C++ 공개 API와 명시적 네이티브 라이브러리 경로를 요구하는 Python API를 제공한다.\n실제 앱의 문서 선택 UI와 최초 플랫폼 권한 발급, 보안 범위 북마크 생성 및 갱신은 앱의\n책임이다. 실기기·다른 운영체제 검증 여부는 모듈 문서와 테스트 결과를 확인한다.\n"
+    }
+  ],
+  "outline": [
+    {
+      "block_id": "b000001",
+      "parent_id": null,
+      "level": 1,
+      "title": "iiFileProvider 문서 작업 경계",
+      "anchor": "iifileprovider-문서-작업-경계",
+      "start_line": 1
+    }
+  ],
+  "indexes": {
+    "directive_candidates": [],
+    "commands": [],
+    "links": [
+      {
+        "block_id": "b000003",
+        "label": "모듈 문서",
+        "target": "../../iiFileProvider/docs/DOCUMENT_WORKFLOWS.md",
+        "kind": "relative",
+        "line": 6
+      }
+    ],
+    "tables": []
+  },
+  "provenance": {
+    "generator": "workspace-docs",
+    "version": "1.0.0+manual-compatible",
+    "profile": "lossless-blocks-v1",
+    "derived": true
+  }
+}

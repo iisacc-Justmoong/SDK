@@ -1,0 +1,18 @@
+{
+  "asset": "paint-reference-rgba.png",
+  "sha256": "73a4bbc708e01ec5fe90c47888f4cab6385cc1d4f5edb26a72b0484292037975",
+  "encoding": "PNG RGBA8",
+  "width": 2,
+  "height": 2,
+  "channels": [
+    "red",
+    "green",
+    "blue",
+    "alpha"
+  ],
+  "channel_semantics": "base_color",
+  "color_space": "srgb_texture",
+  "alpha": "straight",
+  "materialx_working_color_space": "lin_rec709",
+  "provenance": "Synthetic fixture; not an iiPaintEngine render."
+}

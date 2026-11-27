@@ -18,6 +18,7 @@ class Status(IntEnum):
     validation_failed = 5
     handler_failed = 6
     internal_error = 7
+    cancelled = 8
 
 
 class AgentError(RuntimeError):

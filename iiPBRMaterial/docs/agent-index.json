@@ -21,7 +21,7 @@
       "document_id": "urn:iisacc:document:14f34db27f3bc808a38cd2841fa43bc0593bbcdb1c92a275f15646373799d069",
       "source": "README.md",
       "agent_json": "docs/Entrypoints/README.agent.json",
-      "source_sha256": "471cd68a4fbafe715db9d04586e9976e44cfc7989d5cc49186e2c437ac3e511c",
+      "source_sha256": "9f2331e15ba318f9fc00bfd927ed7b71d158bac73379309c47a7f6409f26062e",
       "role": "overview"
     },
     {
@@ -69,7 +69,7 @@
   },
   "provenance": {
     "generator": "workspace-docs",
-    "version": "1.0.0",
+    "version": "1.0.0-manual-projection-2026-11-26",
     "profile": "lossless-blocks-v1",
     "derived": true
   }

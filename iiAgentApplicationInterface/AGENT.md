@@ -1,13 +1,14 @@
 # iiAgentApplicationInterface 작업 지침
 
-iiAgentApplicationInterface는 신뢰된 애플리케이션 호스트가 객체, 명령과 상태 이벤트를 에이전트 어댑터에 연결하는 독립 C++23 모듈이다. 앱이 각각의 SDK를 조합하며 이 모듈은 다른 SDK나 Qt를 링크하지 않는다.
+iiAgentApplicationInterface는 신뢰된 애플리케이션 호스트가 객체, 명령과 상태 이벤트를 에이전트 어댑터에 연결하는 C++23 모듈이다. 공통 기반으로 iiSDKCore Contracts와 Runtime을 사용하며 Qt는 링크하지 않는다.
 
 - [계약 원문](docs/Contract.md)과 [에이전트 문서 색인](docs/agent-index.json)을 먼저 읽는다. Markdown이 원문이며 JSON의 해시가 다르면 Markdown을 따른다.
 - 등록과 상태 게시 인터페이스는 신뢰된 호스트 전용이다. 주체 인증과 권한 판단, 검증, 승인, 트랜잭션, Undo/Redo와 외부 전달은 호스트의 책임이다.
-- 인가 기본값은 거부이다. 스키마 문자열을 검증 결과나 권한 증거로 취급하지 않는다. 런타임 동시 호출, 비동기 작업, MCP 및 ABI 안정성은 현재 구현하지 않는다. 외부 연결은 앱이 전송과 인증을 조합한 경우에만 동작한다.
+- 인가 기본값은 거부이다. 스키마 문자열을 검증 결과나 권한 증거로 취급하지 않는다. 기존 런타임에 대한 동시 접근과 C++ ABI 안정성은 보장하지 않는다. MCP와 CLI는 앱이 인증과 실제 명령 실행을 조합한 경우에 동작한다.
 - 런타임 호출은 소유 스레드에서 직렬화한다. 관리 객체의 마지막 참조가 다른 스레드에서 해제되면 호스트 디스패처로 소유 스레드에 전달하거나 `drain_lifecycle()`로 처리한다. 인가 및 입력 검증 콜백은 런타임에 재진입하지 않는다. 핸들러는 상태를 게시할 수 있다. 활성 호출이나 콜백 중 런타임을 파괴하지 않는다.
 - 소스 헤더와 구현은 `src/`에 함께 둔다. 새 기능은 테스트와 한국어 문서 및 JSON 쌍을 갱신한다. 빌드와 시험은 `build/`에서 수행한다.
-- `cmake -S . -B build -DBUILD_TESTING=ON`, `cmake --build build`, `ctest --test-dir build --output-on-failure`로 자동 검증한다. 실제 앱 실험은 별도 요청이 있어야 한다.
+- iiSDKBuilder를 표준 빌드 진입점으로 사용하고 생성된 `build/` 하위 구성에서 CTest를 실행한다. 실제 앱 실험은 별도 요청이 있어야 한다.
+- 명령 객체와 JSON Schema 버전, MCP 전송, 취소·진행률 및 현재 검증 범위는 [명령 계약](docs/Commands.md)을 따른다. 기존 동기 게이트웨이는 진행 중인 명령에 취소나 진행률을 전달하지 않으므로 이를 제공하는 앱 백엔드를 별도로 주입해야 한다. `src/sync_docs.py`로 이 계약의 JSON도 갱신한다.
 - `install.sh`의 기본 설치 경로는 `build/install`이며 인자 또는 `INSTALL_PREFIX`가 지정되면 그 경로를 사용한다. SDK 일괄 설치기는 이 환경 변수를 전달한다. 구성은 캐시된 빌드 유형 또는 `IIAGENTAPPLICATIONINTERFACE_BUILD_CONFIG`를 따른다.
 - 이 체크아웃에서 지정된 Workspace 공통 문서 도구 경로를 찾지 못해 `src/sync_docs.py`가 임시로 프로젝트의 원문 해시와 줄별 JSON 투영을 유지한다. 원문을 바꾸면 이 도구를 실행하고 `--check`로 검증한다. 공통 도구가 복구되면 형식 호환을 먼저 확인한다.
 - 빌드 선언 발견은 `cmake/iiAgentApplicationInterfaceDiscovery.cmake`와 `src/python/iiagent_application_interface_discovery.py`에 있다. 실제 컴파일 명령과 소스 범위로 발견한 선언만 게시하며, 실제 객체 수명·멤버 호출·바이너리 전체를 자동으로 지원한다고 주장하지 않는다. 생성 런타임은 카탈로그를 자동 게시하고 기존 런타임은 생성된 게시 함수를 사용한다.

@@ -4,6 +4,9 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CTest)
 find_package(Threads REQUIRED)
+find_package(iiSDKCore 0.20 CONFIG REQUIRED COMPONENTS Contracts Runtime HINTS "$ENV{HOME}/.local/SDK/iiSDKCore")
+include(cmake/CorvusSchema.cmake)
+include(cmake/PrecisionSchema.cmake)
 option(BUILD_SHARED_LIBS "Build a shared library" ON)
 option(IIAGENTAPPLICATIONINTERFACE_BUILD_PYTHON "Install and test Python bindings" ON)
 option(IIAGENTAPPLICATIONINTERFACE_BUILD_EXAMPLES "Build host integration examples" ON)
@@ -14,13 +17,17 @@ if(IIAGENTAPPLICATIONINTERFACE_BUILD_PYTHON AND NOT BUILD_SHARED_LIBS)
     message(FATAL_ERROR "The Python binding requires BUILD_SHARED_LIBS=ON")
 endif()
 # Generated build-only forwarding headers preserve the installed, namespaced includes.
-foreach(_header Agent.h AgentC.h BuildCatalog.h SourceProcedure.h External.h)
+foreach(_header Agent.h AgentC.h BuildCatalog.h SourceProcedure.h External.h Command.h)
     file(GENERATE OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/public/iiAgentApplicationInterface/${_header}"
         CONTENT "#pragma once\n#include \"${CMAKE_CURRENT_SOURCE_DIR}/src/${_header}\"\n")
 endforeach()
-add_library(iiAgentApplicationInterface src/Agent.cpp src/AgentC.cpp src/External.cpp)
+add_library(iiAgentApplicationInterface src/Agent.cpp src/AgentC.cpp src/External.cpp src/Command.cpp src/LegacyMetas.cpp)
 add_library(iiAgentApplicationInterface::iiAgentApplicationInterface ALIAS iiAgentApplicationInterface)
 target_link_libraries(iiAgentApplicationInterface PUBLIC Threads::Threads)
+target_link_libraries(iiAgentApplicationInterface PRIVATE iiSDKCore::Contracts iiSDKCore::Runtime
+    corvus_json_schema::corvus_json_schema_static iiagent_precision_backend)
+target_include_directories(iiAgentApplicationInterface SYSTEM PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/third_party/jsoncons/include" "${CMAKE_CURRENT_SOURCE_DIR}/third_party/colorm")
 target_compile_features(iiAgentApplicationInterface PUBLIC cxx_std_23)
 target_include_directories(iiAgentApplicationInterface PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
@@ -29,8 +36,49 @@ target_include_directories(iiAgentApplicationInterface PUBLIC
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/iisdk>)
 target_compile_definitions(iiAgentApplicationInterface PUBLIC IISDK_IMPORT_IIAGENTAPPLICATIONINTERFACE=1)
-set_target_properties(iiAgentApplicationInterface PROPERTIES CXX_EXTENSIONS OFF POSITION_INDEPENDENT_CODE ON WINDOWS_EXPORT_ALL_SYMBOLS ON)
+set_target_properties(iiAgentApplicationInterface PROPERTIES CXX_EXTENSIONS OFF POSITION_INDEPENDENT_CODE ON WINDOWS_EXPORT_ALL_SYMBOLS ON
+    BUILD_RPATH "${_iiagent_cargo_output}")
+# Resolve iiSDKCore when the module is installed beside other iiSDK prefixes,
+# while retaining the configured dependency path for an independent staging
+# prefix. Consumers can still provide their own deployment loader paths.
+if(APPLE)
+    set_target_properties(iiAgentApplicationInterface PROPERTIES
+        INSTALL_RPATH "@loader_path;@loader_path/../../iiSDKCore/${CMAKE_INSTALL_LIBDIR}"
+        INSTALL_RPATH_USE_LINK_PATH TRUE)
+elseif(UNIX)
+    set_target_properties(iiAgentApplicationInterface PROPERTIES
+        INSTALL_RPATH "$ORIGIN;$ORIGIN/../../iiSDKCore/${CMAKE_INSTALL_LIBDIR}"
+        INSTALL_RPATH_USE_LINK_PATH TRUE)
+endif()
+if(IIAGENTAPPLICATIONINTERFACE_BUILD_PYTHON)
+    find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module)
+    Python3_add_library(iiagent_application_commands MODULE WITH_SOABI src/CommandPython.cpp)
+    target_compile_features(iiagent_application_commands PRIVATE cxx_std_23)
+    target_include_directories(iiagent_application_commands SYSTEM PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/third_party/pybind11/include")
+    target_link_libraries(iiagent_application_commands PRIVATE iiAgentApplicationInterface::iiAgentApplicationInterface)
+    file(RELATIVE_PATH _iiagent_python_to_lib
+        "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/iiAgentApplicationInterface/python"
+        "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
+    if(APPLE)
+        set_target_properties(iiagent_application_commands PROPERTIES
+            INSTALL_RPATH "@loader_path/${_iiagent_python_to_lib};@loader_path/${_iiagent_python_to_lib}/../../iiSDKCore/${CMAKE_INSTALL_LIBDIR}"
+            INSTALL_RPATH_USE_LINK_PATH TRUE)
+    elseif(UNIX)
+        set_target_properties(iiagent_application_commands PROPERTIES
+            INSTALL_RPATH "$ORIGIN/${_iiagent_python_to_lib};$ORIGIN/${_iiagent_python_to_lib}/../../iiSDKCore/${CMAKE_INSTALL_LIBDIR}"
+            INSTALL_RPATH_USE_LINK_PATH TRUE)
+    endif()
+    install(TARGETS iiagent_application_commands
+        LIBRARY DESTINATION "${CMAKE_INSTALL_DATADIR}/iiAgentApplicationInterface/python"
+        RUNTIME DESTINATION "${CMAKE_INSTALL_DATADIR}/iiAgentApplicationInterface/python")
+    install(FILES third_party/pybind11/LICENSE DESTINATION "${CMAKE_INSTALL_DATADIR}/iiAgentApplicationInterface/licenses/pybind11")
+endif()
 if(BUILD_TESTING)
+    add_executable(iiAgentApplicationInterfaceCommandContracts tests/command_contracts.cpp)
+    add_executable(iiAgentApplicationInterfaceCommandWorker tests/command_worker.cpp)
+    target_compile_features(iiAgentApplicationInterfaceCommandWorker PRIVATE cxx_std_23)
+    target_link_libraries(iiAgentApplicationInterfaceCommandContracts PRIVATE iiAgentApplicationInterface::iiAgentApplicationInterface)
+    add_test(NAME iiAgentApplicationInterface.CommandContracts COMMAND iiAgentApplicationInterfaceCommandContracts $<TARGET_FILE:iiAgentApplicationInterfaceCommandWorker> "${CMAKE_CURRENT_SOURCE_DIR}/resources")
     add_executable(iiAgentApplicationInterfaceContracts tests/contracts.cpp)
     target_link_libraries(iiAgentApplicationInterfaceContracts PRIVATE iiAgentApplicationInterface::iiAgentApplicationInterface)
     add_test(NAME iiAgentApplicationInterface.Contracts COMMAND iiAgentApplicationInterfaceContracts)
@@ -75,6 +123,8 @@ endif()
 if(BUILD_TESTING)
     find_package(Python3 REQUIRED COMPONENTS Interpreter)
     add_test(NAME iiAgentApplicationInterface.Documentation COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/src/sync_docs.py" --check)
+    add_test(NAME iiAgentApplicationInterface.LegacyMetaResources COMMAND "${Python3_EXECUTABLE}" -B
+        "${CMAKE_CURRENT_SOURCE_DIR}/tools/generate_legacy_metas.py" --check)
     if(NOT CMAKE_CROSSCOMPILING)
         if(WIN32)
             set(_iiagent_application_interface_runtime_libdir "${CMAKE_INSTALL_BINDIR}")
@@ -114,6 +164,36 @@ if(BUILD_TESTING AND IIAGENTAPPLICATIONINTERFACE_BUILD_PYTHON AND IIAGENTAPPLICA
     set_tests_properties(iiAgentApplicationInterface.ExternalProcess PROPERTIES TIMEOUT 180)
 endif()
 if(BUILD_TESTING AND IIAGENTAPPLICATIONINTERFACE_BUILD_PYTHON)
+    add_test(NAME iiAgentApplicationInterface.CommandPython COMMAND ${CMAKE_COMMAND} -E env
+        "PYTHONPATH=$<TARGET_FILE_DIR:iiagent_application_commands>"
+        "PYTHONDONTWRITEBYTECODE=1" "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/command_python.py")
+    add_test(NAME iiAgentApplicationInterface.McpCommandServer COMMAND ${CMAKE_COMMAND} -E env
+        "PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}/src/python" "IIAGENT_COMMAND_MODULE_DIR=$<TARGET_FILE_DIR:iiagent_application_commands>"
+        "PYTHONDONTWRITEBYTECODE=1" "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/mcp_command_server.py")
+    add_test(NAME iiAgentApplicationInterface.SchemaConformance COMMAND ${CMAKE_COMMAND} -E env
+        "PYTHONPATH=$<TARGET_FILE_DIR:iiagent_application_commands>" "PYTHONDONTWRITEBYTECODE=1"
+        "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/schema_conformance.py"
+        "${CMAKE_CURRENT_SOURCE_DIR}/resources/json-schema-test-suite")
+    set_tests_properties(iiAgentApplicationInterface.SchemaConformance PROPERTIES TIMEOUT 300)
+    add_test(NAME iiAgentApplicationInterface.SchemaPrecisionConformance COMMAND ${CMAKE_COMMAND} -E env
+        "PYTHONPATH=$<TARGET_FILE_DIR:iiagent_application_commands>" "PYTHONDONTWRITEBYTECODE=1"
+        "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/schema_precision_conformance.py"
+        "${CMAKE_CURRENT_SOURCE_DIR}/resources/json-schema-test-suite")
+    set_tests_properties(iiAgentApplicationInterface.SchemaPrecisionConformance PROPERTIES TIMEOUT 300)
+    add_test(NAME iiAgentApplicationInterface.SchemaOptionalConformance COMMAND ${CMAKE_COMMAND} -E env
+        "PYTHONPATH=$<TARGET_FILE_DIR:iiagent_application_commands>" "PYTHONDONTWRITEBYTECODE=1"
+        "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/schema_optional_conformance.py"
+        "${CMAKE_CURRENT_SOURCE_DIR}/resources/json-schema-test-suite")
+    set_tests_properties(iiAgentApplicationInterface.SchemaOptionalConformance PROPERTIES TIMEOUT 300)
+    add_test(NAME iiAgentApplicationInterface.LegacyDraftConformance COMMAND ${CMAKE_COMMAND} -E env
+        "PYTHONPATH=$<TARGET_FILE_DIR:iiagent_application_commands>" "PYTHONDONTWRITEBYTECODE=1"
+        "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/legacy_draft_conformance.py")
+    if(UNIX)
+        add_test(NAME iiAgentApplicationInterface.CommandGateway COMMAND ${CMAKE_COMMAND} -E env
+            "IIAGENT_COMMAND_MODULE_DIR=$<TARGET_FILE_DIR:iiagent_application_commands>"
+            "PYTHONDONTWRITEBYTECODE=1" "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/tests/command_gateway.py")
+        set_tests_properties(iiAgentApplicationInterface.CommandGateway PROPERTIES TIMEOUT 60)
+    endif()
     add_test(NAME iiAgentApplicationInterface.BuildDiscovery
         COMMAND ${CMAKE_COMMAND} -E env
         "PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}/src/python"
@@ -148,7 +228,21 @@ install(TARGETS iiAgentApplicationInterface EXPORT iiAgentApplicationInterfaceTa
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(FILES src/Agent.h src/AgentC.h src/BuildCatalog.h src/SourceProcedure.h src/External.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/iiAgentApplicationInterface)
+install(FILES src/Agent.h src/AgentC.h src/BuildCatalog.h src/SourceProcedure.h src/External.h src/Command.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/iiAgentApplicationInterface)
+install(FILES third_party/jsoncons/LICENSE third_party/jsoncons/A5HASH-LICENSE DESTINATION ${CMAKE_INSTALL_DATADIR}/iiAgentApplicationInterface/licenses/jsoncons)
+install(FILES third_party/colorm/UNLICENSE DESTINATION ${CMAKE_INSTALL_DATADIR}/iiAgentApplicationInterface/licenses/colorm)
+install(FILES src/PrecisionSchema/THIRD-PARTY-NOTICES.txt
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/iiAgentApplicationInterface/licenses/precision-schema)
+install(FILES third_party/corvus/LICENSE third_party/corvus/THIRD-PARTY-NOTICES.txt DESTINATION ${CMAKE_INSTALL_DATADIR}/iiAgentApplicationInterface/licenses/corvus)
+install(FILES resources/standard-metas/LICENSE DESTINATION ${CMAKE_INSTALL_DATADIR}/iiAgentApplicationInterface/licenses/json-schema RENAME LICENSE)
+if(NOT BUILD_SHARED_LIBS)
+    get_target_property(_iiagent_corvus_static corvus_json_schema::corvus_json_schema_static IMPORTED_LOCATION)
+    install(FILES "${_iiagent_corvus_static}" DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+    install(FILES "${_iiagent_corvus_root}/include/corvus_json_schema.h" "${_iiagent_corvus_root}/include/corvus_json_schema.hpp"
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+    install(DIRECTORY "${_iiagent_corvus_root}/lib/cmake/corvus_json_schema"
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake")
+endif()
 install(FILES src/ModuleImports/iiAgentApplicationInterface DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/iisdk)
 install(EXPORT iiAgentApplicationInterfaceTargets NAMESPACE iiAgentApplicationInterface:: DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/iiAgentApplicationInterface)
 configure_package_config_file(cmake/iiAgentApplicationInterfaceConfig.cmake.in "${CMAKE_CURRENT_BINARY_DIR}/iiAgentApplicationInterfaceConfig.cmake"
@@ -165,7 +259,16 @@ install(FILES src/python/iiagent_application_interface_discovery.py
 if(IIAGENTAPPLICATIONINTERFACE_BUILD_PYTHON)
     install(FILES src/python/iiagent_application_interface.py src/python/iiagent_application_interface_native.py
         src/python/iiagent_application_interface_client.py src/python/iiagent_application_interface_cli.py
+        src/python/iiagent_application_mcp.py src/python/iiagent_application_command_cli.py
         DESTINATION ${CMAKE_INSTALL_DATADIR}/iiAgentApplicationInterface/python)
+    if(UNIX)
+        file(RELATIVE_PATH _iiagent_bin_to_python "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}"
+            "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/iiAgentApplicationInterface/python")
+        configure_file(cmake/iiagent-command.in "${CMAKE_CURRENT_BINARY_DIR}/iiagent-command" @ONLY)
+        configure_file(cmake/iiagent-mcp.in "${CMAKE_CURRENT_BINARY_DIR}/iiagent-mcp" @ONLY)
+        install(PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/iiagent-command" "${CMAKE_CURRENT_BINARY_DIR}/iiagent-mcp"
+            DESTINATION ${CMAKE_INSTALL_BINDIR})
+    endif()
 endif()
 install(FILES README.md AGENT.md LICENSE DESTINATION ${CMAKE_INSTALL_DATADIR}/iiAgentApplicationInterface)
 install(DIRECTORY docs/ DESTINATION ${CMAKE_INSTALL_DATADIR}/iiAgentApplicationInterface/docs)

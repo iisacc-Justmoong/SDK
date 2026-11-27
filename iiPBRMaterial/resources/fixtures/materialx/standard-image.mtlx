@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<materialx version="1.39" colorspace="lin_rec709">
+  <image name="paint_color" type="color3">
+    <input name="file" type="filename" value="paint-reference.ppm" colorspace="srgb_texture" />
+  </image>
+  <standard_surface name="surface" type="surfaceshader" version="1.0.1">
+    <input name="base_color" type="color3" nodename="paint_color" />
+    <input name="metalness" type="float" value="0.25" />
+    <input name="specular_roughness" type="float" value="0.5" />
+  </standard_surface>
+  <surfacematerial name="material" type="material">
+    <input name="surfaceshader" type="surfaceshader" nodename="surface" />
+  </surfacematerial>
+</materialx>

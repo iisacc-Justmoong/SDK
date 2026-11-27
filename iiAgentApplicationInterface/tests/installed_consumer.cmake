@@ -49,4 +49,11 @@ if(VERIFY_PYTHON)
     if(NOT result EQUAL 0)
         message(FATAL_ERROR "Installed Python test failed: ${output}\n${error}")
     endif()
+    execute_process(COMMAND "${CMAKE_COMMAND}" -E env --unset=DYLD_LIBRARY_PATH --unset=DYLD_FALLBACK_LIBRARY_PATH
+        "PYTHONPATH=${stage}/${INSTALL_DATADIR}/iiAgentApplicationInterface/python" "PYTHONDONTWRITEBYTECODE=1"
+        "${PYTHON_EXECUTABLE}" "${IIAGENTAPPLICATIONINTERFACE_SOURCE}/tests/command_python.py"
+        RESULT_VARIABLE result OUTPUT_VARIABLE output ERROR_VARIABLE error)
+    if(NOT result EQUAL 0)
+        message(FATAL_ERROR "Installed command Python test failed: ${output}\n${error}")
+    endif()
 endif()

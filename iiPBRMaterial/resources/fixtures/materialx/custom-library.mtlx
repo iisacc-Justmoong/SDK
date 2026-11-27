@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<materialx version="1.39">
+  <nodedef name="ND_iisacc_example_color" node="iisacc_example_color" version="1.0" isdefaultversion="true">
+    <input name="value" type="color3" value="0.25, 0.5, 0.75" />
+    <output name="out" type="color3" />
+  </nodedef>
+</materialx>
